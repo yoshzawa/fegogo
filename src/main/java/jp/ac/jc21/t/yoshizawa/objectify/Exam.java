@@ -78,6 +78,9 @@ public class Exam {
 
 	public void addToi(Toi t) {
 		List<Toi> ts = getTois();
+		if(ts == null) {
+			ts = new ArrayList<Toi>();
+		}
 		ts.add(t);
 		setTois(ts);
 	}

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 
 import com.googlecode.objectify.annotation.*;
@@ -30,6 +31,9 @@ public class Toi {
 	private Date created;
 	private Ref<Exam> parent;
 
+	static {
+	ObjectifyService.register(Toi.class);
+}
 	public static Toi createToi(Exam parent , Long no , String name) {
 		Toi t = new Toi();
 		t.setNo(no);

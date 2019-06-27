@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,18 +22,28 @@
 		} else {
 	%>
 	<TABLE border=1>
-	<TR>
-	<TD>ID</TD>
-	<TD>YYYYMM</TD>
-	<TD>NAME</TD>
-	</TR>
+		<TR>
+			<TD>ID</TD>
+			<TD>YYYYMM</TD>
+			<TD>NAME</TD>
+			<TD>問題登録</TD>
+		</TR>
 		<%
 			for (Exam e : examList) {
 		%>
 		<tr>
 			<td><%=e.getId()%></td>
 			<td><%=e.getYYYYMM()%></td>
-			<td><a href="/admin/toi/list?parentId=<%= e.getId()%>"><%=e.getName()%></a></td>
+			<td><a href="/admin/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
+			<td>
+				<%
+					List<Toi> ts = e.getTois();
+							if (ts == null) {
+								ts = new ArrayList<Toi>();
+							}
+				%> 
+				<%= ts.size()%>
+			</td>
 		</tr>
 		<%
 			}

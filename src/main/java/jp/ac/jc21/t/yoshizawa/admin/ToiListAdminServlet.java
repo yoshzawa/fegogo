@@ -22,10 +22,10 @@ public class ToiListAdminServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException, ServletException {
     
-//    List<Exam> examList = Exam.loadAll();
 	  String parentIdString = request.getParameter("parentId");
 	List<Toi> toiList = Toi.load(Long.parseLong(parentIdString));
     request.setAttribute("toiList", toiList);
+    request.setAttribute("parentId", parentIdString);
     
     RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiListAdmin.jsp");
     rd.forward(request, response);
