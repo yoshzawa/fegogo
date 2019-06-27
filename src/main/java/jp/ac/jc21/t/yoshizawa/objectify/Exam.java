@@ -29,9 +29,9 @@ public class Exam {
 	private Date created;
 	private List<Toi> tois;
 
-//	static {
-//		ObjectifyService.register(Exam.class);
-//	}
+	static {
+		ObjectifyService.register(Exam.class);
+	}
 
 	public static Exam createExam(Long YYYYMM, String name) {
 		Exam exam = new Exam();
