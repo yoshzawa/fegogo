@@ -30,6 +30,5 @@ public class ToiListAdminServlet extends HttpServlet {
     RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiListAdmin.jsp");
     rd.forward(request, response);
     
-
   }
 }
