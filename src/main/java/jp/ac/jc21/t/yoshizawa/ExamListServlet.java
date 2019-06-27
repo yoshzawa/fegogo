@@ -12,22 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 
-@WebServlet(
-    name = "ExamListServlet",
-    urlPatterns = {"/exam/list"}
-)
+@SuppressWarnings("serial")
+@WebServlet(urlPatterns = { "/exam/list" })
 public class ExamListServlet extends HttpServlet {
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) 
-      throws IOException, ServletException {
-    
-    List<Exam> examList = Exam.loadAll();
-    request.setAttribute("examList", examList);
-    
-    RequestDispatcher rd = request.getRequestDispatcher("/jsp/examList.jsp");
-    rd.forward(request, response);
-    
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-  }
+		List<Exam> examList = Exam.loadAll();
+		request.setAttribute("examList", examList);
+
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/examList.jsp");
+		rd.forward(request, response);
+
+	}
 }

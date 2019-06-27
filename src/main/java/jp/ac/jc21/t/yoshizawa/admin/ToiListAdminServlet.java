@@ -10,25 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
-@WebServlet(
-    urlPatterns = {"/admin/toi/list"}
-)
+@SuppressWarnings("serial")
+
+@WebServlet(urlPatterns = { "/admin/toi/list" })
 public class ToiListAdminServlet extends HttpServlet {
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) 
-      throws IOException, ServletException {
-    
-	  String parentIdString = request.getParameter("parentId");
-	List<Toi> toiList = Toi.load(Long.parseLong(parentIdString));
-    request.setAttribute("toiList", toiList);
-    request.setAttribute("parentId", parentIdString);
-    
-    RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiListAdmin.jsp");
-    rd.forward(request, response);
-    
-  }
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+		String parentIdString = request.getParameter("parentId");
+		List<Toi> toiList = Toi.load(Long.parseLong(parentIdString));
+		request.setAttribute("toiList", toiList);
+		request.setAttribute("parentId", parentIdString);
+
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiListAdmin.jsp");
+		rd.forward(request, response);
+
+	}
 }

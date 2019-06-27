@@ -12,7 +12,6 @@ import com.googlecode.objectify.annotation.*;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 import com.googlecode.objectify.Key;
 
-
 /**
  * @author t.yoshizawa
  *
@@ -46,7 +45,6 @@ public class Exam {
 		return ofy().load().type(Exam.class).order("YYYYMM").list();
 	}
 
-	
 	public Exam save() {
 		Key<Exam> key = ofy().save().entity(this).now();
 		return getById(key.getId());
@@ -78,7 +76,7 @@ public class Exam {
 
 	public void addToi(Toi t) {
 		List<Toi> ts = getTois();
-		if(ts == null) {
+		if (ts == null) {
 			ts = new ArrayList<Toi>();
 		}
 		ts.add(t);

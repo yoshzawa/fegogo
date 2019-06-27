@@ -1,9 +1,7 @@
 package jp.ac.jc21.t.yoshizawa.admin;
 
 import java.io.IOException;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
+
+@SuppressWarnings("serial")
 
 @WebServlet(urlPatterns = { "/admin/toi/add" })
 public class ToiAddAdminServlet extends HttpServlet {

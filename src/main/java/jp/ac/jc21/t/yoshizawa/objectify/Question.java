@@ -33,6 +33,7 @@ public class Question {
 		q.setMultiQuestion(null);
 		return q;
 	}
+
 	public static Question createMultiQuestion(Toi parent, long no, String name, long noOfOption, long answer) {
 		Question q = new Question();
 		q.setCreated(new Date());

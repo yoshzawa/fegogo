@@ -32,9 +32,10 @@ public class Toi {
 	private Ref<Exam> parent;
 
 	static {
-	ObjectifyService.register(Toi.class);
-}
-	public static Toi createToi(Exam parent , Long no , String name) {
+		ObjectifyService.register(Toi.class);
+	}
+
+	public static Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
 		t.setNo(no);
 		t.setName(name);
@@ -42,7 +43,7 @@ public class Toi {
 		t.setParent(parent);
 		return t;
 	}
-	
+
 	public static List<Toi> loadAll() {
 		return ofy().load().type(Toi.class).order("no").list();
 	}
@@ -106,10 +107,10 @@ public class Toi {
 	public void setParent(Ref<Exam> parent) {
 		this.parent = parent;
 	}
-	
+
 	private void setParent(Exam parent) {
 		setParent(Ref.create(parent));
-		
+
 	}
 
 }
