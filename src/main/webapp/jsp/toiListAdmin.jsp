@@ -23,7 +23,7 @@
 	%>
 	<TABLE border=1>
 	<TR>
-	<TD>ExamId</TD>
+	<TD>ToiId</TD>
 	<TD>No</TD>
 	<TD>Name</TD>
 	</TR>		<%
