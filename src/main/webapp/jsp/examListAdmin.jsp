@@ -31,7 +31,7 @@
 		<tr>
 			<td><%=e.getId()%></td>
 			<td><%=e.getYYYYMM()%></td>
-			<td><%=e.getName()%></td>
+			<td><a href="/admin/toi/list?parentId=<%= e.getId()%>"><%=e.getName()%></a></td>
 		</tr>
 		<%
 			}
