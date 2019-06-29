@@ -1,3 +1,4 @@
+<%@page import="java.util.*"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -11,11 +12,11 @@
 <body>
 <H1>登録されている試験の一覧</H1>
 	<%
-		List<Toi> examList = (List<Toi>) request.getAttribute("toiList");
+	TreeMap<Long,Toi> toiMap = (TreeMap<Long,Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
 	%>
 	<%
-		if (examList == null || examList.size() == 0) {
+		if (toiMap == null || toiMap.size() == 0) {
 	%>
 	試験が登録されていません
 	<%
@@ -27,7 +28,9 @@
 	<TD>No</TD>
 	<TD>Name</TD>
 	</TR>		<%
-			for (Toi t : examList) {
+	Set<Long> toiKeySet = toiMap.keySet();
+			for (Long l : toiKeySet) {
+				Toi t=toiMap.get(l);
 		%>
 		<tr>
 			<td><%=t.getId()%></td>

@@ -1,6 +1,7 @@
 package jp.ac.jc21.t.yoshizawa.admin;
 
 import java.io.IOException;
+import java.util.*;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -22,7 +23,16 @@ public class ToiListAdminServlet extends HttpServlet {
 
 		String parentIdString = request.getParameter("parentId");
 		List<Toi> toiList = Toi.load(Long.parseLong(parentIdString));
-		request.setAttribute("toiList", toiList);
+		
+		TreeMap<Long,Toi> toiMap = new TreeMap<>();
+		
+		for(Toi t:toiList) {
+			toiMap.put(t.getNo(),t);
+		}
+		
+		
+		
+		request.setAttribute("toiMap", toiMap);
 		request.setAttribute("parentId", parentIdString);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiListAdmin.jsp");
