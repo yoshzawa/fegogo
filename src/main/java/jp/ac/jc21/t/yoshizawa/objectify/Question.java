@@ -3,6 +3,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
+import java.util.List;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
@@ -62,6 +63,11 @@ public class Question {
 		q.setAnswer(-1);
 		q.setCorrect(null);
 		return q;
+	}
+	
+	public static List<Question> load(Long parentId){
+		Toi t = Toi.getById(parentId);
+		return t.getQuestions();
 	}
 
 	

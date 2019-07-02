@@ -44,7 +44,7 @@
 		<tr>
 			<td><%=t.getId()%></td>
 			<td><%=t.getNo()%></td>
-			<td><a href='/admin/question/list?parentId=<%=t.getId()%>'><%=t.getName()%></a></td>
+			<td><a href="/admin/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
 		</tr>
 		<%
 			}

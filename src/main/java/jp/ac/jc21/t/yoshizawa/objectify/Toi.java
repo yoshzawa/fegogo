@@ -37,6 +37,7 @@ public class Toi {
 		ObjectifyService.register(Toi.class);
 	}
 
+
 	/**
 	 * @return the questionList
 	 */
@@ -59,6 +60,7 @@ public class Toi {
 	}
 	
 	
+
 
 	public static Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
@@ -139,11 +141,13 @@ public class Toi {
 
 	}
 
+
 	public void addQuestion(Question q) {
 		List<Question> list = getQuestionList();
 		list.add(q);
 		setQuestionList(list);
 		
+
 	}
 
 }
