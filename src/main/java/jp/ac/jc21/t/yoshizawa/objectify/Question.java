@@ -1,10 +1,16 @@
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.util.Date;
 
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 
+@Entity
+@Cache
 public class Question {
 	@Id
 	Long id;
@@ -18,6 +24,10 @@ public class Question {
 //	private MultiQuestion multiQuestion;
 	private Ref<Toi> parent;
 	private int[] correct;
+
+	 static {
+		ObjectifyService.register(Question.class);
+	}
 
 	public Question() {
 		// TODO Auto-generated constructor stub
@@ -54,6 +64,16 @@ public class Question {
 		return q;
 	}
 
+	
+	public Question save() {
+		Key<Question> key = ofy().save().entity(this).now();
+		return getById(key.getId());
+	}
+	
+	public static Question getById(long id) {
+		return ofy().load().type(Question.class).id(id).now();
+	}
+	
 	/**
 	 * @return the multiQuestion
 	 */

@@ -63,6 +63,9 @@ public class Exam {
 	}
 
 	public List<Toi> getToiList() {
+		if(toiList == null) {
+			newTois();
+		}
 		return toiList;
 	}
 
@@ -76,9 +79,9 @@ public class Exam {
 
 	public void addToi(Toi t) {
 		List<Toi> ts = getToiList();
-		if (ts == null) {
-			ts = new ArrayList<Toi>();
-		}
+//		if (ts == null) {
+//			ts = new ArrayList<Toi>();
+//		}
 		ts.add(t);
 		setToiList(ts);
 	}

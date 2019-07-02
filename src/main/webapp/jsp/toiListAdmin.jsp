@@ -56,9 +56,12 @@
 
 	<hr />
 	<form method='post' action='/admin/toi/add'>
-		<label>No</label> <input type="text" name="No" /> <label>ToiName</label>
-		<input type="text" name="toiName" /> <input type="hidden"
-			name="parentId" value='<%=parentId%>' /> <input type="submit"
+		<label>No</label> <input type="text" name="No" /> 
+		<label>ToiName</label>
+		<input type="text" name="toiName" /> 
+		<input type="hidden"
+			name="parentId" value='<%=parentId%>' /> 
+			<input type="submit"
 			name="追加" />
 	</form>
 </body>
