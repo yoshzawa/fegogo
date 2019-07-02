@@ -20,13 +20,14 @@ import com.googlecode.objectify.Key;
 @Entity
 @Cache
 public class Exam {
+	
 	@Id
 	Long id;
 	@Index
 	private Long YYYYMM;
 	private String name;
 	private Date created;
-	private List<Toi> tois;
+	private List<Toi> toiList;
 
 	static {
 		ObjectifyService.register(Exam.class);
@@ -62,25 +63,28 @@ public class Exam {
 		this.id = id;
 	}
 
-	public List<Toi> getTois() {
-		return tois;
+	public List<Toi> getToiList() {
+		if(toiList == null) {
+			newTois();
+		}
+		return toiList;
 	}
 
-	public void setTois(List<Toi> tois) {
-		this.tois = tois;
+	public void setToiList(List<Toi> tois) {
+		this.toiList = tois;
 	}
 
 	public void newTois() {
-		setTois(new ArrayList<Toi>());
+		setToiList(new ArrayList<Toi>());
 	}
 
 	public void addToi(Toi t) {
-		List<Toi> ts = getTois();
-		if (ts == null) {
-			ts = new ArrayList<Toi>();
-		}
+		List<Toi> ts = getToiList();
+//		if (ts == null) {
+//			ts = new ArrayList<Toi>();
+//		}
 		ts.add(t);
-		setTois(ts);
+		setToiList(ts);
 	}
 
 	public Long getYYYYMM() {

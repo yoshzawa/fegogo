@@ -11,6 +11,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<H1>登録されている試験の一覧</H1>
+
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
 	%>
@@ -37,10 +39,10 @@
 			<td><a href="/admin/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
 			<td>
 				<%
-					List<Toi> ts = e.getTois();
-							if (ts == null) {
-								ts = new ArrayList<Toi>();
-							}
+					List<Toi> ts = e.getToiList();
+									if (ts == null) {
+										ts = new ArrayList<Toi>();
+									}
 				%> 
 				<%= ts.size()%>
 			</td>

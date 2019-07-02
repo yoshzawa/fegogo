@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
@@ -22,16 +23,20 @@ public class ToiListAdminServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		String parentIdString = request.getParameter("parentId");
-		List<Toi> toiList = Toi.load(Long.parseLong(parentIdString));
-		
-		TreeMap<Long,Toi> toiMap = new TreeMap<>();
-		
-		for(Toi t:toiList) {
-			toiMap.put(t.getNo(),t);
+		long parentId = Long.parseLong(parentIdString);
+		Exam e = Exam.getById(parentId);
+		List<Toi> toiList = Toi.load(parentId);
+
+		TreeMap<Long, Toi> toiMap = new TreeMap<>();
+
+		if (toiList != null) {
+
+			for (Toi t : toiList) {
+				toiMap.put(t.getNo(), t);
+			}
 		}
-		
-		
-		
+
+		request.setAttribute("parent", e);
 		request.setAttribute("toiMap", toiMap);
 		request.setAttribute("parentId", parentIdString);
 

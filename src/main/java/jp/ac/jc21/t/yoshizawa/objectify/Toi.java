@@ -5,6 +5,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,18 +31,44 @@ public class Toi {
 	private String name;
 	private Date created;
 	private Ref<Exam> parent;
+	private List<Question> questionList;
 
 	static {
 		ObjectifyService.register(Toi.class);
 	}
 
+
+	/**
+	 * @return the questionList
+	 */
+	public List<Question> getQuestionList() {
+		if (questionList == null) {
+			newQuestionList();
+		}
+		return questionList;
+	}
+
+	/**
+	 * @param questionList the questionList to set
+	 */
+	public void setQuestionList(List<Question> questionList) {
+		this.questionList = questionList;
+	}
+
+	public void newQuestionList() {
+		setQuestionList(new ArrayList<Question>());
+	}
 	
+	
+
+
 	public static Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
 		t.setNo(no);
 		t.setName(name);
 		t.setCreated(new Date());
 		t.setParent(parent);
+		t.newQuestionList();
 		return t;
 	}
 
@@ -51,7 +78,7 @@ public class Toi {
 
 	public static List<Toi> load(long parentId) {
 		Exam e = Exam.getById(parentId);
-		return e.getTois();
+		return e.getToiList();
 	}
 
 	public Toi save() {
@@ -98,8 +125,8 @@ public class Toi {
 	/**
 	 * @return the parent
 	 */
-	public Ref<Exam> getParent() {
-		return parent;
+	public Exam getParent() {
+		return parent.get();
 	}
 
 	/**
@@ -114,9 +141,13 @@ public class Toi {
 
 	}
 
-	public List<Question> getQuestions() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public void addQuestion(Question q) {
+		List<Question> list = getQuestionList();
+		list.add(q);
+		setQuestionList(list);
+		
+
 	}
 
 }
