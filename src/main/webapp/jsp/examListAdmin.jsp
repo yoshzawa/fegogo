@@ -11,6 +11,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<H1>登録されている試験の一覧</H1>
+
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
 	%>
