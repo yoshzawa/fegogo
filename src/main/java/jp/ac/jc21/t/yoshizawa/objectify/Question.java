@@ -67,7 +67,7 @@ public class Question {
 	
 	public static List<Question> load(Long parentId){
 		Toi t = Toi.getById(parentId);
-		return t.getQuestions();
+		return t.getQuestionList();
 	}
 
 	
