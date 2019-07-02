@@ -37,7 +37,7 @@ public class Exam {
 		Exam exam = new Exam();
 		exam.setCreated(new Date());
 		exam.setName(name);
-		exam.newTois();
+		exam.newToiList();
 		exam.setYYYYMM(YYYYMM);
 		return exam;
 	}
@@ -65,7 +65,7 @@ public class Exam {
 
 	public List<Toi> getToiList() {
 		if(toiList == null) {
-			newTois();
+			newToiList();
 		}
 		return toiList;
 	}
@@ -74,7 +74,7 @@ public class Exam {
 		this.toiList = tois;
 	}
 
-	public void newTois() {
+	public void newToiList() {
 		setToiList(new ArrayList<Toi>());
 	}
 
