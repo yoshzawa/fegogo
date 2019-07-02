@@ -20,6 +20,7 @@ import com.googlecode.objectify.Key;
 @Entity
 @Cache
 public class Exam {
+	
 	@Id
 	Long id;
 	@Index
