@@ -26,7 +26,7 @@ public class Exam {
 	private Long YYYYMM;
 	private String name;
 	private Date created;
-	private List<Toi> tois;
+	private List<Toi> toiList;
 
 	static {
 		ObjectifyService.register(Exam.class);
@@ -62,25 +62,25 @@ public class Exam {
 		this.id = id;
 	}
 
-	public List<Toi> getTois() {
-		return tois;
+	public List<Toi> getToiList() {
+		return toiList;
 	}
 
-	public void setTois(List<Toi> tois) {
-		this.tois = tois;
+	public void setToiList(List<Toi> tois) {
+		this.toiList = tois;
 	}
 
 	public void newTois() {
-		setTois(new ArrayList<Toi>());
+		setToiList(new ArrayList<Toi>());
 	}
 
 	public void addToi(Toi t) {
-		List<Toi> ts = getTois();
+		List<Toi> ts = getToiList();
 		if (ts == null) {
 			ts = new ArrayList<Toi>();
 		}
 		ts.add(t);
-		setTois(ts);
+		setToiList(ts);
 	}
 
 	public Long getYYYYMM() {

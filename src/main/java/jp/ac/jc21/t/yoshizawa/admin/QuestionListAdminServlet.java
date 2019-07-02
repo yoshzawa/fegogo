@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
@@ -23,6 +24,10 @@ public class QuestionListAdminServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		String parentIdString = request.getParameter("parentId");
+		long parentId = Long.parseLong(parentIdString);
+		Toi parent = Toi.getById(parentId);
+		List<Question> list = parent.getQuestionList();
+
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin.jsp");
 		rd.forward(request, response);

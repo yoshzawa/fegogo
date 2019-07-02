@@ -39,10 +39,10 @@
 			<td><a href="/admin/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
 			<td>
 				<%
-					List<Toi> ts = e.getTois();
-							if (ts == null) {
-								ts = new ArrayList<Toi>();
-							}
+					List<Toi> ts = e.getToiList();
+									if (ts == null) {
+										ts = new ArrayList<Toi>();
+									}
 				%> 
 				<%= ts.size()%>
 			</td>

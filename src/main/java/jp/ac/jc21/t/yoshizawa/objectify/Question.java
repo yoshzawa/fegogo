@@ -2,6 +2,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import java.util.Date;
 
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 
 public class Question {
@@ -14,51 +15,71 @@ public class Question {
 	private boolean isMulti;
 	private long noOfOption;
 	private long answer;
-	private Toi parent;
-	private MultiQuestion multiQuestion;
+//	private MultiQuestion multiQuestion;
+	private Ref<Toi> parent;
+	private int[] correct;
 
 	public Question() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public static Question createQuestion(Toi parent, long no, String name, long noOfOption, long answer) {
-		Question q = new Question();
-		q.setCreated(new Date());
-		q.setNo(no);
-		q.setName(name);
-		q.setNoOfOption(noOfOption);
-		q.setAnswer(answer);
-		q.setParent(parent);
+		Question q = createQuestion(parent, no, name, noOfOption);
+//		q.setMultiQuestion(null);
 		q.setMulti(false);
-		q.setMultiQuestion(null);
+		q.setAnswer(answer);
+		q.setCorrect(null);
 		return q;
 	}
 
-	public static Question createMultiQuestion(Toi parent, long no, String name, long noOfOption, long answer) {
+	public static Question createMultiQuestion(Toi parent, long no, String name, long noOfOption, int[] correct) {
+		Question q = createQuestion(parent, no, name, noOfOption);
+//		q.setMultiQuestion(null);
+		q.setMulti(true);
+		q.setAnswer(-1);
+		q.setCorrect(correct);
+		return q;
+	}
+
+	private static Question createQuestion(Toi parent, long no, String name, long noOfOption) {
 		Question q = new Question();
 		q.setCreated(new Date());
 		q.setNo(no);
 		q.setName(name);
 		q.setNoOfOption(noOfOption);
-		q.setAnswer(answer);
 		q.setParent(parent);
 		q.setMulti(false);
-		q.setMultiQuestion(null);
+		q.setAnswer(-1);
+		q.setCorrect(null);
 		return q;
 	}
 
 	/**
 	 * @return the multiQuestion
 	 */
-	public MultiQuestion getMultiQuestion() {
-		return multiQuestion;
-	}
+//	public MultiQuestion getMultiQuestion() {
+//		return multiQuestion;
+//	}
 
 	/**
 	 * @param multiQuestion the multiQuestion to set
 	 */
-	public void setMultiQuestion(MultiQuestion multiQuestion) {
-		this.multiQuestion = multiQuestion;
+//	public void setMultiQuestion(MultiQuestion multiQuestion) {
+//		this.multiQuestion = multiQuestion;
+//	}
+
+	/**
+	 * @return the correct
+	 */
+	public int[] getCorrect() {
+		return correct;
+	}
+
+	/**
+	 * @param correct the correct to set
+	 */
+	public void setCorrect(int[] correct) {
+		this.correct = correct;
 	}
 
 	/**
@@ -162,7 +183,7 @@ public class Question {
 	/**
 	 * @return the parent
 	 */
-	public Toi getParent() {
+	public Ref<Toi> getParent() {
 		return parent;
 	}
 
@@ -170,6 +191,10 @@ public class Question {
 	 * @param parent the parent to set
 	 */
 	public void setParent(Toi parent) {
+		this.parent = Ref.create(parent);
+	}
+
+	public void setParent(Ref<Toi> parent) {
 		this.parent = parent;
 	}
 
