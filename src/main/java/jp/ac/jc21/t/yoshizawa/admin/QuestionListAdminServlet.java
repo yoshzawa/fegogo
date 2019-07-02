@@ -26,7 +26,13 @@ public class QuestionListAdminServlet extends HttpServlet {
 		String parentIdString = request.getParameter("parentId");
 		long parentId = Long.parseLong(parentIdString);
 		Toi parent = Toi.getById(parentId);
+		Exam exam=parent.getParent();
 		List<Question> list = parent.getQuestionList();
+		
+		request.setAttribute("parent", parent);
+		request.setAttribute("parentId", parentIdString);
+		request.setAttribute("questionList", list);
+		request.setAttribute("exam", exam);
 
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin.jsp");

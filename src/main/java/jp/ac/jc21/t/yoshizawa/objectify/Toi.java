@@ -121,8 +121,8 @@ public class Toi {
 	/**
 	 * @return the parent
 	 */
-	public Ref<Exam> getParent() {
-		return parent;
+	public Exam getParent() {
+		return parent.get();
 	}
 
 	/**
