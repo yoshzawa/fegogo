@@ -35,6 +35,7 @@ public class Toi {
 		ObjectifyService.register(Toi.class);
 	}
 
+	
 	public static Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
 		t.setNo(no);
@@ -58,7 +59,7 @@ public class Toi {
 		return getById(key.getId());
 	}
 
-	private Toi getById(long id) {
+	public static Toi getById(long id) {
 		return ofy().load().type(Toi.class).id(id).now();
 	}
 
@@ -111,6 +112,11 @@ public class Toi {
 	private void setParent(Exam parent) {
 		setParent(Ref.create(parent));
 
+	}
+
+	public List<Question> getQuestions() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

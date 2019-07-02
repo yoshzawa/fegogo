@@ -1,6 +1,7 @@
 package jp.ac.jc21.t.yoshizawa.objectify;
 
 import java.util.Date;
+import java.util.List;
 
 import com.googlecode.objectify.annotation.*;
 
@@ -45,6 +46,11 @@ public class Question {
 		q.setMulti(false);
 		q.setMultiQuestion(null);
 		return q;
+	}
+	
+	public static List<Question> load(Long parentId){
+		Toi t = Toi.getById(parentId);
+		return t.getQuestions();
 	}
 
 	/**
