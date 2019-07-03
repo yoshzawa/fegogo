@@ -37,7 +37,7 @@ public class Exam extends CommonEntity{
 		Exam exam = new Exam();
 		exam.setCreated(new Date());
 		exam.setName(name);
-		exam.newTois();
+		exam.newToiList();
 		exam.setYYYYMM(YYYYMM);
 		return exam;
 	}
@@ -66,24 +66,30 @@ public class Exam extends CommonEntity{
 
 	public List<Toi> getToiList() {
 		if(toiList == null) {
-			newTois();
+			newToiList();
 		}
 		return toiList;
+	}
+	
+	public int getToiListSize() {
+		List<Toi> ts = getToiList();
+		if (ts == null) {
+			return 0;
+		}else {
+			return ts.size();
+		}
 	}
 
 	public void setToiList(List<Toi> tois) {
 		this.toiList = tois;
 	}
 
-	public void newTois() {
+	public void newToiList() {
 		setToiList(new ArrayList<Toi>());
 	}
 
 	public void addToi(Toi t) {
 		List<Toi> ts = getToiList();
-//		if (ts == null) {
-//			ts = new ArrayList<Toi>();
-//		}
 		ts.add(t);
 		setToiList(ts);
 	}
