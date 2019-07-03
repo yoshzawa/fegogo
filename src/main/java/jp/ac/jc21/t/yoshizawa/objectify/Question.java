@@ -12,7 +12,7 @@ import com.googlecode.objectify.annotation.*;
 
 @Entity
 @Cache
-public class Question {
+public class Question  extends CommonEntity{
 	@Id
 	Long id;
 	@Index
@@ -80,20 +80,6 @@ public class Question {
 		return ofy().load().type(Question.class).id(id).now();
 	}
 	
-	/**
-	 * @return the multiQuestion
-	 */
-//	public MultiQuestion getMultiQuestion() {
-//		return multiQuestion;
-//	}
-
-	/**
-	 * @param multiQuestion the multiQuestion to set
-	 */
-//	public void setMultiQuestion(MultiQuestion multiQuestion) {
-//		this.multiQuestion = multiQuestion;
-//	}
-
 	/**
 	 * @return the correct
 	 */

@@ -19,7 +19,7 @@ import com.googlecode.objectify.Key;
 
 @Entity
 @Cache
-public class Exam {
+public class Exam extends CommonEntity{
 	
 	@Id
 	Long id;
@@ -43,7 +43,8 @@ public class Exam {
 	}
 
 	public static List<Exam> loadAll() {
-		return ofy().load().type(Exam.class).order("YYYYMM").list();
+//		return ofy().load().type(Exam.class).order("YYYYMM").list();
+		return loadAll(Exam.class,"YYYYMM");
 	}
 
 	public Exam save() {
