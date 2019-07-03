@@ -69,6 +69,15 @@ public class Exam {
 		}
 		return toiList;
 	}
+	
+	public int getToiListSize() {
+		List<Toi> ts = getToiList();
+		if (ts == null) {
+			return 0;
+		}else {
+			return ts.size();
+		}
+	}
 
 	public void setToiList(List<Toi> tois) {
 		this.toiList = tois;
@@ -80,9 +89,6 @@ public class Exam {
 
 	public void addToi(Toi t) {
 		List<Toi> ts = getToiList();
-//		if (ts == null) {
-//			ts = new ArrayList<Toi>();
-//		}
 		ts.add(t);
 		setToiList(ts);
 	}
