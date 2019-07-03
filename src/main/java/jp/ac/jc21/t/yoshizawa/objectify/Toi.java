@@ -23,7 +23,7 @@ import com.googlecode.objectify.annotation.*;
 @Entity
 @Cache
 
-public class Toi {
+public class Toi extends CommonEntity{
 	@Id
 	Long id;
 	@Index
@@ -59,9 +59,6 @@ public class Toi {
 		setQuestionList(new ArrayList<Question>());
 	}
 	
-	
-
-
 	public static Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
 		t.setNo(no);
@@ -73,7 +70,8 @@ public class Toi {
 	}
 
 	public static List<Toi> loadAll() {
-		return ofy().load().type(Toi.class).order("no").list();
+//		return ofy().load().type(Toi.class).order("no").list();
+		return loadAll(Toi.class,"no");
 	}
 
 	public static List<Toi> load(long parentId) {
