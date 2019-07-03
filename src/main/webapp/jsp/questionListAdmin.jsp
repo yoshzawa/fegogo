@@ -24,7 +24,7 @@
 		選択された試験：<P>
 	<%=exam.getName()%>
 		問<%=parent.getNo()%>(<%=parent.getName()%>) <a
-			href="/admin/toi/list?parentid=<%=parent.getId()%>">(選択解除する)</a>
+			href="/admin/toi/list?parentId=<%=exam.getId()%>">(選択解除する)</a>
 	</p>
 
 	<%

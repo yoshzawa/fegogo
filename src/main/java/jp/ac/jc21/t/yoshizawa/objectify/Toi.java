@@ -58,9 +58,6 @@ public class Toi {
 	public void newQuestionList() {
 		setQuestionList(new ArrayList<Question>());
 	}
-	
-	
-
 
 	public static Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
@@ -126,7 +123,8 @@ public class Toi {
 	 * @return the parent
 	 */
 	public Exam getParent() {
-		return parent.get();
+		Ref<Exam> re = parent;
+		return re.get();
 	}
 
 	/**
@@ -138,16 +136,12 @@ public class Toi {
 
 	private void setParent(Exam parent) {
 		setParent(Ref.create(parent));
-
 	}
-
 
 	public void addQuestion(Question q) {
 		List<Question> list = getQuestionList();
 		list.add(q);
 		setQuestionList(list);
-		
-
 	}
 
 }
