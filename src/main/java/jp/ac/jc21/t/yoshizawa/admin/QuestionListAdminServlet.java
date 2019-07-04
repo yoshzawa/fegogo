@@ -36,7 +36,6 @@ public class QuestionListAdminServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("qMap", qMap);
-		request.setAttribute("parentId", parentIdString);
 */
     long parentId = Long.parseLong(parentIdString);
 		Toi parent = Toi.getById(parentId);
