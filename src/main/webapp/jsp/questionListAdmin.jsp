@@ -57,7 +57,13 @@
 			</td>
 			<td><%=q.isMulti()%></td>
 			<td>
+			<% if(q.isMulti() == false){%>
 			<%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getAnswer()) %>
+			<% } else {%>
+			<% for(int i : q.getCorrect()){%>
+			<%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
+			<% }%>
+			<% }%>
 			</td>
 			<td><%=q.getCorrect()%></td>
 		</tr>
@@ -103,8 +109,10 @@
 
 	<form method='post' action='/admin/question/addMulti'>
 		<P>複数選択</P>
-		No<input type="text" name="no" /><br /> Name<input type="text"
-			name="Qname" /><br /> #ofOption <select name="noOfOption">
+		No<input type="text" name="No" /><br /> 
+		Name<input type="text"
+			name="Qname" /><br /> 
+			#ofOption <select name="noOfOption">
 			<%
 				for (int i = 0; i <= 19; i++) {
 			%>
