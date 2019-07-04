@@ -47,7 +47,7 @@
 		<tr>
 			<td><%=q.getName()%></td>
 			<td>
-				<% for(int i= 0 ; i<(int)q.getNoOfOption() ; i++) {%> 
+				<% for(int i= 0 ; i<=(int)q.getNoOfOption() ; i++) {%> 
 				<input
 				type="radio" name="<%= q.getNo() %>" value="<%= i %> %>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
 				<%} %>
