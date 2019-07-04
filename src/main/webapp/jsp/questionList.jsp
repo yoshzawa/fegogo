@@ -48,9 +48,14 @@
 			<td><%=q.getName()%></td>
 			<td>
 				<% for(int i= 0 ; i<=(int)q.getNoOfOption() ; i++) {%> 
+				<% if(q.isMulti() == true){%> 
+				<input
+				type="checkbox" name="<%= q.getNo() %>" value="<%= i %> %>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
+				<%} else {%>
 				<input
 				type="radio" name="<%= q.getNo() %>" value="<%= i %> %>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
-				<%} %>
+				<% }%> 
+				<% }%> 
 			</td>
 			<td><%=q.isMulti()%></td>
 
