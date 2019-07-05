@@ -28,104 +28,109 @@
 	</p>
 
 	<%
-		if (q == null)  {
+		if (q == null) {
 	%>
 	エラーが発生しました。登録されていない問題の変更が行われました。
 
 	<%
 		} else {
 	%>
-	<table border=1>
-		<tr>
-			<td></td>
-			<td>Id</td>
-			<td>No</td>
-			<td>Name</td>
-			<td>NoOfOption</td>
-			<td>Multi</td>
-			<td>Answer</td>
-		</tr>
+	<form method='post' action='/admin/question/update'>
+	<input type="hidden" name="parentId" value="<%= parent.getId() %>" />
 
-		<tr>
-		<th>変更前</th>
-			<td><%=q.getId()%></td>
-			<td><%=q.getNo()%></td>
-			<td><%=q.getName()%></td>
-			<td><%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getNoOfOption()) %>
-			</td>
-			<td><%=q.isMulti()%></td>
-			<td>
-				<% if(q.isMulti() == false){%> 
-					<%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getAnswer()) %>
-				<% } else {%> 
-					<% for(int i : q.getCorrect()){%> 
-						<%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
-					<% }%> 
-				<% }%>
-			</td>
-		</tr>
-		<tr>
-			<th>変更後</th>
-			<td><%=q.getId()%></td>
-			<td><%=q.getNo()%></td>
-			<td><%=q.getName()%></td>
-			<td><select name="noOfOption">
-			<%
-				for (int i = 0; i <= 19; i++) {
-			%>
-			<option value="<%=i%>">
-				<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-			</option>
-			<%
-				}
-			%>
-		</select></td>
-					<td><%=q.isMulti()%></td>
-		<td>
-		<select name="answer">
-			<%
-				for (int i = 0; i <= 19; i++) {
-			%>
-			<option value="<%=i%>">
-				<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-			</option>
-			<%
-				}
-			%>
-		</select></td>
-	</table>
+		<table border=1>
+			<tr>
+				<td></td>
+				<td>Id</td>
+				<td>No</td>
+				<td>Name</td>
+				<td>NoOfOption</td>
+				<td>Multi</td>
+				<td>Answer</td>
+			</tr>
+
+			<tr>
+				<th>変更前</th>
+				<td><%=q.getId()%></td>
+				<td><%=q.getNo()%></td>
+				<td><%=q.getName()%></td>
+				<td><%="アイウエオカキクケコサシスセソタチツテト".charAt((int) q.getNoOfOption())%>
+				</td>
+				<td><%=q.isMulti()%></td>
+				<td>
+					<%
+						if (q.isMulti() == false) {
+					%> <%="アイウエオカキクケコサシスセソタチツテト".charAt((int) q.getAnswer())%>
+					<%
+						} else {
+							for (int i : q.getCorrect()) {
+					%> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
+					<%
+							}
+						}
+					%>
+				</td>
+			</tr>
+			<tr>
+				<th>変更後</th>
+				<td><%=q.getId()%><input type="hidden" name="No"
+					value="<%=q.getId()%>" /></td>
+				<td><input type="number" size="2" name="no"
+					value="<%=q.getNo()%>" /></td>
+				<td><input type="text" size="20" name="Qname"
+					value="<%=q.getName()%>" /></td>
+				<td><select name="noOfOption">
+						<%
+							for (int i = 0; i <= 19; i++) {
+								if (q.getNoOfOption() == i) {
+						%>
+						<option value="<%=i%>" selected>
+							<%
+								} else {
+							%>
+						
+						<option value="<%=i%>">
+							<%
+							}
+							%>
+													<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%></option>
+							<%
+							}
+							%>
+						
+				</select></td>
+				<td><%=q.isMulti()%></td>
+				<td><select name="answer">
+						<%
+							for (int i = 0; i <= 19; i++) {
+						%>
+						<%
+							if (q.getAnswer() == i) {
+						%>
+						<option value="<%=i%>" selected>
+							<%
+								} else {
+							%>
+						
+						<option value="<%=i%>">
+							<%
+								}
+							%>
+							<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
+						</option>
+
+						<%
+							}
+						%>
+
+				</select></td>
+		</table>
+		<input type="submit">
+
+	</form>
 	<%
 		}
 	%>
-	<hr />
-	<P>単一問題</P>
-	<form method='post' action='/admin/question/add'>
-		No<input type="text" name="No" /><br /> Name<input type="text"
-			name="Qname" /><br /> #ofOption <select name="noOfOption">
-			<%
-				for (int i = 0; i <= 19; i++) {
-			%>
-			<option value="<%=i%>">
-				<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-			</option>
-			<%
-				}
-			%>
-		</select> <br /> Answer <select name="answer">
-			<%
-				for (int i = 0; i <= 19; i++) {
-			%>
-			<option value="<%=i%>">
-				<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-			</option>
-			<%
-				}
-			%>
-		</select> <br /> <input type="hidden" name="parentId" value='<%=parentId%>' />
-		<input type="submit">
-	</form>
-	<hr />
-
 
 </body>
 </html>
