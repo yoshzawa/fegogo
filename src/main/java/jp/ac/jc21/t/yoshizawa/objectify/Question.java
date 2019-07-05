@@ -209,8 +209,8 @@ public class Question {
 	/**
 	 * @return the parent
 	 */
-	public Ref<Toi> getParent() {
-		return parent;
+	public Toi getParent() {
+		return parent.get();
 	}
 
 	/**
