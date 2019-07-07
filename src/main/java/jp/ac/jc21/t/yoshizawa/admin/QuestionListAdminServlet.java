@@ -1,6 +1,8 @@
 package jp.ac.jc21.t.yoshizawa.admin;
 
 import java.io.IOException;
+import java.util.logging.Logger;
+
 import java.util.*;
 import java.util.List;
 
@@ -23,11 +25,12 @@ public class QuestionListAdminServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		final Logger log = Logger.getLogger(QuestionListAdminServlet.class.getName());
 
 		String parentIdString = request.getParameter("parentId");
 
     /*
-    List<Question> qList = Question.load(Long.parseLong(parentIdString));
+    	List<Question> qList = Question.load(Long.parseLong(parentIdString));
 		
 		TreeMap<Long,Question> qMap = new TreeMap<>();
 		
@@ -37,16 +40,18 @@ public class QuestionListAdminServlet extends HttpServlet {
 		
 		request.setAttribute("qMap", qMap);
 */
-    long parentId = Long.parseLong(parentIdString);
+		long parentId = Long.parseLong(parentIdString);
+		log.info("["+request.getServletPath() + "]parentId:" + parentId);
+
 		Toi parent = Toi.getById(parentId);
-		Exam exam=parent.getParent();
+
+		Exam exam = parent.getParent();
 		List<Question> list = parent.getQuestionList();
-		
+
 		request.setAttribute("parent", parent);
 		request.setAttribute("parentId", parentIdString);
 		request.setAttribute("questionList", list);
 		request.setAttribute("exam", exam);
-
 
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin.jsp");

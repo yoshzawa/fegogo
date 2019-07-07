@@ -24,7 +24,7 @@
 	<P>
 		<%=exam.getName()%>
 		問<%=parent.getNo()%>(<%=parent.getName()%>) <a
-			href="/admin/toi/list?parentId=<%=exam.getId()%>">(選択解除する)</a>
+			href="/admin/question/list?parentId=<%= parent.getId() %>">(選択解除する)</a>
 	</p>
 
 	<%
@@ -36,7 +36,6 @@
 		} else {
 	%>
 	<form method='post' action='/admin/question/update'>
-	<input type="hidden" name="parentId" value="<%= parent.getId() %>" />
 
 		<table border=1>
 			<tr>
@@ -73,9 +72,9 @@
 			</tr>
 			<tr>
 				<th>変更後</th>
-				<td><%=q.getId()%><input type="hidden" name="No"
+				<td><%=q.getId()%><input type="hidden" name="parentId"
 					value="<%=q.getId()%>" /></td>
-				<td><input type="number" size="2" name="no"
+				<td><input type="number" size="2" name="No"
 					value="<%=q.getNo()%>" /></td>
 				<td><input type="text" size="20" name="Qname"
 					value="<%=q.getName()%>" /></td>

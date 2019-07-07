@@ -21,7 +21,7 @@ import com.googlecode.objectify.annotation.*;
  */
 
 @Entity
-@Cache
+//@Cache
 
 public class Toi {
 	@Id
@@ -38,26 +38,6 @@ public class Toi {
 	}
 
 
-	/**
-	 * @return the questionList
-	 */
-	public List<Question> getQuestionList() {
-		if (questionList == null) {
-			newQuestionList();
-		}
-		return questionList;
-	}
-
-	/**
-	 * @param questionList the questionList to set
-	 */
-	public void setQuestionList(List<Question> questionList) {
-		this.questionList = questionList;
-	}
-
-	public void newQuestionList() {
-		setQuestionList(new ArrayList<Question>());
-	}
 
 	public static Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
@@ -142,6 +122,36 @@ public class Toi {
 		List<Question> list = getQuestionList();
 		list.add(q);
 		setQuestionList(list);
+	}
+	
+	public int getQuestionListSize() {
+		List<Question> qs = getQuestionList();
+		if (qs == null) {
+			return 0;
+		}else {
+			return qs.size();
+		}
+	}
+
+	/**
+	 * @return the questionList
+	 */
+	public List<Question> getQuestionList() {
+		if (questionList == null) {
+			newQuestionList();
+		}
+		return questionList;
+	}
+
+	/**
+	 * @param questionList the questionList to set
+	 */
+	public void setQuestionList(List<Question> questionList) {
+		this.questionList = questionList;
+	}
+
+	public void newQuestionList() {
+		setQuestionList(new ArrayList<Question>());
 	}
 
 }

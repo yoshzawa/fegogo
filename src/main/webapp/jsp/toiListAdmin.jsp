@@ -14,13 +14,13 @@
 
 
 	<%
-		Exam parent = (Exam) request.getAttribute("parent");
+		Exam parentExam = (Exam) request.getAttribute("parent");
 		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
 	%>
 	<H1>登録されている問の一覧</H1>
 	
-	<p>選択された試験：<%= parent.getName() %> <a href="/admin/exam/list">(選択解除する)</a>
+	<p>選択された試験：<%= parentExam.getName() %> <a href="/admin/exam/list">(選択解除する)</a>
 	</p>
 
 	<%
@@ -45,6 +45,7 @@
 			<td><%=t.getId()%></td>
 			<td><%=t.getNo()%></td>
 			<td><a href="/admin/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
+			<td><%=t.getQuestionListSize()%></td>
 		</tr>
 		<%
 			}

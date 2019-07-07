@@ -18,7 +18,7 @@ import com.googlecode.objectify.Key;
  */
 
 @Entity
-@Cache
+//@Cache
 public class Exam {
 	
 	@Id

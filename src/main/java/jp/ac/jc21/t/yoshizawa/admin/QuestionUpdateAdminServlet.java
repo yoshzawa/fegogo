@@ -38,7 +38,7 @@ public class QuestionUpdateAdminServlet extends HttpServlet {
 		q = q.save();
 
 
-		response.sendRedirect("/admin/question/list?parentId=" + parentId);
+		response.sendRedirect("/admin/question/list?parentId=" + q.getParent().getId());
 
 	}
 
