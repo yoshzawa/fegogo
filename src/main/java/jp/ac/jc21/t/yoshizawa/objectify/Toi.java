@@ -34,7 +34,7 @@ public class Toi {
 	private List<Question> questionList;
 
 	static {
-		ObjectifyService.register(Toi.class);
+//		ObjectifyService.register(Toi.class);
 	}
 
 

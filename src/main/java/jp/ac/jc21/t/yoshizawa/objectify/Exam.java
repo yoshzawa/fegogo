@@ -30,7 +30,7 @@ public class Exam {
 	private List<Toi> toiList;
 
 	static {
-		ObjectifyService.register(Exam.class);
+//		ObjectifyService.register(Exam.class);
 	}
 
 	public static Exam createExam(Long YYYYMM, String name) {

@@ -27,7 +27,7 @@ public class Question {
 	private int[] correct;
 
 	 static {
-		ObjectifyService.register(Question.class);
+//		ObjectifyService.register(Question.class);
 	}
 
 	public Question() {
