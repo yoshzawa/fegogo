@@ -206,4 +206,14 @@ public class Toi {
 		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
 
+	public static TreeMap<Long, Question> getQuestionMap(Toi parent) {
+		TreeMap<Long,Question> qMap = new TreeMap<>();
+		List<Ref<Question>> list = parent.getQuestionRefList();
+		
+		for(Ref<Question> qq:list) {
+			Question q = qq.get();
+			qMap.put(q.getNo(),q);
+		}
+		return qMap;
+	}
 }

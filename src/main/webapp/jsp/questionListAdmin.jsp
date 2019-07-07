@@ -19,7 +19,7 @@
 	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
-		List<Question> list = (List<Question>) request.getAttribute("questionList");
+//		List<Question> list = (List<Question>) request.getAttribute("questionList");
 		Map<Long,Question> qMap = (Map<Long,Question>) request.getAttribute("questionMap");
 		Exam exam = (Exam) request.getAttribute("exam");
 	%>
@@ -31,7 +31,7 @@
 	</p>
 
 	<%
-		if ((list == null) || (list.size() == 0)) {
+		if ((qMap == null) || (qMap.size() == 0)) {
 	%>
 	設問が登録されていません
 	<%
@@ -48,7 +48,6 @@
 		</tr>
 
 		<%
-//			for (Question q : list) {
 			
 			Set<Long> toiKeySet = qMap.keySet();
 				for (Long l : toiKeySet) {

@@ -139,4 +139,8 @@ public class Exam {
 		ts.add(t);
 		setToiRefList(ts);
 	}
+	public void addToiRefList(Toi t) {
+		addToiRefList(Ref.create(t));
+	}
+
 }
