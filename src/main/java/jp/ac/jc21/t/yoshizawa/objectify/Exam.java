@@ -28,7 +28,7 @@ public class Exam {
 	private Long YYYYMM;
 	private String name;
 	private Date created;
-	private List<Toi> toiList;
+//	private List<Toi> toiList;
 	private List<Ref<Toi>> toiRefList;
 
 	static {
@@ -39,7 +39,8 @@ public class Exam {
 		Exam exam = new Exam();
 		exam.setCreated(new Date());
 		exam.setName(name);
-		exam.newToiList();
+//		exam.newToiList();
+		exam.newToiRefList();
 		exam.setYYYYMM(YYYYMM);
 		return exam;
 	}
@@ -89,50 +90,50 @@ public class Exam {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-	public List<Toi> getToiList() {
+/*	public List<Toi> getToiList() {
 		if(toiList == null) {
 			newToiList();
 		}
 		return toiList;
 	}
-	public List<Ref<Toi>> getToiRefList() {
+*/	public List<Ref<Toi>> getToiRefList() {
 		if(toiRefList == null) {
 			newToiRefList();
 		}
 		return toiRefList;
 	}
 
-	public int getToiListSize() {
+/*	public int getToiListSize() {
 		List<Toi> ts = getToiList();
 			return ts.size();
 	}
-
+*/
 	public int getToiRefListSize() {
 		List<Ref<Toi>> ts = getToiRefList();
 			return ts.size();
 	}
 
-	public void setToiList(List<Toi> tois) {
+/*	public void setToiList(List<Toi> tois) {
 		this.toiList = tois;
 	}
-	public void setToiRefList(List<Ref<Toi>> tois) {
+*/	public void setToiRefList(List<Ref<Toi>> tois) {
 		this.toiRefList = tois;
 	}
 
-	public void newToiList() {
+/*	public void newToiList() {
 		setToiList(new ArrayList<Toi>());
 	}
-
+*/
 	public void newToiRefList() {
 		setToiRefList(new ArrayList<Ref<Toi>>());
 	}
 
-	public void addToiList(Toi t) {
+/*	public void addToiList(Toi t) {
 		List<Toi> ts = getToiList();
 		ts.add(t);
 		setToiList(ts);
 	}
-
+*/
 	public void addToiRefList(Ref<Toi> t) {
 		List<Ref<Toi>> ts = getToiRefList();
 		ts.add(t);
