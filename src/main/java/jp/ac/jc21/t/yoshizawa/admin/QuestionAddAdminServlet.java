@@ -33,7 +33,7 @@ public class QuestionAddAdminServlet extends HttpServlet {
 		Toi t = Toi.getById(pId);
 		Question q = Question.createQuestion(t, no, Qname, Long.parseLong(noOfOption), Long.parseLong(answer));
 		q = q.save();
-		t.addQuestion(q);
+		t.addQuestionList(q);
 		log.info("["+request.getServletPath() + "] t.getQuestionListSize() = " + t.getQuestionListSize());
 		t.save();
 

@@ -32,6 +32,7 @@ public class Toi {
 	private Date created;
 	private Ref<Exam> parent;
 	private List<Question> questionList;
+	private List<Ref<Question>> questionRefList;
 
 	static {
 //		ObjectifyService.register(Toi.class);
@@ -118,10 +119,33 @@ public class Toi {
 		setParent(Ref.create(parent));
 	}
 
-	public void addQuestion(Question q) {
+	
+	/**
+	 * @return the questionList
+	 */
+	public List<Question> getQuestionList() {
+		if (questionList == null) {
+			newQuestionList();
+		}
+		return questionList;
+	}
+
+	public List<Ref<Question>> getQuestionRefList() {
+		if (questionRefList == null) {
+			newQuestionRefList();
+		}
+		return questionRefList;
+	}
+	
+	public void addQuestionList(Question q) {
 		List<Question> list = getQuestionList();
 		list.add(q);
 		setQuestionList(list);
+	}
+	public void addQuestionRefList(Ref<Question> q) {
+		List<Ref<Question>> list = getQuestionRefList();
+		list.add(q);
+		setQuestionRefList(list);
 	}
 	
 	public int getQuestionListSize() {
@@ -133,15 +157,15 @@ public class Toi {
 		}
 	}
 
-	/**
-	 * @return the questionList
-	 */
-	public List<Question> getQuestionList() {
-		if (questionList == null) {
-			newQuestionList();
+	public int getQuestionRefListSize() {
+		List<Ref<Question>> qs = getQuestionRefList();
+		if (qs == null) {
+			return 0;
+		}else {
+			return qs.size();
 		}
-		return questionList;
 	}
+
 
 	/**
 	 * @param questionList the questionList to set
@@ -150,8 +174,18 @@ public class Toi {
 		this.questionList = questionList;
 	}
 
+	/**
+	 * @param questionList the questionList to set
+	 */
+	public void setQuestionRefList(List<Ref<Question>> questionRefList) {
+		this.questionRefList = questionRefList;
+	}
+
 	public void newQuestionList() {
 		setQuestionList(new ArrayList<Question>());
+	}
+	public void newQuestionRefList() {
+		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
 
 }

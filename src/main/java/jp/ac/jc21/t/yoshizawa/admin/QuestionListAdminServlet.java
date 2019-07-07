@@ -29,17 +29,6 @@ public class QuestionListAdminServlet extends HttpServlet {
 
 		String parentIdString = request.getParameter("parentId");
 
-    /*
-    	List<Question> qList = Question.load(Long.parseLong(parentIdString));
-		
-		TreeMap<Long,Question> qMap = new TreeMap<>();
-		
-		for(Question q:qList) {
-			qMap.put(q.getNo(),q);
-		}
-		
-		request.setAttribute("qMap", qMap);
-*/
 		long parentId = Long.parseLong(parentIdString);
 		log.info("["+request.getServletPath() + "]parentId:" + parentId);
 
@@ -48,9 +37,21 @@ public class QuestionListAdminServlet extends HttpServlet {
 		Exam exam = parent.getParent();
 		List<Question> list = parent.getQuestionList();
 
+	    
+		
+		TreeMap<Long,Question> qMap = new TreeMap<>();
+		
+		for(Question q:list) {
+			qMap.put(q.getNo(),q);
+		}
+		
+		request.setAttribute("qMap", qMap);
+
+
 		request.setAttribute("parent", parent);
 		request.setAttribute("parentId", parentIdString);
 		request.setAttribute("questionList", list);
+		request.setAttribute("questionMap", qMap);
 		request.setAttribute("exam", exam);
 
 

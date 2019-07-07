@@ -41,7 +41,7 @@ public class QuestionAddMultiAdminServlet extends HttpServlet {
 		Question q = Question.createMultiQuestion(t, no, Qname, Long.parseLong(noOfOption), correct);
 		//createQuestion(t, no, Qname, Long.parseLong(noOfOption), Long.parseLong(answer));
 		q = q.save();
-		t.addQuestion(q);
+		t.addQuestionList(q);
 		t.save();
 
 
