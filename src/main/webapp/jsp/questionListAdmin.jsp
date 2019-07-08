@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.Set"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Question"%>
 <%@page import="java.util.List"%>
@@ -17,49 +19,58 @@
 	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
-		List<Question> list = (List<Question>) request.getAttribute("questionList");
+//		List<Question> list = (List<Question>) request.getAttribute("questionList");
+		Map<Long,Question> qMap = (Map<Long,Question>) request.getAttribute("questionMap");
 		Exam exam = (Exam) request.getAttribute("exam");
 	%>
-	<p>
-		選択された試験：<P>
-	<%=exam.getName()%>
+	<p>選択された試験：
+	<P>
+		<%=exam.getName()%>
 		問<%=parent.getNo()%>(<%=parent.getName()%>) <a
 			href="/admin/toi/list?parentId=<%=exam.getId()%>">(選択解除する)</a>
 	</p>
 
 	<%
-		if ((list == null) || (list.size() == 0)) {
+		if ((qMap == null) || (qMap.size() == 0)) {
 	%>
 	設問が登録されていません
 	<%
 		} else {
 	%>
 	<table border=1>
-	<tr>
+		<tr>
 			<td>Id</td>
 			<td>No</td>
 			<td>Name</td>
 			<td>NoOfOption</td>
 			<td>Multi</td>
 			<td>Answer</td>
-			<td>Correct</td>
 		</tr>
-	
+
 		<%
-			for (Question q : list) {
+			
+			Set<Long> toiKeySet = qMap.keySet();
+				for (Long l : toiKeySet) {
+					Question q = qMap.get(l);
+		
 		%>
 		<tr>
 			<td><%=q.getId()%></td>
 			<td><%=q.getNo()%></td>
 			<td><%=q.getName()%></td>
-			<td>
-			<%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getNoOfOption()) %>
+			<td><%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getNoOfOption()) %>
 			</td>
 			<td><%=q.isMulti()%></td>
 			<td>
-			<%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getAnswer()) %>
+				<% if(q.isMulti() == false){%> 
+					<%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getAnswer()) %>
+				<% } else {%> 
+					<% for(int i : q.getCorrect()){%> 
+						<%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
+					<% }%> 
+				<% }%>
 			</td>
-			<td><%=q.getCorrect()%></td>
+			<td><a href="/admin/question/edit?id=<%=q.getId()%>">edit</a></td>
 		</tr>
 		<%
 			}
@@ -71,10 +82,8 @@
 	<hr />
 	<P>単一問題</P>
 	<form method='post' action='/admin/question/add'>
-		No<input type="text" name="No" /><br /> 
-		Name<input type="text"
-			name="Qname" /><br /> 
-			#ofOption <select name="noOfOption">
+		No<input type="text" name="No" /><br /> Name<input type="text"
+			name="Qname" /><br /> #ofOption <select name="noOfOption">
 			<%
 				for (int i = 0; i <= 19; i++) {
 			%>
@@ -84,8 +93,7 @@
 			<%
 				}
 			%>
-		</select> <br /> 
-		Answer <select name="answer">
+		</select> <br /> Answer <select name="answer">
 			<%
 				for (int i = 0; i <= 19; i++) {
 			%>
@@ -95,15 +103,14 @@
 			<%
 				}
 			%>
-		</select> <br /> 
-				<input type="hidden"
-			name="parentId" value='<%=parentId%>' /> <input type="submit">
+		</select> <br /> <input type="hidden" name="parentId" value='<%=parentId%>' />
+		<input type="submit">
 	</form>
 	<hr />
 
 	<form method='post' action='/admin/question/addMulti'>
 		<P>複数選択</P>
-		No<input type="text" name="no" /><br /> Name<input type="text"
+		No<input type="text" name="No" /><br /> Name<input type="text"
 			name="Qname" /><br /> #ofOption <select name="noOfOption">
 			<%
 				for (int i = 0; i <= 19; i++) {
@@ -122,9 +129,9 @@
 		<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
 		<%
 			}
-		%>		<input type="hidden"
-			name="parentId" value='<%=parentId%>' /> 
-		<input type="submit">
+		%>
+		<input type="hidden" name="parentId" value='<%=parentId%>' /> <input
+			type="submit">
 	</form>
 	<hr />
 

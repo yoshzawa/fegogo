@@ -1,7 +1,7 @@
 package jp.ac.jc21.t.yoshizawa.admin;
 
 import java.io.IOException;
-import java.util.logging.Logger;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,29 +16,29 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/question/add" })
-public class QuestionAddAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/question/update" })
+public class QuestionUpdateAdminServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		final Logger log = Logger.getLogger(QuestionListAdminServlet.class.getName());
 
 		long no = Long.parseLong(request.getParameter("No"));
 		String Qname = request.getParameter("Qname");
-		String noOfOption = request.getParameter("noOfOption");
-		String answer = request.getParameter("answer");
+		Long noOfOption = Long.parseLong(request.getParameter("noOfOption"));
+		Long answer = Long.parseLong(request.getParameter("answer"));
 		String parentId = request.getParameter("parentId");
 		long pId = Long.parseLong(parentId);
 
-		Toi t = Toi.getById(pId);
-		Question q = Question.createQuestion(t, no, Qname, Long.parseLong(noOfOption), Long.parseLong(answer));
+		Question q = Question.getById(pId);
+		q.setNo(no);
+		q.setName(Qname);
+		q.setNoOfOption(noOfOption);
+		q.setAnswer(answer);
+		q.setCreated(new Date());
 		q = q.save();
-		t.addQuestionRefList(q);
-		log.info("["+request.getServletPath() + "] t.getQuestionListSize() = " + t.getQuestionRefListSize());
-		t.save();
 
 
-		response.sendRedirect("/admin/question/list?parentId=" + parentId);
+		response.sendRedirect("/admin/question/list?parentId=" + q.getParent().getId());
 
 	}
 

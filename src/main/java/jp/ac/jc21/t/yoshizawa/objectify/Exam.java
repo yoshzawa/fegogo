@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 import com.googlecode.objectify.Key;
@@ -27,17 +28,19 @@ public class Exam extends CommonEntity{
 	private Long YYYYMM;
 	private String name;
 	private Date created;
-	private List<Toi> toiList;
+//	private List<Toi> toiList;
+	private List<Ref<Toi>> toiRefList;
 
 	static {
-		ObjectifyService.register(Exam.class);
+//		ObjectifyService.register(Exam.class);
 	}
 
 	public static Exam createExam(Long YYYYMM, String name) {
 		Exam exam = new Exam();
 		exam.setCreated(new Date());
 		exam.setName(name);
-		exam.newToiList();
+//		exam.newToiList();
+		exam.newToiRefList();
 		exam.setYYYYMM(YYYYMM);
 		return exam;
 	}
@@ -64,35 +67,6 @@ public class Exam extends CommonEntity{
 		this.id = id;
 	}
 
-	public List<Toi> getToiList() {
-		if(toiList == null) {
-			newToiList();
-		}
-		return toiList;
-	}
-	
-	public int getToiListSize() {
-		List<Toi> ts = getToiList();
-		if (ts == null) {
-			return 0;
-		}else {
-			return ts.size();
-		}
-	}
-
-	public void setToiList(List<Toi> tois) {
-		this.toiList = tois;
-	}
-
-	public void newToiList() {
-		setToiList(new ArrayList<Toi>());
-	}
-
-	public void addToi(Toi t) {
-		List<Toi> ts = getToiList();
-		ts.add(t);
-		setToiList(ts);
-	}
 
 	public Long getYYYYMM() {
 		return YYYYMM;
@@ -116,6 +90,58 @@ public class Exam extends CommonEntity{
 
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+/*	public List<Toi> getToiList() {
+		if(toiList == null) {
+			newToiList();
+		}
+		return toiList;
+	}
+*/	public List<Ref<Toi>> getToiRefList() {
+		if(toiRefList == null) {
+			newToiRefList();
+		}
+		return toiRefList;
+	}
+
+/*	public int getToiListSize() {
+		List<Toi> ts = getToiList();
+			return ts.size();
+	}
+*/
+	public int getToiRefListSize() {
+		List<Ref<Toi>> ts = getToiRefList();
+			return ts.size();
+	}
+
+/*	public void setToiList(List<Toi> tois) {
+		this.toiList = tois;
+	}
+*/	public void setToiRefList(List<Ref<Toi>> tois) {
+		this.toiRefList = tois;
+	}
+
+/*	public void newToiList() {
+		setToiList(new ArrayList<Toi>());
+	}
+*/
+	public void newToiRefList() {
+		setToiRefList(new ArrayList<Ref<Toi>>());
+	}
+
+/*	public void addToiList(Toi t) {
+		List<Toi> ts = getToiList();
+		ts.add(t);
+		setToiList(ts);
+	}
+*/
+	public void addToiRefList(Ref<Toi> t) {
+		List<Ref<Toi>> ts = getToiRefList();
+		ts.add(t);
+		setToiRefList(ts);
+	}
+	public void addToiRefList(Toi t) {
+		addToiRefList(Ref.create(t));
 	}
 
 }
