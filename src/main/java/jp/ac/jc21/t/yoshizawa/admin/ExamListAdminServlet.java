@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 
 @SuppressWarnings("serial")
@@ -22,6 +26,9 @@ public class ExamListAdminServlet extends HttpServlet {
 
 		List<Exam> examList = Exam.loadAll();
 		request.setAttribute("examList", examList);
+
+		UserService userService = UserServiceFactory.getUserService();
+		request.setAttribute("userService", userService);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListAdmin.jsp");
 		rd.forward(request, response);

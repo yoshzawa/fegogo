@@ -1,3 +1,5 @@
+<%@page import="com.google.appengine.api.users.UserService"%>
+<%@page import="com.google.appengine.api.users.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
@@ -11,11 +13,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-<H1>登録されている試験の一覧</H1>
 
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
+UserService userService = (UserService)
+request.getAttribute("userService");
 	%>
+	<%
+		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
+	%>
+	<h4 align="right">login as <%= userService.getCurrentUser().getNickname() %>(Admin)
+	(<a href="<%= userService.createLogoutURL("/")%>">logout</a>)</h4>
+	<%
+		} 
+	%>
+<H1>登録されている試験の一覧</H1>
 	<%
 		if (examList == null || examList.size() == 0) {
 	%>
