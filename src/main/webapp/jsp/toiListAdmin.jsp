@@ -1,3 +1,4 @@
+<%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.*"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
@@ -17,6 +18,16 @@
 		Exam parentExam = (Exam) request.getAttribute("parent");
 		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
+		UserService userService = (UserService)
+				request.getAttribute("userService");
+	%>
+		<%
+		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
+	%>
+	<h4 align="right">login as <%= userService.getCurrentUser().getNickname() %>(Admin)
+	(<a href="<%= userService.createLogoutURL("/")%>">logout</a>)</h4>
+	<%
+		} 
 	%>
 	<H1>登録されている問の一覧</H1>
 	

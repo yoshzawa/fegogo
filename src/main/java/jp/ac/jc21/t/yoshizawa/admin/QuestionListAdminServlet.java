@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
@@ -49,6 +51,8 @@ public class QuestionListAdminServlet extends HttpServlet {
 		request.setAttribute("questionMap", qMap);
 		request.setAttribute("exam", exam);
 
+		UserService userService = UserServiceFactory.getUserService();
+		request.setAttribute("userService", userService);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin.jsp");
 		rd.forward(request, response);
