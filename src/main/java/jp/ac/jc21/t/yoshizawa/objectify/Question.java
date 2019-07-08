@@ -22,12 +22,11 @@ public class Question  extends CommonEntity{
 	private boolean isMulti;
 	private long noOfOption;
 	private long answer;
-//	private MultiQuestion multiQuestion;
 	private Ref<Toi> parent;
 	private int[] correct;
 
 	 static {
-		ObjectifyService.register(Question.class);
+//		ObjectifyService.register(Question.class);
 	}
 
 	public Question() {
@@ -65,11 +64,11 @@ public class Question  extends CommonEntity{
 		return q;
 	}
 	
-	public static List<Question> load(Long parentId){
+/*	public static List<Question> load(Long parentId){
 		Toi t = Toi.getById(parentId);
 		return t.getQuestionList();
 	}
-
+*/
 	
 	public Question save() {
 		Key<Question> key = ofy().save().entity(this).now();
@@ -195,8 +194,8 @@ public class Question  extends CommonEntity{
 	/**
 	 * @return the parent
 	 */
-	public Ref<Toi> getParent() {
-		return parent;
+	public Toi getParent() {
+		return parent.get();
 	}
 
 	/**

@@ -27,7 +27,7 @@ public class ToiAddAdminServlet extends HttpServlet {
 		Exam e = Exam.getById(pId);
 		Toi t = Toi.createToi(e, no, toiName);
 		t = t.save();
-		e.addToi(t);
+		e.addToiRefList(t);
 		e.save();
 
 //    RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListAdmin.jsp");

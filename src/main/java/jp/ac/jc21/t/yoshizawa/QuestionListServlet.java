@@ -1,10 +1,8 @@
-package jp.ac.jc21.t.yoshizawa.admin;
+package jp.ac.jc21.t.yoshizawa;
 
 import java.io.IOException;
-import java.util.logging.Logger;
-
 import java.util.*;
-import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,17 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-
+import jp.ac.jc21.t.yoshizawa.admin.QuestionListAdminServlet;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/question/list" })
-public class QuestionListAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/question/list" })
+public class QuestionListServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -42,22 +38,18 @@ public class QuestionListAdminServlet extends HttpServlet {
 		
 		TreeMap<Long, Question> qMap = Toi.getQuestionMap(parent);
 		
-		request.setAttribute("qMap", qMap);
+//		request.setAttribute("qMap", qMap);
 
 
 		request.setAttribute("parent", parent);
 		request.setAttribute("parentId", parentIdString);
-//		request.setAttribute("questionList", list);
 		request.setAttribute("questionMap", qMap);
 		request.setAttribute("exam", exam);
 
-		UserService userService = UserServiceFactory.getUserService();
-		request.setAttribute("userService", userService);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin.jsp");
+
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionList.jsp");
 		rd.forward(request, response);
 
 	}
-
-
 }

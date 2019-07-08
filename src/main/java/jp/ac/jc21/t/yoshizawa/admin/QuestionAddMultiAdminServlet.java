@@ -1,9 +1,7 @@
 package jp.ac.jc21.t.yoshizawa.admin;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,30 +14,38 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/question/add" })
-public class QuestionAddAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/question/addMulti" })
+public class QuestionAddMultiAdminServlet extends HttpServlet {
+
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		final Logger log = Logger.getLogger(QuestionListAdminServlet.class.getName());
 
 		long no = Long.parseLong(request.getParameter("No"));
 		String Qname = request.getParameter("Qname");
 		String noOfOption = request.getParameter("noOfOption");
-		String answer = request.getParameter("answer");
+//		String answer = request.getParameter("answer");
+		String[] correctList = request.getParameterValues("correct");
+		int correctLength = correctList.length;
+		int[] correct = new int[correctLength];
+		for(int i=0 ; i<correctLength;i++) {
+			correct[i] = Integer.parseInt(correctList[i]);
+		}
+		
+		
+		
 		String parentId = request.getParameter("parentId");
 		long pId = Long.parseLong(parentId);
 
 		Toi t = Toi.getById(pId);
-		Question q = Question.createQuestion(t, no, Qname, Long.parseLong(noOfOption), Long.parseLong(answer));
+		Question q = Question.createMultiQuestion(t, no, Qname, Long.parseLong(noOfOption), correct);
+		//createQuestion(t, no, Qname, Long.parseLong(noOfOption), Long.parseLong(answer));
 		q = q.save();
 		t.addQuestionRefList(q);
-		log.info("["+request.getServletPath() + "] t.getQuestionListSize() = " + t.getQuestionRefListSize());
 		t.save();
 
 
 		response.sendRedirect("/admin/question/list?parentId=" + parentId);
 
 	}
-
 }

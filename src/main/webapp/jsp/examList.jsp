@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,6 +12,7 @@
 </head>
 <body>
 <H1>登録されている試験の一覧</H1>
+
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
 	%>
@@ -21,13 +24,18 @@
 		} else {
 	%>
 	<TABLE border=1>
-	<TR>
-	<TD>試験名</TD>
-	</TR>		<%
+		<TR>
+			<TD>NAME</TD>
+			<TD>問題登録</TD>
+		</TR>
+		<%
 			for (Exam e : examList) {
 		%>
 		<tr>
-			<td><%=e.getName()%></td>
+			<td><a href="/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
+			<td>
+				<%= e.getToiRefListSize() %>
+			</td>
 		</tr>
 		<%
 			}
@@ -37,6 +45,6 @@
 		}
 	%>
 
-	<hr />
+
 </body>
 </html>
