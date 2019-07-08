@@ -21,8 +21,7 @@
 		Toi parent = (Toi) request.getAttribute("parent");
 //		List<Question> list = (List<Question>) request.getAttribute("questionList");
 		Exam exam = (Exam) request.getAttribute("exam");
-		Map<Long, Question> qMap = (Map<Long, Question>)
-		request.getAttribute("questionMap");
+		Map<Long, Question> qMap = (Map<Long, Question>)		request.getAttribute("questionMap");
 
 	%>
 	<p>選択された試験：
@@ -39,13 +38,12 @@
 	<%
 		} else {
 	%>
-	<form>
+	<form　method="post" action="/answer">
 	<input type="text" name="userId" value="test@jc-21.jp" />
 	<table border=1>
 		<tr>
-			<td>Name</td>
-			<td>NoOfOption</td>
-			<td>Multi</td>
+			<th>設問</th>
+			<th>解答欄</th>
 		</tr>
 
 		<%
@@ -60,14 +58,20 @@
 				<% for(int i= 0 ; i<=(int)q.getNoOfOption() ; i++) {%> 
 				<% if(q.isMulti() == true){%> 
 				<input
-				type="checkbox" name="<%= q.getNo() %>" value="<%= i %> %>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
+				type="checkbox" name="<%= q.getId() %>" value="<%= i %>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
 				<%} else {%>
 				<input
-				type="radio" name="<%= q.getNo() %>" value="<%= i %> %>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
+				type="radio" name="<%= q.getId() %>" value="<%= i %>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
 				<% }%> 
+				<% }%> 
+				<% if(q.isMulti() == true){%> 
+				<input
+				type="checkbox" name="<%= q.getId() %>" value="-1" /> 解けない
+				<%} else {%>
+				<input
+				type="radio" name="<%= q.getId() %>" value="-1" /> 解けない
 				<% }%> 
 			</td>
-			<td><%=q.isMulti()%></td>
 
 		</tr>
 		<%
