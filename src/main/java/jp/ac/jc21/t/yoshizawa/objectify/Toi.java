@@ -158,6 +158,9 @@ public class Toi {
 		setQuestionList(list);
 	}
 	*/
+	public void addQuestionRefList(Question q) {
+		addQuestionRefList(Ref.create(q));
+	}
 	public void addQuestionRefList(Ref<Question> q) {
 		List<Ref<Question>> list = getQuestionRefList();
 		list.add(q);
