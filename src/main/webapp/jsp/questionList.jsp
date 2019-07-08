@@ -39,6 +39,8 @@
 	<%
 		} else {
 	%>
+	<form>
+	<input type="text" name="userId" value="test@jc-21.jp" />
 	<table border=1>
 		<tr>
 			<td>Name</td>
@@ -72,9 +74,12 @@
 			}
 		%>
 	</table>
+		</form>
+	
 	<%
 		}
 	%>
+	
 
 </body>
 </html>
