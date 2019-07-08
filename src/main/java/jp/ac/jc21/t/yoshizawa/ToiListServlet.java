@@ -2,7 +2,6 @@ package jp.ac.jc21.t.yoshizawa;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,16 +24,8 @@ public class ToiListServlet extends HttpServlet {
 		String parentIdString = request.getParameter("parentId");
 		long parentId = Long.parseLong(parentIdString);
 		Exam e = Exam.getById(parentId);
-		List<Toi> toiList = Toi.load(parentId);
-
-		TreeMap<Long, Toi> toiMap = new TreeMap<>();
-
-		if (toiList != null) {
-
-			for (Toi t : toiList) {
-				toiMap.put(t.getNo(), t);
-			}
-		}
+		
+		TreeMap<Long, Toi> toiMap = Toi.getToiMap(parentId);
 
 		request.setAttribute("parent", e);
 		request.setAttribute("toiMap", toiMap);

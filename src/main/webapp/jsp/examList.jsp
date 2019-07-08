@@ -34,7 +34,7 @@
 		<tr>
 			<td><a href="/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
 			<td>
-				<%= e.getToiListSize() %>
+				<%= e.getToiRefListSize() %>
 			</td>
 		</tr>
 		<%

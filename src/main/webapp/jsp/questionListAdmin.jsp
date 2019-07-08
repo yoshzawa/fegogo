@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.Set"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Question"%>
 <%@page import="java.util.List"%>
@@ -17,7 +19,8 @@
 	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
-		List<Question> list = (List<Question>) request.getAttribute("questionList");
+//		List<Question> list = (List<Question>) request.getAttribute("questionList");
+		Map<Long,Question> qMap = (Map<Long,Question>) request.getAttribute("questionMap");
 		Exam exam = (Exam) request.getAttribute("exam");
 	%>
 	<p>選択された試験：
@@ -28,7 +31,7 @@
 	</p>
 
 	<%
-		if ((list == null) || (list.size() == 0)) {
+		if ((qMap == null) || (qMap.size() == 0)) {
 	%>
 	設問が登録されていません
 	<%
@@ -45,7 +48,11 @@
 		</tr>
 
 		<%
-			for (Question q : list) {
+			
+			Set<Long> toiKeySet = qMap.keySet();
+				for (Long l : toiKeySet) {
+					Question q = qMap.get(l);
+		
 		%>
 		<tr>
 			<td><%=q.getId()%></td>

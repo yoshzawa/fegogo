@@ -11,7 +11,7 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 
 @Entity
-//@Cache
+@Cache
 public class Question {
 	@Id
 	Long id;
@@ -22,7 +22,6 @@ public class Question {
 	private boolean isMulti;
 	private long noOfOption;
 	private long answer;
-//	private MultiQuestion multiQuestion;
 	private Ref<Toi> parent;
 	private int[] correct;
 
@@ -65,11 +64,11 @@ public class Question {
 		return q;
 	}
 	
-	public static List<Question> load(Long parentId){
+/*	public static List<Question> load(Long parentId){
 		Toi t = Toi.getById(parentId);
 		return t.getQuestionList();
 	}
-
+*/
 	
 	public Question save() {
 		Key<Question> key = ofy().save().entity(this).now();
