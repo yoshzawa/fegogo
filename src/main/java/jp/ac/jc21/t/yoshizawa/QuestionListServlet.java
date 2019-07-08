@@ -38,12 +38,11 @@ public class QuestionListServlet extends HttpServlet {
 		
 		TreeMap<Long, Question> qMap = Toi.getQuestionMap(parent);
 		
-		request.setAttribute("qMap", qMap);
+//		request.setAttribute("qMap", qMap);
 
 
 		request.setAttribute("parent", parent);
 		request.setAttribute("parentId", parentIdString);
-//		request.setAttribute("questionList", list);
 		request.setAttribute("questionMap", qMap);
 		request.setAttribute("exam", exam);
 
