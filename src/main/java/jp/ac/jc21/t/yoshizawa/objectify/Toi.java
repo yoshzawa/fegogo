@@ -22,7 +22,7 @@ import com.googlecode.objectify.annotation.*;
  */
 
 @Entity
-//@Cache
+@Cache
 
 public class Toi {
 	@Id

@@ -11,7 +11,7 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 
 @Entity
-//@Cache
+@Cache
 public class Question {
 	@Id
 	Long id;
