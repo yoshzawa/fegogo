@@ -78,6 +78,7 @@
 			}
 		%>
 	</table>
+	<input type="submit" value="送信する">
 		</form>
 	
 	<%
