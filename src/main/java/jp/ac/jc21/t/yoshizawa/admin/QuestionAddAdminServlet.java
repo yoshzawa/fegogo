@@ -21,7 +21,7 @@ public class QuestionAddAdminServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		final Logger log = Logger.getLogger(QuestionListAdminServlet.class.getName());
+		final Logger log = Logger.getLogger(QuestionAddAdminServlet.class.getName());
 
 		long no = Long.parseLong(request.getParameter("No"));
 		String Qname = request.getParameter("Qname");

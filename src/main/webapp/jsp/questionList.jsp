@@ -37,8 +37,11 @@
 	<%
 		} else {
 	%>
-	<form method="post" action="/answer">
+	<form method="get" action="/answer">
 		<input type="text" name="userId" value="test@jc-21.jp" />
+		<input type="text" name="qId" value="<%= parent.getId() %>" />
+		
+		
 		<table border=1>
 			<tr>
 				<th>設問</th>
