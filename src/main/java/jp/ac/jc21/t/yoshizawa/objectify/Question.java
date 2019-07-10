@@ -2,8 +2,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
@@ -21,33 +20,26 @@ public class Question  extends CommonEntity{
 	private Date created;
 	private boolean isMulti;
 	private long noOfOption;
-//	private long answer;
 	private Ref<Toi> parent;
-	private int[] correct;
+	private Set<Integer> answerSet;
 
 	 static {
-//		ObjectifyService.register(Question.class);
 	}
 
 	public Question() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public static Question createQuestion(Toi parent, long no, String name, long noOfOption, long answer) {
+	public static Question createQuestion(Toi parent, long no, String name, long noOfOption, int answer) {
 		Question q = createQuestion(parent, no, name, noOfOption);
-//		q.setMultiQuestion(null);
 		q.setMulti(false);
-//		q.setAnswer(answer);
-		q.setCorrect(null);
+		q.addAnswerSet(answer);
 		return q;
 	}
 
-	public static Question createMultiQuestion(Toi parent, long no, String name, long noOfOption, int[] correct) {
+	public static Question createMultiQuestion(Toi parent, long no, String name, long noOfOption, Integer[] answers) {
 		Question q = createQuestion(parent, no, name, noOfOption);
-//		q.setMultiQuestion(null);
 		q.setMulti(true);
-//		q.setAnswer(-1);
-		q.setCorrect(correct);
+		q.addAnswerSet(answers);
 		return q;
 	}
 
@@ -59,16 +51,8 @@ public class Question  extends CommonEntity{
 		q.setNoOfOption(noOfOption);
 		q.setParent(parent);
 		q.setMulti(false);
-//		q.setAnswer(-1);
-		q.setCorrect(null);
 		return q;
 	}
-	
-/*	public static List<Question> load(Long parentId){
-		Toi t = Toi.getById(parentId);
-		return t.getQuestionList();
-	}
-*/
 	
 	public Question save() {
 		Key<Question> key = ofy().save().entity(this).now();
@@ -79,20 +63,6 @@ public class Question  extends CommonEntity{
 		return ofy().load().type(Question.class).id(id).now();
 	}
 	
-	/**
-	 * @return the correct
-	 */
-	public int[] getCorrect() {
-		return correct;
-	}
-
-	/**
-	 * @param correct the correct to set
-	 */
-	public void setCorrect(int[] correct) {
-		this.correct = correct;
-	}
-
 	/**
 	 * @return the id
 	 */
@@ -178,20 +148,6 @@ public class Question  extends CommonEntity{
 	}
 
 	/**
-	 * @return the answer
-	 */
-//	public long getAnswer() {
-//		return answer;
-//	}
-
-	/**
-	 * @param answer the answer to set
-	 */
-//	public void setAnswer(long answer) {
-//		this.answer = answer;
-//	}
-
-	/**
 	 * @return the parent
 	 */
 	public Toi getParent() {
@@ -207,6 +163,38 @@ public class Question  extends CommonEntity{
 
 	public void setParent(Ref<Toi> parent) {
 		this.parent = parent;
+	}
+
+	/**
+	 * @return the answerSet
+	 */
+	public Set<Integer> getAnswerSet() {
+		if(answerSet == null) {
+			newAnswerSet();
+		}
+		return answerSet;
+	}
+	public void newAnswerSet() {
+		setAnswerSet(new HashSet<Integer>());
+	}
+
+	/**
+	 * @param answerSet the answerSet to set
+	 */
+	public void setAnswerSet(Set<Integer> answerSet) {
+		this.answerSet = answerSet;
+	}
+	
+	public void addAnswerSet(Integer answer) {
+		Set<Integer> as = getAnswerSet();
+		as.add(answer);
+		setAnswerSet(as);
+	}
+
+	public void addAnswerSet(Integer[] answer) {
+		for(Integer a : answer) {
+			addAnswerSet(a);
+		}
 	}
 
 }
