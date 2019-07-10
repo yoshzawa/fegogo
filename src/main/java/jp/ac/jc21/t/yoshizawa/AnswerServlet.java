@@ -89,12 +89,14 @@ public class AnswerServlet extends HttpServlet {
 			a.setAnswerSum(ansSummary);
 			a = 			a.save();
 			mapAnswer.put(a.getNo(), Ref.create(a));
+
 			if(a.isCorrect() == true) {
 				correct++;
 			}
 		}
 		ansSummary.setNoOfSeikai(correct);
 		ansSummary.setMapRefAnswer(mapAnswer);
+		ansSummary.save();
 		
 		
 

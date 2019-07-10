@@ -6,10 +6,14 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
+
+import jp.ac.jc21.t.yoshizawa.AnswerServlet;
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 import com.googlecode.objectify.Key;
 
@@ -180,6 +184,8 @@ public class Answer extends CommonEntity {
 	}
 
 	public boolean isCorrect() {
+		final Logger log = Logger.getLogger(Answer.class.getName());
+
 		int[] answerArray = getAnswerArray();
 		int[] correctArray = getRefQuestion().get().getCorrect();
 		int correct = (int)getRefQuestion().get().getAnswer();
@@ -187,6 +193,8 @@ public class Answer extends CommonEntity {
 			return false;
 		}else 		if (answerArray.length == 1) {
 			if((correctArray == null) ||(correctArray.length==0)||correct != -1) {
+				log.info("ê≥â");
+
 				return answerArray[0] == correct;
 			} else {
 				return false;
