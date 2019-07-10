@@ -21,7 +21,7 @@ public class Question  extends CommonEntity{
 	private Date created;
 	private boolean isMulti;
 	private long noOfOption;
-	private long answer;
+//	private long answer;
 	private Ref<Toi> parent;
 	private int[] correct;
 
@@ -37,7 +37,7 @@ public class Question  extends CommonEntity{
 		Question q = createQuestion(parent, no, name, noOfOption);
 //		q.setMultiQuestion(null);
 		q.setMulti(false);
-		q.setAnswer(answer);
+//		q.setAnswer(answer);
 		q.setCorrect(null);
 		return q;
 	}
@@ -46,7 +46,7 @@ public class Question  extends CommonEntity{
 		Question q = createQuestion(parent, no, name, noOfOption);
 //		q.setMultiQuestion(null);
 		q.setMulti(true);
-		q.setAnswer(-1);
+//		q.setAnswer(-1);
 		q.setCorrect(correct);
 		return q;
 	}
@@ -59,7 +59,7 @@ public class Question  extends CommonEntity{
 		q.setNoOfOption(noOfOption);
 		q.setParent(parent);
 		q.setMulti(false);
-		q.setAnswer(-1);
+//		q.setAnswer(-1);
 		q.setCorrect(null);
 		return q;
 	}
@@ -180,16 +180,16 @@ public class Question  extends CommonEntity{
 	/**
 	 * @return the answer
 	 */
-	public long getAnswer() {
-		return answer;
-	}
+//	public long getAnswer() {
+//		return answer;
+//	}
 
 	/**
 	 * @param answer the answer to set
 	 */
-	public void setAnswer(long answer) {
-		this.answer = answer;
-	}
+//	public void setAnswer(long answer) {
+//		this.answer = answer;
+//	}
 
 	/**
 	 * @return the parent
