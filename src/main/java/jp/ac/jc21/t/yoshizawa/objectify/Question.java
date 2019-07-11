@@ -197,4 +197,14 @@ public class Question  extends CommonEntity{
 		}
 	}
 
+	public int getAnswerlength() {
+		return 		getAnswerSet().size();
+
+	}
+
+	public boolean isCorrect(int i) {
+		Set<Integer> as = getAnswerSet();
+		return as.contains(i);
+	}
+
 }
