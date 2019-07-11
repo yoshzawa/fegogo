@@ -85,36 +85,8 @@
 		}
 	%>
 	<hr />
-	<P>単一問題</P>
-	<form method='post' action='/admin/question/add'>
-		No<input type="text" name="No" /><br /> Name<input type="text"
-			name="Qname" /><br /> #ofOption <select name="noOfOption">
-			<%
-				for (int i = 0; i <= 19; i++) {
-			%>
-			<option value="<%=i%>">
-				<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-			</option>
-			<%
-				}
-			%>
-		</select> <br /> Answer <select name="answer">
-			<%
-				for (int i = 0; i <= 19; i++) {
-			%>
-			<option value="<%=i%>">
-				<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-			</option>
-			<%
-				}
-			%>
-		</select> <br /> <input type="hidden" name="parentId" value='<%=parentId%>' />
-		<input type="submit">
-	</form>
-	<hr />
 
 	<form method='post' action='/admin/question/addMulti'>
-		<P>複数選択</P>
 		No<input type="text" name="No" /><br /> Name<input type="text"
 			name="Qname" /><br /> #ofOption <select name="noOfOption">
 			<%
