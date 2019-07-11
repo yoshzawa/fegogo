@@ -3,16 +3,11 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
 
-import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
-
-import jp.ac.jc21.t.yoshizawa.AnswerServlet;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 import com.googlecode.objectify.Key;
@@ -37,7 +32,6 @@ public class Answer extends CommonEntity {
 	private int[] answerArray;
 
 	public Answer() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Answer save() {
@@ -193,7 +187,6 @@ public class Answer extends CommonEntity {
 		} else {
 			for (int i = 0; i < answerArray.length; i++) {
 				if (!question.isCorrect(answerArray[i])) {
-//				log.info("•s³‰ð");
 					return false;
 				}
 			}

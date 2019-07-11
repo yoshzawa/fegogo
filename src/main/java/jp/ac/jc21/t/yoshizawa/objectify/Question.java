@@ -5,7 +5,6 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.util.*;
 
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 
@@ -18,7 +17,6 @@ public class Question extends CommonEntity {
 	private Long no;
 	private String name;
 	private Date created;
-//	private boolean isMulti;
 	private long noOfOption;
 	private Ref<Toi> parent;
 	private Set<Integer> answerSet;
@@ -31,14 +29,12 @@ public class Question extends CommonEntity {
 
 	public static Question createQuestion(Toi parent, long no, String name, long noOfOption, int answer) {
 		Question q = createQuestion(parent, no, name, noOfOption);
-//		q.setMulti(false);
 		q.addAnswerSet(answer);
 		return q;
 	}
 
 	public static Question createMultiQuestion(Toi parent, long no, String name, long noOfOption, Integer[] answers) {
 		Question q = createQuestion(parent, no, name, noOfOption);
-//		q.setMulti(true);
 		q.addAnswerSet(answers);
 		return q;
 	}
@@ -50,7 +46,6 @@ public class Question extends CommonEntity {
 		q.setName(name);
 		q.setNoOfOption(noOfOption);
 		q.setParent(parent);
-//		q.setMulti(false);
 		return q;
 	}
 
@@ -126,12 +121,7 @@ public class Question extends CommonEntity {
 		return getAnswerlength() != 1;
 	}
 
-	/**
-	 * @param isMulti the isMulti to set
-	 */
-//	public void setMulti(boolean isMulti) {
-//		this.isMulti = isMulti;
-//	}
+
 
 	/**
 	 * @return the noOfOption
@@ -212,7 +202,6 @@ public class Question extends CommonEntity {
 		for (String a : correct) {
 			addAnswerSet(Integer.parseInt(a));
 		}
-
 	}
 
 	public String getAnswers() {

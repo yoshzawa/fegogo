@@ -14,7 +14,7 @@ import java.util.List;
 public class CommonEntity {
 
 
-	public static List loadAll(		Class c,String key) {
+	public static List loadAll(	Class c,String key) {
 
 		return ofy().load().type(c).order(key).list();
 	}

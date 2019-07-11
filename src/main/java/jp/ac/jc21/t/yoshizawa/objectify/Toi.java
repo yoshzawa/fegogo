@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.TreeMap;
 
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 
 import com.googlecode.objectify.annotation.*;
@@ -24,7 +23,7 @@ import com.googlecode.objectify.annotation.*;
 @Entity
 @Cache
 
-public class Toi extends CommonEntity{
+public class Toi extends CommonEntity {
 	@Id
 	Long id;
 	@Index
@@ -34,12 +33,6 @@ public class Toi extends CommonEntity{
 	private Ref<Exam> parent;
 //	private List<Question> questionList;
 	private List<Ref<Question>> questionRefList;
-
-	static {
-//		ObjectifyService.register(Toi.class);
-	}
-
-
 
 	public static Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
@@ -52,14 +45,9 @@ public class Toi extends CommonEntity{
 	}
 
 	public static List<Toi> loadAll() {
-//		return ofy().load().type(Toi.class).order("no").list();
-		return loadAll(Toi.class,"no");
+		return loadAll(Toi.class, "no");
 	}
 
-/*	public static List<Toi> load(long parentId) {
-	}
-*/
-	
 	public static TreeMap<Long, Toi> getToiMap(long parentId) {
 		TreeMap<Long, Toi> toiMap = new TreeMap<>();
 
@@ -75,6 +63,7 @@ public class Toi extends CommonEntity{
 		}
 		return toiMap;
 	}
+
 	public Toi save() {
 		Key<Toi> key = ofy().save().entity(this).now();
 		return getById(key.getId());
@@ -135,65 +124,32 @@ public class Toi extends CommonEntity{
 		setParent(Ref.create(parent));
 	}
 
-	
-	/**
-	 * @return the questionList
-	 */
-/*	public List<Question> getQuestionList() {
-		if (questionList == null) {
-			newQuestionList();
-		}
-		return questionList;
-	}
-*/
 	public List<Ref<Question>> getQuestionRefList() {
 		if (questionRefList == null) {
 			newQuestionRefList();
 		}
 		return questionRefList;
 	}
-	
-/*	public void addQuestionList(Question q) {
-		List<Question> list = getQuestionList();
-		list.add(q);
-		setQuestionList(list);
-	}
-	*/
+
 	public void addQuestionRefList(Question q) {
 		addQuestionRefList(Ref.create(q));
 	}
+
 	public void addQuestionRefList(Ref<Question> q) {
 		List<Ref<Question>> list = getQuestionRefList();
 		list.add(q);
 		setQuestionRefList(list);
 	}
-	
-/*	public int getQuestionListSize() {
-		List<Question> qs = getQuestionList();
-		if (qs == null) {
-			return 0;
-		}else {
-			return qs.size();
-		}
-	}
-*/
+
 	public int getQuestionRefListSize() {
 		List<Ref<Question>> qs = getQuestionRefList();
 		if (qs == null) {
 			return 0;
-		}else {
+		} else {
 			return qs.size();
 		}
 	}
 
-
-	/**
-	 * @param questionList the questionList to set
-	 */
-/*	public void setQuestionList(List<Question> questionList) {
-		this.questionList = questionList;
-	}
-*/
 	/**
 	 * @param questionList the questionList to set
 	 */
@@ -201,22 +157,17 @@ public class Toi extends CommonEntity{
 		this.questionRefList = questionRefList;
 	}
 
-	/*
-	public void newQuestionList() {
-		setQuestionList(new ArrayList<Question>());
-	}
-*/
 	public void newQuestionRefList() {
 		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
 
 	public static TreeMap<Long, Question> getQuestionMap(Toi parent) {
-		TreeMap<Long,Question> qMap = new TreeMap<>();
+		TreeMap<Long, Question> qMap = new TreeMap<>();
 		List<Ref<Question>> list = parent.getQuestionRefList();
-		
-		for(Ref<Question> qq:list) {
+
+		for (Ref<Question> qq : list) {
 			Question q = qq.get();
-			qMap.put(q.getNo(),q);
+			qMap.put(q.getNo(), q);
 		}
 		return qMap;
 	}

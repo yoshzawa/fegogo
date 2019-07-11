@@ -2,8 +2,6 @@ package jp.ac.jc21.t.yoshizawa.admin;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -3,14 +3,11 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -35,7 +32,6 @@ public class AnswerSum extends CommonEntity{
 	private Map<String,Ref<Answer>> mapRefAnswer;
 	
 	public AnswerSum() {
-		// TODO Auto-generated constructor stub
 	}
 	public static AnswerSum createAnswerSum(String name,Ref<Toi> refToi,int noOfSeikai,Map<String,Ref<Answer>> mapRefAnswer) {
 		AnswerSum as = new AnswerSum();
