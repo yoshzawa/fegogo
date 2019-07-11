@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
@@ -19,6 +22,11 @@ public class ToiAddAdminServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+		UserService userService = UserServiceFactory.getUserService();
+		if(userService.isUserAdmin()!=true) {
+			response.sendRedirect("/");
+		}
+		
 		long no = Long.parseLong(request.getParameter("No"));
 		String toiName = request.getParameter("toiName");
 		String parentId = request.getParameter("parentId");

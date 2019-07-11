@@ -23,7 +23,7 @@ request.getAttribute("userService");
 		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
 	%>
 	<h4 align="right">login as <%= userService.getCurrentUser().getNickname() %>(Admin)
-	(<a href="<%= userService.createLogoutURL("/")%>">logout</a>)</h4>
+	(<a href="<%= userService.createLogoutURL("/") %>">logout</a>)</h4>
 	<%
 		} 
 	%>

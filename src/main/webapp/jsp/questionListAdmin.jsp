@@ -14,7 +14,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<H1>登録されている設問の一覧</H1>
 
 
 	<%
@@ -34,6 +33,7 @@
 	<%
 		} 
 	%>
+	<H1>登録されている設問の一覧</H1>
 	<p>選択された試験：
 	<P>
 		<%=exam.getName()%>

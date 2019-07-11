@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 
 @SuppressWarnings("serial")
@@ -17,6 +20,12 @@ public class ExamAddAdminServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+		UserService userService = UserServiceFactory.getUserService();
+		if(userService.isUserAdmin()!=true) {
+			response.sendRedirect("/");
+		}
+
 		long YYYYMM = Long.parseLong(request.getParameter("YYYYMM"));
 		String ExamName = request.getParameter("ExamName");
 

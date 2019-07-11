@@ -1,3 +1,4 @@
+<%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Question"%>
 <%@page import="java.util.List"%>
@@ -11,7 +12,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<H1>登録されている設問の編集</H1>
 
 
 	<%
@@ -19,7 +19,19 @@
 		Toi parent = (Toi) request.getAttribute("parent");
 		Question q = (Question) request.getAttribute("q");
 		Exam exam = (Exam) request.getAttribute("exam");
+		UserService userService = (UserService)
+				request.getAttribute("userService");
 	%>
+			<%
+		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
+	%>
+	<h4 align="right">login as <%= userService.getCurrentUser().getNickname() %>(Admin)
+	(<a href="<%= userService.createLogoutURL("/")%>">logout</a>)</h4>
+	<%
+		} 
+	%>
+		<H1>登録されている設問の編集</H1>
+	
 	<p>選択された試験：
 	<P>
 		<%=exam.getName()%>
