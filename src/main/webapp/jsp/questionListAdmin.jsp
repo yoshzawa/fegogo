@@ -107,7 +107,7 @@
 		<%
 			}
 		%>
-		<input type="hidden" name="parentId" value='<%=parentId%>' /> <input
+		<br /><input type="hidden" name="parentId" value='<%=parentId%>' /> <input
 			type="submit">
 	</form>
 	<hr />
