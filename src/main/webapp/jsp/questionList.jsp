@@ -19,11 +19,9 @@
 	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
-//		List<Question> list = (List<Question>) request.getAttribute("questionList");
+		//		List<Question> list = (List<Question>) request.getAttribute("questionList");
 		Exam exam = (Exam) request.getAttribute("exam");
-		Map<Long, Question> qMap = (Map<Long, Question>)
-		request.getAttribute("questionMap");
-
+		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
 	%>
 	<p>選択された試験：
 	<P>
@@ -39,42 +37,64 @@
 	<%
 		} else {
 	%>
-	<table border=1>
-		<tr>
-			<td>Name</td>
-			<td>NoOfOption</td>
-			<td>Multi</td>
-		</tr>
+	<form method="get" action="/answer">
+		<input type="text" name="userId" value="test@jc-21.jp" />
+		<input type="hidden" name="qId" value="<%= parent.getId() %>" />
+		
+		
+		<table border=1>
+			<tr>
+				<th>設問</th>
+				<th>解答欄</th>
+			</tr>
 
-		<%
-//			for (Question q : list) {
-				Set<Long> toiKeySet = qMap.keySet();
-				for (Long l : toiKeySet) {
-					Question q = qMap.get(l);
-		%>
-		<tr>
-			<td><%=q.getName()%></td>
-			<td>
-				<% for(int i= 0 ; i<=(int)q.getNoOfOption() ; i++) {%> 
-				<% if(q.isMulti() == true){%> 
-				<input
-				type="checkbox" name="<%= q.getNo() %>" value="<%= i %> %>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
-				<%} else {%>
-				<input
-				type="radio" name="<%= q.getNo() %>" value="<%= i %> %>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
-				<% }%> 
-				<% }%> 
-			</td>
-			<td><%=q.isMulti()%></td>
+			<%
+				//			for (Question q : list) {
+					Set<Long> toiKeySet = qMap.keySet();
+					for (Long l : toiKeySet) {
+						Question q = qMap.get(l);
+			%>
+			<tr>
+				<td><%=q.getName()%></td>
+				<td>
+					<%
+						if (q.isMulti() == true) {
+					%> <input type="checkbox"
+					name="<%=q.getId()%>" value="-1" checked="checked" /> 解けない <%
+ 	} else {
+ %>
+					<input type="radio" name="<%=q.getId()%>" value="-1"
+					checked="checked" /> 解けない <%
+						}
+					%> <%
+ 	for (int i = 0; i <= (int) q.getNoOfOption(); i++) {
+ %>
+					<%
+						if (q.isMulti() == true) {
+					%> <input type="checkbox"
+					name="<%=q.getId()%>" value="<%=i%>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
+					<%
+						} else {
+					%> <input type="radio" name="<%=q.getId()%>"
+					value="<%=i%>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> <%
+ 	}
+ %> <%
+ 	}
+ %>
+				</td>
 
-		</tr>
-		<%
-			}
-		%>
-	</table>
+			</tr>
+			<%
+				}
+			%>
+		</table>
+		<input type="submit" value="送信する" />
+	</form>
+
 	<%
 		}
 	%>
+
 
 </body>
 </html>

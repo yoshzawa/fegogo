@@ -33,20 +33,13 @@ public class QuestionListServlet extends HttpServlet {
 		Toi parent = Toi.getById(parentId);
 
 		Exam exam = parent.getParent();
-
-	    
 		
 		TreeMap<Long, Question> qMap = Toi.getQuestionMap(parent);
 		
-//		request.setAttribute("qMap", qMap);
-
-
 		request.setAttribute("parent", parent);
 		request.setAttribute("parentId", parentIdString);
 		request.setAttribute("questionMap", qMap);
 		request.setAttribute("exam", exam);
-
-
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionList.jsp");
 		rd.forward(request, response);

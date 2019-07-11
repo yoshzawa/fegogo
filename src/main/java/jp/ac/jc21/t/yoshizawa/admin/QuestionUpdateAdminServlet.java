@@ -25,15 +25,15 @@ public class QuestionUpdateAdminServlet extends HttpServlet {
 		long no = Long.parseLong(request.getParameter("No"));
 		String Qname = request.getParameter("Qname");
 		Long noOfOption = Long.parseLong(request.getParameter("noOfOption"));
-		Long answer = Long.parseLong(request.getParameter("answer"));
 		String parentId = request.getParameter("parentId");
 		long pId = Long.parseLong(parentId);
+		String[] correct = request.getParameterValues("correct");
 
 		Question q = Question.getById(pId);
 		q.setNo(no);
 		q.setName(Qname);
 		q.setNoOfOption(noOfOption);
-		q.setAnswer(answer);
+		q.setAnswerSet(correct);
 		q.setCreated(new Date());
 		q = q.save();
 

@@ -24,10 +24,9 @@ public class QuestionAddMultiAdminServlet extends HttpServlet {
 		long no = Long.parseLong(request.getParameter("No"));
 		String Qname = request.getParameter("Qname");
 		String noOfOption = request.getParameter("noOfOption");
-//		String answer = request.getParameter("answer");
 		String[] correctList = request.getParameterValues("correct");
 		int correctLength = correctList.length;
-		int[] correct = new int[correctLength];
+		Integer[] correct = new Integer[correctLength];
 		for(int i=0 ; i<correctLength;i++) {
 			correct[i] = Integer.parseInt(correctList[i]);
 		}
@@ -39,11 +38,9 @@ public class QuestionAddMultiAdminServlet extends HttpServlet {
 
 		Toi t = Toi.getById(pId);
 		Question q = Question.createMultiQuestion(t, no, Qname, Long.parseLong(noOfOption), correct);
-		//createQuestion(t, no, Qname, Long.parseLong(noOfOption), Long.parseLong(answer));
 		q = q.save();
 		t.addQuestionRefList(q);
 		t.save();
-
 
 		response.sendRedirect("/admin/question/list?parentId=" + parentId);
 

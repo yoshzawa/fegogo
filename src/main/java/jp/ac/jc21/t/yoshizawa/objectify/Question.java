@@ -2,8 +2,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
@@ -12,42 +11,35 @@ import com.googlecode.objectify.annotation.*;
 
 @Entity
 @Cache
-public class Question  extends CommonEntity{
+public class Question extends CommonEntity {
 	@Id
 	Long id;
 	@Index
 	private Long no;
 	private String name;
 	private Date created;
-	private boolean isMulti;
+//	private boolean isMulti;
 	private long noOfOption;
-	private long answer;
 	private Ref<Toi> parent;
-	private int[] correct;
+	private Set<Integer> answerSet;
 
-	 static {
-//		ObjectifyService.register(Question.class);
+	static {
 	}
 
 	public Question() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public static Question createQuestion(Toi parent, long no, String name, long noOfOption, long answer) {
+	public static Question createQuestion(Toi parent, long no, String name, long noOfOption, int answer) {
 		Question q = createQuestion(parent, no, name, noOfOption);
-//		q.setMultiQuestion(null);
-		q.setMulti(false);
-		q.setAnswer(answer);
-		q.setCorrect(null);
+//		q.setMulti(false);
+		q.addAnswerSet(answer);
 		return q;
 	}
 
-	public static Question createMultiQuestion(Toi parent, long no, String name, long noOfOption, int[] correct) {
+	public static Question createMultiQuestion(Toi parent, long no, String name, long noOfOption, Integer[] answers) {
 		Question q = createQuestion(parent, no, name, noOfOption);
-//		q.setMultiQuestion(null);
-		q.setMulti(true);
-		q.setAnswer(-1);
-		q.setCorrect(correct);
+//		q.setMulti(true);
+		q.addAnswerSet(answers);
 		return q;
 	}
 
@@ -58,39 +50,17 @@ public class Question  extends CommonEntity{
 		q.setName(name);
 		q.setNoOfOption(noOfOption);
 		q.setParent(parent);
-		q.setMulti(false);
-		q.setAnswer(-1);
-		q.setCorrect(null);
+//		q.setMulti(false);
 		return q;
 	}
-	
-/*	public static List<Question> load(Long parentId){
-		Toi t = Toi.getById(parentId);
-		return t.getQuestionList();
-	}
-*/
-	
+
 	public Question save() {
 		Key<Question> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
-	
+
 	public static Question getById(long id) {
 		return ofy().load().type(Question.class).id(id).now();
-	}
-	
-	/**
-	 * @return the correct
-	 */
-	public int[] getCorrect() {
-		return correct;
-	}
-
-	/**
-	 * @param correct the correct to set
-	 */
-	public void setCorrect(int[] correct) {
-		this.correct = correct;
 	}
 
 	/**
@@ -153,15 +123,15 @@ public class Question  extends CommonEntity{
 	 * @return the isMulti
 	 */
 	public boolean isMulti() {
-		return isMulti;
+		return getAnswerlength() != 1;
 	}
 
 	/**
 	 * @param isMulti the isMulti to set
 	 */
-	public void setMulti(boolean isMulti) {
-		this.isMulti = isMulti;
-	}
+//	public void setMulti(boolean isMulti) {
+//		this.isMulti = isMulti;
+//	}
 
 	/**
 	 * @return the noOfOption
@@ -175,20 +145,6 @@ public class Question  extends CommonEntity{
 	 */
 	public void setNoOfOption(long noOfOption) {
 		this.noOfOption = noOfOption;
-	}
-
-	/**
-	 * @return the answer
-	 */
-	public long getAnswer() {
-		return answer;
-	}
-
-	/**
-	 * @param answer the answer to set
-	 */
-	public void setAnswer(long answer) {
-		this.answer = answer;
 	}
 
 	/**
@@ -207,6 +163,64 @@ public class Question  extends CommonEntity{
 
 	public void setParent(Ref<Toi> parent) {
 		this.parent = parent;
+	}
+
+	/**
+	 * @return the answerSet
+	 */
+	public Set<Integer> getAnswerSet() {
+		if (answerSet == null) {
+			newAnswerSet();
+		}
+		return answerSet;
+	}
+
+	public void newAnswerSet() {
+		setAnswerSet(new HashSet<Integer>());
+	}
+
+	/**
+	 * @param answerSet the answerSet to set
+	 */
+	public void setAnswerSet(Set<Integer> answerSet) {
+		this.answerSet = answerSet;
+	}
+
+	public void addAnswerSet(Integer answer) {
+		Set<Integer> as = getAnswerSet();
+		as.add(answer);
+		setAnswerSet(as);
+	}
+
+	public void addAnswerSet(Integer[] answer) {
+		for (Integer a : answer) {
+			addAnswerSet(a);
+		}
+	}
+
+	public int getAnswerlength() {
+		return getAnswerSet().size();
+
+	}
+
+	public boolean isCorrect(int i) {
+		Set<Integer> as = getAnswerSet();
+		return as.contains(i);
+	}
+
+	public void setAnswerSet(String[] correct) {
+		for (String a : correct) {
+			addAnswerSet(Integer.parseInt(a));
+		}
+
+	}
+
+	public String getAnswers() {
+		String s = "";
+		for (int i : getAnswerSet()) {
+			s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+		}
+		return s;
 	}
 
 }

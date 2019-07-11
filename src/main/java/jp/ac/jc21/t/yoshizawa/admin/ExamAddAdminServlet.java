@@ -23,8 +23,6 @@ public class ExamAddAdminServlet extends HttpServlet {
 		Exam e = Exam.createExam(YYYYMM, ExamName);
 		e.save();
 
-//    RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListAdmin.jsp");
-//    rd.forward(request, response);
 		response.sendRedirect("/admin/exam/list");
 
 	}

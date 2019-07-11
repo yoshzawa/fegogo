@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebListener;
 
 import com.googlecode.objectify.ObjectifyService;
 
+import jp.ac.jc21.t.yoshizawa.objectify.Answer;
+import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
@@ -18,10 +20,12 @@ public class ObjectifyWebListener implements ServletContextListener {
 		ObjectifyService.init();
 		// This is a good place to register your POJO entity classes.
 		// ObjectifyService.register(YourEntity.class);
+		
 		ObjectifyService.register(Exam.class);
 		ObjectifyService.register(Toi.class);
 		ObjectifyService.register(Question.class);
-
+		ObjectifyService.register(Answer.class);
+		ObjectifyService.register(AnswerSum.class);
 	}
 
 	@Override
