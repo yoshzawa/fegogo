@@ -54,7 +54,6 @@
 			<td>No</td>
 			<td>Name</td>
 			<td>NoOfOption</td>
-			<td>Multi</td>
 			<td>Answer</td>
 		</tr>
 
@@ -71,7 +70,6 @@
 			<td><%=q.getName()%></td>
 			<td><%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getNoOfOption()) %>
 			</td>
-			<td><%=q.isMulti()%></td>
 			<td>
 					<% for(int i : q.getAnswerSet()){%> 
 						<%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>

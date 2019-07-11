@@ -207,4 +207,12 @@ public class Question  extends CommonEntity{
 		return as.contains(i);
 	}
 
+	public void setAnswerSet(String[] correct) {
+		for(String a : correct) {
+			addAnswerSet(Integer.parseInt(a));
+		}
+		
+		
+	}
+
 }
