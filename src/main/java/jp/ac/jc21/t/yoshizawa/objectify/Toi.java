@@ -44,6 +44,7 @@ public class Toi extends CommonEntity {
 		return t;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Toi> loadAll() {
 		return loadAll(Toi.class, "no");
 	}
