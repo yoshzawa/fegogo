@@ -44,29 +44,31 @@ public class Answer extends CommonEntity {
 		Key<Answer> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
-	
+
 	public static Answer getById(long id) {
 		return ofy().load().type(Answer.class).id(id).now();
 	}
-	
-	public static Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question, String[] answerArray,			long no) {
-		int answerIntArray[]=null;
-		if(answerArray != null) {
+
+	public static Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question, String[] answerArray,
+			long no) {
+		int answerIntArray[] = null;
+		if (answerArray != null) {
 			answerIntArray = new int[answerArray.length];
 			for (int i = 0; i < answerArray.length; i++) {
 				answerIntArray[i] = Integer.parseInt(answerArray[i]);
 			}
 		}
-		
-		String noString = "0"+no;
-		if(noString.length()>2) {
-			noString=noString.substring(noString.length()-2);
+
+		String noString = "0" + no;
+		if (noString.length() > 2) {
+			noString = noString.substring(noString.length() - 2);
 		}
-		
+
 		return createAnswer(name, refAnswerSum, Ref.create(question), answerIntArray, noString);
 	}
 
-	public static Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Ref<Question> refQuestion,			int[] answerArray, String no) {
+	public static Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Ref<Question> refQuestion,
+			int[] answerArray, String no) {
 		Answer a = new Answer();
 		a.setName(name);
 		a.setAnswered(new Date());
@@ -76,9 +78,6 @@ public class Answer extends CommonEntity {
 		a.setNo(no);
 		return a;
 	}
-	
-	
-	
 
 	/**
 	 * @return the no
@@ -180,7 +179,7 @@ public class Answer extends CommonEntity {
 
 	public void setAnswerSum(AnswerSum a) {
 		setRefAnswerSum(Ref.create(a));
-		
+
 	}
 
 	public boolean isCorrect() {
@@ -189,27 +188,26 @@ public class Answer extends CommonEntity {
 		int[] answerArray = getAnswerArray();
 		Question question = getRefQuestion().get();
 
-		if ((answerArray == null )||(answerArray.length != question.getAnswerlength())) {
+		if ((answerArray == null) || (answerArray.length != question.getAnswerlength())) {
 			return false;
-		}else {
-			for (int i=0 ; i<answerArray.length;i++) {
-			if (!question.isCorrect(answerArray[i])) {
+		} else {
+			for (int i = 0; i < answerArray.length; i++) {
+				if (!question.isCorrect(answerArray[i])) {
 //				log.info("不正解");
-				return false;
+					return false;
 				}
 			}
-		return true;
+			return true;
 		}
 	}
 
 	public String getAnswers() {
 		String s = "";
 		for (int i : getAnswerArray()) {
-			
+
 			s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
 		}
 		return s;
 	}
-	
 
 }
