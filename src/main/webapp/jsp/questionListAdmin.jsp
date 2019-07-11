@@ -73,12 +73,8 @@
 			</td>
 			<td><%=q.isMulti()%></td>
 			<td>
-				<% if(q.isMulti() == false){%> 
-					<%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getAnswer()) %>
-				<% } else {%> 
-					<% for(int i : q.getCorrect()){%> 
+					<% for(int i : q.getAnswerSet()){%> 
 						<%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
-					<% }%> 
 				<% }%>
 			</td>
 			<td><a href="/admin/question/edit?id=<%=q.getId()%>">edit</a></td>
