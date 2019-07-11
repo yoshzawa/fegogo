@@ -187,22 +187,20 @@ public class Answer extends CommonEntity {
 		final Logger log = Logger.getLogger(Answer.class.getName());
 
 		int[] answerArray = getAnswerArray();
-		int[] correctArray = getRefQuestion().get().getCorrect();
-		int correct = (int)getRefQuestion().get().getAnswer();
-		if ((answerArray == null )||(answerArray.length == 0)) {
-			return false;
-		}else 		if (answerArray.length == 1) {
-			if((correctArray == null) ||(correctArray.length==0)||correct != -1) {
-				log.info("ê≥â");
+		Question question = getRefQuestion().get();
 
-				return answerArray[0] == correct;
-			} else {
+		if ((answerArray == null )||(answerArray.length != question.getAnswerlength())) {
+			return false;
+		}else {
+			for (int i=0 ; i<answerArray.length;i++) {
+			if (!question.isCorrect(answerArray[i])) {
+//				log.info("ïsê≥â");
 				return false;
+				}
 			}
-		
+		return true;
 		}
-		return false;
-		
 	}
+	
 
 }

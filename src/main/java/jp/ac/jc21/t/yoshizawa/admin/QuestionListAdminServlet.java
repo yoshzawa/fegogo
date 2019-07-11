@@ -47,7 +47,6 @@ public class QuestionListAdminServlet extends HttpServlet {
 
 		request.setAttribute("parent", parent);
 		request.setAttribute("parentId", parentIdString);
-//		request.setAttribute("questionList", list);
 		request.setAttribute("questionMap", qMap);
 		request.setAttribute("exam", exam);
 

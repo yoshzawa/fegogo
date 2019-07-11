@@ -27,7 +27,7 @@ public class QuestionAddMultiAdminServlet extends HttpServlet {
 //		String answer = request.getParameter("answer");
 		String[] correctList = request.getParameterValues("correct");
 		int correctLength = correctList.length;
-		int[] correct = new int[correctLength];
+		Integer[] correct = new Integer[correctLength];
 		for(int i=0 ; i<correctLength;i++) {
 			correct[i] = Integer.parseInt(correctList[i]);
 		}

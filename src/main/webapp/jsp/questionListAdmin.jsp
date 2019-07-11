@@ -54,7 +54,6 @@
 			<td>No</td>
 			<td>Name</td>
 			<td>NoOfOption</td>
-			<td>Multi</td>
 			<td>Answer</td>
 		</tr>
 
@@ -71,14 +70,9 @@
 			<td><%=q.getName()%></td>
 			<td><%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getNoOfOption()) %>
 			</td>
-			<td><%=q.isMulti()%></td>
 			<td>
-				<% if(q.isMulti() == false){%> 
-					<%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getAnswer()) %>
-				<% } else {%> 
-					<% for(int i : q.getCorrect()){%> 
+					<% for(int i : q.getAnswerSet()){%> 
 						<%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
-					<% }%> 
 				<% }%>
 			</td>
 			<td><a href="/admin/question/edit?id=<%=q.getId()%>">edit</a></td>
@@ -91,36 +85,8 @@
 		}
 	%>
 	<hr />
-	<P>単一問題</P>
-	<form method='post' action='/admin/question/add'>
-		No<input type="text" name="No" /><br /> Name<input type="text"
-			name="Qname" /><br /> #ofOption <select name="noOfOption">
-			<%
-				for (int i = 0; i <= 19; i++) {
-			%>
-			<option value="<%=i%>">
-				<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-			</option>
-			<%
-				}
-			%>
-		</select> <br /> Answer <select name="answer">
-			<%
-				for (int i = 0; i <= 19; i++) {
-			%>
-			<option value="<%=i%>">
-				<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-			</option>
-			<%
-				}
-			%>
-		</select> <br /> <input type="hidden" name="parentId" value='<%=parentId%>' />
-		<input type="submit">
-	</form>
-	<hr />
 
 	<form method='post' action='/admin/question/addMulti'>
-		<P>複数選択</P>
 		No<input type="text" name="No" /><br /> Name<input type="text"
 			name="Qname" /><br /> #ofOption <select name="noOfOption">
 			<%

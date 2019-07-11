@@ -44,8 +44,6 @@
 				<td>No</td>
 				<td>Name</td>
 				<td>NoOfOption</td>
-				<td>Multi</td>
-				<td>Answer</td>
 			</tr>
 
 			<tr>
@@ -58,17 +56,14 @@
 				<td><%=q.isMulti()%></td>
 				<td>
 					<%
-						if (q.isMulti() == false) {
-					%> <%="アイウエオカキクケコサシスセソタチツテト".charAt((int) q.getAnswer())%>
-					<%
-						} else {
-							for (int i : q.getCorrect()) {
+							for (int i : q.getAnswerSet()) {
 					%> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
 					<%
-							}
+							
 						}
 					%>
 				</td>
+
 			</tr>
 			<tr>
 				<th>変更後</th>
@@ -99,30 +94,23 @@
 						
 				</select></td>
 				<td><%=q.isMulti()%></td>
-				<td><select name="answer">
+				<td>
+		<%
+ 	for (int i = 0; i <= 19; i++) {
+ %>
 						<%
-							for (int i = 0; i <= 19; i++) {
+							if (q.isCorrect(i) == true) {
 						%>
-						<%
-							if (q.getAnswer() == i) {
-						%>
-						<option value="<%=i%>" selected>
-							<%
-								} else {
-							%>
-						
-						<option value="<%=i%>">
-							<%
-								}
-							%>
-							<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-						</option>
+		<input type="checkbox" name="correct" value="<%=i%>" checked/>
+ <% } else {%>
+		<input type="checkbox" name="correct" value="<%=i%>" />
+ <% } %>
+		<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
+		<%
+			}
+		%>
+		</td>	
 
-						<%
-							}
-						%>
-
-				</select></td>
 		</table>
 		<input type="submit">
 
