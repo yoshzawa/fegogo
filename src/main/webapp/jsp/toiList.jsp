@@ -32,9 +32,9 @@
 	%>
 	<TABLE border=1>
 		<TR>
-			<TD>ToiId</TD>
-			<TD>No</TD>
-			<TD>Name</TD>
+			<TH>問番号</TH>
+			<TH>テーマ</TH>
+			<TH>設問数</TH>
 		</TR>
 		<%
 			Set<Long> toiKeySet = toiMap.keySet();
@@ -42,9 +42,10 @@
 					Toi t = toiMap.get(l);
 		%>
 		<tr>
-			<td><%=t.getId()%></td>
 			<td><%=t.getNo()%></td>
 			<td><a href="/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
+						<td><%=t.getQuestionRefListSize()%></td>
+			
 		</tr>
 		<%
 			}

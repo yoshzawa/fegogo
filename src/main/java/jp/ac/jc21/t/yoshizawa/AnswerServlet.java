@@ -103,8 +103,9 @@ public class AnswerServlet extends HttpServlet {
 		
 		
 //		request.setAttribute("examList", examList);
+		request.setAttribute("ansSummary", ansSummary);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/examList.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/answer.jsp");
 		rd.forward(request, response);
 
 	}

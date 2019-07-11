@@ -201,6 +201,15 @@ public class Answer extends CommonEntity {
 		return true;
 		}
 	}
+
+	public String getAnswers() {
+		String s = "";
+		for (int i : getAnswerArray()) {
+			
+			s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+		}
+		return s;
+	}
 	
 
 }

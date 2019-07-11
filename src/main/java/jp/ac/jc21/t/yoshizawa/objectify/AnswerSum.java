@@ -5,8 +5,10 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
@@ -138,7 +140,18 @@ public class AnswerSum extends CommonEntity{
 	}
 	
 	
-	
+	public Map<Integer,Answer> getMapAnswer(){
+		Map<String, Ref<Answer>> mra = getMapRefAnswer();
+		Map<Integer,Answer> mapAnswer = new HashMap<Integer, Answer>();
+		
+		Set<String> mraKey = mra.keySet();
+		for(String k:mraKey) {
+			mapAnswer.put(Integer.parseInt(k), mra.get(k).get());
+		}
+		return mapAnswer;
+				
+		
+	}
 
 
 }

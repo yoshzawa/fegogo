@@ -11,19 +11,19 @@ import com.googlecode.objectify.annotation.*;
 
 @Entity
 @Cache
-public class Question  extends CommonEntity{
+public class Question extends CommonEntity {
 	@Id
 	Long id;
 	@Index
 	private Long no;
 	private String name;
 	private Date created;
-	private boolean isMulti;
+//	private boolean isMulti;
 	private long noOfOption;
 	private Ref<Toi> parent;
 	private Set<Integer> answerSet;
 
-	 static {
+	static {
 	}
 
 	public Question() {
@@ -31,14 +31,14 @@ public class Question  extends CommonEntity{
 
 	public static Question createQuestion(Toi parent, long no, String name, long noOfOption, int answer) {
 		Question q = createQuestion(parent, no, name, noOfOption);
-		q.setMulti(false);
+//		q.setMulti(false);
 		q.addAnswerSet(answer);
 		return q;
 	}
 
 	public static Question createMultiQuestion(Toi parent, long no, String name, long noOfOption, Integer[] answers) {
 		Question q = createQuestion(parent, no, name, noOfOption);
-		q.setMulti(true);
+//		q.setMulti(true);
 		q.addAnswerSet(answers);
 		return q;
 	}
@@ -50,19 +50,19 @@ public class Question  extends CommonEntity{
 		q.setName(name);
 		q.setNoOfOption(noOfOption);
 		q.setParent(parent);
-		q.setMulti(false);
+//		q.setMulti(false);
 		return q;
 	}
-	
+
 	public Question save() {
 		Key<Question> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
-	
+
 	public static Question getById(long id) {
 		return ofy().load().type(Question.class).id(id).now();
 	}
-	
+
 	/**
 	 * @return the id
 	 */
@@ -123,15 +123,15 @@ public class Question  extends CommonEntity{
 	 * @return the isMulti
 	 */
 	public boolean isMulti() {
-		return isMulti;
+		return getAnswerlength() != 1;
 	}
 
 	/**
 	 * @param isMulti the isMulti to set
 	 */
-	public void setMulti(boolean isMulti) {
-		this.isMulti = isMulti;
-	}
+//	public void setMulti(boolean isMulti) {
+//		this.isMulti = isMulti;
+//	}
 
 	/**
 	 * @return the noOfOption
@@ -169,11 +169,12 @@ public class Question  extends CommonEntity{
 	 * @return the answerSet
 	 */
 	public Set<Integer> getAnswerSet() {
-		if(answerSet == null) {
+		if (answerSet == null) {
 			newAnswerSet();
 		}
 		return answerSet;
 	}
+
 	public void newAnswerSet() {
 		setAnswerSet(new HashSet<Integer>());
 	}
@@ -184,7 +185,7 @@ public class Question  extends CommonEntity{
 	public void setAnswerSet(Set<Integer> answerSet) {
 		this.answerSet = answerSet;
 	}
-	
+
 	public void addAnswerSet(Integer answer) {
 		Set<Integer> as = getAnswerSet();
 		as.add(answer);
@@ -192,13 +193,13 @@ public class Question  extends CommonEntity{
 	}
 
 	public void addAnswerSet(Integer[] answer) {
-		for(Integer a : answer) {
+		for (Integer a : answer) {
 			addAnswerSet(a);
 		}
 	}
 
 	public int getAnswerlength() {
-		return 		getAnswerSet().size();
+		return getAnswerSet().size();
 
 	}
 
@@ -208,11 +209,18 @@ public class Question  extends CommonEntity{
 	}
 
 	public void setAnswerSet(String[] correct) {
-		for(String a : correct) {
+		for (String a : correct) {
 			addAnswerSet(Integer.parseInt(a));
 		}
-		
-		
+
+	}
+
+	public String getAnswers() {
+		String s = "";
+		for (int i : getAnswerSet()) {
+			s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+		}
+		return s;
 	}
 
 }

@@ -25,8 +25,8 @@
 	%>
 	<TABLE border=1>
 		<TR>
-			<TD>NAME</TD>
-			<TD>問題登録</TD>
+			<TH>試験名</TH>
+			<TH>問題登録</TH>
 		</TR>
 		<%
 			for (Exam e : examList) {

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/exam/list" })
+@WebServlet(urlPatterns = { "/exam/list" , "/index" })
 public class ExamListServlet extends HttpServlet {
 
 	@Override
