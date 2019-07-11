@@ -98,11 +98,6 @@ public class AnswerServlet extends HttpServlet {
 		ansSummary.setMapRefAnswer(mapAnswer);
 		ansSummary.save();
 		
-		
-
-		
-		
-//		request.setAttribute("examList", examList);
 		request.setAttribute("ansSummary", ansSummary);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/answer.jsp");

@@ -30,8 +30,6 @@ public class ToiAddAdminServlet extends HttpServlet {
 		e.addToiRefList(t);
 		e.save();
 
-//    RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListAdmin.jsp");
-//    rd.forward(request, response);
 		response.sendRedirect("/admin/toi/list?parentId=" + parentId);
 
 	}
