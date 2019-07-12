@@ -177,7 +177,7 @@ public class Answer extends CommonEntity {
 	}
 
 	public boolean isCorrect() {
-		final Logger log = Logger.getLogger(Answer.class.getName());
+//		final Logger log = Logger.getLogger(Answer.class.getName());
 
 		int[] answerArray = getAnswerArray();
 		Question question = getRefQuestion().get();
