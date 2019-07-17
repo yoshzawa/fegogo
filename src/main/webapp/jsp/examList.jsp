@@ -11,11 +11,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<H1>登録されている試験の一覧</H1>
-
+<h4 align="right">
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
 	%>
+<a href="/openidSignIn">Sign in</a>
+
+</h4>
+<H1>登録されている試験の一覧</H1>
+
 	<%
 		if (examList == null || examList.size() == 0) {
 	%>
