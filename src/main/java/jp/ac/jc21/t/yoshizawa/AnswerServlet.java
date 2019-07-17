@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.googlecode.objectify.Ref;
 
@@ -27,11 +28,14 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 public class AnswerServlet extends HttpServlet {
 
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		final Logger log = Logger.getLogger(AnswerServlet.class.getName());
 
 		Map<String, String[]> paramMap = request.getParameterMap();
 		
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+
 		// userIdが入っていない場合の処理
 		if (paramMap.containsKey("userId") == false) {
 			if (paramMap.containsKey("qId") == true) {
@@ -44,6 +48,11 @@ public class AnswerServlet extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/exam/list");
 				rd.forward(request, response);
 			}
+		}
+		if((email == null)||(!email.equals(request.getParameter("userId")))){
+			RequestDispatcher rd = request
+					.getRequestDispatcher("/question/list?parentId=" + paramMap.get("ParentId")[0]);
+			rd.forward(request, response);
 		}
 
 		// Formから送信されたデータごとにMapに入れる

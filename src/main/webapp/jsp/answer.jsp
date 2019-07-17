@@ -25,14 +25,18 @@
 	<%= ansSummary.getNoOfAnswer()  %>問中<%= ansSummary.getNoOfSeikai()  %>問正解<br />
 	
 	<% Set<Integer> keyset = answer.keySet();  %>
+	<table border=1>
 	<% for(Integer i : keyset){ %>
 	<% Answer a =answer.get(i); %>
-	<%= a.getRefQuestion().get().getName() %>
-	<%= a.getRefQuestion().get().getAnswers() %>
-	<%= a.getAnswers() %>
+	<tr>
+	<th> <%= a.getRefQuestion().get().getName() %> </th>
+	<td> <%= a.getRefQuestion().get().getAnswers() %> </td>
+	<td> <%= a.getAnswers() %> </td>
+	</tr>
 	<% }%>
+	</table>
 	
-	
+	<a href="/toi/list?parentId=<%= ansSummary.getRefToi().get().getParent().getId() %>">戻る</a>
 
 
 </body>

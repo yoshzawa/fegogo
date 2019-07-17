@@ -13,19 +13,20 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+
 	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
-		//		List<Question> list = (List<Question>) request.getAttribute("questionList");
 		Exam exam = (Exam) request.getAttribute("exam");
 		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
+		String email = (String)request.getAttribute("email");
+
 	%>
-	<h4 align="right">
-<a href="/openidSignIn">Sign in</a>
+		<h4 align="right">
+<%= email %>としてサインイン（<a href="/openidSignOut">Sign out</a>）
 </h4>
 	<H1>登録されている設問の一覧</H1>
-
-
 	<p>選択された試験：
 	<P>
 		<%=exam.getName()%>
@@ -40,6 +41,8 @@
 	<%
 		} else {
 	%>
+	<form method="post" action="/answer">
+		<input type="hidden" name="userId" value="<%= email %>" />
 		<input type="hidden" name="qId" value="<%= parent.getId() %>" />
 		
 		
@@ -89,7 +92,8 @@
 				}
 			%>
 		</table>
-		<input type="submit" value="送信するにはログインしてください"　disabled="disabled" />
+		<input type="submit" value="送信する" />
+	</form>
 
 	<%
 		}

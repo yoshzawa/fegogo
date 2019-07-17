@@ -13,11 +13,12 @@
 <body>
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
+	String email = (String)request.getAttribute("email");
+
 	%>
 <h4 align="right">
-<a href="/openidSignIn">Sign in</a>
+<%= email %>としてサインイン（<a href="/openidSignOut">Sign out</a>）
 </h4>
-
 <H1>登録されている試験の一覧</H1>
 
 	<%
