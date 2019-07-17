@@ -41,8 +41,8 @@
 	<%
 		} else {
 	%>
-	<form method="get" action="/answer">
-		<input type="text" name="userId" value="<%= email %>" />
+	<form method="post" action="/answer">
+		<input type="hidden" name="userId" value="<%= email %>" />
 		<input type="hidden" name="qId" value="<%= parent.getId() %>" />
 		
 		

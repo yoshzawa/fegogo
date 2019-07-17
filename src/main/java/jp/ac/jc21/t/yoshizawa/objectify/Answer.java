@@ -197,8 +197,13 @@ public class Answer extends CommonEntity {
 	public String getAnswers() {
 		String s = "";
 		for (int i : getAnswerArray()) {
+			if(i == -1) {
+				s+= "[解けない]";
+				
+			} else {
+				s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+			}
 
-			s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
 		}
 		return s;
 	}
