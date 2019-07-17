@@ -25,12 +25,12 @@ public class ExamListServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String email = (String)session.getAttribute("email");
-		request.setAttribute("email", email);
 		
 		if(email == null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/examList.jsp");
 			rd.forward(request, response);			
 		} else {
+			request.setAttribute("email", email);
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListLogin.jsp");
 			rd.forward(request, response);
 		}

@@ -18,7 +18,6 @@
 	%>
 <h4 align="right">
 <%= email %>としてサインイン（<a href="/openidSignOut">Sign out</a>）
-
 </h4>
 <H1>登録されている試験の一覧</H1>
 

@@ -17,9 +17,11 @@
 		Exam parent = (Exam) request.getAttribute("parent");
 		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
+		String email = (String)request.getAttribute("email");
+
 	%>
 	<h4 align="right">
-<a href="/openidSignIn">Sign in</a>
+<%= email %>としてサインイン（<a href="/openidSignOut">Sign out</a>）
 </h4>
 	<H1>登録されている問の一覧</H1>
 	
