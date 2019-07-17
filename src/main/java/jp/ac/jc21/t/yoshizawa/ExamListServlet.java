@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 
@@ -21,9 +22,20 @@ public class ExamListServlet extends HttpServlet {
 
 		List<Exam> examList = Exam.loadAll();
 		request.setAttribute("examList", examList);
+		
+		HttpSession session = request.getSession();
+		String email = (String)session.getAttribute("email");
+		request.setAttribute("email", email);
+		
+		if(email == null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/examList.jsp");
+			rd.forward(request, response);			
+		} else {
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListLogin.jsp");
+			rd.forward(request, response);
+		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/examList.jsp");
-		rd.forward(request, response);
+
 
 	}
 }
