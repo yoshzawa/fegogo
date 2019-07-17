@@ -19,7 +19,7 @@ public class H28jk3aopenidLogoutServlet extends HttpServlet implements AzureCons
 		
 		String url = "https://login.microsoftonline.com/organizations/oauth2/v2.0/logout";
 //		url+="&post_logout=http%3A%2F%2Fthree.fivepro.xyz%2F%2F" ;
-		url+="?post_logout=http%3A%2F%2Ffegogo.fivepro.xyz%2Fexam%2Flist" ;
+		url+="?post_logout=http%3A%2F%2Ffegogo.appspot.com%2Fexam%2Flist" ;
 
 		resp.sendRedirect(url);
 		
