@@ -17,7 +17,7 @@
 
 	<%
 		String parentId = (String) request.getAttribute("parentId");
-		Toi parent = (Toi) request.getAttribute("parent");
+		Toi toi = (Toi) request.getAttribute("parent");
 		Exam exam = (Exam) request.getAttribute("exam");
 		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
 		String email = (String)request.getAttribute("email");
@@ -30,7 +30,7 @@
 	<p>選択された試験：
 	<P>
 		<%=exam.getName()%>
-		問<%=parent.getNo()%>(<%=parent.getName()%>) <a
+		問<%=toi.getNo()%>(<%=toi.getName()%>) <a
 			href="/toi/list?parentId=<%=exam.getId()%>">(選択解除する)</a>
 	</p>
 
@@ -43,7 +43,7 @@
 	%>
 	<form method="post" action="/answer">
 		<input type="hidden" name="userId" value="<%= email %>" />
-		<input type="hidden" name="qId" value="<%= parent.getId() %>" />
+		<input type="hidden" name="toiId" value="<%= toi.getId() %>" />
 		
 		
 		<table border=1>
@@ -67,8 +67,7 @@
 					name="<%=q.getId()%>" value="-1" checked="checked" /> 解けない <%
  	} else {
  %>
-					<input type="radio" name="<%=q.getId()%>" value="-1"
-					checked="checked" /> 解けない <%
+					<input type="radio" name="<%=q.getId()%>" value="-1"/> 解けない <%
 						}
 					%> <%
  	for (int i = 0; i <= (int) q.getNoOfOption(); i++) {
