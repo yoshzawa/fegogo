@@ -15,12 +15,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<H1>解答を登録しました</H1>
-
 	<%
 	AnswerSum ansSummary = (AnswerSum)request.getAttribute("ansSummary");
 	Map<Integer,Answer> answer = ansSummary.getMapAnswer();
+	String email = (String)request.getAttribute("email");
 	%>
+		<h4 align="right">
+<%= email %>としてサインイン（<a href="/openidSignOut">Sign out</a>）
+</h4>
+<H1>解答を登録しました</H1>
+
 	
 	<%= ansSummary.getNoOfAnswer()  %>問中<%= ansSummary.getNoOfSeikai()  %>問正解<br />
 	

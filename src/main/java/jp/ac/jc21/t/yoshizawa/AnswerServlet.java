@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -32,79 +33,87 @@ public class AnswerServlet extends HttpServlet {
 		final Logger log = Logger.getLogger(AnswerServlet.class.getName());
 
 		Map<String, String[]> paramMap = request.getParameterMap();
-		
+
 		HttpSession session = request.getSession();
-		String email = (String)session.getAttribute("email");
+		String email = (String) session.getAttribute("email");
 
 		// userIdが入っていない場合の処理
 		if (paramMap.containsKey("userId") == false) {
-			if (paramMap.containsKey("qId") == true) {
-				log.info("no userId , one qId");
+			if (paramMap.containsKey("toiId") == true) {
+				log.info("no userId , one toiId");
 				RequestDispatcher rd = request
 						.getRequestDispatcher("/question/list?parentId=" + paramMap.get("ParentId")[0]);
 				rd.forward(request, response);
 			} else {
-				log.info("no userId , no qId");
+				log.info("no userId , no toiId");
 				RequestDispatcher rd = request.getRequestDispatcher("/exam/list");
 				rd.forward(request, response);
 			}
 		}
-		if((email == null)||(!email.equals(request.getParameter("userId")))){
+		if ((email == null) || (!email.equals(request.getParameter("userId")))) {
 			RequestDispatcher rd = request
 					.getRequestDispatcher("/question/list?parentId=" + paramMap.get("ParentId")[0]);
 			rd.forward(request, response);
 		}
 
 		// Formから送信されたデータごとにMapに入れる
-		ArrayList<Answer> listAnswer = new ArrayList<Answer>();
-		HashSet<Long> set = new HashSet<>();
-		Set<String> keyset = paramMap.keySet();
-		
-		
+		HashMap<Long,Answer> answerMap = new HashMap<>();
+		HashSet<Long> parentSet = new HashSet<>();
+		Set<String> paramMapKeyset = paramMap.keySet();
+
+		String userId = request.getParameter("userId");
 
 		// 全ての問題のParentが同じか調べる
-		String userId = request.getParameter("userId");
-		
-		for (String s : keyset) {
-			if ((!s.equals("userId")) && (!s.equals("qId"))) {
+		for (String s : paramMapKeyset) {
+			if ((!s.equals("userId")) && (!s.equals("toiId"))) {
 				Long qKey = Long.parseLong(s);
 				Question q = Question.getById(qKey);
-				String[] answerArray = paramMap.get(s);
-				Answer answer = Answer.createAnswer(userId, null, q, answerArray,q.getNo());
-//				mapAnswer.put(q.getNo(), answer);
-				listAnswer.add(answer);
+				String[] answerArray = paramMap.get(s);				
+				Answer answer = Answer.createAnswer(userId, null, q, answerArray, q.getNo());
+				answerMap.put(qKey, answer);
 
 				Long parentId = q.getParent().getId();
-				set.add(parentId);
+				parentSet.add(parentId);
 			}
 		}
-		if (set.size() != 1) {
+		if (parentSet.size() != 1) {
 			log.info("toi is not single");
 			RequestDispatcher rd = request.getRequestDispatcher("/exam/list");
 			rd.forward(request, response);
 		}
-		
-		long key = (Long)set.toArray()[0];
-		Toi t = Toi.getById(key);
-		AnswerSum ansSummary = AnswerSum.createAnswerSum(userId, t, -1, null);
+
+		long toiKey = (Long) parentSet.toArray()[0];
+		Toi toi = Toi.getById(toiKey);
+		AnswerSum ansSummary = AnswerSum.createAnswerSum(userId, toi, -1, null);
 		ansSummary.save();
-		
-		int correct=0;
-		Map<String,Ref<Answer>> mapAnswer  = new HashMap<>();
-		for(Answer a:listAnswer) {
+
+		int correct = 0;
+		Map<String, Ref<Answer>> mapAnswer = new HashMap<>();
+
+		List<Ref<Question>> qList = toi.getQuestionRefList();
+		for(Ref<Question> q : qList) {
+			Question question = q.get();
+			Answer a = answerMap.get(question.getId());
+			if(a == null) {
+				a = Answer.createAnswer(userId, null, question,new String[0] , question.getNo());
+			}
 			a.setAnswerSum(ansSummary);
-			a = 			a.save();
+			a = a.save();
 			mapAnswer.put(a.getNo(), Ref.create(a));
 
-			if(a.isCorrect() == true) {
+			if (a.isCorrect() == true) {
 				correct++;
 			}
 		}
+		
+		
 		ansSummary.setNoOfSeikai(correct);
 		ansSummary.setMapRefAnswer(mapAnswer);
 		ansSummary.save();
-		
+
 		request.setAttribute("ansSummary", ansSummary);
+
+		request.setAttribute("email", email);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/answer.jsp");
 		rd.forward(request, response);
