@@ -10,7 +10,7 @@ import com.googlecode.objectify.annotation.*;
 
 @Entity
 @Cache
-public class Question extends CommonEntity {
+public final class Question extends CommonEntity {
 	@Id
 	Long id;
 	@Index

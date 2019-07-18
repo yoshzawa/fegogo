@@ -1,6 +1,6 @@
 package com.gmail.yoshzawa.openid.jwt;
 
-public class JwtHeader {
+public final class JwtHeader {
 	private String typ;
 	private String alg;
 	private String kid;

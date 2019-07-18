@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/msredirect","/msredirect/" })
 
-public class MicrosoftRedirectServlet extends HttpServlet implements
+public final class MicrosoftRedirectServlet extends HttpServlet implements
 		AzureConstant {
 
 	static {

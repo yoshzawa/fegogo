@@ -23,7 +23,7 @@ import com.googlecode.objectify.annotation.*;
 @Entity
 @Cache
 
-public class Toi extends CommonEntity {
+public final class Toi extends CommonEntity {
 	@Id
 	Long id;
 	@Index

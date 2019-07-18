@@ -13,7 +13,7 @@ import com.googlecode.objectify.annotation.Parent;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 @Entity
-public class UserAccount {
+public final class UserAccount {
 	@Id
 	private Long id;
 	private String email;

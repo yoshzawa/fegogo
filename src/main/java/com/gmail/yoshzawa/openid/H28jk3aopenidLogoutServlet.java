@@ -11,7 +11,7 @@ import javax.servlet.http.*;
 @WebServlet(urlPatterns = { "/openidSignOut" })
 
 
-public class H28jk3aopenidLogoutServlet extends HttpServlet implements AzureConstant{
+public final class H28jk3aopenidLogoutServlet extends HttpServlet implements AzureConstant{
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		HttpSession session = req.getSession();

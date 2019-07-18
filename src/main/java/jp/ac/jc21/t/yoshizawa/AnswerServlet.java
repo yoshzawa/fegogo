@@ -26,10 +26,10 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/answer" })
-public class AnswerServlet extends HttpServlet {
+public final class AnswerServlet extends HttpServlet {
 
 	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public final void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		final Logger log = Logger.getLogger(AnswerServlet.class.getName());
 
 		Map<String, String[]> paramMap = request.getParameterMap();

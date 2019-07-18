@@ -19,7 +19,7 @@ import com.googlecode.objectify.Key;
 
 @Entity
 @Cache
-public class Answer extends CommonEntity {
+public final class Answer extends CommonEntity {
 
 	@Id
 	Long id;
