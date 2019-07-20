@@ -61,11 +61,11 @@
 					<%
 						if (q.isMulti() == true) {
 					%> <input type="checkbox"
-					name="<%=q.getId()%>" value="-1" checked="checked" /> 解けない <%
+					name="<%=q.getId()%>" value="-1" checked="checked" disabled="disabled"/> 解けない <%
  	} else {
  %>
 					<input type="radio" name="<%=q.getId()%>" value="-1"
-					checked="checked" /> 解けない <%
+					checked="checked" disabled="disabled"/> 解けない <%
 						}
 					%> <%
  	for (int i = 0; i <= (int) q.getNoOfOption(); i++) {
@@ -73,11 +73,11 @@
 					<%
 						if (q.isMulti() == true) {
 					%> <input type="checkbox"
-					name="<%=q.getId()%>" value="<%=i%>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
+					name="<%=q.getId()%>" value="<%=i%>" disabled="disabled"/> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
 					<%
 						} else {
 					%> <input type="radio" name="<%=q.getId()%>"
-					value="<%=i%>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> <%
+					value="<%=i%>" disabled="disabled"/> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> <%
  	}
  %> <%
  	}

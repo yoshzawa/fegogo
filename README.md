@@ -2,7 +2,6 @@
 
 午後問題を集計して採点する
 
-## 公開先
+## 公開先サーバー
 
-https://fegogo.appspot.com
-
+http://fegogo.fivepro.xyz

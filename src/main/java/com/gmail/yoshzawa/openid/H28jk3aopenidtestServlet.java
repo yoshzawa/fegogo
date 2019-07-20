@@ -15,8 +15,8 @@ import com.google.appengine.api.utils.SystemProperty;
 
 public final class H28jk3aopenidtestServlet extends HttpServlet implements AzureConstant{
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.setContentType("text/html");
-		resp.getWriter().println("<h1>Sign In</H1>");
+//		resp.setContentType("text/html");
+//		resp.getWriter().println("<h1>Sign In</H1>");
 		String url =null;
 		if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
 			   // Production
@@ -43,7 +43,8 @@ public final class H28jk3aopenidtestServlet extends HttpServlet implements Azure
 			}
 		
 		
-		resp.getWriter().println("<a href='"+url+"'>sign-in with microsoft account</a>");
+//		resp.getWriter().println("<a href='"+url+"'>sign-in with microsoft account</a>");
+		resp.sendRedirect(url);
 		
 	}
 }
