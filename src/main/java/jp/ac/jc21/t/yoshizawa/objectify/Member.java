@@ -24,7 +24,7 @@ import com.googlecode.objectify.Key;
 public final class Member extends CommonEntity {
 
 	@Id
-	Long id;
+//	Long id;
 	@Index
 	private String eMail;
 	private List<Ref<AnswerSum>> refAnswerSumMap;
@@ -36,15 +36,16 @@ public final class Member extends CommonEntity {
 
 	public Member save() {
 		Key<Member> key = ofy().save().entity(this).now();
-		return getById(key.getId());
+		return getByeMail(this.geteMail());
 	}
 
-	public static Member getById(long id) {
-		return ofy().load().type(Member.class).id(id).now();
-	}
+//	public static Member getById(long id) {
+//		return ofy().load().type(Member.class).id(id).now();
+//	}
 
 	public static Member getByeMail(String eMail) {
-		return ofy().load().type(Member.class).filter("eMail", "eMail").first().now();
+//		return ofy().load().type(Member.class).filter("eMail", eMail).first().now();
+		return ofy().load().type(Member.class).filterKey(eMail).first().now();
 
 	}
 
