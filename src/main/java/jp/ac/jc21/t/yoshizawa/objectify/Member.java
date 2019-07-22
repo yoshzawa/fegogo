@@ -45,7 +45,7 @@ public final class Member extends CommonEntity {
 
 	public static Member getByeMail(String eMail) {
 //		return ofy().load().type(Member.class).filter("eMail", eMail).first().now();
-		return ofy().load().type(Member.class).filterKey(eMail).first().now();
+		return ofy().load().type(Member.class).filterKey(Key.create(Member.class,eMail)).first().now();
 
 	}
 

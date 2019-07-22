@@ -101,9 +101,9 @@ public final class MicrosoftRedirectServlet extends HttpServlet implements
 		HttpSession session = req.getSession();
 		session.setAttribute("email", email);
 
-//		Member m = Member.get(email);
-//		m.setModified(new Date());
-//		m.save();
+		Member m = Member.get(email);
+		m.setModified(new Date());
+		m.save();
 		
 		
 
