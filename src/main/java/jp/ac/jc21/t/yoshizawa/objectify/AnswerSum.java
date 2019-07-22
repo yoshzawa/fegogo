@@ -30,6 +30,8 @@ public final class AnswerSum extends CommonEntity{
 	private Ref<Toi> refToi;
 	private int noOfSeikai;
 	private Map<String,Ref<Answer>> mapRefAnswer;
+	private Ref<Member> refMember;
+
 	
 	public AnswerSum() {
 	}
@@ -148,6 +150,16 @@ public final class AnswerSum extends CommonEntity{
 				
 		
 	}
+	public Ref<Member> getRefMember() {
+		return refMember;
+	}
 
+	public void setRefMember(Ref<Member> refMember) {
+		this.refMember = refMember;
+	}
+
+	public void setRefMember(Member member) {
+		setRefMember(Ref.create(member));
+	}
 
 }

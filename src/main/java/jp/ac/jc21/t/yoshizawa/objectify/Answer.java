@@ -30,6 +30,7 @@ public final class Answer extends CommonEntity {
 	private Ref<AnswerSum> refAnswerSum;
 	private Ref<Question> refQuestion;
 	private int[] answerArray;
+//	private Ref<Member> refMember;
 
 	public Answer() {
 	}
@@ -70,6 +71,7 @@ public final class Answer extends CommonEntity {
 		a.setRefQuestion(refQuestion);
 		a.setAnswerArray(answerArray);
 		a.setNo(no);
+//		a.setRefMember(member);
 		return a;
 	}
 
@@ -207,5 +209,16 @@ public final class Answer extends CommonEntity {
 		}
 		return s;
 	}
+
+//	public Ref<Member> getRefMember() {
+//		return refMember;
+//	}
+
+//	public void setRefMember(Ref<Member> refMember) {
+//		this.refMember = refMember;
+//	}
+//	public void setRefMember(Member member) {
+//		setRefMember(Ref.create(member));
+//	}
 
 }

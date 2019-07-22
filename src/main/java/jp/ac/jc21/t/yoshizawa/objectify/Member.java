@@ -104,5 +104,11 @@ public final class Member extends CommonEntity {
 		this.modified = modified;
 	}
 
+	public void addRefAnswerSumMap(AnswerSum ansSummary) {
+		List<Ref<AnswerSum>> l = getRefAnswerSumMap();
+		l.add(Ref.create(ansSummary));
+		setRefAnswerSumMap(l);
+	}
+
 
 }

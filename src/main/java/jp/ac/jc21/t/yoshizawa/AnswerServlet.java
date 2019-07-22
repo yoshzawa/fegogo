@@ -21,6 +21,7 @@ import com.googlecode.objectify.Ref;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Answer;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
+import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
@@ -64,6 +65,8 @@ public final class AnswerServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 
 		// ‘S‚Ä‚Ì–â‘è‚ÌParent‚ª“¯‚¶‚©’²‚×‚é
+		Member member = Member.get(userId);
+		
 		for (String s : paramMapKeyset) {
 			if ((!s.equals("userId")) && (!s.equals("toiId"))) {
 				Long qKey = Long.parseLong(s);
@@ -109,7 +112,11 @@ public final class AnswerServlet extends HttpServlet {
 		
 		ansSummary.setNoOfSeikai(correct);
 		ansSummary.setMapRefAnswer(mapAnswer);
+		ansSummary.setRefMember(member);
 		ansSummary.save();
+		
+		member.addRefAnswerSumMap(ansSummary);
+		member.save();
 
 		request.setAttribute("ansSummary", ansSummary);
 
