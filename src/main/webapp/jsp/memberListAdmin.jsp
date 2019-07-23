@@ -58,9 +58,6 @@ UserService userService = (UserService)request.getAttribute("userService");
 	%>
 
 	<hr />
-	<form method='post' action='/admin/exam/add'>
-		<label>YYYYMM</label> <input type="text" name="YYYYMM" /> <label>ExamName</label>
-		<input type="text" name="ExamName" /> <input type="submit" name="追加" />
-	</form>
+
 </body>
 </html>
