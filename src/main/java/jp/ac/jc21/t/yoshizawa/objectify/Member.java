@@ -27,7 +27,7 @@ public final class Member extends CommonEntity {
 //	Long id;
 	@Index
 	private String eMail;
-	private List<Ref<AnswerSum>> refAnswerSumMap;
+	private List<Ref<AnswerSum>> refAnswerSumList;
 	private Date created;
 	private Date modified;
 
@@ -35,16 +35,15 @@ public final class Member extends CommonEntity {
 	}
 
 	public Member save() {
-		Key<Member> key = ofy().save().entity(this).now();
+		ofy().save().entity(this).now();
 		return getByeMail(this.geteMail());
 	}
 
-//	public static Member getById(long id) {
-//		return ofy().load().type(Member.class).id(id).now();
-//	}
+	public static List<Member> loadAll() {
+		return loadAll(Member.class);
+	}
 
 	public static Member getByeMail(String eMail) {
-//		return ofy().load().type(Member.class).filter("eMail", eMail).first().now();
 		return ofy().load().type(Member.class).filterKey(Key.create(Member.class,eMail)).first().now();
 
 	}
@@ -54,7 +53,7 @@ public final class Member extends CommonEntity {
 		m.seteMail(eMail);
 		m.setCreated(new Date());
 		m.setModified(new Date());
-		m.newRefAnswerSumMap();
+		m.newRefAnswerSumList();
 		return m;
 	}
 
@@ -66,18 +65,22 @@ public final class Member extends CommonEntity {
 		this.eMail = eMail;
 	}
 
-	public List<Ref<AnswerSum>> getRefAnswerSumMap() {
-		if(refAnswerSumMap == null) {
-			newRefAnswerSumMap();
-		}
-		return refAnswerSumMap;
-	}
-	public void newRefAnswerSumMap() {
-		setRefAnswerSumMap(new ArrayList<>());
+	public int getRefAnswerSumListCount() {
+		return getRefAnswerSumList().size();
 	}
 
-	public void setRefAnswerSumMap(List<Ref<AnswerSum>> refAnswerSumMap) {
-		this.refAnswerSumMap = refAnswerSumMap;
+	public List<Ref<AnswerSum>> getRefAnswerSumList() {
+		if(refAnswerSumList == null) {
+			newRefAnswerSumList();
+		}
+		return refAnswerSumList;
+	}
+	public void newRefAnswerSumList() {
+		setRefAnswerSumList(new ArrayList<>());
+	}
+
+	public void setRefAnswerSumList(List<Ref<AnswerSum>> refAnswerSumMap) {
+		this.refAnswerSumList = refAnswerSumMap;
 	}
 
 	public Date getCreated() {
@@ -104,10 +107,10 @@ public final class Member extends CommonEntity {
 		this.modified = modified;
 	}
 
-	public void addRefAnswerSumMap(AnswerSum ansSummary) {
-		List<Ref<AnswerSum>> l = getRefAnswerSumMap();
+	public void addRefAnswerSumList(AnswerSum ansSummary) {
+		List<Ref<AnswerSum>> l = getRefAnswerSumList();
 		l.add(Ref.create(ansSummary));
-		setRefAnswerSumMap(l);
+		setRefAnswerSumList(l);
 	}
 
 
