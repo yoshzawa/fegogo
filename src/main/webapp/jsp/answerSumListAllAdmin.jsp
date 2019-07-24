@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="com.google.appengine.api.users.User"%>
 <%@page import="java.util.ArrayList"%>
@@ -47,6 +48,8 @@
 			<TD>TOI</TD>
 		</TR>
 		<%
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
 			for (AnswerSum as : answerSumList) {
 				Toi toi = as.getRefToi().get();
 		%>
@@ -55,7 +58,7 @@
 			<td><%= as.getName() %></td>
 			<td><%= as.getNoOfAnswer() %></td>
 			<td><%= as.getNoOfSeikai() %></td>
-			<td><%= as.getAnswered() %></td>
+			<td><%= sdf.format(as.getAnswered()) %></td>
 			<td><%= as.getMapRefAnswer() %></td>
 			<td><%= as.getRefMember() %>
 			<%  if ((as.getRefMember() == null )||(as.getRefMember().get().containsRef(as) == false)) {%>

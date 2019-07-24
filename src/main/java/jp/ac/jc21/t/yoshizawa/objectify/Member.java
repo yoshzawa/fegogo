@@ -44,7 +44,7 @@ public final class Member extends CommonEntity {
 	}
 
 	private static Member getByeMail(String eMail) {
-		return ofy().load().type(Member.class).filterKey(Key.create(Member.class,eMail)).first().now();
+		return ofy().load().type(Member.class).filterKey(Key.create(Member.class, eMail)).first().now();
 
 	}
 
@@ -59,12 +59,12 @@ public final class Member extends CommonEntity {
 
 	public static Member get(String email) {
 		Member m = getByeMail(email);
-		if(m==null) {
-			m=createMember(email);
+		if (m == null) {
+			m = createMember(email);
 		}
 		return m;
 	}
-	
+
 	public String geteMail() {
 		return eMail;
 	}
@@ -78,7 +78,7 @@ public final class Member extends CommonEntity {
 	}
 
 	public List<Ref<AnswerSum>> getRefAnswerSumList() {
-		if(refAnswerSumList == null) {
+		if (refAnswerSumList == null) {
 			newRefAnswerSumList();
 		}
 		return refAnswerSumList;
@@ -86,10 +86,10 @@ public final class Member extends CommonEntity {
 
 	public List<AnswerSum> getAnswerSumList() {
 		List<AnswerSum> list = new ArrayList<>();
-		for(Ref<AnswerSum> as : getRefAnswerSumList()) {
+		for (Ref<AnswerSum> as : getRefAnswerSumList()) {
 			list.add(as.get());
 		}
-		return list;	
+		return list;
 	}
 
 	public void newRefAnswerSumList() {
@@ -108,8 +108,6 @@ public final class Member extends CommonEntity {
 		this.created = created;
 	}
 
-
-
 	public Date getModified() {
 		return modified;
 	}
@@ -121,27 +119,43 @@ public final class Member extends CommonEntity {
 	public void addRefAnswerSumList(AnswerSum ansSummary) {
 		List<Ref<AnswerSum>> l = getRefAnswerSumList();
 		boolean b = containsRef(ansSummary, l);
-		if(b == false) {
+		if (b == false) {
 			l.add(Ref.create(ansSummary));
 		}
 		setRefAnswerSumList(l);
 	}
 
-	public boolean containsRef( AnswerSum ansSummary) {
+	public boolean containsRef(AnswerSum ansSummary) {
 		List<Ref<AnswerSum>> l = getRefAnswerSumList();
-		return containsRef(ansSummary,l);
+		return containsRef(ansSummary, l);
 	}
-		
+
 	public boolean containsRef(AnswerSum ansSummary, List<Ref<AnswerSum>> l) {
-		boolean b=false;
+		boolean b = false;
 		for (Ref<AnswerSum> ras : l) {
-			if(ras.get().getId() == ansSummary.getId()) {
-				b=true;
+			if (ras.get().getId() == ansSummary.getId()) {
+				b = true;
 				break;
 			}
 		}
 		return b;
 	}
 
+	/**
+	 * parentId‚Éˆê’v‚·‚éExam‚ÉŠÖ˜A‚·‚éAnswerSum‚Ìˆê——‚ğ•Ô‚·
+	 * @param parentId æ“¾‚µ‚½‚¢Exam‚ÌId
+	 * @return@parentId‚Éˆê’v‚·‚éExam‚ÉŠÖ˜A‚·‚éAnswerSum‚Ìˆê——
+	 */
+	public List<AnswerSum> getAnswerSumListByExamId(long parentId) {
+
+		List<AnswerSum> list = new ArrayList<>();
+		for (Ref<AnswerSum> as : getRefAnswerSumList()) {
+			if (as.get().getRefToi().get().getParent().getId() != parentId) {
+				continue;
+			}
+			list.add(as.get());
+		}
+		return list;
+	}
 
 }
