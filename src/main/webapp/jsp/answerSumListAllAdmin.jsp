@@ -47,6 +47,7 @@
 			<TD>getMapAnswer</TD>
 			<TD>getRefMember</TD>
 			<TD>EXAM</TD>
+			<TD>NO</TD>
 			<TD>TOI</TD>
 		</TR>
 		<%
@@ -68,6 +69,7 @@
 			reChain　</a></td>
 			<% } %>
 			<td><%= toi.getParent().getName() %></td>
+			<td><%= toi.getNo() %></td>
 			<td><%= toi.getName() %></td>
 		</tr>
 		<%
