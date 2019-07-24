@@ -35,6 +35,8 @@
 	<%
 		} else {
 	%>
+	<a href="/admin/answerSum/dumpAnswerSummary.csv">解答情報をCSVでダウンロード</a>
+	<a href="/admin/answer/dumpAnswer.csv">解答詳細をCSVでダウンロード</a>
 	<TABLE border=1>
 		<TR>
 			<TD>getId</TD>
