@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,9 +20,8 @@ import jp.ac.jc21.t.yoshizawa.objectify.*;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/answerSum/dumpAnswerSummary.csv" })
-
-public class AnswerSumDumpAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/answer/dumpAnswer.csv" })
+public class AnswerDumpAdminServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -37,13 +37,16 @@ public class AnswerSumDumpAdminServlet extends HttpServlet {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
-		out.println( "‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,–âÚ×,³‰ğ”,–â‘è”,³‰ğ—¦" );
+		out.println( "‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,–âÚ×,o‘è‡,İ–â,³‰ğ,‰ğ“š,³Œë" );
 
 		for (AnswerSum as : answerSumList) {
 			Toi toi = as.getRefToi().get();
 			Exam exam = toi.getParent();
 			float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
-	
+			Map<Integer, Answer> answerMap = as.getMapAnswer();
+			for (Integer i : answerMap.keySet()) {
+				Answer a = answerMap.get(i);
+				
 
 			out.print( as.getName() );
 			out.print( "," );
@@ -55,15 +58,22 @@ public class AnswerSumDumpAdminServlet extends HttpServlet {
 			out.print( "," );
 			out.print( toi.getName()  );
 			out.print( "," );
-			out.print( as.getNoOfSeikai()  );
+			out.print( i  );
 			out.print( "," );
-			out.print( as.getNoOfAnswer()  );
+			out.print( a.getRefQuestion().get().getName()  );
 			out.print( "," );
-			out.print( String.format("%1$.1f", point)  );
+			out.print( a.getRefQuestion().get().getAnswers()  );
+			out.print( "," );
+			out.print( a.getAnswers()  );
+			out.print( "," );
+			out.print( a.isCorrect()?1:0  );
+			out.print( "," );
 
 			out.println(  );
+			}
 
 		}
+
 
 
 
