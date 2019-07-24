@@ -17,8 +17,8 @@ import jp.ac.jc21.t.yoshizawa.objectify.*;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/answerSum/list" })
-public class AnswerSumListAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/answerSum/listAll" })
+public class AnswerSumListAllAdminServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -29,7 +29,7 @@ public class AnswerSumListAdminServlet extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
 		request.setAttribute("userService", userService);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/answerSumListAdmin.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/answerSumListAllAdmin.jsp");
 		rd.forward(request, response);
 
 	}

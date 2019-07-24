@@ -13,10 +13,16 @@ import java.util.List;
  */
 public class CommonEntity {
 
-	public final static List loadAll(	Class<?> c,String key) {
+	public final static List loadAll(Class<?> c, String key) {
 		return ofy().load().type(c).order(key).list();
 	}
-	public final static List loadAll(	Class<?> c) {
+
+	public final static List loadAll(Class<?> c) {
 		return ofy().load().type(c).list();
 	}
+
+	public static Object getById(Class<?> c, long id) {
+		return ofy().load().type(c).id(id).now();
+	}
+
 }
