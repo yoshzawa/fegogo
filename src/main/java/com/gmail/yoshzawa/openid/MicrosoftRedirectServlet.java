@@ -11,8 +11,12 @@ import com.gmail.yoshzawa.openid.ofy.UserAccount;
 import com.gmail.yoshzawa.openid.jwt.JwtPayload;
 import com.google.gson.Gson;
 
+import jp.ac.jc21.t.yoshizawa.objectify.Member;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+
+import java.util.Date;
 import java.util.logging.Logger;
 
 @SuppressWarnings("serial")
@@ -96,6 +100,12 @@ public final class MicrosoftRedirectServlet extends HttpServlet implements
 		user.save();
 		HttpSession session = req.getSession();
 		session.setAttribute("email", email);
+
+		Member m = Member.get(email);
+		m.setModified(new Date());
+		m.save();
+		
+		
 
 		resp.getWriter().println("<H1>Welcome," + email+"</h1>");
 		resp.getWriter().println("<a href='/exam/list'>Continue</a>");

@@ -9,6 +9,7 @@ import com.googlecode.objectify.ObjectifyService;
 import jp.ac.jc21.t.yoshizawa.objectify.Answer;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
@@ -26,6 +27,7 @@ public class ObjectifyWebListener implements ServletContextListener {
 		ObjectifyService.register(Question.class);
 		ObjectifyService.register(Answer.class);
 		ObjectifyService.register(AnswerSum.class);
+		ObjectifyService.register(Member.class);
 	}
 
 	@Override

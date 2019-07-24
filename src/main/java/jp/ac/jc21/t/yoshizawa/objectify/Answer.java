@@ -30,6 +30,7 @@ public final class Answer extends CommonEntity {
 	private Ref<AnswerSum> refAnswerSum;
 	private Ref<Question> refQuestion;
 	private int[] answerArray;
+//	private Ref<Member> refMember;
 
 	public Answer() {
 	}
@@ -207,5 +208,4 @@ public final class Answer extends CommonEntity {
 		}
 		return s;
 	}
-
 }

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
@@ -40,6 +42,11 @@ public class ToiListServlet extends HttpServlet {
 			rd.forward(request, response);			
 		} else {
 			request.setAttribute("email", email);
+			
+			Member member=Member.get(email);
+			List<AnswerSum> asl = member.getAnswerSumListByExamId(parentId);
+			request.setAttribute("answerSumList", asl);
+
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiListLogin.jsp");
 			rd.forward(request, response);
 		}
