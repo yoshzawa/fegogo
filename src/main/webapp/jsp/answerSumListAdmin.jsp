@@ -16,7 +16,6 @@
 	<%
 		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
 		UserService userService = (UserService) request.getAttribute("userService");
-		String redirectTo = (String) request.getAttribute("redirectTo");
 	%>
 	<%
 		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
@@ -57,10 +56,7 @@
 			<td><%= as.getNoOfSeikai() %></td>
 			<td><%= as.getAnswered() %></td>
 			<td><%= as.getMapAnswer() %></td>
-			<td><%= as.getRefMember() %>
-			<%  if ((as.getRefMember() == null )||(as.getRefMember().get().containsRef(as) == false)) {%>
-			<a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>reChain</a></td>
-			<% } %>
+			<td><%= as.getRefMember() %><a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>'>reChain</a></td>
 			<td><%= toi.getParent().getName() %></td>
 			<td><%= toi.getName() %></td>
 		</tr>

@@ -1,3 +1,4 @@
+<%@page import="com.googlecode.objectify.Ref"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="com.google.appengine.api.users.User"%>
 <%@page import="java.util.ArrayList"%>
@@ -48,8 +49,13 @@ UserService userService = (UserService)request.getAttribute("userService");
 			<td><%=m.geteMail()%></td>
 			<td><%=m.getCreated()%></td>
 			<td><%=m.getModified()%></td>
-			<td><%=m.getRefAnswerSumList()%></td>
-			<td><%=m.getRefAnswerSumListCount()%></td>
+			<td><% List<Ref<AnswerSum>> l = m.getRefAnswerSumList(); %>
+			<table border=0>
+			<% for(Ref<AnswerSum> ras : l) {%>
+			<tr><td><%= ras.get().getId() %></td></tr>
+			
+			<% } %></table></td>
+			<td><a href='/admin/answerSum/list?memberId=<%= m.geteMail() %>'><%=m.getRefAnswerSumListCount()%></a></td>
 		</tr>
 		<%
 			}

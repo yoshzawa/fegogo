@@ -25,6 +25,7 @@ public class AnswerSumRechainAdminServlet extends HttpServlet {
 
 		String answerSumId =request.getParameter("answerSumId");
 		String memberId =request.getParameter("memberId");
+		String redirectTo =request.getParameter("redirectTo");
 		
 		AnswerSum as = AnswerSum.getById(Long.parseLong(answerSumId));
 		Member m = Member.get(memberId);
@@ -35,7 +36,7 @@ public class AnswerSumRechainAdminServlet extends HttpServlet {
 		as.save();
 		m.save();
 		
-		response.sendRedirect("/admin/answerSum/listAll");
+		response.sendRedirect(redirectTo);
 		
 		
 

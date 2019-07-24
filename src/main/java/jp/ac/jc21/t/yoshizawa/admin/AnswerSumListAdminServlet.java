@@ -12,25 +12,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.googlecode.objectify.Ref;
 
 import jp.ac.jc21.t.yoshizawa.objectify.*;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/answerSum/listAll" })
-public class AnswerSumListAllAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/answerSum/list" })
+public class AnswerSumListAdminServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		List<AnswerSum> answerSumList = AnswerSum.loadAll();
+		String memberId = request.getParameter("memberId");
+		
+		List<AnswerSum> answerSumList = Member.get(memberId).getAnswerSumList();
 		request.setAttribute("answerSumList", answerSumList);
-
+		
 		UserService userService = UserServiceFactory.getUserService();
 		request.setAttribute("userService", userService);
 		
-		request.setAttribute("redirectTo", "/admin/answerSum/listAll");
-
+		request.setAttribute("redirectTo", "/admin/answerSum/list?memberId="+ memberId );
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/answerSumListAllAdmin.jsp");
 		rd.forward(request, response);

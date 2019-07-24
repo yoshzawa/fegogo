@@ -83,6 +83,15 @@ public final class Member extends CommonEntity {
 		}
 		return refAnswerSumList;
 	}
+
+	public List<AnswerSum> getAnswerSumList() {
+		List<AnswerSum> list = new ArrayList<>();
+		for(Ref<AnswerSum> as : getRefAnswerSumList()) {
+			list.add(as.get());
+		}
+		return list;	
+	}
+
 	public void newRefAnswerSumList() {
 		setRefAnswerSumList(new ArrayList<>());
 	}
@@ -111,8 +120,27 @@ public final class Member extends CommonEntity {
 
 	public void addRefAnswerSumList(AnswerSum ansSummary) {
 		List<Ref<AnswerSum>> l = getRefAnswerSumList();
-		l.add(Ref.create(ansSummary));
+		boolean b = containsRef(ansSummary, l);
+		if(b == false) {
+			l.add(Ref.create(ansSummary));
+		}
 		setRefAnswerSumList(l);
+	}
+
+	public boolean containsRef( AnswerSum ansSummary) {
+		List<Ref<AnswerSum>> l = getRefAnswerSumList();
+		return containsRef(ansSummary,l);
+	}
+		
+	public boolean containsRef(AnswerSum ansSummary, List<Ref<AnswerSum>> l) {
+		boolean b=false;
+		for (Ref<AnswerSum> ras : l) {
+			if(ras.get().getId() == ansSummary.getId()) {
+				b=true;
+				break;
+			}
+		}
+		return b;
 	}
 
 
