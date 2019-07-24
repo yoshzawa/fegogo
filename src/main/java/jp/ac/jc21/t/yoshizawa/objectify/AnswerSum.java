@@ -5,6 +5,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -54,7 +55,11 @@ public final class AnswerSum extends CommonEntity{
 	}
 	
 	public static AnswerSum getById(long id) {
-		return ofy().load().type(AnswerSum.class).id(id).now();
+		return (AnswerSum) getById(AnswerSum.class,id);
+	}
+	
+	public static List<AnswerSum> loadAll() {
+		return loadAll(AnswerSum.class);
 	}
 
 	/**
