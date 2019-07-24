@@ -56,10 +56,11 @@
 			<td><%= as.getNoOfAnswer() %></td>
 			<td><%= as.getNoOfSeikai() %></td>
 			<td><%= as.getAnswered() %></td>
-			<td><%= as.getMapAnswer() %></td>
+			<td><%= as.getMapRefAnswer() %></td>
 			<td><%= as.getRefMember() %>
 			<%  if ((as.getRefMember() == null )||(as.getRefMember().get().containsRef(as) == false)) {%>
-			<a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>reChain</a></td>
+			<a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>
+			reChain　</a></td>
 			<% } %>
 			<td><%= toi.getParent().getName() %></td>
 			<td><%= toi.getName() %></td>

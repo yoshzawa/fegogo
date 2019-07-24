@@ -16,17 +16,20 @@
 
 	<%
 		List<Member> memberList = (List<Member>) request.getAttribute("memberList");
-UserService userService = (UserService)request.getAttribute("userService");
+		UserService userService = (UserService) request.getAttribute("userService");
 	%>
 	<%
-		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
+		if ((userService != null) && (userService.isUserAdmin() == true)) {
 	%>
-	<h4 align="right">login as <%= userService.getCurrentUser().getNickname() %>(Admin)
-	(<a href="<%= userService.createLogoutURL("/")%>">logout</a>)</h4>
+	<h4 align="right">
+		login as
+		<%=userService.getCurrentUser().getNickname()%>(Admin) (<a
+			href="<%=userService.createLogoutURL("/")%>">logout</a>)
+	</h4>
 	<%
-		} 
+		}
 	%>
-<H1>登録されている学生の一覧</H1>
+	<H1>登録されている学生の一覧</H1>
 	<%
 		if (memberList == null || memberList.size() == 0) {
 	%>
@@ -49,13 +52,27 @@ UserService userService = (UserService)request.getAttribute("userService");
 			<td><%=m.geteMail()%></td>
 			<td><%=m.getCreated()%></td>
 			<td><%=m.getModified()%></td>
-			<td><% List<Ref<AnswerSum>> l = m.getRefAnswerSumList(); %>
-			<table border=0>
-			<% for(Ref<AnswerSum> ras : l) {%>
-			<tr><td><%= ras.get().getId() %></td></tr>
-			
-			<% } %></table></td>
-			<td><a href='/admin/answerSum/list?memberId=<%= m.geteMail() %>'><%=m.getRefAnswerSumListCount()%></a></td>
+			<td>
+				<%
+					List<Ref<AnswerSum>> l = m.getRefAnswerSumList();
+				%>
+				<table>
+					<%
+						for (Ref<AnswerSum> ras : l) {
+									AnswerSum as = ras.get();
+									float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
+					%>
+					<tr>
+						<td><%=as.getId()%> 
+						(<%= String.format("%1$.1f", point) %>)
+						</td>
+					</tr>
+					<%
+						}
+					%>
+				</table>
+			</td>
+			<td><a href='/admin/answerSum/list?memberId=<%=m.geteMail()%>'><%=m.getRefAnswerSumListCount()%></a></td>
 		</tr>
 		<%
 			}
