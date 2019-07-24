@@ -55,7 +55,6 @@ public final class AnswerSum extends CommonEntity{
 	}
 	
 	public static AnswerSum getById(long id) {
-//		return ofy().load().type(AnswerSum.class).id(id).now();
 		return (AnswerSum) getById(AnswerSum.class,id);
 	}
 	

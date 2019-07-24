@@ -35,10 +35,11 @@ UserService userService = (UserService)request.getAttribute("userService");
 	%>
 	<TABLE border=1>
 		<TR>
-			<TD>ID</TD>
-			<TD>YYYYMM</TD>
-			<TD>NAME</TD>
-			<TD>問題登録</TD>
+			<TD>geteMail</TD>
+			<TD>getCreated</TD>
+			<TD>getModified</TD>
+			<TD>getRefAnswerSumList</TD>
+			<TD>数</TD>
 		</TR>
 		<%
 			for (Member m : memberList) {
@@ -47,6 +48,7 @@ UserService userService = (UserService)request.getAttribute("userService");
 			<td><%=m.geteMail()%></td>
 			<td><%=m.getCreated()%></td>
 			<td><%=m.getModified()%></td>
+			<td><%=m.getRefAnswerSumList()%></td>
 			<td><%=m.getRefAnswerSumListCount()%></td>
 		</tr>
 		<%

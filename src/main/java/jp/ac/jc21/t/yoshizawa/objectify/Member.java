@@ -43,7 +43,7 @@ public final class Member extends CommonEntity {
 		return loadAll(Member.class);
 	}
 
-	public static Member getByeMail(String eMail) {
+	private static Member getByeMail(String eMail) {
 		return ofy().load().type(Member.class).filterKey(Key.create(Member.class,eMail)).first().now();
 
 	}
@@ -57,6 +57,14 @@ public final class Member extends CommonEntity {
 		return m;
 	}
 
+	public static Member get(String email) {
+		Member m = getByeMail(email);
+		if(m==null) {
+			m=createMember(email);
+		}
+		return m;
+	}
+	
 	public String geteMail() {
 		return eMail;
 	}
@@ -91,13 +99,7 @@ public final class Member extends CommonEntity {
 		this.created = created;
 	}
 
-	public static Member get(String email) {
-		Member m = getByeMail(email);
-		if(m==null) {
-			m=createMember(email);
-		}
-		return m;
-	}
+
 
 	public Date getModified() {
 		return modified;
