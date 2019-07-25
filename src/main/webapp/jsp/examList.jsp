@@ -25,11 +25,12 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1>
-		<TR>
+	<TABLE border=1 class="table table-striped table-hover">
+		<thead class="thead-dark"><tr>
 			<TH>試験名</TH>
 			<TH>問題登録</TH>
-		</TR>
+			</TR>
+		</thead>
 		<%
 			for (Exam e : examList) {
 		%>

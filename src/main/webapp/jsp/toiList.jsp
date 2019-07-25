@@ -32,12 +32,13 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1>
-		<TR>
+	<TABLE border=1 class="table table-striped table-hover">
+		<thead class="thead-dark"><tr>
 			<TH>問番号</TH>
 			<TH>テーマ</TH>
 			<TH>設問数</TH>
-		</TR>
+			</TR>
+		</thead>
 		<%
 			Set<Long> toiKeySet = toiMap.keySet();
 				for (Long l : toiKeySet) {

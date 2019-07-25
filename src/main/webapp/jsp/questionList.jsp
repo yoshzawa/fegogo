@@ -42,11 +42,12 @@
 		<input type="hidden" name="qId" value="<%= parent.getId() %>" />
 		
 		
-		<table border=1>
-			<tr>
+	<TABLE border=1 class="table table-striped table-hover">
+		<thead class="thead-dark"><tr>
 				<th>設問</th>
 				<th>解答欄</th>
-			</tr>
+			</TR>
+		</thead>
 
 			<%
 				//			for (Question q : list) {
