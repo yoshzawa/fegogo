@@ -15,13 +15,13 @@
 <body>
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
-		String email = (String) request.getAttribute("email");
 		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
 	%>
-<h4 align="right">
-<%= email %>としてサインイン（<a href="/openidSignOut">Sign out</a>）
-</h4>
+	
+<%@ include file="common/headerLogin.jsp"%>
+
 <H1>登録されている試験の一覧</H1>
 
 	<%
@@ -31,19 +31,18 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1>
-		<TR>
+	<TABLE border=1 class="table table-striped table-hover">
+		<thead class="thead-dark"><tr>
 			<TH>試験名</TH>
 			<TH>問題登録</TH>
-		</TR>
+			</TR>
+		</thead>
 		<%
 			for (Exam e : examList) {
 		%>
 		<tr>
 			<td><a href="/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
-			<td>
-				<%= e.getToiRefListSize() %>
-			</td>
+			<td><%= e.getToiRefListSize() %></td>
 		</tr>
 		<%
 			}
@@ -58,7 +57,8 @@
 <% if ((answerSumList == null) || (answerSumList == null)){ %>
 	試験が解答されていません
 <% } else {%>
-	<TABLE border=1>
+	<TABLE border=1 class="table table-striped table-hover">
+	  <thead class="thead-dark">
 		<TR>
 			<TH>試験名</TH>
 			<TH>問</TH>
@@ -66,20 +66,26 @@
 			<TH>解答日</TH>
 			<TH>正解率</TH>
 		</TR>
+	  </thead>
+	
 	<% 		for (AnswerSum as : answerSumList) {
 									float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
-									SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	%>
-				<tr>
-				<td><%= as.getRefToi().get().getParent().getName() %></td>
-				<td><%= as.getRefToi().get().getNo() %></td>
-				<td><%= as.getRefToi().get().getName() %></td>
-				<td><%= sdf.format(as.getAnswered()) %></td>
-				<td>						<%= String.format("%1$.1f", point) %>
-				</td>
-				</tr>
-			<%}%>
-<% }%>
+		<tr>
+			<td><%=as.getRefToi().get().getParent().getName()%></td>
+			<td><%=as.getRefToi().get().getNo()%></td>
+			<td><%=as.getRefToi().get().getName()%></td>
+			<td><%=sdf.format(as.getAnswered())%></td>
+			<td align="right"><%=String.format("%1$.1f", point)%></td>
+		</tr>
+		<%
+			}
+		%>
+<%
+	}
+%>
 
 </body>
+　<%@ include file="common/footer.jsp"%>
+
 </html>

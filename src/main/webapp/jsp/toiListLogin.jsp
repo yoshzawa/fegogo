@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.AnswerSum"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.*"%>
@@ -18,12 +19,12 @@
 		Exam parent = (Exam) request.getAttribute("parent");
 		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
-		String email = (String)request.getAttribute("email");
 		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
 	%>
-	<h4 align="right">
-<%= email %>としてサインイン（<a href="/openidSignOut">Sign out</a>）
-</h4>
+<%@ include file="common/headerLogin.jsp"%>
+
 	<H1>登録されている問の一覧</H1>
 	
 	<p>選択された試験：<%= parent.getName() %> <a href="/exam/list">(選択解除する)</a>
@@ -36,12 +37,13 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1>
-		<TR>
+	<TABLE border=1 class="table table-striped table-hover">
+		<thead class="thead-dark">		<TR>
 			<TH>問番号</TH>
 			<TH>テーマ</TH>
 			<TH>設問数</TH>
-		</TR>
+			</TR>
+		</thead>
 		<%
 			Set<Long> toiKeySet = toiMap.keySet();
 				for (Long l : toiKeySet) {
@@ -66,13 +68,18 @@
 <% if ((answerSumList == null) || (answerSumList.size() == 0)){ %>
 	試験が解答されていません
 <% } else {%>
-	<TABLE border=1>
-		<TR>
-			<TH>試験名</TH>
-			<TH>問</TH>
-			<TH>内容</TH>
-			<TH>正解率</TH>
-		</TR>
+	<TABLE border=1 class="table table-striped table-hover">
+		<thead class="thead-dark">
+			<TR>
+				<TH>試験名</TH>
+				<TH>問</TH>
+				<TH>内容</TH>
+				<TH>解答日</TH>
+
+				<TH>正解率</TH>
+			</TR>
+		</thead>
+
 		<%
 			for (AnswerSum as : answerSumList) {
 					Toi toi = as.getRefToi().get();
@@ -82,15 +89,17 @@
 			<td><%=toi.getParent().getName()%></td>
 			<td><%=toi.getNo()%></td>
 			<td><%=toi.getName()%></td>
-			<td><%=String.format("%1$.1f", point)%></td>
+			<td><%=sdf.format(as.getAnswered())%></td>
+			<td align="right"><%=String.format("%1$.1f", point)%></td>
 		</tr>
 		<%
 			}
 		%>
-<%
+		<%
 	}
 %>
-
-
+	
 </body>
+　<%@ include file="common/footer.jsp"%>
+
 </html>
