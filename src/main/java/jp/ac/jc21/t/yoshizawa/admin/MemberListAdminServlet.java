@@ -26,9 +26,6 @@ public class MemberListAdminServlet extends HttpServlet {
 		List<Member> memberList = Member.loadAll();
 		request.setAttribute("memberList", memberList);
 
-		UserService userService = UserServiceFactory.getUserService();
-		request.setAttribute("userService", userService);
-
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/memberListAdmin.jsp");
 		rd.forward(request, response);
 

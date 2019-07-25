@@ -29,6 +29,8 @@
 	<%
 		}
 	%>
+	<%@ include file="common/headerAdmin.jsp"%><br>
+	
 	<H1>登録されている学生の一覧</H1>
 	<%
 		if (memberList == null || memberList.size() == 0) {
@@ -85,4 +87,5 @@
 	<hr />
 
 </body>
+　<%@ include file="common/footer.jsp"%>
 </html>

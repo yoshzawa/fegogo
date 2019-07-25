@@ -16,17 +16,11 @@
 
 	<%
 		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
-		UserService userService = (UserService) request.getAttribute("userService");
 		String redirectTo = (String) request.getAttribute("redirectTo");
 	%>
-	<%
-		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
-	%>
-	<h4 align="right">login as <%= userService.getCurrentUser().getNickname() %>(Admin)
-	(<a href="<%= userService.createLogoutURL("/")%>">logout</a>)</h4>
-	<%
-		} 
-	%>
+
+	<%@ include file="common/headerAdmin.jsp"%><br>
+	
 <H1>登録されている解答の一覧</H1>
 	<%
 		if (answerSumList == null || answerSumList.size() == 0) {
@@ -83,4 +77,5 @@
 	<hr />
 
 </body>
+　<%@ include file="common/footer.jsp"%>
 </html>
