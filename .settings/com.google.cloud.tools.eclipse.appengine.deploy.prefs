@@ -6,4 +6,4 @@ project.bucket=
 project.id=fegogo
 project.previousVersion.stop=true
 project.promote=true
-project.version=5
+project.version=6

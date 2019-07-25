@@ -37,7 +37,7 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1 class="table table-striped table-hover">
+	<TABLE border=1 class="table table-striped table-hover table-responsive">
 		<thead class="thead-dark">		<TR>
 			<TH>問番号</TH>
 			<TH>テーマ</TH>
@@ -68,7 +68,7 @@
 <% if ((answerSumList == null) || (answerSumList.size() == 0)){ %>
 	試験が解答されていません
 <% } else {%>
-	<TABLE border=1 class="table table-striped table-hover">
+	<TABLE border=1 class="table table-striped table-hover table-responsive">
 		<thead class="thead-dark">
 			<TR>
 				<TH>試験名</TH>

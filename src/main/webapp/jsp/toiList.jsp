@@ -32,7 +32,7 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1 class="table table-striped table-hover">
+	<TABLE border=1 class="table table-striped table-hover table-responsive">
 		<thead class="thead-dark"><tr>
 			<TH>問番号</TH>
 			<TH>テーマ</TH>

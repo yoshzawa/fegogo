@@ -44,7 +44,7 @@
 		<input type="hidden" name="toiId" value="<%= toi.getId() %>" />
 
 
-		<TABLE border=1 class="table table-striped table-hover">
+	<TABLE border=1 class="table table-striped table-hover table-responsive">
 			<thead class="thead-dark">
 				<TR>
 					<th>設問</th>

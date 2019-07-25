@@ -31,7 +31,7 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1 class="table table-striped table-hover">
+	<TABLE border=1 class="table table-striped table-hover table-responsive">
 		<thead class="thead-dark"><tr>
 			<TH>試験名</TH>
 			<TH>問題登録</TH>
@@ -57,7 +57,7 @@
 <% if ((answerSumList == null) || (answerSumList == null)){ %>
 	試験が解答されていません
 <% } else {%>
-	<TABLE border=1 class="table table-striped table-hover">
+	<TABLE border=1 class="table table-striped table-hover table-responsive">
 	  <thead class="thead-dark">
 		<TR>
 			<TH>試験名</TH>
@@ -67,10 +67,11 @@
 			<TH>正解率</TH>
 		</TR>
 	  </thead>
-	
-	<% 		for (AnswerSum as : answerSumList) {
-									float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
-	%>
+
+		<%
+			for (AnswerSum as : answerSumList) {
+					float point = (100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
+		%>
 		<tr>
 			<td><%=as.getRefToi().get().getParent().getName()%></td>
 			<td><%=as.getRefToi().get().getNo()%></td>
@@ -78,12 +79,9 @@
 			<td><%=sdf.format(as.getAnswered())%></td>
 			<td align="right"><%=String.format("%1$.1f", point)%></td>
 		</tr>
-		<%
-			}
-		%>
-<%
-	}
-%>
+		<% 			}		%>
+		</TABLE>
+		<%	}%>
 
 </body>
 　<%@ include file="common/footer.jsp"%>

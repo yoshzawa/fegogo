@@ -25,7 +25,7 @@
 <h3>	<%= ansSummary.getNoOfAnswer()  %>問中<%= ansSummary.getNoOfSeikai()  %>問正解</h3>
 	
 	<% Set<Integer> keyset = answer.keySet();  %>
-	<TABLE border=1 class="table table-striped table-hover">
+	<TABLE border=1 class="table table-striped table-hover table-responsive">
 		<thead class="thead-dark">
 			<tr>
 				<th>設問</th>
