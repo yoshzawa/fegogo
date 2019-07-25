@@ -10,14 +10,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
 <body>
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
 	%>
-<h4 align="right">
-<a href="/openidSignIn">Sign in</a>
-</h4>
-
+<%@ include file="common/header.jsp"%>
 <H1>登録されている試験の一覧</H1>
 
 	<%
@@ -51,4 +49,6 @@
 
 
 </body>
+　<%@ include file="common/footer.jsp"%>
+
 </html>
