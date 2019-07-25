@@ -15,9 +15,8 @@
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
 	%>
-<%@ include file="common/header.jsp"%>
-	<div class="card">
-    <div class="card-header">登録されている試験の一覧</div>
+<%@ include file="common/header.jsp"%><br>
+    <h1>登録されている試験の一覧</h1>
 
 	<%
 		if (examList == null || examList.size() == 0) {
@@ -26,12 +25,8 @@
 	<%
 		} else {
 	%>
-	<div class="container">
-	  <div class="row">
-	    <div class="col-sm"></div>
-	
-    <div class="col-sm">
-	<TABLE border=1 class="table table-striped table-hover table-responsive">
+
+	<TABLE border=1 class="table table-striped table-hover table-responsive" align="center" >
 		<thead class="thead-dark"><tr>
 			<TH>試験名</TH>
 			<TH>問題登録</TH>
@@ -49,14 +44,12 @@
 		<%
 			}
 		%>
-	</TABLE>	</div>
-		    <div class="col-sm"></div>
+	</TABLE>	
 	
-	</div>
+
 	<%
 		}
 	%>
-	</div>
 
 
 </body>

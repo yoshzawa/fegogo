@@ -4,7 +4,7 @@
 <%
 		String email = (String) request.getAttribute("email");
 %>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
   <span class="navbar-brand mb-0 h1">Navigation</span>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
@@ -15,5 +15,5 @@
     </div>
   </div>
     <span class="navbar-text"><%= email %>としてサインイン</span>
-  <a class="btn btn-info d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="/openidSignOut">Sign out</a>
+  <a class="btn btn-danger d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="/openidSignOut">Sign out</a>
 </nav>
