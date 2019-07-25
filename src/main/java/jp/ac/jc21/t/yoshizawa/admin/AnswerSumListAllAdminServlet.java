@@ -26,9 +26,7 @@ public class AnswerSumListAllAdminServlet extends HttpServlet {
 		List<AnswerSum> answerSumList = AnswerSum.loadAll();
 		request.setAttribute("answerSumList", answerSumList);
 
-		UserService userService = UserServiceFactory.getUserService();
-		request.setAttribute("userService", userService);
-		
+
 		request.setAttribute("redirectTo", "/admin/answerSum/listAll");
 
 

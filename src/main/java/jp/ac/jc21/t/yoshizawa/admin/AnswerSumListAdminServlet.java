@@ -29,9 +29,6 @@ public class AnswerSumListAdminServlet extends HttpServlet {
 		List<AnswerSum> answerSumList = Member.get(memberId).getAnswerSumList();
 		request.setAttribute("answerSumList", answerSumList);
 		
-		UserService userService = UserServiceFactory.getUserService();
-		request.setAttribute("userService", userService);
-		
 		request.setAttribute("redirectTo", "/admin/answerSum/list?memberId="+ memberId );
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/answerSumListAllAdmin.jsp");

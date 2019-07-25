@@ -48,9 +48,6 @@ public class QuestionListAdminServlet extends HttpServlet {
 		request.setAttribute("questionMap", qMap);
 		request.setAttribute("exam", exam);
 
-		UserService userService = UserServiceFactory.getUserService();
-		request.setAttribute("userService", userService);
-
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin.jsp");
 		rd.forward(request, response);
 

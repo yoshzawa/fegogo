@@ -26,11 +26,9 @@ public class AnswerSumDumpAdminServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		response.setContentType("text/csv; charset=Windows-31J");
-//		response.setCharacterEncoding("Windows-31J");
 		PrintWriter out = response.getWriter();
 
 		List<AnswerSum> answerSumList = AnswerSum.loadAll();
-//		request.setAttribute("answerSumList", answerSumList);
 
 		UserService userService = UserServiceFactory.getUserService();
 		

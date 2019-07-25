@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-	UserService userService = UserServiceFactory.getUserService();
+	UserService us = UserServiceFactory.getUserService();
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
@@ -20,9 +20,9 @@
     </div>
   </div>
     <span class="navbar-text">
-    <%= userService.getCurrentUser().getNickname() %>(Admin)としてサインイン
+    <%= us.getCurrentUser().getNickname() %>(Admin)としてサインイン
     </span>
-  <a class="btn btn-danger d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="<%= userService.createLogoutURL("/")%>">Sign out</a>
+  <a class="btn btn-danger d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="<%= us.createLogoutURL("/")%>">Sign out</a>
 </nav>
 
 
