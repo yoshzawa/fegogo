@@ -20,9 +20,8 @@
 		Exam exam = (Exam) request.getAttribute("exam");
 		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
 	%>
-	<h4 align="right">
-<a href="/openidSignIn">Sign in</a>
-</h4>
+<%@ include file="common/header.jsp"%>
+
 	<H1>登録されている設問の一覧</H1>
 
 
@@ -97,4 +96,6 @@
 
 
 </body>
+　<%@ include file="common/footer.jsp"%>
+
 </html>

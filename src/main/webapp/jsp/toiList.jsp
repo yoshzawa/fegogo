@@ -18,9 +18,8 @@
 		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
 	%>
-	<h4 align="right">
-<a href="/openidSignIn">Sign in</a>
-</h4>
+<%@ include file="common/header.jsp"%>
+
 	<H1>登録されている問の一覧</H1>
 	
 	<p>選択された試験：<%= parent.getName() %> <a href="/exam/list">(選択解除する)</a>
@@ -60,4 +59,6 @@
 
 
 </body>
+　<%@ include file="common/footer.jsp"%>
+
 </html>
