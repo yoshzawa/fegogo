@@ -11,5 +11,5 @@
       <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">個人結果分析</a>
     </div>
   </div>
-<a href="/openidSignIn">Sign in</a>
+  <a class="btn btn-info d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="/openidSignIn">Sign in</a>
 </nav>
