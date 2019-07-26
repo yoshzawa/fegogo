@@ -14,11 +14,11 @@ import com.googlecode.objectify.Ref;
  *
  */
 public class AnswerFactory extends CommonEntity {
-	public static Answer getById(long id) {
+	public static final Answer getById(long id) {
 		return ofy().load().type(Answer.class).id(id).now();
 	}
 
-	public static Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question, String[] answerArray,
+	public static final Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question, String[] answerArray,
 			long no) {
 		int answerIntArray[] = null;
 		if (answerArray != null) {
@@ -36,7 +36,7 @@ public class AnswerFactory extends CommonEntity {
 		return createAnswer(name, refAnswerSum, Ref.create(question), answerIntArray, noString);
 	}
 
-	public static Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Ref<Question> refQuestion,
+	public static final Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Ref<Question> refQuestion,
 			int[] answerArray, String no) {
 		Answer a = new Answer();
 		a.setName(name);

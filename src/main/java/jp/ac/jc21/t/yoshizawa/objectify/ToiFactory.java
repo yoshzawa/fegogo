@@ -11,7 +11,7 @@ import com.googlecode.objectify.Ref;
 public class ToiFactory extends CommonEntity{
 
 	
-	public static Toi createToi(Exam parent, Long no, String name) {
+	public static final Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
 		t.setNo(no);
 		t.setName(name);
@@ -21,7 +21,7 @@ public class ToiFactory extends CommonEntity{
 		return t;
 	}
 	
-	public static TreeMap<Long, Toi> getToiMap(long parentId) {
+	public static final TreeMap<Long, Toi> getToiMap(long parentId) {
 		TreeMap<Long, Toi> toiMap = new TreeMap<>();
 
 		Exam e = Exam.getById(parentId);
@@ -36,11 +36,11 @@ public class ToiFactory extends CommonEntity{
 		return toiMap;
 	}
 	
-	public static Toi getById(long id) {
+	public static final Toi getById(long id) {
 		return ofy().load().type(Toi.class).id(id).now();
 	}
 	
-	public static TreeMap<Long, Question> getQuestionMap(Toi parent) {
+	public static final TreeMap<Long, Question> getQuestionMap(Toi parent) {
 		TreeMap<Long, Question> qMap = new TreeMap<>();
 		List<Ref<Question>> list = parent.getQuestionRefList();
 
@@ -52,7 +52,7 @@ public class ToiFactory extends CommonEntity{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<Toi> loadAll() {
+	public static final List<Toi> loadAll() {
 		return loadAll(Toi.class, "no");
 	}
 }
