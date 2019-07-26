@@ -24,9 +24,6 @@ public class ExamListAdminServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-//		List<Exam> examList = Exam.loadAll();
-//		request.setAttribute("examList", examList);
-		
 		Map<Long,Exam> examMap = Exam.loadAll();
 		request.setAttribute("examMap", examMap);
 

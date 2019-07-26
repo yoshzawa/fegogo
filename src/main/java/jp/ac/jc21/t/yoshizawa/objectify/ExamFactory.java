@@ -31,7 +31,7 @@ public abstract class ExamFactory extends CommonEntity {
 		return exam;
 	}
 
-	public static final Map<Long,Exam> loadAll() {
+	public static final Map<Long, Exam> loadAll() {
 		// https://cloud.google.com/appengine/docs/standard/java/memcache/examples?hl=ja
 
 		List<Exam> exams = null;
@@ -45,41 +45,46 @@ public abstract class ExamFactory extends CommonEntity {
 		}
 	}
 
-	private static boolean isCached(MemcacheService syncCache, String key) {
+	private static final boolean isCached(MemcacheService syncCache, String key) {
 		return syncCache.get(key) != null;
 	}
 
 	@SuppressWarnings("unchecked")
-	private static Map<Long, Exam> loadExamsFromCache(MemcacheService syncCache) {
+	private static final Map<Long, Exam> loadExamsFromCache(MemcacheService syncCache) {
 
 		Map<Long, Exam> examMap = (Map<Long, Exam>) syncCache.get(cacheKeyName);
-/*		List<Exam> list = new ArrayList<Exam>();
-		Set<Long> keyset = examMap.keySet();
-		for (Long k : keyset) {
-			list.add(examMap.get(k));
-		}
-*/
 		return (examMap);
 	}
 
-	private static Map<Long,Exam> saveExamstoCache(List<Exam> exams, MemcacheService syncCache) {
+	private static final Map<Long, Exam> saveExamstoCache(List<Exam> exams, MemcacheService syncCache) {
 
 		TreeMap<Long, Exam> examMap = new TreeMap<>();
+		TreeMap<Long, Exam> examMapKey = new TreeMap<>();
 		for (Exam e : exams) {
+			examMapKey.put(e.getId(), e);
 			examMap.put(e.getYYYYMM(), e);
 		}
 
 		syncCache.put(cacheKeyName, examMap);
+		syncCache.put(cacheKeyName + "key", examMapKey);
 		return examMap;
 	}
 
 	private static final List<Exam> loadAllFromOfy() {
-//		return ofy().load().type(Exam.class).order("YYYYMM").list();
 		return ofy().load().type(Exam.class).list();
 	}
 
 	public static final Exam getById(long id) {
-		return ofy().load().type(Exam.class).id(id).now();
-	}
+		List<Exam> exams = null;
+		MemcacheService syncCache = getCache();
 
+		if (isCached(syncCache, cacheKeyName) == false) {
+			exams = loadAllFromOfy();
+			saveExamstoCache(exams, syncCache);
+		}
+		Map<Long, Exam> examMapKey = (Map<Long, Exam>) syncCache.get(cacheKeyName+"key");
+
+		Exam exam = examMapKey.get(id);
+		return exam;
+	}
 }
