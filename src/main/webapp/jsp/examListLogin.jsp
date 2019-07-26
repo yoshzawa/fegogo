@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.AnswerSum"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,35 +15,36 @@
 </head>
 <body>
 	<%
-		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
+		Map<Long, Exam> examMap = (Map<Long, Exam>) request.getAttribute("examMap");
 		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
 	%>
-	
-<%@ include file="common/headerLogin.jsp"%>
 
-<H1>登録されている試験の一覧</H1>
+	<%@ include file="common/headerLogin.jsp"%>
+
+	<H1>登録されている試験の一覧</H1>
 
 	<%
-		if (examList == null || examList.size() == 0) {
+	if (examMap == null || examMap.size() == 0) {
 	%>
 	試験が登録されていません
 	<%
 		} else {
 	%>
-	<TABLE border=1 class="table table-striped table-hover table-responsive">
-		<thead class="thead-dark"><tr>
-			<TH>試験名</TH>
-			<TH>問題登録</TH>
+	<TABLE border="1"
+		class="table table-striped table-hover table-responsive">
+		<thead class="thead-dark">
+			<tr>
+				<TH>試験名</TH>
+				<TH>問題登録</TH>
 			</TR>
 		</thead>
 		<%
-			for (Exam e : examList) {
-		%>
+		for (Long k : examMap.keySet()) {
+			Exam e = examMap.get(k);		%>
 		<tr>
 			<td><a href="/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
-			<td><%= e.getToiRefListSize() %></td>
+			<td><%=e.getToiRefListSize()%></td>
 		</tr>
 		<%
 			}
@@ -52,21 +54,26 @@
 		}
 	%>
 
-<H1>解答済み試験の一覧</H1>
+	<H1>解答済み試験の一覧</H1>
 
-<% if ((answerSumList == null) || (answerSumList == null)){ %>
+	<%
+		if ((answerSumList == null) || (answerSumList == null)) {
+	%>
 	試験が解答されていません
-<% } else {%>
-	<TABLE border=1 class="table table-striped table-hover table-responsive">
-	  <thead class="thead-dark">
-		<TR>
-			<TH>試験名</TH>
-			<TH>問</TH>
-			<TH>内容</TH>
-			<TH>解答日</TH>
-			<TH>正解率</TH>
-		</TR>
-	  </thead>
+	<%
+		} else {
+	%>
+	<TABLE border="1"
+		class="table table-striped table-hover table-responsive">
+		<thead class="thead-dark">
+			<TR>
+				<TH>試験名</TH>
+				<TH>問</TH>
+				<TH>内容</TH>
+				<TH>解答日</TH>
+				<TH>正解率</TH>
+			</TR>
+		</thead>
 
 		<%
 			for (AnswerSum as : answerSumList) {
@@ -79,11 +86,15 @@
 			<td><%=sdf.format(as.getAnswered())%></td>
 			<td align="right"><%=String.format("%1$.1f", point)%></td>
 		</tr>
-		<% 			}		%>
-		</TABLE>
-		<%	}%>
+		<%
+			}
+		%>
+	</TABLE>
+	<%
+		}
+	%>
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 
 </html>

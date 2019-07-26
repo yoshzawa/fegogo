@@ -2,6 +2,7 @@ package jp.ac.jc21.t.yoshizawa;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,9 +23,12 @@ public class ExamListServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		List<Exam> examList = Exam.loadAll();
-		request.setAttribute("examList", examList);
-		
+//		List<Exam> examList = Exam.loadAll();
+//		request.setAttribute("examList", examList);
+
+		Map<Long,Exam> examMap = Exam.loadAll();
+		request.setAttribute("examMap", examMap);
+
 		HttpSession session = request.getSession();
 		String email = (String)session.getAttribute("email");
 		
@@ -37,7 +41,6 @@ public class ExamListServlet extends HttpServlet {
 			Member member=Member.get(email);
 			List<AnswerSum> asl = member.getAnswerSumList();
 			request.setAttribute("answerSumList", asl);
-			
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListLogin.jsp");
 			rd.forward(request, response);
