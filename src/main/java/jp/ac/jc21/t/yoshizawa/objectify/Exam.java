@@ -3,6 +3,7 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,9 +18,10 @@ import com.googlecode.objectify.Key;
  *
  */
 
+@SuppressWarnings("serial")
 @Entity
 @Cache
-public final class Exam extends ExamFactory {
+public final class Exam extends ExamFactory implements Serializable{
 
 	@Id
 	Long id;
