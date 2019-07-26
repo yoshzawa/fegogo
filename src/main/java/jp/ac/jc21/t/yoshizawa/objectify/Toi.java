@@ -23,7 +23,7 @@ import com.googlecode.objectify.annotation.*;
 @Entity
 @Cache
 
-public final class Toi extends CommonEntity {
+public final class Toi extends ToiFactory {
 	@Id
 	Long id;
 	@Index
@@ -31,48 +31,23 @@ public final class Toi extends CommonEntity {
 	private String name;
 	private Date created;
 	private Ref<Exam> parent;
-//	private List<Question> questionList;
 	private List<Ref<Question>> questionRefList;
 
-	public static Toi createToi(Exam parent, Long no, String name) {
-		Toi t = new Toi();
-		t.setNo(no);
-		t.setName(name);
-		t.setCreated(new Date());
-		t.setParent(parent);
-		t.newQuestionRefList();
-		return t;
-	}
+
 
 	@SuppressWarnings("unchecked")
 	public static List<Toi> loadAll() {
 		return loadAll(Toi.class, "no");
 	}
 
-	public static TreeMap<Long, Toi> getToiMap(long parentId) {
-		TreeMap<Long, Toi> toiMap = new TreeMap<>();
 
-		Exam e = Exam.getById(parentId);
-		List<Ref<Toi>> toiRefList = e.getToiRefList();
-
-		if (toiRefList != null) {
-
-			for (Ref<Toi> t : toiRefList) {
-				Toi tt = t.get();
-				toiMap.put(tt.getNo(), tt);
-			}
-		}
-		return toiMap;
-	}
 
 	public Toi save() {
 		Key<Toi> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
 
-	public static Toi getById(long id) {
-		return ofy().load().type(Toi.class).id(id).now();
-	}
+
 
 	public Long getId() {
 		return id;
@@ -121,7 +96,7 @@ public final class Toi extends CommonEntity {
 		this.parent = parent;
 	}
 
-	private void setParent(Exam parent) {
+	public void setParent(Exam parent) {
 		setParent(Ref.create(parent));
 	}
 
@@ -162,14 +137,5 @@ public final class Toi extends CommonEntity {
 		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
 
-	public static TreeMap<Long, Question> getQuestionMap(Toi parent) {
-		TreeMap<Long, Question> qMap = new TreeMap<>();
-		List<Ref<Question>> list = parent.getQuestionRefList();
 
-		for (Ref<Question> qq : list) {
-			Question q = qq.get();
-			qMap.put(q.getNo(), q);
-		}
-		return qMap;
-	}
 }

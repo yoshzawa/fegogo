@@ -18,7 +18,6 @@ public abstract class ExamFactory extends CommonEntity {
 		Exam exam = new Exam();
 		exam.setCreated(new Date());
 		exam.setName(name);
-//		exam.newToiList();
 		exam.newToiRefList();
 		exam.setYYYYMM(YYYYMM);
 		return exam;
@@ -32,8 +31,6 @@ public abstract class ExamFactory extends CommonEntity {
 		return ofy().load().type(Exam.class).id(id).now();
 	}
 	
-	
-
 }
 
 
