@@ -51,4 +51,8 @@ public class ToiFactory extends CommonEntity{
 		return qMap;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static List<Toi> loadAll() {
+		return loadAll(Toi.class, "no");
+	}
 }

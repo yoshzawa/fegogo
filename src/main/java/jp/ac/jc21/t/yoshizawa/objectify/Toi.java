@@ -35,10 +35,7 @@ public final class Toi extends ToiFactory {
 
 
 
-	@SuppressWarnings("unchecked")
-	public static List<Toi> loadAll() {
-		return loadAll(Toi.class, "no");
-	}
+
 
 
 

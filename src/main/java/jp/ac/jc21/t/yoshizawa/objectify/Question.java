@@ -8,9 +8,13 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 
+/**
+ * @author t.yoshizawa
+ *
+ */
 @Entity
 @Cache
-public final class Question extends CommonEntity {
+public final class Question extends QuestionFactory {
 	@Id
 	Long id;
 	@Index
@@ -21,41 +25,7 @@ public final class Question extends CommonEntity {
 	private Ref<Toi> parent;
 	private Set<Integer> answerSet;
 
-	static {
-	}
-
 	public Question() {
-	}
-
-	public static Question createQuestion(Toi parent, long no, String name, long noOfOption, int answer) {
-		Question q = createQuestion(parent, no, name, noOfOption);
-		q.addAnswerSet(answer);
-		return q;
-	}
-
-	public static Question createMultiQuestion(Toi parent, long no, String name, long noOfOption, Integer[] answers) {
-		Question q = createQuestion(parent, no, name, noOfOption);
-		q.addAnswerSet(answers);
-		return q;
-	}
-
-	private static Question createQuestion(Toi parent, long no, String name, long noOfOption) {
-		Question q = new Question();
-		q.setCreated(new Date());
-		q.setNo(no);
-		q.setName(name);
-		q.setNoOfOption(noOfOption);
-		q.setParent(parent);
-		return q;
-	}
-
-	public Question save() {
-		Key<Question> key = ofy().save().entity(this).now();
-		return getById(key.getId());
-	}
-
-	public static Question getById(long id) {
-		return ofy().load().type(Question.class).id(id).now();
 	}
 
 	/**
@@ -120,8 +90,6 @@ public final class Question extends CommonEntity {
 	public boolean isMulti() {
 		return getAnswerlength() != 1;
 	}
-
-
 
 	/**
 	 * @return the noOfOption
@@ -193,6 +161,12 @@ public final class Question extends CommonEntity {
 
 	}
 
+	/**
+	 * 正解に含まれているか調べる
+	 * 
+	 * @param i ユーザーの解答
+	 * @return 含まれていればtrue
+	 */
 	public boolean isCorrect(int i) {
 		Set<Integer> as = getAnswerSet();
 		return as.contains(i);
@@ -210,6 +184,11 @@ public final class Question extends CommonEntity {
 			s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
 		}
 		return s;
+	}
+
+	public Question save() {
+		Key<Question> key = ofy().save().entity(this).now();
+		return getById(key.getId());
 	}
 
 }
