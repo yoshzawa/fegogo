@@ -22,6 +22,7 @@
 		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
 	%>
 
+
 <%@ include file="common/headerLogin.jsp"%>
 
 	<H1>登録されている設問の一覧</H1>
@@ -40,6 +41,7 @@
 		} else {
 	%>
 	<form method="post" action="/answer">
+
 		<input type="hidden" name="userId" value="<%= email %>" />
 		<input type="hidden" name="toiId" value="<%= toi.getId() %>" />
 
@@ -61,6 +63,7 @@
 			<tr>
 				<td><%=q.getName()%></td>
 				<td>
+
 				<div class="bd-example">
 				
 <span class="border border-primary">
