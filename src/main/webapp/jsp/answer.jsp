@@ -18,30 +18,36 @@
 	<%
 	AnswerSum ansSummary = (AnswerSum)request.getAttribute("ansSummary");
 	Map<Integer,Answer> answer = ansSummary.getMapAnswer();
-	String email = (String)request.getAttribute("email");
 	%>
-		<h4 align="right">
-<%= email %>としてサインイン（<a href="/openidSignOut">Sign out</a>）
-</h4>
-<H1>解答を登録しました</H1>
+<%@ include file="common/headerLogin.jsp"%>
 
-	
-	<%= ansSummary.getNoOfAnswer()  %>問中<%= ansSummary.getNoOfSeikai()  %>問正解<br />
+<H1>解答を登録しました</H1>
+<h3>	<%= ansSummary.getNoOfAnswer()  %>問中<%= ansSummary.getNoOfSeikai()  %>問正解</h3>
 	
 	<% Set<Integer> keyset = answer.keySet();  %>
-	<table border=1>
-	<% for(Integer i : keyset){ %>
-	<% Answer a =answer.get(i); %>
-	<tr>
-	<th> <%= a.getRefQuestion().get().getName() %> </th>
-	<td> <%= a.getRefQuestion().get().getAnswers() %> </td>
-	<td> <%= a.getAnswers() %> </td>
-	</tr>
-	<% }%>
+	<TABLE border=1 class="table table-striped table-hover table-responsive">
+		<thead class="thead-dark">
+			<tr>
+				<th>設問</th>
+				<th>正解</th>
+				<th>解答</th>
+			</tr>
+		</thead>
+
+		<% for(Integer i : keyset){ %>
+		<% Answer a =answer.get(i); %>
+		<tr>
+			<th><%= a.getRefQuestion().get().getName() %></th>
+			<td><%= a.getRefQuestion().get().getAnswers() %></td>
+			<td><%= a.getAnswers() %></td>
+		</tr>
+		<% }%>
 	</table>
-	
+
 	<a href="/toi/list?parentId=<%= ansSummary.getRefToi().get().getParent().getId() %>">戻る</a>
 
 
 </body>
+　<%@ include file="common/footer.jsp"%>
+
 </html>

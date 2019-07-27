@@ -10,15 +10,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
 <body>
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
 	%>
-<h4 align="right">
-<a href="/openidSignIn">Sign in</a>
-</h4>
-
-<H1>登録されている試験の一覧</H1>
+<%@ include file="common/header.jsp"%><br>
+    <h1>登録されている試験の一覧</h1>
 
 	<%
 		if (examList == null || examList.size() == 0) {
@@ -27,11 +25,13 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1>
-		<TR>
+
+	<TABLE border=1 class="table table-striped table-hover table-responsive" align="center" >
+		<thead class="thead-dark"><tr>
 			<TH>試験名</TH>
 			<TH>問題登録</TH>
-		</TR>
+			</TR>
+		</thead>
 		<%
 			for (Exam e : examList) {
 		%>
@@ -44,11 +44,15 @@
 		<%
 			}
 		%>
-	</TABLE>
+	</TABLE>	
+	
+
 	<%
 		}
 	%>
 
 
 </body>
+　<%@ include file="common/footer.jsp"%>
+
 </html>
