@@ -1,3 +1,5 @@
+<%@page import="com.googlecode.objectify.Ref"%>
+<%@page import="java.util.Map"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="com.google.appengine.api.users.User"%>
@@ -56,8 +58,13 @@
 			<td><%= as.getNoOfAnswer() %></td>
 			<td><%= as.getNoOfSeikai() %></td>
 			<td><%= sdf.format(as.getAnswered()) %></td>
-			<td><%= as.getMapRefAnswer() %></td>
-			<td><%= as.getRefMember() %>
+			<td>
+				<% Map<String,Ref<Answer>> m = as.getMapRefAnswer(); %>
+				<% for(String k : m.keySet()){%>
+					<%= m.get(k).get().getId() %><br />
+				<% } %>
+			</td>
+			<td><%= as.getRefMember().get().geteMail() %>
 			<%  if ((as.getRefMember() == null )||(as.getRefMember().get().containsRef(as) == false)) {%>
 			<a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>
 			reChain　</a></td>
