@@ -21,7 +21,7 @@ import com.googlecode.objectify.Key;
 @SuppressWarnings("serial")
 @Entity
 @Cache
-public final class Exam extends ExamFactory implements Serializable{
+public class Exam extends ExamFactory implements Serializable{
 
 	@Id
 	Long id;
@@ -30,6 +30,7 @@ public final class Exam extends ExamFactory implements Serializable{
 	private String name;
 	private Date created;
 	private List<Ref<Toi>> toiRefList;
+	private List<Long> toiKeyList;
 
 
 	public Long getId() { 		return id;	}
@@ -79,4 +80,49 @@ public final class Exam extends ExamFactory implements Serializable{
 		Key<Exam> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
+	
+	/**
+	 * @return the toiKeyList
+	 */
+	public List<Long> getToiKeyList() {
+		if(toiKeyList == null) {
+			newToiKeyList();
+		}
+		return toiKeyList;
+	}
+
+	/**
+	 * @param toiKeyList the toiKeyList to set
+	 */
+	public void setToiKeyList(List<Long> toiKeyList) {
+		this.toiKeyList = toiKeyList;
+	}
+	
+	public void newToiKeyList() {
+		setToiKeyList(new ArrayList<Long>());
+	}
+
+	public void setToiKeyList(Long toiKey) {
+		List<Long> list = getToiKeyList();
+		list.add(toiKey);
+		setToiKeyList(list);
+	}
+	
+	public void convertForCache(){
+		newToiKeyList();
+		for(Ref<Toi> refToi:getToiRefList()) {
+			Long toiKey = refToi.get().getId();
+			setToiKeyList(toiKey);
+		}
+		newToiRefList();
+	}
+	public void convertFromCache(){
+		newToiRefList();
+		for(Long toiKey:getToiKeyList()) {
+			Ref<Toi> toiRef = Ref.create(Toi.getById(toiKey));
+			addToiRefList(toiRef);
+		}
+		newToiKeyList();
+	}
+
 }
