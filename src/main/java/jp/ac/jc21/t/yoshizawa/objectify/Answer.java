@@ -19,7 +19,7 @@ import com.googlecode.objectify.Key;
 
 @Entity
 @Cache
-public final class Answer extends CommonEntity {
+public final class Answer extends AnswerFactory {
 
 	@Id
 	Long id;
@@ -30,49 +30,12 @@ public final class Answer extends CommonEntity {
 	private Ref<AnswerSum> refAnswerSum;
 	private Ref<Question> refQuestion;
 	private int[] answerArray;
-//	private Ref<Member> refMember;
 
 	public Answer() {
 	}
 
-	public Answer save() {
-		Key<Answer> key = ofy().save().entity(this).now();
-		return getById(key.getId());
-	}
 
-	public static Answer getById(long id) {
-		return ofy().load().type(Answer.class).id(id).now();
-	}
 
-	public static Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question, String[] answerArray,
-			long no) {
-		int answerIntArray[] = null;
-		if (answerArray != null) {
-			answerIntArray = new int[answerArray.length];
-			for (int i = 0; i < answerArray.length; i++) {
-				answerIntArray[i] = Integer.parseInt(answerArray[i]);
-			}
-		}
-
-		String noString = "0" + no;
-		if (noString.length() > 2) {
-			noString = noString.substring(noString.length() - 2);
-		}
-
-		return createAnswer(name, refAnswerSum, Ref.create(question), answerIntArray, noString);
-	}
-
-	public static Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Ref<Question> refQuestion,
-			int[] answerArray, String no) {
-		Answer a = new Answer();
-		a.setName(name);
-		a.setAnswered(new Date());
-		a.setRefAnswerSum(refAnswerSum);
-		a.setRefQuestion(refQuestion);
-		a.setAnswerArray(answerArray);
-		a.setNo(no);
-		return a;
-	}
 
 	/**
 	 * @return the no
@@ -207,5 +170,9 @@ public final class Answer extends CommonEntity {
 
 		}
 		return s;
+	}
+	public Answer save() {
+		Key<Answer> key = ofy().save().entity(this).now();
+		return getById(key.getId());
 	}
 }

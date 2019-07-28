@@ -26,6 +26,8 @@
 	<%
 		} 
 	%>
+	<%@ include file="common/header.jsp"%><br>
+	
 <H1>登録されている解答の一覧</H1>
 	<%
 		if (answerSumList == null || answerSumList.size() == 0) {
@@ -74,4 +76,5 @@
 	<hr />
 
 </body>
+　<%@ include file="common/footer.jsp"%>
 </html>

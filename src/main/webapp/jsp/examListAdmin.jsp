@@ -16,17 +16,10 @@
 
 	<%
 		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
-UserService userService = (UserService)
-request.getAttribute("userService");
 	%>
-	<%
-		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
-	%>
-	<h4 align="right">login as <%= userService.getCurrentUser().getNickname() %>(Admin)
-	(<a href="<%= userService.createLogoutURL("/")%>">logout</a>)</h4>
-	<%
-		} 
-	%>
+
+	<%@ include file="common/headerAdmin.jsp"%><br>
+	
 <H1>登録されている試験の一覧</H1>
 	<%
 		if (examList == null || examList.size() == 0) {
@@ -67,4 +60,5 @@ request.getAttribute("userService");
 		<input type="text" name="ExamName" /> <input type="submit" name="追加" />
 	</form>
 </body>
+　<%@ include file="common/footer.jsp"%>
 </html>

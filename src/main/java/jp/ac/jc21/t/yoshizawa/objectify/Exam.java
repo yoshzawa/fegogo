@@ -19,7 +19,7 @@ import com.googlecode.objectify.Key;
 
 @Entity
 @Cache
-public final class Exam extends CommonEntity {
+public final class Exam extends ExamFactory {
 
 	@Id
 	Long id;
@@ -30,61 +30,25 @@ public final class Exam extends CommonEntity {
 	private List<Ref<Toi>> toiRefList;
 
 
+	public Long getId() { 		return id;	}
 
-	public static Exam createExam(Long YYYYMM, String name) {
-		Exam exam = new Exam();
-		exam.setCreated(new Date());
-		exam.setName(name);
-//		exam.newToiList();
-		exam.newToiRefList();
-		exam.setYYYYMM(YYYYMM);
-		return exam;
-	}
+	public void setId(Long id) {		this.id = id;	}
 
-	public static List<Exam> loadAll() {
-		return loadAll(Exam.class, "YYYYMM");
-	}
+	public Long getYYYYMM() {		return YYYYMM;	}
 
-	public Exam save() {
-		Key<Exam> key = ofy().save().entity(this).now();
-		return getById(key.getId());
-	}
+	public void setYYYYMM(Long yYYYMM) {		YYYYMM = yYYYMM;	}
 
-	public static Exam getById(long id) {
-		return ofy().load().type(Exam.class).id(id).now();
-	}
+	public String getName() {		return name;	}
 
-	public Long getId() {
-		return id;
-	}
+	public void setName(String name) {		this.name = name;	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	public Date getCreated() {		return created;	}
 
-	public Long getYYYYMM() {
-		return YYYYMM;
-	}
+	public void setCreated(Date created) {		this.created = created;	}
 
-	public void setYYYYMM(Long yYYYMM) {
-		YYYYMM = yYYYMM;
-	}
+	public void setToiRefList(List<Ref<Toi>> tois) {		this.toiRefList = tois;	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+	public void newToiRefList() {		setToiRefList(new ArrayList<Ref<Toi>>());	}
 
 	public List<Ref<Toi>> getToiRefList() {
 		if (toiRefList == null) {
@@ -98,13 +62,6 @@ public final class Exam extends CommonEntity {
 		return ts.size();
 	}
 
-	public void setToiRefList(List<Ref<Toi>> tois) {
-		this.toiRefList = tois;
-	}
-
-	public void newToiRefList() {
-		setToiRefList(new ArrayList<Ref<Toi>>());
-	}
 
 	public void addToiRefList(Ref<Toi> t) {
 		List<Ref<Toi>> ts = getToiRefList();
@@ -116,4 +73,8 @@ public final class Exam extends CommonEntity {
 		addToiRefList(Ref.create(t));
 	}
 
+	public Exam save() {
+		Key<Exam> key = ofy().save().entity(this).now();
+		return getById(key.getId());
+	}
 }

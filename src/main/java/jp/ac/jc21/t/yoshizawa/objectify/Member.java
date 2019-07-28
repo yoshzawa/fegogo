@@ -21,7 +21,7 @@ import com.googlecode.objectify.Key;
 
 @Entity
 @Cache
-public final class Member extends CommonEntity {
+public final class Member extends MemberFactory {
 
 	@Id
 //	Long id;
@@ -37,32 +37,6 @@ public final class Member extends CommonEntity {
 	public Member save() {
 		ofy().save().entity(this).now();
 		return getByeMail(this.geteMail());
-	}
-
-	public static List<Member> loadAll() {
-		return loadAll(Member.class);
-	}
-
-	private static Member getByeMail(String eMail) {
-		return ofy().load().type(Member.class).filterKey(Key.create(Member.class, eMail)).first().now();
-
-	}
-
-	public static Member createMember(String eMail) {
-		Member m = new Member();
-		m.seteMail(eMail);
-		m.setCreated(new Date());
-		m.setModified(new Date());
-		m.newRefAnswerSumList();
-		return m;
-	}
-
-	public static Member get(String email) {
-		Member m = getByeMail(email);
-		if (m == null) {
-			m = createMember(email);
-		}
-		return m;
 	}
 
 	public String geteMail() {

@@ -18,17 +18,10 @@
 		Exam parentExam = (Exam) request.getAttribute("parent");
 		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
-		UserService userService = (UserService)
-				request.getAttribute("userService");
 	%>
-		<%
-		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
-	%>
-	<h4 align="right">login as <%= userService.getCurrentUser().getNickname() %>(Admin)
-	(<a href="<%= userService.createLogoutURL("/")%>">logout</a>)</h4>
-	<%
-		} 
-	%>
+
+	<%@ include file="common/headerAdmin.jsp"%><br>
+	
 	<H1>登録されている問の一覧</H1>
 	
 	<p>選択された試験：<%= parentExam.getName() %> <a href="/admin/exam/list">(選択解除する)</a>
@@ -77,4 +70,6 @@
 			name="追加" />
 	</form>
 </body>
+　<%@ include file="common/footer.jsp"%>
+
 </html>

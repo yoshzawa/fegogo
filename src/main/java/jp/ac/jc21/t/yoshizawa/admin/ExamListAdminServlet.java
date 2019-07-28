@@ -26,9 +26,6 @@ public class ExamListAdminServlet extends HttpServlet {
 		List<Exam> examList = Exam.loadAll();
 		request.setAttribute("examList", examList);
 
-		UserService userService = UserServiceFactory.getUserService();
-		request.setAttribute("userService", userService);
-
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListAdmin.jsp");
 		rd.forward(request, response);
 

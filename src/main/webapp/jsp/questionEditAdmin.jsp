@@ -11,15 +11,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<H1>登録されている設問の編集</H1>
-
-
 	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
 		Question q = (Question) request.getAttribute("q");
 		Exam exam = (Exam) request.getAttribute("exam");
 	%>
+	<%@ include file="common/headerAdmin.jsp"%><br>
+
+	<H1>登録されている設問の編集</H1>
+
+
+
 	<p>選択された試験：
 	<P>
 		<%=exam.getName()%>
@@ -120,4 +123,5 @@
 	%>
 
 </body>
+　<%@ include file="common/footer.jsp"%>
 </html>

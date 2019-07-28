@@ -33,10 +33,6 @@ public class ToiListAdminServlet extends HttpServlet {
 		request.setAttribute("toiMap", toiMap);
 		request.setAttribute("parentId", parentIdString);
 		
-		UserService userService = UserServiceFactory.getUserService();
-		request.setAttribute("userService", userService);
-
-
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiListAdmin.jsp");
 		rd.forward(request, response);
 

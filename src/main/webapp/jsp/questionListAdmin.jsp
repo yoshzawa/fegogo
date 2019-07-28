@@ -14,26 +14,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%@ include file="common/headerAdmin.jsp"%><br>
+
 	<H1>登録されている設問の一覧</H1>
 
 
 	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
-//		List<Question> list = (List<Question>) request.getAttribute("questionList");
 		Map<Long,Question> qMap = (Map<Long,Question>) request.getAttribute("questionMap");
 		Exam exam = (Exam) request.getAttribute("exam");
-		UserService userService = (UserService)
-				request.getAttribute("userService");
+
 	%>
-		<%
-		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
-	%>
-	<h4 align="right">login as <%= userService.getCurrentUser().getNickname() %>(Admin)
-	(<a href="<%= userService.createLogoutURL("/")%>">logout</a>)</h4>
-	<%
-		} 
-	%>
+
 	<p>選択された試験：
 	<P>
 		<%=exam.getName()%>
@@ -113,4 +106,5 @@
 	<hr />
 
 </body>
+　<%@ include file="common/footer.jsp"%>
 </html>

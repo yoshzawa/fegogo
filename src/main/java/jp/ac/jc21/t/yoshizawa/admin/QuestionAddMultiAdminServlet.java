@@ -30,8 +30,6 @@ public class QuestionAddMultiAdminServlet extends HttpServlet {
 			correct[i] = Integer.parseInt(correctList[i]);
 		}
 		
-		
-		
 		String parentId = request.getParameter("parentId");
 		long pId = Long.parseLong(parentId);
 
