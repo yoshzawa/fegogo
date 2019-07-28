@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <span class="navbar-brand mb-0 h1">Navigation</span>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/">ホーム <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/exam/list">問題から選択</a>
-      <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">ジャンルから選択</a>
-      <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">個人結果分析</a>
-    </div>
-  </div>
-  <a class="btn btn-info d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="/openidSignIn">Sign in</a>
-</nav>
+<div align="right">
+
+  <a  href="/openidSignIn">
+  サインインしていません
+  <button type="button" class="btn btn-success">Sign in</button>
+  </a><br>
+</div>
+      <a  href="/">ホーム <span class="sr-only">(current)</span></a>
+      <a  href="/exam/list">問題から選択</a>
+      <a class=" disabled" href="/#" tabindex="-1" aria-disabled="true">ジャンルから選択</a>
+      <a class=" disabled" href="/#" tabindex="-1" aria-disabled="true">個人結果分析</a><br>
+
