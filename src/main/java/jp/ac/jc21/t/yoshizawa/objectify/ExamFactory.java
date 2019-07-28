@@ -97,6 +97,7 @@ public abstract class ExamFactory extends CommonEntity {
 		List<Exam> exams = null;
 		MemcacheService syncCache = getCache();
 
+
 		if (isCached(syncCache, cacheKeyName) == false) {
 			exams = loadAllFromOfy();
 			saveExamstoCache(exams, syncCache);
