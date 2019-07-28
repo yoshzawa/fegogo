@@ -52,24 +52,25 @@ public abstract class ExamFactory extends CommonEntity {
 	private static final Map<Long, Exam> loadExamsFromCache(MemcacheService syncCache) {
 
 		Map<Long, Exam> examMap = (Map<Long, Exam>) syncCache.get(cacheKeyName);
-		for(Long key:examMap.keySet()) {
+		for (Long key : examMap.keySet()) {
 			Exam e = examMap.get(key);
 			e.convertFromCache();
 			examMap.put(key, e);
 		}
-		
+
 		return (examMap);
 	}
+
 	@SuppressWarnings("unchecked")
 	private static final Map<Long, Exam> loadExamsKeyFromCache(MemcacheService syncCache) {
 
-		Map<Long, Exam> examMap = (Map<Long, Exam>) syncCache.get(cacheKeyName+"key");
-		for(Long key:examMap.keySet()) {
+		Map<Long, Exam> examMap = (Map<Long, Exam>) syncCache.get(cacheKeyName + "key");
+		for (Long key : examMap.keySet()) {
 			Exam e = examMap.get(key);
 			e.convertFromCache();
 			examMap.put(key, e);
 		}
-		
+
 		return (examMap);
 	}
 
@@ -97,15 +98,21 @@ public abstract class ExamFactory extends CommonEntity {
 		List<Exam> exams = null;
 		MemcacheService syncCache = getCache();
 
-
 		if (isCached(syncCache, cacheKeyName) == false) {
 			exams = loadAllFromOfy();
 			saveExamstoCache(exams, syncCache);
 		}
-		Map<Long, Exam> examMapKey = (Map<Long, Exam>) syncCache.get(cacheKeyName+"key");
+		Map<Long, Exam> examMapKey = (Map<Long, Exam>) syncCache.get(cacheKeyName + "key");
 
 		Exam exam = examMapKey.get(id);
 		exam.convertFromCache();
 		return exam;
+	}
+
+	protected static void clearCache() {
+		MemcacheService syncCache = getCache();
+		syncCache.delete(cacheKeyName);
+		syncCache.delete(cacheKeyName + "key");
+
 	}
 }

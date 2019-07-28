@@ -76,9 +76,17 @@ public class Exam extends ExamFactory implements Serializable{
 		addToiRefList(Ref.create(t));
 	}
 
-	public Exam save() {
-		Key<Exam> key = ofy().save().entity(this).now();
-		return getById(key.getId());
+
+	
+	/**
+	 * @param toiKeyList the toiKeyList to set
+	 */
+	public void setToiKeyList(List<Long> toiKeyList) {
+		this.toiKeyList = toiKeyList;
+	}
+	
+	public void newToiKeyList() {
+		setToiKeyList(new ArrayList<Long>());
 	}
 	
 	/**
@@ -91,16 +99,7 @@ public class Exam extends ExamFactory implements Serializable{
 		return toiKeyList;
 	}
 
-	/**
-	 * @param toiKeyList the toiKeyList to set
-	 */
-	public void setToiKeyList(List<Long> toiKeyList) {
-		this.toiKeyList = toiKeyList;
-	}
-	
-	public void newToiKeyList() {
-		setToiKeyList(new ArrayList<Long>());
-	}
+
 
 	public void setToiKeyList(Long toiKey) {
 		List<Long> list = getToiKeyList();
@@ -125,5 +124,13 @@ public class Exam extends ExamFactory implements Serializable{
 		}
 		newToiKeyList();
 	}
+	
+	public Exam save() {
+		Key<Exam> key = ofy().save().entity(this).now();
+		Exam.clearCache();
+		return getById(key.getId());
+	}
+
+
 
 }
