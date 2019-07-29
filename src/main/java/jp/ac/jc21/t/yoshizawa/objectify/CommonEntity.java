@@ -35,4 +35,7 @@ public class CommonEntity {
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 		return syncCache;
 	}
+	protected static final boolean isCached(MemcacheService syncCache, String key) {
+		return syncCache.get(key) != null;
+	}
 }

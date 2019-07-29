@@ -33,18 +33,13 @@ public final class Toi extends ToiFactory {
 	private Ref<Exam> parent;
 	private List<Ref<Question>> questionRefList;
 
-
-
-
-
-
+	private Long parentKey;
+	private List<Long> questionKeyList;
 
 	public Toi save() {
 		Key<Toi> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -115,12 +110,26 @@ public final class Toi extends ToiFactory {
 	}
 
 	public int getQuestionRefListSize() {
-		List<Ref<Question>> qs = getQuestionRefList();
-		if (qs == null) {
+		List<Ref<Question>> questionRefList = getQuestionRefList();
+		if (questionRefList == null) {
 			return 0;
 		} else {
-			return qs.size();
+			return questionRefList.size();
 		}
+	}
+
+	/**
+	 * @return the parentKey
+	 */
+	public Long getParentKey() {
+		return parentKey;
+	}
+
+	/**
+	 * @param parentKey the parentKey to set
+	 */
+	public void setParentKey(Long parentKey) {
+		this.parentKey = parentKey;
 	}
 
 	/**
@@ -134,5 +143,54 @@ public final class Toi extends ToiFactory {
 		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
 
+	/**
+	 * @return the questionKeyList
+	 */
+	public List<Long> getQuestionKeyList() {
+		if(questionKeyList == null) {
+			newQuestionKeyList();
+		}
+		return questionKeyList;
+	}
 
+	/**
+	 * @param questionKeyList the questionKeyList to set
+	 */
+	public void setQuestionKeyList(List<Long> questionKeyList) {
+		this.questionKeyList = questionKeyList;
+	}
+	
+	public void newQuestionKeyList() {
+		setQuestionKeyList(new ArrayList<Long>());
+	}
+
+	public void addQuestionKeyList(Long questionKey) {
+		List<Long> list = getQuestionKeyList();
+		list.add(questionKey);
+		setQuestionKeyList(list);
+	}
+
+	public void convertFromCache() {
+		setParent(Exam.getById(getParentKey()));
+
+		newQuestionRefList();
+		for(Long key : getQuestionKeyList()) {
+			addQuestionRefList(Question.getById(key));
+		}
+		newQuestionKeyList();
+		
+		
+	}
+
+	public void convertForCache() {
+		setParentKey(getParent().getId());
+		newQuestionKeyList();
+		for(Ref<Question> questionRef : getQuestionRefList()) {
+			addQuestionKeyList(questionRef.get().getId());
+		}
+		newQuestionRefList();
+		
+	}
+	
+	
 }

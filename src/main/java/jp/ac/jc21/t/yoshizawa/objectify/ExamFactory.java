@@ -44,9 +44,7 @@ public abstract class ExamFactory extends CommonEntity {
 		return loadExamsFromCache(syncCache);
 	}
 
-	private static final boolean isCached(MemcacheService syncCache, String key) {
-		return syncCache.get(key) != null;
-	}
+
 
 	@SuppressWarnings("unchecked")
 	private static final Map<Long, Exam> loadExamsFromCache(MemcacheService syncCache) {
