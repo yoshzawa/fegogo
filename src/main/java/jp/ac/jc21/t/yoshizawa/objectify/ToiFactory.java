@@ -95,5 +95,9 @@ public class ToiFactory extends CommonEntity {
 		return t;
 
 	}
+	protected static void clearCache() {
+		MemcacheService syncCache = getCache();
+		syncCache.delete(cacheKeyName);
 
+	}
 }

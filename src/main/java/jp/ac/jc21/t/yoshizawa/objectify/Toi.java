@@ -36,10 +36,7 @@ public final class Toi extends ToiFactory {
 	private Long parentKey;
 	private List<Long> questionKeyList;
 
-	public Toi save() {
-		Key<Toi> key = ofy().save().entity(this).now();
-		return getById(key.getId());
-	}
+
 
 	public Long getId() {
 		return id;
@@ -170,7 +167,7 @@ public final class Toi extends ToiFactory {
 		setQuestionKeyList(list);
 	}
 
-	public void convertFromCache() {
+	void convertFromCache() {
 		setParent(Exam.getById(getParentKey()));
 
 		newQuestionRefList();
@@ -182,7 +179,7 @@ public final class Toi extends ToiFactory {
 		
 	}
 
-	public void convertForCache() {
+	 void convertForCache() {
 		setParentKey(getParent().getId());
 		newQuestionKeyList();
 		for(Ref<Question> questionRef : getQuestionRefList()) {
@@ -191,6 +188,11 @@ public final class Toi extends ToiFactory {
 		newQuestionRefList();
 		
 	}
-	
+		public Toi save() {
+			Key<Toi> key = ofy().save().entity(this).now();
+			Toi.clearCache();
+
+			return getById(key.getId());
+		}
 	
 }
