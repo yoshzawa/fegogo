@@ -24,20 +24,7 @@ public class ToiFactory extends CommonEntity {
 		return t;
 	}
 
-	public static final TreeMap<Long, Toi> getToiMap(long parentId) {
-		TreeMap<Long, Toi> toiMap = new TreeMap<>();
 
-		Exam e = Exam.getById(parentId);
-		List<Ref<Toi>> toiRefList = e.getToiRefList();
-
-		if (toiRefList != null) {
-			for (Ref<Toi> t : toiRefList) {
-				Toi tt = t.get();
-				toiMap.put(tt.getNo(), tt);
-			}
-		}
-		return toiMap;
-	}
 
 	public static final TreeMap<Long, Question> getQuestionMap(Toi parent) {
 		TreeMap<Long, Question> qMap = new TreeMap<>();
@@ -50,54 +37,9 @@ public class ToiFactory extends CommonEntity {
 		return qMap;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static final List<Toi> loadAllFromOfy() {
-		return loadAll(Toi.class, "no");
-	}
-
-	public static final Map<Long, Toi> loadAll() {
-		MemcacheService syncCache = getCache();
-
-		if (isCached(syncCache, cacheKeyName) == false) {
-			List<Toi> toiList = loadAllFromOfy();
-			saveToisToCache(toiList, syncCache);
-		}
-		return loadToisFromCache(syncCache);
-	}
-
-	private static Map<Long, Toi> loadToisFromCache(MemcacheService syncCache) {
-
-		Map<Long, Toi> toiMap = (Map<Long, Toi>) syncCache.get(cacheKeyName);
-		for (Long key : toiMap.keySet()) {
-			Toi t = toiMap.get(key);
-			t.convertFromCache();
-			toiMap.put(key, t);
-		}
-
-		return (toiMap);
-	}
-
-	private static void saveToisToCache(List<Toi> toiList, MemcacheService syncCache) {
-		TreeMap<Long, Toi> toiMap = new TreeMap<>();
-		for (Toi t : toiList) {
-			t.convertForCache();
-			toiMap.put(t.getId(), t);
-		}
-
-		syncCache.put(cacheKeyName, toiMap);
-	}
-
 	public static final Toi getById(long id) {
-//		return ofy().load().type(Toi.class).id(id).now();
-
-		Map<Long, Toi> map = loadAll();
-		Toi t = map.get(id);
-		return t;
+		return ofy().load().type(Toi.class).id(id).now();
 
 	}
-	protected static void clearCache() {
-		MemcacheService syncCache = getCache();
-		syncCache.delete(cacheKeyName);
 
-	}
 }

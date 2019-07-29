@@ -5,6 +5,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,11 +33,6 @@ public final class Toi extends ToiFactory {
 	private Date created;
 	private Ref<Exam> parent;
 	private List<Ref<Question>> questionRefList;
-
-	private Long parentKey;
-	private List<Long> questionKeyList;
-
-
 
 	public Long getId() {
 		return id;
@@ -74,10 +70,14 @@ public final class Toi extends ToiFactory {
 	 * @return the parent
 	 */
 	public Exam getParent() {
-		Ref<Exam> re = parent;
-		return re.get();
-	}
 
+			Ref<Exam> re = parent;
+			return re.get();
+		
+	}
+	private void resetParent() {
+		parent=null;
+}
 	/**
 	 * @param parent the parent to set
 	 */
@@ -91,7 +91,7 @@ public final class Toi extends ToiFactory {
 
 	public List<Ref<Question>> getQuestionRefList() {
 		if (questionRefList == null) {
-			newQuestionRefList();
+				newQuestionRefList();
 		}
 		return questionRefList;
 	}
@@ -115,19 +115,12 @@ public final class Toi extends ToiFactory {
 		}
 	}
 
-	/**
-	 * @return the parentKey
-	 */
-	public Long getParentKey() {
-		return parentKey;
+	private void resetQuestionRefList() {
+		questionRefList=null;
 	}
 
-	/**
-	 * @param parentKey the parentKey to set
-	 */
-	public void setParentKey(Long parentKey) {
-		this.parentKey = parentKey;
-	}
+
+
 
 	/**
 	 * @param questionList the questionList to set
@@ -140,58 +133,20 @@ public final class Toi extends ToiFactory {
 		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
 
-	/**
-	 * @return the questionKeyList
-	 */
-	public List<Long> getQuestionKeyList() {
-		if(questionKeyList == null) {
-			newQuestionKeyList();
-		}
-		return questionKeyList;
-	}
 
-	/**
-	 * @param questionKeyList the questionKeyList to set
-	 */
-	public void setQuestionKeyList(List<Long> questionKeyList) {
-		this.questionKeyList = questionKeyList;
-	}
 	
-	public void newQuestionKeyList() {
-		setQuestionKeyList(new ArrayList<Long>());
-	}
 
-	public void addQuestionKeyList(Long questionKey) {
-		List<Long> list = getQuestionKeyList();
-		list.add(questionKey);
-		setQuestionKeyList(list);
-	}
 
-	void convertFromCache() {
-		setParent(Exam.getById(getParentKey()));
 
-		newQuestionRefList();
-		for(Long key : getQuestionKeyList()) {
-			addQuestionRefList(Question.getById(key));
-		}
-		newQuestionKeyList();
-		
-		
-	}
 
-	 void convertForCache() {
-		setParentKey(getParent().getId());
-		newQuestionKeyList();
-		for(Ref<Question> questionRef : getQuestionRefList()) {
-			addQuestionKeyList(questionRef.get().getId());
-		}
-		newQuestionRefList();
-		
-	}
+
+
+
+
+
 		public Toi save() {
 			Key<Toi> key = ofy().save().entity(this).now();
-			Toi.clearCache();
-
+//			Toi.clearCache();
 			return getById(key.getId());
 		}
 	

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeMap;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
@@ -21,7 +22,7 @@ import com.googlecode.objectify.Key;
 @SuppressWarnings("serial")
 @Entity
 @Cache
-public class Exam extends ExamFactory implements Serializable{
+public class Exam extends ExamFactory {
 
 	@Id
 	Long id;
@@ -30,33 +31,54 @@ public class Exam extends ExamFactory implements Serializable{
 	private String name;
 	private Date created;
 	private List<Ref<Toi>> toiRefList;
-	private List<Long> toiKeyList;
 
+	public Long getId() {
+		return id;
+	}
 
-	public Long getId() { 		return id;	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-	public void setId(Long id) {		this.id = id;	}
+	public Long getYYYYMM() {
+		return YYYYMM;
+	}
 
-	public Long getYYYYMM() {		return YYYYMM;	}
+	public void setYYYYMM(Long yYYYMM) {
+		YYYYMM = yYYYMM;
+	}
 
-	public void setYYYYMM(Long yYYYMM) {		YYYYMM = yYYYMM;	}
+	public String getName() {
+		return name;
+	}
 
-	public String getName() {		return name;	}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	public void setName(String name) {		this.name = name;	}
+	public Date getCreated() {
+		return created;
+	}
 
-	public Date getCreated() {		return created;	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
 
-	public void setCreated(Date created) {		this.created = created;	}
+	public void setToiRefList(List<Ref<Toi>> tois) {
+		this.toiRefList = tois;
+	}
 
-	public void setToiRefList(List<Ref<Toi>> tois) {		this.toiRefList = tois;	}
-
-	public void newToiRefList() {		setToiRefList(new ArrayList<Ref<Toi>>());	}
+	public void newToiRefList() {
+		setToiRefList(new ArrayList<Ref<Toi>>());
+	}
 
 	public List<Ref<Toi>> getToiRefList() {
 		if (toiRefList == null) {
+
 			newToiRefList();
+
 		}
+
 		return toiRefList;
 	}
 
@@ -64,7 +86,6 @@ public class Exam extends ExamFactory implements Serializable{
 		List<Ref<Toi>> ts = getToiRefList();
 		return ts.size();
 	}
-
 
 	public void addToiRefList(Ref<Toi> t) {
 		List<Ref<Toi>> ts = getToiRefList();
@@ -76,61 +97,24 @@ public class Exam extends ExamFactory implements Serializable{
 		addToiRefList(Ref.create(t));
 	}
 
-
-	
-	/**
-	 * @param toiKeyList the toiKeyList to set
-	 */
-	public void setToiKeyList(List<Long> toiKeyList) {
-		this.toiKeyList = toiKeyList;
-	}
-	
-	public void newToiKeyList() {
-		setToiKeyList(new ArrayList<Long>());
-	}
-	
-	/**
-	 * @return the toiKeyList
-	 */
-	public List<Long> getToiKeyList() {
-		if(toiKeyList == null) {
-			newToiKeyList();
-		}
-		return toiKeyList;
-	}
-
-
-
-	public void setToiKeyList(Long toiKey) {
-		List<Long> list = getToiKeyList();
-		list.add(toiKey);
-		setToiKeyList(list);
-	}
-	
-	public void convertForCache(){
-		newToiKeyList();
-		for(Ref<Toi> refToi:getToiRefList()) {
-			Long toiKey = refToi.get().getId();
-			setToiKeyList(toiKey);
-		}
-		newToiRefList();
-	}
-	
-	public void convertFromCache(){
-		newToiRefList();
-		for(Long toiKey:getToiKeyList()) {
-			Ref<Toi> toiRef = Ref.create(Toi.getById(toiKey));
-			addToiRefList(toiRef);
-		}
-		newToiKeyList();
-	}
-	
 	public Exam save() {
 		Key<Exam> key = ofy().save().entity(this).now();
-		Exam.clearCache();
 		return getById(key.getId());
 	}
+	
+	public final TreeMap<Long, Toi> getToiMap() {
 
+		TreeMap<Long, Toi> toiMap = new TreeMap<>();
 
+		List<Ref<Toi>> toiRefList = getToiRefList();
+
+		if (toiRefList != null) {
+			for (Ref<Toi> t : toiRefList) {
+				Toi tt = t.get();
+				toiMap.put(tt.getNo(), tt);
+			}
+		}
+		return toiMap;
+	}
 
 }

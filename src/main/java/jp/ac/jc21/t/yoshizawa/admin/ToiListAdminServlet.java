@@ -27,7 +27,7 @@ public class ToiListAdminServlet extends HttpServlet {
 		long parentId = Long.parseLong(parentIdString);
 		Exam e = Exam.getById(parentId);
 
-		TreeMap<Long, Toi> toiMap = Toi.getToiMap(parentId);
+		TreeMap<Long, Toi> toiMap = e.getToiMap();
 
 		request.setAttribute("parent", e);
 		request.setAttribute("toiMap", toiMap);
