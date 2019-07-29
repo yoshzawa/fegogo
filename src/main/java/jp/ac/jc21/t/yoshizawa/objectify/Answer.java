@@ -167,6 +167,9 @@ public final class Answer extends AnswerFactory {
 			} else {
 				s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
 			}
+			if(getRefQuestion().get().getNoOfOption()<=0) {
+				s="全員正解";
+			}
 
 		}
 		return s;

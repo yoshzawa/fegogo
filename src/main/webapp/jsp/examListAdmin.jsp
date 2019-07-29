@@ -1,8 +1,9 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
+<%@page import="java.util.Map"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="com.google.appengine.api.users.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
-<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -15,14 +16,15 @@
 <body>
 
 	<%
-		List<Exam> examList = (List<Exam>) request.getAttribute("examList");
+	Map<Long, Exam> examMap = (Map<Long, Exam>) request.getAttribute("examMap");
+
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
 	
 <H1>登録されている試験の一覧</H1>
 	<%
-		if (examList == null || examList.size() == 0) {
+	if (examMap == null || examMap.size() == 0) {
 	%>
 	試験が登録されていません
 	<%
@@ -36,7 +38,8 @@
 			<TD>問題登録</TD>
 		</TR>
 		<%
-			for (Exam e : examList) {
+		for (Long k : examMap.keySet()) {
+			Exam e = examMap.get(k);		
 		%>
 		<tr>
 			<td><%=e.getId()%></td>

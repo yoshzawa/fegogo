@@ -183,6 +183,9 @@ public final class Question extends QuestionFactory {
 		for (int i : getAnswerSet()) {
 			s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
 		}
+		if(getNoOfOption()<=0) {
+			s="全員正解";
+		}
 		return s;
 	}
 
