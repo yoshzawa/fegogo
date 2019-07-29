@@ -7,23 +7,25 @@
 	UserService us = UserServiceFactory.getUserService();
 %>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
-  <span class="navbar-brand mb-0 h1">Navigation</span>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/admin">ホーム </a>
-      <a class="nav-item nav-link active" href="/admin/exam">exam</a>
-      <a class="nav-item nav-link active" href="/admin/member">member</a>
-      <a class="nav-item nav-link active" href="/admin/answerSum">answerSum</a>
-      <a class="nav-item nav-link active" href="/admin/answer">answer</a>
-      <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">個人結果分析</a>
-    </div>
-  </div>
-    <span class="navbar-text">
+<div align="right">
+
     <%= us.getCurrentUser().getNickname() %>(Admin)としてサインイン
-    </span>
-  <a class="btn btn-danger d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="<%= us.createLogoutURL("/")%>">Sign out</a>
-</nav>
+  <a  href="<%= us.createLogoutURL("/")%>">
+    <button type="button" class="btn btn-danger">Sign out</button>
+  
+  </a><br>
+</div>
+
+
+
+
+      <a class="  active" href="/admin">ホーム </a>
+      <a class="  active" href="/admin/exam">exam</a>
+      <a class="  active" href="/admin/member">member</a>
+      <a class="  active" href="/admin/answerSum">answerSum</a>
+      <a class="  active" href="/admin/answer">answer</a>
+      <a class="  disabled" href="#" tabindex="-1" aria-disabled="true">個人結果分析</a>
+
 
 
 

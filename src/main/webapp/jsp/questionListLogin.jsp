@@ -13,14 +13,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-	<%
+  
+  
+  	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi toi = (Toi) request.getAttribute("parent");
 		Exam exam = (Exam) request.getAttribute("exam");
 		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
 	%>
+
 
 <%@ include file="common/headerLogin.jsp"%>
 
@@ -109,7 +110,6 @@
 	%>
 
 
-</body>
+  </body>
 　<%@ include file="common/footer.jsp"%>
-
 </html>
