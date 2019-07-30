@@ -21,6 +21,7 @@ public class ToiFactory extends CommonEntity {
 		t.setCreated(new Date());
 		t.setParent(parent);
 		t.newQuestionRefList();
+		t.setGenre(null);
 		return t;
 	}
 
