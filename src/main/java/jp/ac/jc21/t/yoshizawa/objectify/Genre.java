@@ -82,6 +82,9 @@ public class Genre extends GenreFactory {
 	 * @return the toiRefList
 	 */
 	public List<Ref<Toi>> getToiRefList() {
+		if(toiRefList == null) {
+			newToiRefList();
+		}
 		return toiRefList;
 	}
 

@@ -15,6 +15,10 @@ public class GenreFactory extends CommonEntity {
 		return g;
 	}
 	
+	public static final List<Genre> loadAll() {
+		return loadAllFromOfy();
+	}
+	
 	private static final List<Genre> loadAllFromOfy() {
 		List<Genre> list = ofy().load().type(Genre.class).list();
 		return list;
