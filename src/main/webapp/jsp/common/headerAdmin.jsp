@@ -24,6 +24,7 @@
       <a class="  active" href="/admin/member">member</a>
       <a class="  active" href="/admin/answerSum">answerSum</a>
       <a class="  active" href="/admin/answer">answer</a>
+      <a class="  active" href="/admin/genre/">Genre</a>
       <a class="  disabled" href="#" tabindex="-1" aria-disabled="true">個人結果分析</a>
 
 

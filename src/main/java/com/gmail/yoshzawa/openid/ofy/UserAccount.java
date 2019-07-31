@@ -3,13 +3,9 @@ package com.gmail.yoshzawa.openid.ofy;
 import java.util.Date;
 import java.util.List;
 
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Parent;
-
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 @Entity

@@ -1,9 +1,6 @@
 package com.gmail.yoshzawa.openid;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import org.apache.geronimo.mail.util.Base64;
 
 import com.gmail.yoshzawa.openid.jwt.JwtHeader;

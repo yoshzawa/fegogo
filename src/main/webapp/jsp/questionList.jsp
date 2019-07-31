@@ -20,7 +20,7 @@
 		Exam exam = (Exam) request.getAttribute("exam");
 		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
 	%>
-<%@ include file="common/header.jsp"%>
+	<%@ include file="common/header.jsp"%>
 
 	<H1>登録されている設問の一覧</H1>
 
@@ -39,57 +39,59 @@
 	<%
 		} else {
 	%>
-		<input type="hidden" name="qId" value="<%= parent.getId() %>" />
-		
-		
-	<TABLE border=1 class="table table-striped table-hover table-responsive">
-		<thead class="thead-dark"><tr>
+	<input type="hidden" name="qId" value="<%=parent.getId()%>" />
+
+
+	<TABLE border=1
+		class="table table-striped table-hover table-responsive">
+		<thead class="thead-dark">
+			<tr>
 				<th>設問</th>
 				<th>解答欄</th>
 			</TR>
 		</thead>
 
-			<%
-				//			for (Question q : list) {
-					Set<Long> toiKeySet = qMap.keySet();
-					for (Long l : toiKeySet) {
-						Question q = qMap.get(l);
-			%>
-			<tr>
-				<td><%=q.getName()%></td>
-				<td>
-					<%
-						if (q.isMulti() == true) {
-					%> <input type="checkbox"
-					name="<%=q.getId()%>" value="-1" checked="checked" disabled="disabled"/> 解けない <%
- 	} else {
- %>
-					<input type="radio" name="<%=q.getId()%>" value="-1"
-					checked="checked" disabled="disabled"/> 解けない <%
-						}
-					%> <%
- 	for (int i = 0; i <= (int) q.getNoOfOption(); i++) {
- %>
-					<%
-						if (q.isMulti() == true) {
-					%> <input type="checkbox"
-					name="<%=q.getId()%>" value="<%=i%>" disabled="disabled"/> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-					<%
-						} else {
-					%> <input type="radio" name="<%=q.getId()%>"
-					value="<%=i%>" disabled="disabled"/> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> <%
- 	}
- %> <%
- 	}
- %>
-				</td>
+		<%
+			//			for (Question q : list) {
+				Set<Long> toiKeySet = qMap.keySet();
+				for (Long l : toiKeySet) {
+					Question q = qMap.get(l);
+		%>
+		<tr>
+			<td><%=q.getName()%></td>
+			<td>
+				<% 	if (q.getNoOfOption() <= 0){ %> 
+					<input type="radio"
+					name="<%=q.getId()%>" value="-1" disabled="disabled" /> 解けない <input
+					type="radio" name="<%=q.getId()%>" value="1" checked="checked"
+					disabled="disabled" /> 全員正解
+				<% 	} else { %> 
+					<%	if (q.isMulti() == true) {%> 
+						<input type="checkbox" name="<%=q.getId()%>" value="-1"
+				checked="checked" disabled="disabled" /> 解けない
+					 <% 	} else { %> 
+					 	<input				type="radio" name="<%=q.getId()%>" value="-1" checked="checked"
+				disabled="disabled" /> 解けない 
+						<% 	} %> 
+				<% 	for (int i = 0; i <= (int) q.getNoOfOption(); i++) { %> 
+					<% 	if (q.isMulti() == true) {%> 
+						 <input type="checkbox" name="<%=q.getId()%>" value="<%=i%>"
+						disabled="disabled" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> 
+					<% 	} else { %>
+						  <input type="radio" name="<%=q.getId()%>" value="<%=i%>"
+						disabled="disabled" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> 
+					<%	} %>
+		  	<%} %>
+		  	<%} %>
 
-			</tr>
-			<%
-				}
-			%>
-		</table>
-		<input type="submit" value="送信するにはログインしてください"　disabled="disabled" />
+			</td>
+
+		</tr>
+		<%
+			}
+		%>
+	</table>
+	<input type="submit" value="送信するにはログインしてください" 　disabled="disabled" />
 
 	<%
 		}
@@ -97,6 +99,6 @@
 
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 
 </html>

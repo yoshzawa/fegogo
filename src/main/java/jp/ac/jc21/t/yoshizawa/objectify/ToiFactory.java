@@ -8,9 +8,20 @@ import java.util.TreeMap;
 
 import com.googlecode.objectify.Ref;
 
-public class ToiFactory extends CommonEntity{
+public class ToiFactory extends CommonEntity {
 
-	
+	final static String cacheKeyName = "Toi";
+
+	public static final Toi createToi(Exam parent, Long no, String name,Genre genre) {
+		Toi t = new Toi();
+		t.setNo(no);
+		t.setName(name);
+		t.setCreated(new Date());
+		t.setParent(parent);
+		t.newQuestionRefList();
+		t.setGenre(genre);
+		return t;
+	}
 	public static final Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
 		t.setNo(no);
@@ -18,28 +29,12 @@ public class ToiFactory extends CommonEntity{
 		t.setCreated(new Date());
 		t.setParent(parent);
 		t.newQuestionRefList();
+		t.setGenreRef(null);
 		return t;
 	}
-	
-	public static final TreeMap<Long, Toi> getToiMap(long parentId) {
-		TreeMap<Long, Toi> toiMap = new TreeMap<>();
 
-		Exam e = Exam.getById(parentId);
-		List<Ref<Toi>> toiRefList = e.getToiRefList();
 
-		if (toiRefList != null) {
-			for (Ref<Toi> t : toiRefList) {
-				Toi tt = t.get();
-				toiMap.put(tt.getNo(), tt);
-			}
-		}
-		return toiMap;
-	}
-	
-	public static final Toi getById(long id) {
-		return ofy().load().type(Toi.class).id(id).now();
-	}
-	
+
 	public static final TreeMap<Long, Question> getQuestionMap(Toi parent) {
 		TreeMap<Long, Question> qMap = new TreeMap<>();
 		List<Ref<Question>> list = parent.getQuestionRefList();
@@ -50,9 +45,10 @@ public class ToiFactory extends CommonEntity{
 		}
 		return qMap;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public static final List<Toi> loadAll() {
-		return loadAll(Toi.class, "no");
+
+	public static final Toi getById(long id) {
+		return ofy().load().type(Toi.class).id(id).now();
+
 	}
+
 }

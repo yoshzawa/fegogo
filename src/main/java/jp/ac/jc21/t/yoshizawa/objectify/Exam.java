@@ -6,6 +6,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeMap;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
@@ -19,7 +20,7 @@ import com.googlecode.objectify.Key;
 
 @Entity
 @Cache
-public final class Exam extends ExamFactory {
+public class Exam extends ExamFactory {
 
 	@Id
 	Long id;
@@ -29,31 +30,53 @@ public final class Exam extends ExamFactory {
 	private Date created;
 	private List<Ref<Toi>> toiRefList;
 
+	public Long getId() {
+		return id;
+	}
 
-	public Long getId() { 		return id;	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-	public void setId(Long id) {		this.id = id;	}
+	public Long getYYYYMM() {
+		return YYYYMM;
+	}
 
-	public Long getYYYYMM() {		return YYYYMM;	}
+	public void setYYYYMM(Long yYYYMM) {
+		YYYYMM = yYYYMM;
+	}
 
-	public void setYYYYMM(Long yYYYMM) {		YYYYMM = yYYYMM;	}
+	public String getName() {
+		return name;
+	}
 
-	public String getName() {		return name;	}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	public void setName(String name) {		this.name = name;	}
+	public Date getCreated() {
+		return created;
+	}
 
-	public Date getCreated() {		return created;	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
 
-	public void setCreated(Date created) {		this.created = created;	}
+	public void setToiRefList(List<Ref<Toi>> tois) {
+		this.toiRefList = tois;
+	}
 
-	public void setToiRefList(List<Ref<Toi>> tois) {		this.toiRefList = tois;	}
-
-	public void newToiRefList() {		setToiRefList(new ArrayList<Ref<Toi>>());	}
+	public void newToiRefList() {
+		setToiRefList(new ArrayList<Ref<Toi>>());
+	}
 
 	public List<Ref<Toi>> getToiRefList() {
 		if (toiRefList == null) {
+
 			newToiRefList();
+
 		}
+
 		return toiRefList;
 	}
 
@@ -61,7 +84,6 @@ public final class Exam extends ExamFactory {
 		List<Ref<Toi>> ts = getToiRefList();
 		return ts.size();
 	}
-
 
 	public void addToiRefList(Ref<Toi> t) {
 		List<Ref<Toi>> ts = getToiRefList();
@@ -77,4 +99,20 @@ public final class Exam extends ExamFactory {
 		Key<Exam> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
+	
+	public final TreeMap<Long, Toi> getToiMap() {
+
+		TreeMap<Long, Toi> toiMap = new TreeMap<>();
+
+		List<Ref<Toi>> toiRefList = getToiRefList();
+
+		if (toiRefList != null) {
+			for (Ref<Toi> t : toiRefList) {
+				Toi tt = t.get();
+				toiMap.put(tt.getNo(), tt);
+			}
+		}
+		return toiMap;
+	}
+
 }

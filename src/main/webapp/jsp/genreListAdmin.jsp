@@ -1,3 +1,5 @@
+<%@page import="com.googlecode.objectify.Ref"%>
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Genre"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
@@ -16,17 +18,17 @@
 <body>
 
 	<%
-	Map<Long, Exam> examMap = (Map<Long, Exam>) request.getAttribute("examMap");
+	List<Genre> genreList = (List<Genre>) request.getAttribute("genreList");
 
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
 	
-<H1>登録されている試験の一覧</H1>
+<H1>登録されている分野の一覧</H1>
 	<%
-	if (examMap == null || examMap.size() == 0) {
+	if (genreList == null || genreList.size() == 0) {
 	%>
-	試験が登録されていません
+	分野が登録されていません
 	<%
 		} else {
 	%>
@@ -38,16 +40,21 @@
 			<TD>問題登録</TD>
 		</TR>
 		<%
-		for (Long k : examMap.keySet()) {
-			Exam e = examMap.get(k);		
+		for (Genre g : genreList) {
 		%>
 		<tr>
-			<td><%=e.getId()%></td>
-			<td><%=e.getYYYYMM()%></td>
-			<td><a href="/admin/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
+			<td><%=g.getId()%></td>
+			<td><%=g.getName()%></td>
 			<td>
-				<%= e.getToiRefListSize() %>
+			<% for(Ref<Toi> rt : g.getToiRefList()){
+					Toi t = rt.get();%>
+				<%= t.getParent().getName() %>
+				<%= t.getName() %> <br />
+			
+			<% }%>
+			
 			</td>
+			
 		</tr>
 		<%
 			}
@@ -58,9 +65,9 @@
 	%>
 
 	<hr />
-	<form method='post' action='/admin/exam/add'>
-		<label>YYYYMM</label> <input type="text" name="YYYYMM" /> <label>ExamName</label>
-		<input type="text" name="ExamName" /> <input type="submit" name="追加" />
+	<form method='post' action='/admin/genre/add'>
+		<label>GenreName</label>
+		<input type="text" name="GenreName" /> <input type="submit" name="追加" />
 	</form>
 </body>
 　<%@ include file="common/footer.jsp"%>

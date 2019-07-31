@@ -1,8 +1,7 @@
 package jp.ac.jc21.t.yoshizawa.admin;
 
 import java.io.IOException;
-import java.util.Map;
-
+import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,21 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/exam/list" })
-public class ExamListAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/genre/list" })
+public class GenreListAdminServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		Map<Long,Exam> examMap = Exam.loadAll();
-		request.setAttribute("examMap", examMap);
+		List<Genre> genreList = Genre.loadAll();
+		request.setAttribute("genreList", genreList);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListAdmin.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/genreListAdmin.jsp");
 		rd.forward(request, response);
 
 	}
+
+
 }

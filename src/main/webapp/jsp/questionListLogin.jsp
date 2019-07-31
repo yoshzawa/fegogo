@@ -13,14 +13,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-	<%
+  
+  
+  	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi toi = (Toi) request.getAttribute("parent");
 		Exam exam = (Exam) request.getAttribute("exam");
 		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
 	%>
+
 
 <%@ include file="common/headerLogin.jsp"%>
 
@@ -62,6 +63,16 @@
 				<td><%=q.getName()%></td>
 				<td>
 				<div class="bd-example">
+				<% 	if (q.getNoOfOption() <= 0){ %> 
+				<span class="border border-primary">
+					 <input type="radio" name="<%=q.getId()%>" value="-1" checked="checked" disabled="disabled"/> 解けない 
+				</span>
+				<span class="border border-primary">
+				<input
+					type="radio" name="<%=q.getId()%>" value="0" checked="checked"
+					 /> 全員正解
+				</span>
+				<%  	} else { %> 
 				
 <span class="border border-primary">
 				
@@ -83,6 +94,8 @@
 </span>
 	 <%  	} %>
 				</td>
+				<%  	} %> 
+				
 			</div>
 			</tr>
 			<%
@@ -97,7 +110,6 @@
 	%>
 
 
-</body>
+  </body>
 　<%@ include file="common/footer.jsp"%>
-
 </html>

@@ -8,8 +8,6 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TreeMap;
-
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 
@@ -33,10 +31,7 @@ public final class Toi extends ToiFactory {
 	private Ref<Exam> parent;
 	private List<Ref<Question>> questionRefList;
 
-	public Toi save() {
-		Key<Toi> key = ofy().save().entity(this).now();
-		return getById(key.getId());
-	}
+	private Ref<Genre> genre;
 
 	public Long getId() {
 		return id;
@@ -74,10 +69,14 @@ public final class Toi extends ToiFactory {
 	 * @return the parent
 	 */
 	public Exam getParent() {
-		Ref<Exam> re = parent;
-		return re.get();
-	}
 
+			Ref<Exam> re = parent;
+			return re.get();
+		
+	}
+	private void resetParent() {
+		parent=null;
+}
 	/**
 	 * @param parent the parent to set
 	 */
@@ -91,7 +90,7 @@ public final class Toi extends ToiFactory {
 
 	public List<Ref<Question>> getQuestionRefList() {
 		if (questionRefList == null) {
-			newQuestionRefList();
+				newQuestionRefList();
 		}
 		return questionRefList;
 	}
@@ -107,13 +106,20 @@ public final class Toi extends ToiFactory {
 	}
 
 	public int getQuestionRefListSize() {
-		List<Ref<Question>> qs = getQuestionRefList();
-		if (qs == null) {
+		List<Ref<Question>> questionRefList = getQuestionRefList();
+		if (questionRefList == null) {
 			return 0;
 		} else {
-			return qs.size();
+			return questionRefList.size();
 		}
 	}
+
+	private void resetQuestionRefList() {
+		questionRefList=null;
+	}
+
+
+
 
 	/**
 	 * @param questionList the questionList to set
@@ -126,4 +132,29 @@ public final class Toi extends ToiFactory {
 		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
 
+
+
+		/**
+	 * @return the genre
+	 */
+	public Ref<Genre> getGenre() {
+		return genre;
+	}
+
+	/**
+	 * @param genre the genre to set
+	 */
+	public void setGenreRef(Ref<Genre> genre) {
+		this.genre = genre;
+	}
+
+	public void setGenre(Genre genre) {
+		setGenreRef(Ref.create(genre));
+	}
+
+		public Toi save() {
+			Key<Toi> key = ofy().save().entity(this).now();
+//			Toi.clearCache();
+			return getById(key.getId());
+		}
 }
