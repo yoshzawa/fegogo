@@ -4,8 +4,6 @@
 package jp.ac.jc21.t.yoshizawa.objectify;
 
 import java.util.Date;
-import java.util.logging.Logger;
-
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 

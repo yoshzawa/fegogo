@@ -4,10 +4,8 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
-import com.google.appengine.api.memcache.MemcacheService;
 import com.googlecode.objectify.Ref;
 
 public class ToiFactory extends CommonEntity {

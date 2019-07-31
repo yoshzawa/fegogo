@@ -1,9 +1,6 @@
 package com.gmail.yoshzawa.openid;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 

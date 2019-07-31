@@ -5,12 +5,9 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TreeMap;
-
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 
