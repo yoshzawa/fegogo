@@ -95,6 +95,16 @@ public class Genre extends GenreFactory {
 		this.toiRefList = toiRefList;
 	}
 
+	public void addToiRefList(Ref<Toi> toiRef) {
+		List<Ref<Toi>> toiRefList = getToiRefList();
+		toiRefList.add(toiRef);
+		setToiRefList(toiRefList);
+	}
+
+	public void addToiRefList(Toi toi) {
+		addToiRefList(Ref.create(toi));
+	}
+
 	public Genre save() {
 		Key<Genre> key = ofy().save().entity(this).now();
 		return getById(key.getId());

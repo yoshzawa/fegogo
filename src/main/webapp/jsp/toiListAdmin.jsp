@@ -53,7 +53,7 @@
 			<td><%=t.getId()%></td>
 			<td><%=t.getNo()%></td>
 			<td><% if(t.getGenre() == null){%>
-				<a href="">set Genre </a>
+				no Genre
 			<% } else {%>
 				<%= t.getGenre().get().getName() %>
 			<% } %>

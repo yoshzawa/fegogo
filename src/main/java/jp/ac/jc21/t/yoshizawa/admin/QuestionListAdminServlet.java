@@ -15,6 +15,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
@@ -27,31 +28,33 @@ public class QuestionListAdminServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		final Logger log = Logger.getLogger(QuestionListAdminServlet.class.getName());
 
+		// 問のIDを取り出す
 		String parentIdString = request.getParameter("parentId");
-
-		long parentId = Long.parseLong(parentIdString);
-		log.info("["+request.getServletPath() + "]parentId:" + parentId);
-
-		Toi parent = Toi.getById(parentId);
-
-		Exam exam = parent.getParent();
-
-	    
-		
-		TreeMap<Long, Question> qMap = Toi.getQuestionMap(parent);
-		
-		request.setAttribute("qMap", qMap);
-
-
-		request.setAttribute("parent", parent);
 		request.setAttribute("parentId", parentIdString);
-		request.setAttribute("questionMap", qMap);
+
+
+		// 問を取り出す
+		long parentId = Long.parseLong(parentIdString);
+		Toi parent = Toi.getById(parentId);
+		request.setAttribute("parent", parent);
+
+		// 試験を取り出す
+		Exam exam = parent.getParent();
 		request.setAttribute("exam", exam);
+
+		// 設問を取り出す
+		TreeMap<Long, Question> qMap = Toi.getQuestionMap(parent);
+		request.setAttribute("questionMap", qMap);
+		
+		List<Genre> genreList = Genre.loadAll();
+		request.setAttribute("genreList", genreList);
+
+		
+		
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin.jsp");
 		rd.forward(request, response);
 
 	}
-
 
 }
