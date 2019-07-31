@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
@@ -23,9 +24,11 @@ public class ToiAddAdminServlet extends HttpServlet {
 		String toiName = request.getParameter("toiName");
 		String parentId = request.getParameter("parentId");
 		long pId = Long.parseLong(parentId);
+		String genreId = request.getParameter("genreId");
+		Genre g = Genre.getById(Long.parseLong(genreId));
 
 		Exam e = Exam.getById(pId);
-		Toi t = Toi.createToi(e, no, toiName);
+		Toi t = Toi.createToi(e, no, toiName,g);
 		t = t.save();
 		e.addToiRefList(t);
 		e.save();

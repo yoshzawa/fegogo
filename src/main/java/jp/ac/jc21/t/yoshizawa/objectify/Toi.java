@@ -155,8 +155,12 @@ public final class Toi extends ToiFactory {
 	/**
 	 * @param genre the genre to set
 	 */
-	public void setGenre(Ref<Genre> genre) {
+	public void setGenreRef(Ref<Genre> genre) {
 		this.genre = genre;
+	}
+
+	public void setGenre(Genre genre) {
+		setGenreRef(Ref.create(genre));
 	}
 
 		public Toi save() {

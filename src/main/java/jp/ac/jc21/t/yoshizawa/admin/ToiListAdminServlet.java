@@ -13,6 +13,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
@@ -28,10 +29,13 @@ public class ToiListAdminServlet extends HttpServlet {
 		Exam e = Exam.getById(parentId);
 
 		TreeMap<Long, Toi> toiMap = e.getToiMap();
+		
+		List<Genre> genreList = Genre.loadAll();
 
 		request.setAttribute("parent", e);
 		request.setAttribute("toiMap", toiMap);
 		request.setAttribute("parentId", parentIdString);
+		request.setAttribute("genreList", genreList);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiListAdmin.jsp");
 		rd.forward(request, response);

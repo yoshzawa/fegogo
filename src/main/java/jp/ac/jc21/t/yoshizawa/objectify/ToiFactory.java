@@ -14,6 +14,16 @@ public class ToiFactory extends CommonEntity {
 
 	final static String cacheKeyName = "Toi";
 
+	public static final Toi createToi(Exam parent, Long no, String name,Genre genre) {
+		Toi t = new Toi();
+		t.setNo(no);
+		t.setName(name);
+		t.setCreated(new Date());
+		t.setParent(parent);
+		t.newQuestionRefList();
+		t.setGenre(genre);
+		return t;
+	}
 	public static final Toi createToi(Exam parent, Long no, String name) {
 		Toi t = new Toi();
 		t.setNo(no);
@@ -21,7 +31,7 @@ public class ToiFactory extends CommonEntity {
 		t.setCreated(new Date());
 		t.setParent(parent);
 		t.newQuestionRefList();
-		t.setGenre(null);
+		t.setGenreRef(null);
 		return t;
 	}
 
