@@ -176,4 +176,12 @@ public final class Answer extends AnswerFactory {
 		Key<Answer> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
+
+
+
+
+	public void delete() {
+		ofy().delete().entity(this).now();
+		
+	}
 }

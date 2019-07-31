@@ -111,7 +111,7 @@ public final class AnswerServlet extends HttpServlet {
 		
 		ansSummary.setNoOfSeikai(correct);
 		ansSummary.setMapRefAnswer(mapAnswer);
-		ansSummary.setRefMember(member);
+		ansSummary.setMember(member);
 		ansSummary.save();
 		
 		member.addRefAnswerSumList(ansSummary);

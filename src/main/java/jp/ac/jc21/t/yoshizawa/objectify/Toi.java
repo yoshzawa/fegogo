@@ -30,6 +30,7 @@ public final class Toi extends ToiFactory {
 	private Date created;
 	private Ref<Exam> parent;
 	private List<Ref<Question>> questionRefList;
+
 	private Ref<Genre> genre;
 
 	public Long getId() {
@@ -132,15 +133,6 @@ public final class Toi extends ToiFactory {
 	}
 
 
-	
-
-
-
-
-
-
-
-
 
 		/**
 	 * @return the genre
@@ -165,5 +157,4 @@ public final class Toi extends ToiFactory {
 //			Toi.clearCache();
 			return getById(key.getId());
 		}
-	
 }

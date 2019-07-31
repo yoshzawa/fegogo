@@ -129,4 +129,15 @@ public final class Member extends MemberFactory {
 		return list;
 	}
 
+	public void removeRefAnswerSumList(AnswerSum answerSum) {
+		List<Ref<AnswerSum>> list = getRefAnswerSumList();
+		List<Ref<AnswerSum>> listNew = new ArrayList<>();
+		for(Ref<AnswerSum> refAnswerSum : list) {
+			if(refAnswerSum.get().getId() != answerSum.getId()) {
+				listNew.add(refAnswerSum);
+			}
+		}
+		setRefAnswerSumList(listNew);
+	}
+
 }

@@ -55,7 +55,7 @@
 				Toi toi = as.getRefToi().get();
 		%>
 		<tr>
-			<td><%= as.getId() %></td>
+			<td><%= as.getId() %><a href="/admin/answerSum/delete?memberId=<%= as.getRefMember().get().geteMail() %>&AnswerSumId=<%= as.getId()%>">削除</a></td>
 			<td><%= as.getName() %></td>
 			<td><%= as.getNoOfAnswer() %></td>
 			<td><%= as.getNoOfSeikai() %></td>
