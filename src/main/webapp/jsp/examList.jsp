@@ -27,7 +27,7 @@
 		} else {
 	%>
 
-	<TABLE border="1" class="table table-striped table-hover table-responsive" align="center" >
+	<TABLE border="1" class="table table-striped table-hover " align="center" >
 		<thead class="thead-dark"><tr>
 			<TH>試験名</TH>
 			<TH>問題登録</TH>

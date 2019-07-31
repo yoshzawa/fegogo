@@ -1,3 +1,4 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Genre"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.*"%>
@@ -18,6 +19,8 @@
 		Exam parentExam = (Exam) request.getAttribute("parent");
 		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
+		List<Genre> genreList =		(List<Genre>)request.getAttribute("genreList");
+
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
@@ -38,6 +41,7 @@
 		<TR>
 			<TD>ToiId</TD>
 			<TD>No</TD>
+			<TD>Genre</TD>
 			<TD>Name</TD>
 		</TR>
 		<%
@@ -48,6 +52,12 @@
 		<tr>
 			<td><%=t.getId()%></td>
 			<td><%=t.getNo()%></td>
+			<td><% if(t.getGenre() == null){%>
+				no Genre
+			<% } else {%>
+				<%= t.getGenre().get().getName() %>
+			<% } %>
+			</td>
 			<td><a href="/admin/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
 			<td><%=t.getQuestionRefListSize()%></td>
 		</tr>
@@ -64,6 +74,12 @@
 		<label>No</label> <input type="text" name="No" /> 
 		<label>ToiName</label>
 		<input type="text" name="toiName" /> 
+		<select name="genreId" =1>
+		<% for (Genre g : genreList){ %>
+		<option value="<%= g.getId()%>"><%= g.getName() %></option>
+		
+		<% } %>
+		</select>
 		<input type="hidden"
 			name="parentId" value='<%=parentId%>' /> 
 			<input type="submit"

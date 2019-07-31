@@ -33,6 +33,7 @@ public final class Toi extends ToiFactory {
 	private Date created;
 	private Ref<Exam> parent;
 	private List<Ref<Question>> questionRefList;
+	private Ref<Genre> genre;
 
 	public Long getId() {
 		return id;
@@ -143,6 +144,24 @@ public final class Toi extends ToiFactory {
 
 
 
+
+		/**
+	 * @return the genre
+	 */
+	public Ref<Genre> getGenre() {
+		return genre;
+	}
+
+	/**
+	 * @param genre the genre to set
+	 */
+	public void setGenreRef(Ref<Genre> genre) {
+		this.genre = genre;
+	}
+
+	public void setGenre(Genre genre) {
+		setGenreRef(Ref.create(genre));
+	}
 
 		public Toi save() {
 			Key<Toi> key = ofy().save().entity(this).now();

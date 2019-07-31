@@ -14,26 +14,26 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/toi/add" })
-public class ToiAddAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/toi/changeGenre" })
+public class ToiChangeGenreAdminServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		long no = Long.parseLong(request.getParameter("No"));
-		String toiName = request.getParameter("toiName");
-		String parentId = request.getParameter("parentId");
-		long pId = Long.parseLong(parentId);
 		String genreId = request.getParameter("genreId");
+		String toiId = request.getParameter("toiId");
+
 		Genre g = Genre.getById(Long.parseLong(genreId));
+		Toi t = Toi.getById(Long.parseLong(toiId));
+		
+		g.addToiRefList(t);
+		g.save();
+		t.setGenre(g);
+		t.save();
+		
+		
 
-		Exam e = Exam.getById(pId);
-		Toi t = Toi.createToi(e, no, toiName,g);
-		t = t.save();
-		e.addToiRefList(t);
-		e.save();
-
-		response.sendRedirect("/admin/toi/list?parentId=" + parentId);
+		response.sendRedirect("/admin/question/list?parentId=" + toiId);
 
 	}
 }

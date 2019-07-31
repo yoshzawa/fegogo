@@ -1,3 +1,4 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Genre"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.Set"%>
@@ -24,15 +25,38 @@
 		Toi parent = (Toi) request.getAttribute("parent");
 		Map<Long,Question> qMap = (Map<Long,Question>) request.getAttribute("questionMap");
 		Exam exam = (Exam) request.getAttribute("exam");
-
+		List<Genre>genreList = (List<Genre>)request.getAttribute("genreList");
+		Long genreId=0L;
+		if(parent.getGenre() != null){
+		genreId = parent.getGenre().get().getId();
+		}
 	%>
 
-	<p>選択された試験：
+	<p>選択された試験：</p>
 	<P>
 		<%=exam.getName()%>
 		問<%=parent.getNo()%>(<%=parent.getName()%>) <a
 			href="/admin/toi/list?parentId=<%=exam.getId()%>">(選択解除する)</a>
 	</p>
+
+	<form method="post" action="/admin/toi/changeGenre">
+	<p>分野
+	<select name="genreId">
+	<% for (Genre g : genreList){ %>
+	<% if(g.getId() == genreId){ %>
+	<option value="<%= g.getId()%>" selected="selected"><%=g.getName() %></option>
+	<% } else {%>
+	<option value="<%= g.getId()%>"><%=g.getName() %></option>
+	<% } %>
+	<% } %>
+	</select> 
+	<input type="hidden" name="toiId" value="<%= parentId%>" />
+	<input type="submit" value="分野変更" />
+	</p>
+	</form>
+	
+
+
 
 	<%
 		if ((qMap == null) || (qMap.size() == 0)) {
