@@ -34,8 +34,15 @@ public class AnswerSumDeleteAdminServlet extends HttpServlet {
 		response.getWriter().println("DELETE AnswerSumId:"+as.getId()+"<br />");
 		
 		for(Integer key : mapanswer.keySet()) {
-			response.getWriter().println("DELETE AnswerId:"+mapanswer.get(key).getId()+"<br />");
+			Answer answer = mapanswer.get(key);
+			response.getWriter().println("DELETE AnswerId:"+answer.getId()+"<br />");
+//			answer.delete();
 		}
+		as.delete();
+		
+		
+		
+		
 		
 /*		
 		List<AnswerSum> answerSumList = Member.get(memberId).getAnswerSumList();

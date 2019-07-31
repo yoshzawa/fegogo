@@ -33,18 +33,10 @@ public final class Toi extends ToiFactory {
 	private Ref<Exam> parent;
 	private List<Ref<Question>> questionRefList;
 
-
-
-
-
-
-
 	public Toi save() {
 		Key<Toi> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -133,6 +125,5 @@ public final class Toi extends ToiFactory {
 	public void newQuestionRefList() {
 		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
-
 
 }

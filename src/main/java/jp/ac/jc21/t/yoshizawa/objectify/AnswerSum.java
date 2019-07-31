@@ -8,9 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
+
+import jp.ac.jc21.t.yoshizawa.admin.QuestionListAdminServlet;
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 import com.googlecode.objectify.Key;
 
@@ -152,8 +156,22 @@ public final class AnswerSum extends AnswerSumFactory {
 		this.refMember = refMember;
 	}
 
-	public void setRefMember(Member member) {
+	public void setMember(Member member) {
 		setRefMember(Ref.create(member));
+	}
+	public void delete() {
+//		ofy().delete().entity(this).now();
+		
+		final Logger log = Logger.getLogger(AnswerSum.class.getName());
+
+		Member member = getRefMember().get();
+		Toi toi = getRefToi().get();
+		member.removeRefAnswerSumList(this);
+		member.save();
+		setRefMember(null);
+//		toi.get
+		save();
+		
 	}
 
 }
