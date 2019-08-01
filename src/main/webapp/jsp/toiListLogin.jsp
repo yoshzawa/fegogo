@@ -42,6 +42,7 @@
 			<TH>問番号</TH>
 			<TH>テーマ</TH>
 			<TH>設問数</TH>
+			<TH>過去の解答</TH>
 			</TR>
 		</thead>
 		<%
@@ -53,8 +54,21 @@
 			<td><%=t.getNo()%></td>
 			<td><a href="/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
 						<td><%=t.getQuestionRefListSize()%></td>
-			
+
+			<td>
+				<%
+					int i = 0;
+							for (AnswerSum as : answerSumList) {
+								if (as.getRefToi().get().getId() == t.getId()) {
+									%>
+			<%=sdf.format(as.getAnswered())%>(<%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>%)
+									<% 
+								}
+							}
+				%>
+			</td>
 		</tr>
+		
 		<%
 			}
 		%>
@@ -83,14 +97,13 @@
 		<%
 			for (AnswerSum as : answerSumList) {
 					Toi toi = as.getRefToi().get();
-					float point = (100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
 		%>
 		<tr>
 			<td><%=toi.getParent().getName()%></td>
 			<td><%=toi.getNo()%></td>
 			<td><%=toi.getName()%></td>
 			<td><%=sdf.format(as.getAnswered())%></td>
-			<td align="right"><%=String.format("%1$.1f", point)%></td>
+			<td align="right"><%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>%</td>
 		</tr>
 		<%
 			}
@@ -98,7 +111,13 @@
 		<%
 	}
 %>
-	
+
+<%!
+	private String changePoint(int seikai , int answer){
+	float point = (100.0f * seikai / answer);
+	return String.format("%1$.1f", point);
+	}	
+ %>	
 </body>
 　<%@ include file="common/footer.jsp"%>
 
