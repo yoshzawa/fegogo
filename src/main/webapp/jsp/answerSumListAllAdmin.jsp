@@ -51,9 +51,14 @@
 
 			for (AnswerSum as : answerSumList) {
 				Toi toi = as.getRefToi().get();
+				Ref<Member> member=as.getRefMember();
 		%>
 		<tr>
-			<td><%= as.getId() %><a href="/admin/answerSum/delete?memberId=<%= as.getRefMember().get().geteMail() %>&AnswerSumId=<%= as.getId()%>">delete</td>
+			<td><%= as.getId() %>
+			<% if(member != null){%>
+			<br /><a href="/admin/answerSum/delete?memberId=<%= member.get().geteMail() %>&AnswerSumId=<%= as.getId()%>">delete
+						<% }%>
+			</td>
 			<td><%= as.getName() %></td>
 			<td><%= as.getNoOfAnswer() %></td>
 			<td><%= as.getNoOfSeikai() %></td>
@@ -64,10 +69,12 @@
 					<%= m.get(k).get().getId() %><br />
 				<% } %>
 			</td>
-			<td><%= as.getRefMember().get().geteMail() %>
-			<%  if ((as.getRefMember() == null )||(as.getRefMember().get().containsRef(as) == false)) {%>
+			<td>
+			<%  if ((member == null )||(as.getRefMember().get().containsRef(as) == false)) {%>
 			<a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>
-			reChain　</a></td>
+			reChain</a></td>
+			<% } else {%>
+			<%= member.get().geteMail() %>
 			<% } %>
 			<td><%= toi.getParent().getName() %></td>
 			<td><%= toi.getNo() %></td>
