@@ -12,6 +12,7 @@ public class GenreFactory extends CommonEntity {
 		g.setCreated(new Date());
 		g.setName(name);
 		g.newToiRefList();
+		g.setNo(0);
 		return g;
 	}
 	
@@ -20,8 +21,10 @@ public class GenreFactory extends CommonEntity {
 	}
 	
 	private static final List<Genre> loadAllFromOfy() {
-		List<Genre> list = ofy().load().type(Genre.class).list();
-		return list;
+//		List<Genre> list = ofy().load().type(Genre.class).list();
+//		return list;
+		return ofy().load().type(Genre.class).order("no").list();
+
 	}
 
 	public static final Genre getById(long id) {

@@ -24,6 +24,8 @@ public class Genre extends GenreFactory {
 	Long id;
 	private String name;
 	private Date created;
+	@Index
+	private Integer no;
 	private List<Ref<Toi>> toiRefList;
 
 
@@ -104,6 +106,14 @@ public class Genre extends GenreFactory {
 	public Genre save() {
 		Key<Genre> key = ofy().save().entity(this).now();
 		return getById(key.getId());
+	}
+
+	public Integer getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 }
