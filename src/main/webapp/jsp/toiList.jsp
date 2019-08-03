@@ -18,11 +18,13 @@
 		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
 	%>
-<%@ include file="common/header.jsp"%>
+	<%@ include file="common/header.jsp"%>
 
 	<H1>登録されている問の一覧</H1>
-	
-	<p>選択された試験：<%= parent.getName() %> <a href="/exam/list">(選択解除する)</a>
+
+	<p>
+		選択された試験：<%=parent.getName()%>
+		<a href="/exam/list">(選択解除する)</a>
 	</p>
 
 	<%
@@ -32,11 +34,15 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1 class="table table-striped table-hover table-responsive">
-		<thead class="thead-dark"><tr>
-			<TH>問番号</TH>
-			<TH>テーマ</TH>
-			<TH>設問数</TH>
+	<TABLE border=1
+		class="table table-striped table-hover table-responsive">
+		<thead class="thead-dark">
+			<tr>
+				<TH>問番号</TH>
+				<TH>ジャンル</TH>
+
+				<TH>テーマ</TH>
+				<TH>設問数</TH>
 			</TR>
 		</thead>
 		<%
@@ -46,9 +52,10 @@
 		%>
 		<tr>
 			<td><%=t.getNo()%></td>
+			<td><%=t.getGenre().get().getName()%></td>
 			<td><a href="/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
-						<td><%=t.getQuestionRefListSize()%></td>
-			
+			<td><%=t.getQuestionRefListSize()%></td>
+
 		</tr>
 		<%
 			}
@@ -60,6 +67,6 @@
 
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 
 </html>
