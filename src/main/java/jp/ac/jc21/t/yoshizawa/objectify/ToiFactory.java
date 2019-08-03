@@ -20,6 +20,7 @@ public class ToiFactory extends CommonEntity {
 		t.setParent(parent);
 		t.newQuestionRefList();
 		t.setGenre(genre);
+		t.setAnswerSumRefList(null);
 		return t;
 	}
 	public static final Toi createToi(Exam parent, Long no, String name) {
@@ -32,8 +33,6 @@ public class ToiFactory extends CommonEntity {
 		t.setGenreRef(null);
 		return t;
 	}
-
-
 
 	public static final TreeMap<Long, Question> getQuestionMap(Toi parent) {
 		TreeMap<Long, Question> qMap = new TreeMap<>();

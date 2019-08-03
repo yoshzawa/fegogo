@@ -30,6 +30,7 @@ public final class Toi extends ToiFactory {
 	private Date created;
 	private Ref<Exam> parent;
 	private List<Ref<Question>> questionRefList;
+	private List<Ref<AnswerSum>> AnswerSumRefList;
 
 	private Ref<Genre> genre;
 
@@ -156,5 +157,13 @@ public final class Toi extends ToiFactory {
 			Key<Toi> key = ofy().save().entity(this).now();
 //			Toi.clearCache();
 			return getById(key.getId());
+		}
+
+		public List<Ref<AnswerSum>> getAnswerSumRefList() {
+			return AnswerSumRefList;
+		}
+
+		public void setAnswerSumRefList(List<Ref<AnswerSum>> answerSumRefList) {
+			AnswerSumRefList = answerSumRefList;
 		}
 }
