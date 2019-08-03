@@ -35,20 +35,22 @@
 	<TABLE border=1>
 		<TR>
 			<TD>ID</TD>
-			<TD>YYYYMM</TD>
+			<TD>No</TD>
 			<TD>NAME</TD>
-			<TD>問題登録</TD>
+			<TD>問題</TD>
 		</TR>
 		<%
 		for (Genre g : genreList) {
 		%>
 		<tr>
 			<td><%=g.getId()%></td>
+			<td><%=g.getNo()%></td>
 			<td><%=g.getName()%></td>
 			<td>
 			<% for(Ref<Toi> rt : g.getToiRefList()){
 					Toi t = rt.get();%>
-				<%= t.getParent().getName() %>
+				<%= t.getParent().getName() %> 
+				問<%= t.getNo() %> 
 				<%= t.getName() %> <br />
 			
 			<% }%>
