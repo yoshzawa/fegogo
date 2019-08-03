@@ -44,10 +44,13 @@
 			<td>
 			<% List<Ref<Toi>> list = g.getToiRefList(); 
 			for(Ref<Toi> rt : list){
+//				rt.get().get
 			%>
 				<%= rt.get().getParent().getName()%> 
 				<%= rt.get().getNo() %> 
-				<%= rt.get().getName() %> <br />
+				<%= rt.get().getName() %>
+				
+				 <br />
 		<%
 			}
 		%>

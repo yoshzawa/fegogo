@@ -43,6 +43,7 @@
 			<TD>No</TD>
 			<TD>Genre</TD>
 			<TD>Name</TD>
+			<TD>問題数</TD>
 		</TR>
 		<%
 			Set<Long> toiKeySet = toiMap.keySet();
