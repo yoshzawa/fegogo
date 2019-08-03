@@ -71,13 +71,15 @@ public final class Toi extends ToiFactory {
 	 */
 	public Exam getParent() {
 
-			Ref<Exam> re = parent;
-			return re.get();
-		
+		Ref<Exam> re = parent;
+		return re.get();
+
 	}
+
 	private void resetParent() {
-		parent=null;
-}
+		parent = null;
+	}
+
 	/**
 	 * @param parent the parent to set
 	 */
@@ -91,7 +93,7 @@ public final class Toi extends ToiFactory {
 
 	public List<Ref<Question>> getQuestionRefList() {
 		if (questionRefList == null) {
-				newQuestionRefList();
+			newQuestionRefList();
 		}
 		return questionRefList;
 	}
@@ -116,11 +118,8 @@ public final class Toi extends ToiFactory {
 	}
 
 	private void resetQuestionRefList() {
-		questionRefList=null;
+		questionRefList = null;
 	}
-
-
-
 
 	/**
 	 * @param questionList the questionList to set
@@ -133,9 +132,7 @@ public final class Toi extends ToiFactory {
 		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
 
-
-
-		/**
+	/**
 	 * @return the genre
 	 */
 	public Ref<Genre> getGenre() {
@@ -153,17 +150,46 @@ public final class Toi extends ToiFactory {
 		setGenreRef(Ref.create(genre));
 	}
 
-		public Toi save() {
-			Key<Toi> key = ofy().save().entity(this).now();
+	public Toi save() {
+		Key<Toi> key = ofy().save().entity(this).now();
 //			Toi.clearCache();
-			return getById(key.getId());
-		}
+		return getById(key.getId());
+	}
 
-		public List<Ref<AnswerSum>> getAnswerSumRefList() {
-			return AnswerSumRefList;
+	public List<Ref<AnswerSum>> getAnswerSumRefList() {
+		if(AnswerSumRefList == null) {
+			newAnswerSumRefList();
 		}
+		return AnswerSumRefList;
+	}
 
-		public void setAnswerSumRefList(List<Ref<AnswerSum>> answerSumRefList) {
-			AnswerSumRefList = answerSumRefList;
+	private void newAnswerSumRefList() {
+		setAnswerSumRefList(new ArrayList<Ref<AnswerSum>>());
+		
+	}
+
+	public void setAnswerSumRefList(List<Ref<AnswerSum>> answerSumRefList) {
+		AnswerSumRefList = answerSumRefList;
+	}
+
+	public boolean containsAnswerSum(AnswerSum as) {
+		Long asId = as.getId();
+		for(Ref<AnswerSum> r:getAnswerSumRefList()) {
+			if(r.get().getId() == asId) {
+				return true;
+			}
+			
 		}
+		
+		return false;
+	}
+
+	public void aetAnswerSumRefList(AnswerSum a) {
+		List<Ref<AnswerSum>> list = getAnswerSumRefList();
+		list.add(Ref.create(a));
+		setAnswerSumRefList(list);
+		
+		
+	}
+
 }

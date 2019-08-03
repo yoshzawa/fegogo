@@ -70,15 +70,21 @@
 				<% } %>
 			</td>
 			<td>
-			<%  if ((member == null )||(as.getRefMember().get().containsRef(as) == false)) {%>
-			<a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>
-			reChain</a></td>
-			<% } else {%>
-			<%= member.get().geteMail() %>
-			<% } %>
+				<%  if ((member == null )||(as.getRefMember().get().containsRef(as) == false)) {%>
+					<a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>
+					reChain</a>
+				<% } else {%>
+					<%= member.get().geteMail() %>
+				<% } %>
+			</td>
 			<td><%= toi.getParent().getName() %></td>
 			<td><%= toi.getNo() %></td>
-			<td><%= toi.getName() %></td>
+			<td>
+				<%= toi.getName() %>
+				<% if ((toi != null ) && (toi.containsAnswerSum(as) == false)){%>
+					<a href='/admin/toi/addAnswerSum?toiId=<%= toi.getId() %>&answerSumId=<%= as.getId() %>'>addAnswerSum</a>
+				<%} %>
+			</td>
 		</tr>
 		<%
 			}
