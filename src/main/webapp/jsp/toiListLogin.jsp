@@ -37,10 +37,11 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1 class="table table-striped table-hover table-responsive">
+	<TABLE border=1 class="table table-striped table-hover ">
 		<thead class="thead-dark">		<TR>
 			<TH>問番号</TH>
-			<TH>テーマ</TH>
+			<TH>分野</TH>
+			<TH>内容</TH>
 			<TH>設問数</TH>
 			<TH>過去の解答</TH>
 			</TR>
@@ -52,6 +53,7 @@
 		%>
 		<tr>
 			<td><%=t.getNo()%></td>
+			<td><%=t.getGenre().get().getName()%></td>
 			<td><a href="/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
 						<td><%=t.getQuestionRefListSize()%></td>
 
@@ -82,14 +84,14 @@
 <% if ((answerSumList == null) || (answerSumList.size() == 0)){ %>
 	試験が解答されていません
 <% } else {%>
-	<TABLE border=1 class="table table-striped table-hover table-responsive">
+	<TABLE border=1 class="table table-striped table-hover ">
 		<thead class="thead-dark">
 			<TR>
 				<TH>試験名</TH>
 				<TH>問</TH>
+				<TH>分野</TH>
 				<TH>内容</TH>
 				<TH>解答日</TH>
-
 				<TH>正解率</TH>
 			</TR>
 		</thead>
@@ -101,6 +103,7 @@
 		<tr>
 			<td><%=toi.getParent().getName()%></td>
 			<td><%=toi.getNo()%></td>
+			<td><%=toi.getGenre().get().getName()%></td>
 			<td><%=toi.getName()%></td>
 			<td><%=sdf.format(as.getAnswered())%></td>
 			<td align="right"><%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>%</td>
