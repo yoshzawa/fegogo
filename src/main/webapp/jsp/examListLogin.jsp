@@ -64,11 +64,12 @@
 		} else {
 	%>
 	<TABLE border="1"
-		class="table table-striped table-hover table-responsive">
+		class="table table-striped table-hover ">
 		<thead class="thead-dark">
 			<TR>
 				<TH>試験名</TH>
 				<TH>問</TH>
+				<TH>分野</TH>
 				<TH>内容</TH>
 				<TH>解答日</TH>
 				<TH>正解率</TH>
@@ -82,6 +83,7 @@
 		<tr>
 			<td><%=as.getRefToi().get().getParent().getName()%></td>
 			<td><%=as.getRefToi().get().getNo()%></td>
+			<td><%=as.getRefToi().get().getGenre().get().getName()%></td>
 			<td><%=as.getRefToi().get().getName()%></td>
 			<td><%=sdf.format(as.getAnswered())%></td>
 			<td align="right"><%=String.format("%1$.1f", point)%></td>
