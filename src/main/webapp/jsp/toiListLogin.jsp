@@ -115,12 +115,6 @@
 	}
 %>
 
-<%!
-	private String changePoint(int seikai , int answer){
-	float point = (100.0f * seikai / answer);
-	return String.format("%1$.1f", point);
-	}	
- %>	
 </body>
 　<%@ include file="common/footer.jsp"%>
 

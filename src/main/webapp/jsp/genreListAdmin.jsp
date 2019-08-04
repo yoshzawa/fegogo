@@ -1,3 +1,4 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.AnswerSum"%>
 <%@page import="com.googlecode.objectify.Ref"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Genre"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
@@ -52,6 +53,14 @@
 				<%= t.getParent().getName() %> 
 				問<%= t.getNo() %> 
 				<%= t.getName() %> <br />
+				<% for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
+					if((as != null)&&(as.get().getRefMember()!=null)){
+				%>
+					--- <%= as.get().getRefMember().get().geteMail() %> 
+					<%= changePoint(as.get().getNoOfSeikai() , as.get().getNoOfAnswer()) %> <br />
+				<%} %>
+					
+				<% } %>
 			
 			<% }%>
 			
