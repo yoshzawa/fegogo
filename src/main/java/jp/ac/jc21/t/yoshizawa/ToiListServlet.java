@@ -55,7 +55,7 @@ public class ToiListServlet extends HttpServlet {
 
 			request.setAttribute("ExamName", e.getName());
 
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/toiList.jsp");
 			rd.forward(request, response);
 		} else {
 			// ÉçÉOÉCÉìÇµÇƒÇ¢ÇÈèÍçá
@@ -66,7 +66,7 @@ public class ToiListServlet extends HttpServlet {
 			List<AnswerSum> asl = member.getAnswerSumListByExamId(parentId);
 			request.setAttribute("answerSumList", asl);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiListLogin.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/toiListLogin.jsp");
 			rd.forward(request, response);
 		}
 	}
