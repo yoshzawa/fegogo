@@ -21,8 +21,8 @@
 
 
 	%>
-<%@ include file="common/headerLogin.jsp"%><br>
-    <h1>登録されている分野の一覧</h1>
+	<%@ include file="common/headerLogin.jsp"%><br>
+	<h1>登録されている分野の一覧</h1>
 
 	<%
 		if (genreList == null || genreList.size() == 0) {
@@ -32,42 +32,47 @@
 		} else {
 	%>
 
-	<TABLE border="1" class="table table-striped table-hover " align="center" >
-		<thead class="thead-dark"><tr>
-			<TH>分野名</TH>
-			<TH>問題</TH>
+	<TABLE border="1" class="table table-striped table-hover "
+		align="center">
+		<thead class="thead-dark">
+			<tr>
+				<TH>分野名</TH>
+				<TH>問題</TH>
+				<TH>過去の解答</TH>
 			</TR>
 		</thead>
 		<%
 			for (Genre g : genreList) {
+				String genreName=g.getName();
+				List<Ref<Toi>> list = g.getToiRefList(); 
 		%>
+				<% 
+					for(Ref<Toi> rt : list){
+					Toi t = rt.get();			%> 
 		<tr>
-			<td><%=g.getName()%></td>
+			<td  ><%= genreName %></td>
+				<% 
+					genreName="";
+					%>
 			<td>
-			<% List<Ref<Toi>> list = g.getToiRefList(); 
-			for(Ref<Toi> rt : list){
-				Toi t = rt.get();
-			%>
-				<%= t.getParent().getName()%> 
-				<%= t.getNo() %> 
-				<%= t.getName() %>
-				<% AnswerSum as = t.getAnswerSumByMemberId(email); 
-				if (as != null ){%>
-					[<%= dateFormat(as.getAnswered()) %>
-					(<%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>)]
-				<%} %>
-				
-				 <br />
-		<%
-			}
-		%>
+				<%= t.getParent().getName()%> 問<%= t.getNo() %> (<%= t.getName() %>)
+				</td>
+				<td>
+				<% 
+					AnswerSum as = t.getAnswerSumByMemberId(email); 
+					if (as != null ){ %> 
+					[<%= dateFormat(as.getAnswered()) %> (<%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>)]
+				<%} else {%> 
+				<a href='/question/list?parentId=<%= t.getId() %>'>答える</a>
+				<%} %> 
 			</td>
 		</tr>
+			<%			}		%>
 		<%
 			}
 		%>
-	</TABLE>	
-	
+	</TABLE>
+
 
 	<%
 		}
@@ -75,6 +80,6 @@
 
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 
 </html>

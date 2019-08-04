@@ -63,11 +63,15 @@
 							for (AnswerSum as : answerSumList) {
 								if (as.getRefToi().get().getId() == t.getId()) {
 									%>
-			<%=sdf.format(as.getAnswered())%>(<%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>%)
+			<%=dateFormat(as.getAnswered())%>
+			(<%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>%)
 									<% 
-								}
+								i++;}
 							}
-				%>
+							if(i==0){				%>
+			<a href="/question/list?parentId=<%=t.getId()%>">答える</a>
+				
+				<%} %>
 			</td>
 		</tr>
 		
