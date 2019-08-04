@@ -184,12 +184,26 @@ public final class Toi extends ToiFactory {
 		return false;
 	}
 
-	public void aetAnswerSumRefList(AnswerSum a) {
+	public void addAnswerSumRefList(AnswerSum a) {
 		List<Ref<AnswerSum>> list = getAnswerSumRefList();
 		list.add(Ref.create(a));
 		setAnswerSumRefList(list);
 		
 		
+	}
+	public AnswerSum getAnswerSumByMemberId(String email) {
+		Member m = Member.getByeMail(email);
+		for(Ref<AnswerSum> as: getAnswerSumRefList()) {
+			Ref<Member> refMember = as.get().getRefMember();
+			if(refMember == null) {
+				continue;
+			}
+			String geteMail = refMember.get().geteMail();
+			if(geteMail.equals(email)) {
+				return as.get();
+			}
+		}
+		return null;
 	}
 
 }

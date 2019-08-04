@@ -31,7 +31,7 @@ public class ToiChangeGenreAdminServlet2 extends HttpServlet {
 
 		a.setRefToi(Ref.create(t));
 		a.save();
-		t.aetAnswerSumRefList(a);
+		t.addAnswerSumRefList(a);
 		t.save();
 		
 		

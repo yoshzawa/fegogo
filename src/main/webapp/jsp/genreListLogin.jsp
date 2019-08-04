@@ -1,3 +1,4 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.AnswerSum"%>
 <%@page import="com.googlecode.objectify.Ref"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Genre"%>
 <%@page import="java.util.Map"%>
@@ -18,8 +19,9 @@
 	<%
 		List<Genre> genreList = 	(List<Genre>)request.getAttribute("genreList");
 
+
 	%>
-<%@ include file="common/header.jsp"%><br>
+<%@ include file="common/headerLogin.jsp"%><br>
     <h1>登録されている分野の一覧</h1>
 
 	<%
@@ -44,11 +46,16 @@
 			<td>
 			<% List<Ref<Toi>> list = g.getToiRefList(); 
 			for(Ref<Toi> rt : list){
-//				rt.get().get
+				Toi t = rt.get();
 			%>
-				<%= rt.get().getParent().getName()%> 
-				<%= rt.get().getNo() %> 
-				<%= rt.get().getName() %>
+				<%= t.getParent().getName()%> 
+				<%= t.getNo() %> 
+				<%= t.getName() %>
+				<% AnswerSum as = t.getAnswerSumByMemberId(email); 
+				if (as != null ){%>
+					[<%= dateFormat(as.getAnswered()) %>
+					(<%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>)]
+				<%} %>
 				
 				 <br />
 		<%
