@@ -23,7 +23,7 @@
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 	%>
-<%@ include file="common/headerLogin.jsp"%>
+<%@ include file="../common/headerLogin.jsp"%>
 
 	<H1>登録されている問の一覧</H1>
 	
@@ -120,6 +120,6 @@
 %>
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+　<%@ include file="../common/footer.jsp"%>
 
 </html>
