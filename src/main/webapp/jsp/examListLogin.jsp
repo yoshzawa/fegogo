@@ -1,9 +1,3 @@
-<%@page import="java.util.Map"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="jp.ac.jc21.t.yoshizawa.objectify.AnswerSum"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
-<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -15,17 +9,18 @@
 </head>
 <body>
 	<%
-		Map<Long, Exam> examMap = (Map<Long, Exam>) request.getAttribute("examMap");
-		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+		List<String[]> datas = (List<String[]>)request.getAttribute("datas");
+		List<String[]> datas2 = (List<String[]>)request.getAttribute("datas2");
+
 	%>
 
 	<%@ include file="common/headerLogin.jsp"%>
 
 	<H1>登録されている試験の一覧</H1>
 
-	<%
-	if (examMap == null || examMap.size() == 0) {
+<%
+	if (datas == null || datas.size() == 0) {
 	%>
 	試験が登録されていません
 	<%
@@ -40,11 +35,10 @@
 			</TR>
 		</thead>
 		<%
-		for (Long k : examMap.keySet()) {
-			Exam e = examMap.get(k);		%>
+		for (String[] s : datas) { %>
 		<tr>
-			<td><a href="/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
-			<td><%=e.getToiRefListSize()%></td>
+			<td><%= s[0] %></td>
+			<td><%= s[1] %></td>
 		</tr>
 		<%
 			}
@@ -54,10 +48,13 @@
 		}
 	%>
 
+
 	<H1>解答済み試験の一覧</H1>
 
+
+
 	<%
-		if ((answerSumList == null) || (answerSumList == null)) {
+		if ((datas2 == null) || (datas2 == null)) {
 	%>
 	試験が解答されていません
 	<%
@@ -77,16 +74,15 @@
 		</thead>
 
 		<%
-			for (AnswerSum as : answerSumList) {
-					float point = (100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
+			for (String[] s : datas2) {
 		%>
 		<tr>
-			<td><%=as.getRefToi().get().getParent().getName()%></td>
-			<td><%=as.getRefToi().get().getNo()%></td>
-			<td><%=as.getRefToi().get().getGenre().get().getName()%></td>
-			<td><%=as.getRefToi().get().getName()%></td>
-			<td><%=sdf.format(as.getAnswered())%></td>
-			<td align="right"><%=String.format("%1$.1f", point)%></td>
+			<td><%= s[0] %></td>
+			<td><%= s[1] %></td>
+			<td><%= s[2] %></td>
+			<td><%= s[3] %></td>
+			<td><%= s[4] %></td>
+			<td align='right'><%= s[5] %></td>
 		</tr>
 		<%
 			}
@@ -95,6 +91,7 @@
 	<%
 		}
 	%>
+
 
 </body>
 <%@ include file="common/footer.jsp"%>
