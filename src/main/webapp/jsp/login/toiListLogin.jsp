@@ -16,22 +16,27 @@
 
 
 	<%
-		Exam parent = (Exam) request.getAttribute("parent");
-		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
-		String parentId = (String) request.getAttribute("parentId");
-		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//		Exam parent = (Exam) request.getAttribute("parent");
+//		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
+//		String parentId = (String) request.getAttribute("parentId");
+//		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		
+		List<String[]> datas = 	(List<String[]>)	request.getAttribute("datas");
+		List<String[]> datas2 = 	(List<String[]>)	request.getAttribute("datas2");
+		String ExamName  = (String)request.getAttribute("ExamName");
 
 	%>
 <%@ include file="../common/headerLogin.jsp"%>
 
 	<H1>登録されている問の一覧</H1>
 	
-	<p>選択された試験：<%= parent.getName() %> <a href="/exam/list">(選択解除する)</a>
+	<p>選択された試験：<%= ExamName %> <a href="/exam/list">(選択解除する)</a>
 	</p>
 
+
 	<%
-		if (toiMap == null || toiMap.size() == 0) {
+		if (datas == null || datas.size() == 0) {
 	%>
 	試験が登録されていません
 	<%
@@ -47,45 +52,40 @@
 			</TR>
 		</thead>
 		<%
-			Set<Long> toiKeySet = toiMap.keySet();
-				for (Long l : toiKeySet) {
-					Toi t = toiMap.get(l);
+		for(String[] s : datas){
 		%>
 		<tr>
-			<td><%=t.getNo()%></td>
-			<td><%=t.getGenre().get().getName()%></td>
-			<td><a href="/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
-						<td><%=t.getQuestionRefListSize()%></td>
-
-			<td>
-				<%
-					int i = 0;
-							for (AnswerSum as : answerSumList) {
-								if (as.getRefToi().get().getId() == t.getId()) {
-									%>
-			<%=dateFormat(as.getAnswered())%>
-			(<%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>%)
-									<% 
-								i++;}
-							}
-							if(i==0){				%>
-			<a href="/question/list?parentId=<%=t.getId()%>">答える</a>
+			<td><%=s[0]%></td>
+			<td><%=s[1]%></td>
+			<td><%=s[2]%></td>
+			<td><%=s[3]%></td>
+			<td><%=s[4]%></td>
 				
-				<%} %>
-			</td>
 		</tr>
 		
 		<%
 			}
 		%>
 	</TABLE>
+	
 	<%
 		}
 	%>
 
+
+
+
+
+
 <H1>解答済み試験の一覧</H1>
 
-<% if ((answerSumList == null) || (answerSumList.size() == 0)){ %>
+
+
+
+
+
+
+<% if ((datas2 == null) || (datas2.size() == 0)){ %>
 	試験が解答されていません
 <% } else {%>
 	<TABLE border=1 class="table table-striped table-hover ">
@@ -101,16 +101,15 @@
 		</thead>
 
 		<%
-			for (AnswerSum as : answerSumList) {
-					Toi toi = as.getRefToi().get();
+			for (String[] s : datas2) {
 		%>
 		<tr>
-			<td><%=toi.getParent().getName()%></td>
-			<td><%=toi.getNo()%></td>
-			<td><%=toi.getGenre().get().getName()%></td>
-			<td><%=toi.getName()%></td>
-			<td><%=sdf.format(as.getAnswered())%></td>
-			<td align="right"><%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>%</td>
+			<td><%=s[0]%></td>
+			<td><%=s[1]%></td>
+			<td><%=s[2]%></td>
+			<td><%=s[3]%></td>
+			<td><%=s[4]%></td>
+			<td align="right">			<%=s[5]%></td>
 		</tr>
 		<%
 			}
