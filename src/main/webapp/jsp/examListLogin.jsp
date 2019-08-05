@@ -19,7 +19,7 @@
 
 	<H1>登録されている試験の一覧</H1>
 
-<%
+	<%
 	if (datas == null || datas.size() == 0) {
 	%>
 	試験が登録されていません
@@ -60,8 +60,7 @@
 	<%
 		} else {
 	%>
-	<TABLE border="1"
-		class="table table-striped table-hover ">
+	<TABLE border="1" class="table table-striped table-hover ">
 		<thead class="thead-dark">
 			<TR>
 				<TH>試験名</TH>
