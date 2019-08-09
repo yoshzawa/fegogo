@@ -42,12 +42,12 @@ public class AnswerDumpAdminServlet extends HttpServlet {
 		for (AnswerSum as : answerSumList) {
 			Toi toi = as.getRefToi().get();
 			Exam exam = toi.getParent();
-			log.info("AnswerSum="+as.getId().toString());
+			//log.info("AnswerSum="+as.getId().toString());
 			float point = (100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
 			Map<Integer, Answer> answerMap = as.getMapAnswer();
 			for (Integer i : answerMap.keySet()) {
 				Answer a = answerMap.get(i);
-				log.info("Answer="+a.getId().toString());
+				//log.info("Answer="+a.getId().toString());
 
 				out.print(as.getId());
 				out.print(",");
