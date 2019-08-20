@@ -1,6 +1,7 @@
 package jp.ac.jc21.t.yoshizawa;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -27,35 +28,111 @@ public class ToiListServlet extends HttpServlet {
 		// ExamとIDを取得
 		String parentIdString = request.getParameter("parentId");
 		long parentId = Long.parseLong(parentIdString);
-		request.setAttribute("parentId", parentIdString);
 
 		// Examを取得
 		Exam e = Exam.getById(parentId);
-		request.setAttribute("parent", e);
-		
-		//問の一覧を取得
-		TreeMap<Long, Toi> toiMap = e.getToiMap();
-		request.setAttribute("toiMap", toiMap);
+//		request.setAttribute("parent", e);
 
-		//ユーザー情報取得
+
+		// 問の一覧を取得
+		TreeMap<Long, Toi> toiMap = e.getToiMap();
+//		request.setAttribute("toiMap", toiMap);
+
+		// ユーザー情報取得
 		HttpSession session = request.getSession();
-		String email = (String)session.getAttribute("email");
-		
-		if(email == null) {
+		String email = (String) session.getAttribute("email");
+		request.setAttribute("ExamName", e.getName());
+
+
+		if (email == null) {
 			// ログインしていない場合
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiList.jsp");
-			rd.forward(request, response);			
+			List<String[]> datas = new ArrayList<String[]>();
+			Set<Long> toiKeySet = toiMap.keySet();
+			for (Long key : toiKeySet) {
+				Toi t = toiMap.get(key);
+				String[] s = new String[4];
+				s[0] = t.getNo().toString();
+				s[1] = t.getGenre().get().getName();
+				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
+				s[3] = t.getQuestionRefListSize() + "";
+				datas.add(s);
+			}
+			request.setAttribute("datas", datas);
+
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/toiList.jsp");
+			rd.forward(request, response);
 		} else {
 			// ログインしている場合
 			request.setAttribute("email", email);
-			
-			//　回答した情報を取得
-			Member member=Member.get(email);
-			List<AnswerSum> asl = member.getAnswerSumListByExamId(parentId);
-			request.setAttribute("answerSumList", asl);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/toiListLogin.jsp");
+			// 回答した情報を取得
+			Member member = Member.get(email);
+			List<AnswerSum> answerSumList = member.getAnswerSumListByExamId(parentId);
+			request.setAttribute("answerSumList", answerSumList);
+
+			List<String[]> datas = new ArrayList<String[]>();
+
+			/////
+
+			Set<Long> toiKeySet = toiMap.keySet();
+			for (Long key : toiKeySet) {
+				Toi t = toiMap.get(key);
+				String[] s = new String[5];
+
+				s[0] = t.getNo().toString();
+				s[1] = t.getGenre().get().getName();
+				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
+				s[3] = t.getQuestionRefListSize() + "";
+				s[4] = "";
+
+				int i = 0;
+				for (AnswerSum as : answerSumList) {
+					if (as.getRefToi().get().getId() == t.getId()) {
+						s[4] += dateFormat(as.getAnswered()) + "(" + changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())
+								+ "%)";
+						i++;
+					}
+				}
+				if (i == 0) {
+					s[4] = "<a href='/question/list?parentId=" + t.getId() + "'>答える</a>";
+
+				}
+				datas.add(s);
+
+			}
+			/////
+			request.setAttribute("datas", datas);
+			
+			List<String[]> datas2 = new ArrayList<String[]>();
+
+			for (AnswerSum as : answerSumList) {
+				String[] s = new String[6];
+					Toi toi = as.getRefToi().get();
+			s[0]=toi.getParent().getName();
+			s[1]=toi.getNo().toString();
+			s[2]=toi.getGenre().get().getName();
+			s[3]=toi.getName();
+			s[4]=dateFormat(as.getAnswered());
+			s[5]= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) +"%";
+			datas2.add(s);
+			
+			}
+			request.setAttribute("datas2", datas2);
+			
+
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/toiListLogin.jsp");
 			rd.forward(request, response);
 		}
+	}
+
+	private final String changePoint(int seikai, int answer) {
+		float point = (100.0f * seikai / answer);
+		return String.format("%1$.1f", point);
+	}
+
+	private final String dateFormat(Date d) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		return sdf.format(d);
+
 	}
 }

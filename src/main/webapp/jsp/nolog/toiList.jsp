@@ -14,28 +14,27 @@
 
 
 	<%
-		Exam parent = (Exam) request.getAttribute("parent");
-		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
-		String parentId = (String) request.getAttribute("parentId");
+	String ExamName  = (String)request.getAttribute("ExamName");
+		List<String[]> datas = (List<String[]>)request.getAttribute("datas");
 	%>
-	<%@ include file="common/header.jsp"%>
+	<%@ include file="../common/header.jsp"%>
 
 	<H1>登録されている問の一覧</H1>
 
 	<p>
-		選択された試験：<%=parent.getName()%>
+		選択された試験：<%= ExamName %>
 		<a href="/exam/list">(選択解除する)</a>
 	</p>
 
 	<%
-		if (toiMap == null || toiMap.size() == 0) {
+		if (datas == null || datas.size() == 0) {
 	%>
 	試験が登録されていません
 	<%
 		} else {
 	%>
-	<TABLE border=1
-		class="table table-striped table-hover table-responsive">
+
+	<TABLE border=1 class="table table-striped table-hover ">
 		<thead class="thead-dark">
 			<tr>
 				<TH>問番号</TH>
@@ -46,15 +45,13 @@
 			</TR>
 		</thead>
 		<%
-			Set<Long> toiKeySet = toiMap.keySet();
-				for (Long l : toiKeySet) {
-					Toi t = toiMap.get(l);
+		for(String[] s : datas){
 		%>
 		<tr>
-			<td><%=t.getNo()%></td>
-			<td><%=t.getGenre().get().getName()%></td>
-			<td><a href="/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
-			<td><%=t.getQuestionRefListSize()%></td>
+			<td><%=s[0]%></td>
+			<td><%=s[1]%></td>
+			<td><%=s[2]%></td>
+			<td><%=s[3]%></td>
 
 		</tr>
 		<%
@@ -67,6 +64,6 @@
 
 
 </body>
-<%@ include file="common/footer.jsp"%>
+<%@ include file="../common/footer.jsp"%>
 
 </html>

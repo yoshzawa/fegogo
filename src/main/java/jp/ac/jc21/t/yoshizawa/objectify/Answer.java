@@ -158,7 +158,11 @@ public final class Answer extends AnswerFactory {
 
 	public String getAnswers() {
 		String s = "";
-		for (int i : getAnswerArray()) {
+		int[] answers = getAnswerArray();
+		if(answers == null) {
+			return "";
+		}
+		for (int i : answers) {
 			if(i == -1) {
 				s+= "[‰ð‚¯‚È‚¢]";
 				
