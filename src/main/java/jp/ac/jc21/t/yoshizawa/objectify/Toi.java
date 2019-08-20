@@ -135,7 +135,7 @@ public final class Toi extends ToiFactory {
 	/**
 	 * @return the genre
 	 */
-	public Ref<Genre> getGenre() {
+	public Ref<Genre> getRefGenre() {
 		return genre;
 	}
 

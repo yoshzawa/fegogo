@@ -33,17 +33,18 @@ public class ExamListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
 
-		if (email == null) {
-			List<String[]> datas = new ArrayList<String[]>();
+		List<String[]> datas = new ArrayList<String[]>();
+		for (Long k : examMap.keySet()) {
+			Exam e = examMap.get(k);
+			String[] s = new String[2];
 
-			for (Long k : examMap.keySet()) {
-				Exam e = examMap.get(k);
-				String[] s = new String[2];
-				s[0] = "<a href='/toi/list?parentId=" + e.getId() + "'>" + e.getName() + "</a>";
-				s[1] = e.getToiRefListSize() + "";
-				datas.add(s);
-			}
-			request.setAttribute("datas", datas);
+			s[0] = "<a href='/toi/list?parentId=" + e.getId() + "'>" + e.getName() + "</a>";
+			s[1] = e.getToiRefListSize() + "";
+			datas.add(s);
+		}
+		request.setAttribute("datas", datas);
+		
+		if (email == null) {
 
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/examList.jsp");
 			rd.forward(request, response);
@@ -51,35 +52,23 @@ public class ExamListServlet extends HttpServlet {
 			request.setAttribute("email", email);
 
 			Member member = Member.get(email);
+			
 			List<AnswerSum> answerSumList = member.getAnswerSumList();
 			request.setAttribute("answerSumList", answerSumList);
-
-			List<String[]> datas = new ArrayList<String[]>();
-
-			for (Long k : examMap.keySet()) {
-				Exam e = examMap.get(k);
-				String[] s = new String[2];
-
-				s[0] = "<a href='/toi/list?parentId=" + e.getId() + "'>" + e.getName() + "</a>";
-				s[1] = e.getToiRefListSize() + "";
-				datas.add(s);
-			}
-			request.setAttribute("datas", datas);
 
 			List<String[]> datas2 = new ArrayList<String[]>();
 
 			for (AnswerSum as : answerSumList) {
-				float point = (100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
 				String[] s = new String[6];
 
 				Toi toi = as.getRefToi().get();
 
 				s[0] = toi.getParent().getName();
 				s[1] = toi.getNo().toString();
-				s[2] = toi.getGenre().get().getName();
+				s[2] = toi.getRefGenre().get().getName();
 				s[3] = toi.getName();
 				s[4] = dateFormat(as.getAnswered());
-				s[5] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer());
+				s[5] = changePoint(as);
 				datas2.add(s);
 
 			}
@@ -89,6 +78,10 @@ public class ExamListServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 
+	}
+
+	private String changePoint(AnswerSum as) {
+		return changePoint(as.getNoOfSeikai(), as.getNoOfAnswer());
 	}
 
 	private final String changePoint(int seikai, int answer) {
