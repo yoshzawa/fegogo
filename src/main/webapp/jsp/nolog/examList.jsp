@@ -12,7 +12,7 @@
 	<%
 		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 	%>
-	<%@ include file="common/header.jsp"%><br>
+	<%@ include file="../common/header.jsp"%><br>
 	<h1>登録されている試験の一覧</h1>
 
 	<%
@@ -50,6 +50,6 @@
 
 
 </body>
-<%@ include file="common/footer.jsp"%>
+<%@ include file="../common/footer.jsp"%>
 
 </html>

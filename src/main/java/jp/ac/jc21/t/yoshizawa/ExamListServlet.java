@@ -45,7 +45,7 @@ public class ExamListServlet extends HttpServlet {
 			}
 			request.setAttribute("datas", datas);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/examList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/examList.jsp");
 			rd.forward(request, response);
 		} else {
 			request.setAttribute("email", email);
@@ -85,7 +85,7 @@ public class ExamListServlet extends HttpServlet {
 			}
 			request.setAttribute("datas2", datas2);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListLogin.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/examListLogin.jsp");
 			rd.forward(request, response);
 		}
 
