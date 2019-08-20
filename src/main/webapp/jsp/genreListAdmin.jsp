@@ -55,9 +55,10 @@
 				<%= t.getName() %> <br />
 				<% for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
 					if((as != null)&&(as.get().getRefMember()!=null)){
+						AnswerSum a = as.get();
 				%>
-					--- <%= as.get().getRefMember().get().geteMail() %> 
-					<%= changePoint(as.get().getNoOfSeikai() , as.get().getNoOfAnswer()) %> <br />
+					--- <%= a.getRefMember().get().geteMail() %> 
+					<%= changePoint(a.getNoOfSeikai() , a.getNoOfAnswer()) %> <br />
 				<%} %>
 					
 				<% } %>
