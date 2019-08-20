@@ -88,6 +88,8 @@ public final class AnswerServlet extends HttpServlet {
 		Toi toi = Toi.getById(toiKey);
 		AnswerSum ansSummary = AnswerSum.createAnswerSum(userId, toi, -1, null);
 		ansSummary.save();
+		toi.addAnswerSumRefList(ansSummary);
+		toi.save();
 
 		int correct = 0;
 		Map<String, Ref<Answer>> mapAnswer = new HashMap<>();

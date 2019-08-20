@@ -34,14 +34,19 @@ public class AnswerSumDumpAdminServlet extends HttpServlet {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
-		out.println( "‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,–âÚ×,³‰ğ”,–â‘è”,³‰ğ—¦" );
+		out.println( "ID,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,–âÚ×,³‰ğ”,–â‘è”,³‰ğ—¦" );
 
 		for (AnswerSum as : answerSumList) {
+			if(as.getRefMember() == null) {
+				continue;
+			}
 			Toi toi = as.getRefToi().get();
 			Exam exam = toi.getParent();
 			float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
 	
 
+			out.print( as.getId() );
+			out.print( "," );
 			out.print( as.getName() );
 			out.print( "," );
 			out.print( sdf.format(as.getAnswered()) );
