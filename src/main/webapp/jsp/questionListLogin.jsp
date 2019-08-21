@@ -19,7 +19,9 @@
 		String parentId = (String) request.getAttribute("parentId");
 		Toi toi = (Toi) request.getAttribute("parent");
 		Exam exam = (Exam) request.getAttribute("exam");
-		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
+//		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
+		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
+
 	%>
 
 
@@ -34,7 +36,7 @@
 	</p>
 
 	<%
-		if ((qMap == null) || (qMap.size() == 0)) {
+		if ((datas == null) || (datas.size() == 0)) {
 	%>
 	設問が登録されていません
 	<%
@@ -43,9 +45,8 @@
 	<form method="post" action="/answer">
 		<input type="hidden" name="userId" value="<%= email %>" />
 		<input type="hidden" name="toiId" value="<%= toi.getId() %>" />
-
-
-	<TABLE border=1 class="table table-striped table-hover table-responsive">
+	
+			<TABLE border=1 class="table table-striped table-hover table-responsive">
 			<thead class="thead-dark">
 				<TR>
 					<th>設問</th>
@@ -54,54 +55,18 @@
 			</thead>
 
 			<%
-				//			for (Question q : list) {
-					Set<Long> toiKeySet = qMap.keySet();
-					for (Long l : toiKeySet) {
-						Question q = qMap.get(l);
+				for(String[] s : datas){
 			%>
 			<tr>
-				<td><%=q.getName()%></td>
-				<td>
-				<div class="bd-example">
-				<% 	if (q.getNoOfOption() <= 0){ %> 
-				<span class="border border-primary">
-					 <input type="radio" name="<%=q.getId()%>" value="-1" checked="checked" disabled="disabled"/> 解けない 
-				</span>
-				<span class="border border-primary">
-				<input
-					type="radio" name="<%=q.getId()%>" value="0" checked="checked"
-					 /> 全員正解
-				</span>
-				<%  	} else { %> 
-				
-<span class="border border-primary">
-				
-				<% 	if (q.isMulti() == true) {					%> 
-					<input type="checkbox" name="<%=q.getId()%>" value="-1" />
-					解けない 
-				<%  	} else { %> 
-					 <input type="radio" name="<%=q.getId()%>" value="-1" 					checked="checked" /> 解けない 
-				<%						} 					%> 
-</span>
-				<% 	for (int i = 0; i <= (int) q.getNoOfOption(); i++) { %> 
-<span class="border border-primary">
- 				<% 					if (q.isMulti() == true) {					%> 
-					<input type="checkbox" name="<%=q.getId()%>" value="<%=i%>" />
-					<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> 
-				<%						} else {					%> 
-					<input type="radio" name="<%=q.getId()%>" value="<%=i%>" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-				<%  	} %> 
-</span>
-	 <%  	} %>
-				</td>
-				<%  	} %> 
-				
-			</div>
+				<td><%=s[0]%></td>
+				<td><%=s[1]%></td>
+			
 			</tr>
 			<%
 				}
 			%>
 		</table>
+		
 		<input type="submit" value="送信する" />
 	</form>
 

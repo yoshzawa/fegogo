@@ -16,9 +16,10 @@
 	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
-		//		List<Question> list = (List<Question>) request.getAttribute("questionList");
 		Exam exam = (Exam) request.getAttribute("exam");
-		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
+//		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
+		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
+
 	%>
 	<%@ include file="common/header.jsp"%>
 
@@ -33,7 +34,7 @@
 	</p>
 
 	<%
-		if ((qMap == null) || (qMap.size() == 0)) {
+		if ((datas == null) || (datas.size() == 0)) {
 	%>
 	設問が登録されていません
 	<%
@@ -41,8 +42,7 @@
 	%>
 	<input type="hidden" name="qId" value="<%=parent.getId()%>" />
 
-
-	<TABLE border=1
+		<TABLE border=1
 		class="table table-striped table-hover table-responsive">
 		<thead class="thead-dark">
 			<tr>
@@ -52,39 +52,12 @@
 		</thead>
 
 		<%
-			//			for (Question q : list) {
-				Set<Long> toiKeySet = qMap.keySet();
-				for (Long l : toiKeySet) {
-					Question q = qMap.get(l);
+			for(String[] s : datas){
+
 		%>
 		<tr>
-			<td><%=q.getName()%></td>
-			<td>
-				<% 	if (q.getNoOfOption() <= 0){ %> 
-					<input type="radio"
-					name="<%=q.getId()%>" value="-1" disabled="disabled" /> 解けない <input
-					type="radio" name="<%=q.getId()%>" value="1" checked="checked"
-					disabled="disabled" /> 全員正解
-				<% 	} else { %> 
-					<%	if (q.isMulti() == true) {%> 
-						<input type="checkbox" name="<%=q.getId()%>" value="-1"
-				checked="checked" disabled="disabled" /> 解けない
-					 <% 	} else { %> 
-					 	<input				type="radio" name="<%=q.getId()%>" value="-1" checked="checked"
-				disabled="disabled" /> 解けない 
-						<% 	} %> 
-				<% 	for (int i = 0; i <= (int) q.getNoOfOption(); i++) { %> 
-					<% 	if (q.isMulti() == true) {%> 
-						 <input type="checkbox" name="<%=q.getId()%>" value="<%=i%>"
-						disabled="disabled" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> 
-					<% 	} else { %>
-						  <input type="radio" name="<%=q.getId()%>" value="<%=i%>"
-						disabled="disabled" /> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> 
-					<%	} %>
-		  	<%} %>
-		  	<%} %>
-
-			</td>
+			<td><%=s[0]%></td>
+			<td><%=s[1]%></td>
 
 		</tr>
 		<%
