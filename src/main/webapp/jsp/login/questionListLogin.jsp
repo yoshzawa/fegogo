@@ -25,7 +25,7 @@
 	%>
 
 
-<%@ include file="common/headerLogin.jsp"%>
+<%@ include file="../common/headerLogin.jsp"%>
 
 	<H1>登録されている設問の一覧</H1>
 	<p>選択された試験：
@@ -76,5 +76,5 @@
 
 
   </body>
-　<%@ include file="common/footer.jsp"%>
+　<%@ include file="../common/footer.jsp"%>
 </html>

@@ -21,7 +21,7 @@
 		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 
 	%>
-	<%@ include file="common/header.jsp"%>
+	<%@ include file="../common/header.jsp"%>
 
 	<H1>登録されている設問の一覧</H1>
 
@@ -72,6 +72,6 @@
 
 
 </body>
-<%@ include file="common/footer.jsp"%>
+<%@ include file="../common/footer.jsp"%>
 
 </html>

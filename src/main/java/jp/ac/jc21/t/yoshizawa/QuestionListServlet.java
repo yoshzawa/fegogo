@@ -83,7 +83,7 @@ public class QuestionListServlet extends HttpServlet {
 			}
 			request.setAttribute("datas", datas);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/questionList.jsp");
 			rd.forward(request, response);
 		} else {
 			request.setAttribute("email", email);
@@ -136,7 +136,7 @@ public class QuestionListServlet extends HttpServlet {
 			}
 			request.setAttribute("datas", datas);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListLogin.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/questionListLogin.jsp");
 			rd.forward(request, response);
 		}
 
