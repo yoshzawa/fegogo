@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,9 +17,7 @@ import javax.servlet.http.HttpSession;
 import com.googlecode.objectify.Ref;
 
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Genre;
-import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
@@ -46,7 +43,8 @@ public class GenreListServlet extends HttpServlet {
 				s[1] = "";
 				List<Ref<Toi>> list = g.getToiRefList();
 				for (Ref<Toi> rt : list) {
-					s[1] += rt.get().getParent().getName() + " " + rt.get().getNo() + " " + rt.get().getName()
+					Toi toi = rt.get();
+					s[1] += toi.getParent().getName() + " " + toi.getNo() + " " + toi.getName()
 							+ " <br />";
 				}
 				datas.add(s);
@@ -71,10 +69,10 @@ public class GenreListServlet extends HttpServlet {
 					s[1] = t.getParent().getName() + " –â" + t.getNo() + " (" + t.getName() + ")";
 					AnswerSum as = t.getAnswerSumByMemberId(email);
 					if (as != null) {
-						s[1] = "[" + dateFormat(as.getAnswered()) + " ("
+						s[2] = "[" + dateFormat(as.getAnswered()) + " ("
 								+ changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + ")]";
 					} else {
-						s[1] = "<a href='/question/list?parentId=" + t.getId() + "'>“š‚¦‚é</a>";
+						s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>“š‚¦‚é</a>";
 					}
 					datas.add(s);
 				}
