@@ -18,6 +18,8 @@
 <body>
 	<%
 		List<Genre> genreList = 	(List<Genre>)request.getAttribute("genreList");
+	List<String[]> datas = (List<String[]>) request.getAttribute("datas");
+
 
 
 	%>
@@ -31,6 +33,7 @@
 	<%
 		} else {
 	%>
+
 
 	<TABLE border="1" class="table table-striped table-hover "
 		align="center">
@@ -46,33 +49,50 @@
 				String genreName=g.getName();
 				List<Ref<Toi>> list = g.getToiRefList(); 
 		%>
-				<% 
+		<% 
 					for(Ref<Toi> rt : list){
-					Toi t = rt.get();			%> 
+					Toi t = rt.get();			%>
 		<tr>
-			<td  ><%= genreName %></td>
-				<% 
+			<td><%= genreName %></td>
+			<% 
 					genreName="";
 					%>
+			<td><%= t.getParent().getName()%> 問<%= t.getNo() %> (<%= t.getName() %>)
+			</td>
 			<td>
-				<%= t.getParent().getName()%> 問<%= t.getNo() %> (<%= t.getName() %>)
-				</td>
-				<td>
 				<% 
 					AnswerSum as = t.getAnswerSumByMemberId(email); 
-					if (as != null ){ %> 
-					[<%= dateFormat(as.getAnswered()) %> (<%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>)]
-				<%} else {%> 
-				<a href='/question/list?parentId=<%= t.getId() %>'>答える</a>
-				<%} %> 
+					if (as != null ){ %> [<%= dateFormat(as.getAnswered()) %> (<%= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) %>)]
+				<%} else {%> <a href='/question/list?parentId=<%= t.getId() %>'>答える</a>
+				<%} %>
 			</td>
 		</tr>
-			<%			}		%>
+		<%			}		%>
 		<%
 			}
 		%>
 	</TABLE>
-
+		<TABLE border="1" class="table table-striped table-hover "
+		align="center">
+		<thead class="thead-dark">
+			<tr>
+				<TH>分野名</TH>
+				<TH>問題</TH>
+				<TH>過去の解答</TH>
+			</TR>
+		</thead>
+		<%
+			for (String[] s : datas) {
+		%>
+		<tr>
+			<td><%= s[0] %></td>
+			<td><%= s[1] %></td>
+			<td><%= s[2] %></td>
+		</tr>
+		<%
+			}
+		%>
+	</TABLE>
 
 	<%
 		}

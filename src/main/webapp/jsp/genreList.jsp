@@ -16,47 +16,39 @@
 
 <body>
 	<%
-		List<Genre> genreList = 	(List<Genre>)request.getAttribute("genreList");
+//		List<Genre> genreList = 	(List<Genre>)request.getAttribute("genreList");
+	List<String[]> datas = (List<String[]>) request.getAttribute("datas");
+
 
 	%>
 <%@ include file="common/header.jsp"%><br>
     <h1>登録されている分野の一覧</h1>
 
 	<%
-		if (genreList == null || genreList.size() == 0) {
+		if (datas == null || datas.size() == 0) {
 	%>
 	分野が登録されていません
 	<%
 		} else {
 	%>
 
-	<TABLE border="1" class="table table-striped table-hover " align="center" >
+		<TABLE border="1" class="table table-striped table-hover " align="center" >
 		<thead class="thead-dark"><tr>
 			<TH>分野名</TH>
 			<TH>問題</TH>
 			</TR>
 		</thead>
 		<%
-			for (Genre g : genreList) {
+			for (String[] s : datas) {
 		%>
 		<tr>
-			<td><%=g.getName()%></td>
-			<td>
-			<% List<Ref<Toi>> list = g.getToiRefList(); 
-			for(Ref<Toi> rt : list){
-			%>
-				<%= rt.get().getParent().getName()%> 
-				<%= rt.get().getNo() %> 
-				<%= rt.get().getName() %> <br />
-		<%
-			}
-		%>
-			</td>
+			<td><%=s[0]%></td>
+			<td><%=s[1]%></td>
 		</tr>
 		<%
 			}
 		%>
-	</TABLE>	
+	</TABLE>
 	
 
 	<%
