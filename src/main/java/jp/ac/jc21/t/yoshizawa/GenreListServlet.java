@@ -51,7 +51,7 @@ public class GenreListServlet extends HttpServlet {
 			}
 			request.setAttribute("datas", datas);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/genreList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/genreList.jsp");
 			rd.forward(request, response);
 		} else {
 			request.setAttribute("email", email);
@@ -81,7 +81,7 @@ public class GenreListServlet extends HttpServlet {
 			
 			request.setAttribute("datas", datas);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/genreListLogin.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/genreListLogin.jsp");
 			rd.forward(request, response);
 		}
 
