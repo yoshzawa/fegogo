@@ -19,7 +19,6 @@ public class AdminServlet extends HttpServlet {
      */
     public AdminServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

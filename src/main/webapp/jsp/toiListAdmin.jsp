@@ -79,7 +79,7 @@
 		<label>No</label> <input type="text" name="No" /> 
 		<label>ToiName</label>
 		<input type="text" name="toiName" /> 
-		<select name="genreId" =1>
+		<select name="genreId" >
 		<% for (Genre g : genreList){ %>
 		<option value="<%= g.getId()%>"><%= g.getName() %></option>
 		

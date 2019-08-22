@@ -64,7 +64,7 @@
 			}
 		%>
 	</table>
-	<input type="submit" value="送信するにはログインしてください" 　disabled="disabled" />
+	<input type="submit" value="送信するにはログインしてください"  disabled="disabled" />
 
 	<%
 		}

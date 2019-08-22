@@ -23,8 +23,7 @@
 		} else {
 	%>
 
-	<TABLE border="1" class="table table-striped table-hover "
-		align="center">
+	<TABLE border="1" class="table table-striped table-hover">
 		<thead class="thead-dark">
 			<tr>
 				<TH>試験名</TH>
