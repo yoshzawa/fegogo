@@ -19,21 +19,20 @@
 <body>
 
 	<%
-	List<Genre> genreList = (List<Genre>) request.getAttribute("genreList");
-
+		List<Genre> genreList = (List<Genre>) request.getAttribute("genreList");
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
-	
-<H1>登録されている分野の一覧</H1>
+
+	<H1>登録されている分野の一覧</H1>
 	<%
-	if (genreList == null || genreList.size() == 0) {
+		if (genreList == null || genreList.size() == 0) {
 	%>
 	分野が登録されていません
 	<%
 		} else {
 	%>
-	<TABLE border=1>
+	<TABLE border="1">
 		<TR>
 			<TD>ID</TD>
 			<TD>No</TD>
@@ -41,32 +40,32 @@
 			<TD>問題</TD>
 		</TR>
 		<%
-		for (Genre g : genreList) {
+			for (Genre g : genreList) {
 		%>
 		<tr>
 			<td><%=g.getId()%></td>
 			<td><%=g.getNo()%></td>
 			<td><%=g.getName()%></td>
 			<td>
-			<% for(Ref<Toi> rt : g.getToiRefList()){
-					Toi t = rt.get();%>
-				<%= t.getParent().getName() %> 
-				問<%= t.getNo() %> 
-				<%= t.getName() %> <br />
-				<% for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
-					if((as != null)&&(as.get().getRefMember()!=null)){
-						AnswerSum a = as.get();
-				%>
-					--- <%= a.getRefMember().get().geteMail() %> 
-					<%= changePoint(a.getNoOfSeikai() , a.getNoOfAnswer()) %> <br />
-				<%} %>
-					
-				<% } %>
-			
-			<% }%>
-			
+				<%
+					for (Ref<Toi> rt : g.getToiRefList()) {
+								Toi t = rt.get();
+				%> <%=t.getParent().getName()%> 問<%=t.getNo()%>
+				<%=t.getName()%> <br /> <%
+ 	for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
+ 					if ((as != null) && (as.get().getRefMember() != null)) {
+ 						AnswerSum a = as.get();
+ %> --- <%=a.getRefMember().get().geteMail()%> <%=changePoint(a.getNoOfSeikai(), a.getNoOfAnswer())%>
+				<br /> <%
+ 	}
+ %> <%
+ 	}
+ %> <%
+ 	}
+ %>
+
 			</td>
-			
+
 		</tr>
 		<%
 			}
@@ -78,9 +77,9 @@
 
 	<hr />
 	<form method='post' action='/admin/genre/add'>
-		<label>GenreName</label>
-		<input type="text" name="GenreName" /> <input type="submit" name="追加" />
+		<label>GenreName</label> <input type="text" name="GenreName" /> <input
+			type="submit" name="追加" />
 	</form>
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>

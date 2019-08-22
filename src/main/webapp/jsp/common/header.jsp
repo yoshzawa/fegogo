@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<HEAD>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146071751-1"></script>
 <script>
@@ -10,6 +11,7 @@
 
   gtag('config', 'UA-146071751-1');
 </script>
+</HEAD>
 <div align="right">
 
   <a  href="/openidSignIn">

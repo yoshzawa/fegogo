@@ -37,24 +37,23 @@ public class GenreListServlet extends HttpServlet {
 			List<String[]> datas = new ArrayList<String[]>();
 
 			for (Genre g : genreList) {
-				String[] s = new String[3];
+				String genreName = g.getName();
 
-				s[0] = g.getName();
-				s[1] = "";
 				List<Ref<Toi>> list = g.getToiRefList();
 				for (Ref<Toi> rt : list) {
-					Toi toi = rt.get();
-					s[1] += toi.getParent().getName() + " " + toi.getNo() + " " + toi.getName()
-							+ " <br />";
+					String[] s = new String[2];
+					s[0] = genreName;
+					genreName = "";
+					Toi t = rt.get();
+					s[1] = t.getParent().getName() + " –â" + t.getNo() + " (" + t.getName() + ")";
+					datas.add(s);
 				}
-				datas.add(s);
 			}
 			request.setAttribute("datas", datas);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/genreList.jsp");
 			rd.forward(request, response);
 		} else {
-			request.setAttribute("email", email);
 			List<String[]> datas = new ArrayList<String[]>();
 
 			for (Genre g : genreList) {
@@ -76,10 +75,10 @@ public class GenreListServlet extends HttpServlet {
 					}
 					datas.add(s);
 				}
-
 			}
 			
 			request.setAttribute("datas", datas);
+			request.setAttribute("email", email);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/genreListLogin.jsp");
 			rd.forward(request, response);

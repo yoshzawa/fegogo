@@ -152,12 +152,11 @@ public final class Toi extends ToiFactory {
 
 	public Toi save() {
 		Key<Toi> key = ofy().save().entity(this).now();
-//			Toi.clearCache();
 		return getById(key.getId());
 	}
 
 	public List<Ref<AnswerSum>> getAnswerSumRefList() {
-		if(AnswerSumRefList == null) {
+		if (AnswerSumRefList == null) {
 			newAnswerSumRefList();
 		}
 		return AnswerSumRefList;
@@ -165,7 +164,7 @@ public final class Toi extends ToiFactory {
 
 	private void newAnswerSumRefList() {
 		setAnswerSumRefList(new ArrayList<Ref<AnswerSum>>());
-		
+
 	}
 
 	public void setAnswerSumRefList(List<Ref<AnswerSum>> answerSumRefList) {
@@ -174,13 +173,11 @@ public final class Toi extends ToiFactory {
 
 	public boolean containsAnswerSum(AnswerSum as) {
 		Long asId = as.getId();
-		for(Ref<AnswerSum> r:getAnswerSumRefList()) {
-			if(r.get().getId() == asId) {
+		for (Ref<AnswerSum> r : getAnswerSumRefList()) {
+			if (r.get().getId() == asId) {
 				return true;
 			}
-			
 		}
-		
 		return false;
 	}
 
@@ -188,18 +185,18 @@ public final class Toi extends ToiFactory {
 		List<Ref<AnswerSum>> list = getAnswerSumRefList();
 		list.add(Ref.create(a));
 		setAnswerSumRefList(list);
-		
-		
+
 	}
+
 	public AnswerSum getAnswerSumByMemberId(String email) {
 		Member m = Member.getByeMail(email);
-		for(Ref<AnswerSum> as: getAnswerSumRefList()) {
+		for (Ref<AnswerSum> as : getAnswerSumRefList()) {
 			Ref<Member> refMember = as.get().getRefMember();
-			if(refMember == null) {
+			if (refMember == null) {
 				continue;
 			}
 			String geteMail = refMember.get().geteMail();
-			if(geteMail.equals(email)) {
+			if (geteMail.equals(email)) {
 				return as.get();
 			}
 		}
