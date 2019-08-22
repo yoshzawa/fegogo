@@ -113,7 +113,6 @@ public final class Toi extends ToiFactory {
 		}
 	}
 
-
 	/**
 	 * @param questionList the questionList to set
 	 */
@@ -155,6 +154,10 @@ public final class Toi extends ToiFactory {
 		return AnswerSumRefList;
 	}
 
+	public int getAnswerSumRefListSize() {
+		return getAnswerSumRefList().size();
+	}
+
 	private void newAnswerSumRefList() {
 		setAnswerSumRefList(new ArrayList<Ref<AnswerSum>>());
 
@@ -183,13 +186,14 @@ public final class Toi extends ToiFactory {
 
 	public AnswerSum getAnswerSumByMemberId(String email) {
 		for (Ref<AnswerSum> as : getAnswerSumRefList()) {
-			Ref<Member> refMember = as.get().getRefMember();
-			if (refMember == null) {
-				continue;
-			}
-			String geteMail = refMember.get().geteMail();
-			if (geteMail.equals(email)) {
-				return as.get();
+			AnswerSum answerSum = as.get();
+			Ref<Member> refMember = answerSum.getRefMember();
+			if (refMember != null) {
+				Member member = refMember.get();
+				String geteMail = member.geteMail();
+				if (geteMail.equals(email)) {
+					return answerSum;
+				}
 			}
 		}
 		return null;

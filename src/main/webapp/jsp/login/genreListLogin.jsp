@@ -12,6 +12,12 @@
 	<%
 		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 	%>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
+			<li class="breadcrumb-item active" aria-current="page">分野 一覧</li>
+		</ol>
+	</nav>
 	<%@ include file="../common/headerLogin.jsp"%><br>
 	<h1>登録されている分野の一覧</h1>
 
@@ -28,7 +34,9 @@
 			<tr>
 				<TH>分野名</TH>
 				<TH>問題</TH>
-				<TH>過去の解答</TH>
+				<TH>解答数</TH>
+				<TH>解答日</TH>
+				<TH>正解率</TH>
 			</TR>
 		</thead>
 		<%
@@ -38,6 +46,8 @@
 			<td><%=s[0]%></td>
 			<td><%=s[1]%></td>
 			<td><%=s[2]%></td>
+			<td><%=s[3]%></td>
+			<td><%=s[4]%></td>
 		</tr>
 		<%
 			}

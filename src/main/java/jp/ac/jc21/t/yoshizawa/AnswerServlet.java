@@ -131,16 +131,17 @@ public final class AnswerServlet extends HttpServlet {
 		for (Integer i : keyset) {
 			Answer a = answer.get(i);
 			String[] s = new String[3];
+			Question question = a.getRefQuestion().get();
 
-			s[0] = a.getRefQuestion().get().getName();
-			s[1] = a.getRefQuestion().get().getAnswers();
+			s[0] = question.getName();
+			s[1] = question.getAnswers();
 			s[2] = a.getAnswers();
 			datas.add(s);
 
 		}
 		request.setAttribute("datas", datas);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/answer.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/answer.jsp");
 		rd.forward(request, response);
 
 	}

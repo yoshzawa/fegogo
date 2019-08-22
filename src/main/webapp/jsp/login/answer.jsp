@@ -1,6 +1,4 @@
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Answer"%>
-<%@page import="java.util.Set"%>
-<%@page import="java.util.Map"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.AnswerSum"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
@@ -19,7 +17,6 @@
 		AnswerSum ansSummary = (AnswerSum) request.getAttribute("ansSummary");
 		Toi toi = ansSummary.getRefToi().get();
 		Exam exam = toi.getExam();
-//		Map<Integer,Answer> answer = ansSummary.getMapAnswer();
 		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 	%>
 	<nav aria-label="breadcrumb">
@@ -34,7 +31,7 @@
 			</li>
 		</ol>
 	</nav>
-	<%@ include file="common/headerLogin.jsp"%>
+	<%@ include file="../common/headerLogin.jsp"%>
 
 	<H1>解答を登録しました</H1>
 	<h3>
@@ -65,10 +62,10 @@
 	</table>
 
 	<a
-		href="/toi/list?parentId=<%=ansSummary.getRefToi().get().getExam().getId()%>">戻る</a>
+		href="/toi/list?parentId=<%=exam.getId()%>">戻る</a>
 
 
 </body>
-<%@ include file="common/footer.jsp"%>
+<%@ include file="../common/footer.jsp"%>
 
 </html>

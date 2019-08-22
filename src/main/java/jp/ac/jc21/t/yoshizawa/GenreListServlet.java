@@ -28,7 +28,7 @@ public class GenreListServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		List<Genre> genreList = Genre.loadAll();
-		request.setAttribute("genreList", genreList);
+//		request.setAttribute("genreList", genreList);
 
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
@@ -41,12 +41,13 @@ public class GenreListServlet extends HttpServlet {
 
 				List<Ref<Toi>> list = g.getToiRefList();
 				for (Ref<Toi> rt : list) {
-					String[] s = new String[2];
+					String[] s = new String[3];
 					s[0] = genreName;
 					genreName = "";
-					Toi t = rt.get();
-					s[1] = "<a href='/question/list?parentId="+t.getId()+"'>"+
-							t.getExam().getName() + " –â" + t.getNo() + " (" + t.getName() + ")</a>";
+					Toi toi = rt.get();
+					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
+							+ toi.getNo() + " (" + toi.getName() + ")</a>";
+					s[2] = toi.getAnswerSumRefListSize() + "";
 					datas.add(s);
 				}
 			}
@@ -61,23 +62,25 @@ public class GenreListServlet extends HttpServlet {
 				String genreName = g.getName();
 				List<Ref<Toi>> list = g.getToiRefList();
 				for (Ref<Toi> rt : list) {
-					Toi t = rt.get();
+					Toi toi = rt.get();
 
-					String[] s = new String[3];
+					String[] s = new String[5];
 					s[0] = genreName;
 					genreName = "";
-					s[1] = t.getExam().getName() + " –â" + t.getNo() + " (" + t.getName() + ")";
-					AnswerSum as = t.getAnswerSumByMemberId(email);
+					s[1] = toi.getExam().getName() + " –â" + toi.getNo() + " (" + toi.getName() + ")";
+					AnswerSum as = toi.getAnswerSumByMemberId(email);
+					s[2] = toi.getAnswerSumRefListSize() + "";
 					if (as != null) {
-						s[2] = "[" + dateFormat(as.getAnswered()) + " ("
-								+ changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + ")]";
+						s[3] =   dateFormat(as.getAnswered()) ;
+						s[4]=		 changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
 					} else {
-						s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>“š‚¦‚é</a>";
+						s[3] =   "–¢‰ñ“š" ;
+						s[4] = "<a href='/question/list?parentId=" + toi.getId() + "'>“š‚¦‚é</a>";
 					}
 					datas.add(s);
 				}
 			}
-			
+
 			request.setAttribute("datas", datas);
 			request.setAttribute("email", email);
 

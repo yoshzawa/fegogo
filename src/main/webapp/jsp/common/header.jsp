@@ -12,6 +12,10 @@
   gtag('config', 'UA-146071751-1');
 </script>
 </HEAD>
+      <a  href="/">ホーム <span class="sr-only">(current)</span></a>
+      <a  href="/exam/list">問題から選択</a>
+      <a class=" disabled" href="/genre" tabindex="-1" aria-disabled="true">分野から選択</a>
+      <a class=" disabled" href="/#" tabindex="-1" aria-disabled="true">個人結果分析</a><br>
 <div align="right">
 
   <a  href="/openidSignIn">
@@ -19,8 +23,4 @@
   <button type="button" class="btn btn-success">Sign in</button>
   </a><br>
 </div>
-      <a  href="/">ホーム <span class="sr-only">(current)</span></a>
-      <a  href="/exam/list">問題から選択</a>
-      <a class=" disabled" href="/genre" tabindex="-1" aria-disabled="true">分野から選択</a>
-      <a class=" disabled" href="/#" tabindex="-1" aria-disabled="true">個人結果分析</a><br>
 

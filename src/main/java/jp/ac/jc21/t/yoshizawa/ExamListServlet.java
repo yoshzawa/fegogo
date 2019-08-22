@@ -28,7 +28,7 @@ public class ExamListServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		Map<Long, Exam> examMap = Exam.loadAll();
-		request.setAttribute("examMap", examMap);
+		//request.setAttribute("examMap", examMap);
 
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
@@ -54,7 +54,7 @@ public class ExamListServlet extends HttpServlet {
 			Member member = Member.get(email);
 			
 			List<AnswerSum> answerSumList = member.getAnswerSumList();
-			request.setAttribute("answerSumList", answerSumList);
+			//request.setAttribute("answerSumList", answerSumList);
 
 			List<String[]> datas2 = new ArrayList<String[]>();
 
