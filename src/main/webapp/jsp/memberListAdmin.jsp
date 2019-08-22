@@ -66,7 +66,7 @@
 					%>
 					<tr>
 						<td><%=as.getId()%> 
-						[<%= as.getRefToi().get().getParent().getName() %>]
+						[<%=as.getRefToi().get().getExam().getName()%>]
 						[<%= as.getRefToi().get().getNo() %>]
 						(<%= String.format("%1$.1f", point) %>)
 						</td>

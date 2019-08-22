@@ -76,7 +76,7 @@
 					<%= member.get().geteMail() %>
 				<% } %>
 			</td>
-			<td><%= toi.getParent().getName() %></td>
+			<td><%=toi.getExam().getName()%></td>
 			<td><%= toi.getNo() %></td>
 			<td>
 				<%= toi.getName() %>

@@ -69,26 +69,22 @@ public final class Toi extends ToiFactory {
 	/**
 	 * @return the parent
 	 */
-	public Exam getParent() {
+	public Exam getExam() {
 
 		Ref<Exam> re = parent;
 		return re.get();
 
 	}
 
-	private void resetParent() {
-		parent = null;
-	}
-
 	/**
 	 * @param parent the parent to set
 	 */
-	public void setParent(Ref<Exam> parent) {
-		this.parent = parent;
+	public void setExam(Ref<Exam> exam) {
+		this.parent = exam;
 	}
 
-	public void setParent(Exam parent) {
-		setParent(Ref.create(parent));
+	public void setExam(Exam exam) {
+		setExam(Ref.create(exam));
 	}
 
 	public List<Ref<Question>> getQuestionRefList() {
@@ -117,9 +113,6 @@ public final class Toi extends ToiFactory {
 		}
 	}
 
-	private void resetQuestionRefList() {
-		questionRefList = null;
-	}
 
 	/**
 	 * @param questionList the questionList to set
@@ -189,7 +182,6 @@ public final class Toi extends ToiFactory {
 	}
 
 	public AnswerSum getAnswerSumByMemberId(String email) {
-		Member m = Member.getByeMail(email);
 		for (Ref<AnswerSum> as : getAnswerSumRefList()) {
 			Ref<Member> refMember = as.get().getRefMember();
 			if (refMember == null) {

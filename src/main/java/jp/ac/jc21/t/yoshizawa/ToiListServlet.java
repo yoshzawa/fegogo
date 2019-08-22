@@ -108,7 +108,7 @@ public class ToiListServlet extends HttpServlet {
 			for (AnswerSum as : answerSumList) {
 				String[] s = new String[6];
 					Toi toi = as.getRefToi().get();
-			s[0]=toi.getParent().getName();
+			s[0]=toi.getExam().getName();
 			s[1]=toi.getNo().toString();
 			s[2]=toi.getRefGenre().get().getName();
 			s[3]=toi.getName();

@@ -33,7 +33,7 @@ public class QuestionListServlet extends HttpServlet {
 
 		Toi parent = Toi.getById(parentId);
 
-		Exam exam = parent.getParent();
+		Exam exam = parent.getExam();
 
 		TreeMap<Long, Question> qMap = Toi.getQuestionMap(parent);
 

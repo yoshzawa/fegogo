@@ -36,7 +36,7 @@ public class QuestionListAdminServlet extends HttpServlet {
 		request.setAttribute("parent", parent);
 
 		// Œ±‚ğæ‚èo‚·
-		Exam exam = parent.getParent();
+		Exam exam = parent.getExam();
 		request.setAttribute("exam", exam);
 
 		// İ–â‚ğæ‚èo‚·

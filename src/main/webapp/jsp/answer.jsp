@@ -16,16 +16,33 @@
 </head>
 <body>
 	<%
-	AnswerSum ansSummary = (AnswerSum)request.getAttribute("ansSummary");
-	Map<Integer,Answer> answer = ansSummary.getMapAnswer();
+		AnswerSum ansSummary = (AnswerSum) request.getAttribute("ansSummary");
+		Toi toi = ansSummary.getRefToi().get();
+		Exam exam = toi.getExam();
+//		Map<Integer,Answer> answer = ansSummary.getMapAnswer();
+		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 	%>
-<%@ include file="common/headerLogin.jsp"%>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
+			<li class="breadcrumb-item"><a href="/exam/">試験 一覧</a></li>
+			<li class="breadcrumb-item"><a
+				href="/toi/list?parentId=<%=exam.getId()%>"><%=exam.getName()%>
+					試験</a></li>
+			<li class="breadcrumb-item active" aria-current="page">問<%=toi.getNo()%>
+				<%=toi.getRefGenre().get().getName()%> (<%=toi.getName()%>) 解答登録
+			</li>
+		</ol>
+	</nav>
+	<%@ include file="common/headerLogin.jsp"%>
 
-<H1>解答を登録しました</H1>
-<h3>	<%= ansSummary.getNoOfAnswer()  %>問中<%= ansSummary.getNoOfSeikai()  %>問正解</h3>
-	
-	<% Set<Integer> keyset = answer.keySet();  %>
-	<TABLE border=1 class="table table-striped table-hover table-responsive">
+	<H1>解答を登録しました</H1>
+	<h3>
+		<%=ansSummary.getNoOfAnswer()%>問中<%=ansSummary.getNoOfSeikai()%>問正解
+	</h3>
+
+	<TABLE border="1"
+		class="table table-striped table-hover table-responsive">
 		<thead class="thead-dark">
 			<tr>
 				<th>設問</th>
@@ -34,20 +51,24 @@
 			</tr>
 		</thead>
 
-		<% for(Integer i : keyset){ %>
-		<% Answer a =answer.get(i); %>
+		<%
+			for (String[] s : datas) {
+		%>
 		<tr>
-			<th><%= a.getRefQuestion().get().getName() %></th>
-			<td><%= a.getRefQuestion().get().getAnswers() %></td>
-			<td><%= a.getAnswers() %></td>
+			<th><%=s[0]%></th>
+			<td><%=s[1]%></td>
+			<td><%=s[2]%></td>
 		</tr>
-		<% }%>
+		<%
+			}
+		%>
 	</table>
 
-	<a href="/toi/list?parentId=<%= ansSummary.getRefToi().get().getParent().getId() %>">戻る</a>
+	<a
+		href="/toi/list?parentId=<%=ansSummary.getRefToi().get().getExam().getId()%>">戻る</a>
 
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 
 </html>

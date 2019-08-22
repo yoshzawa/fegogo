@@ -62,7 +62,7 @@
 			<td><%= sdf.format(as.getAnswered()) %></td>
 			<td><%= as.getMapAnswer() %></td>
 			<td><%= as.getRefMember() %><a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>'>reChain</a></td>
-			<td><%= toi.getParent().getName() %></td>
+			<td><%=toi.getExam().getName()%></td>
 			<td><%= toi.getName() %></td>
 		</tr>
 		<%

@@ -45,7 +45,8 @@ public class GenreListServlet extends HttpServlet {
 					s[0] = genreName;
 					genreName = "";
 					Toi t = rt.get();
-					s[1] = t.getParent().getName() + " –â" + t.getNo() + " (" + t.getName() + ")";
+					s[1] = "<a href='/question/list?parentId="+t.getId()+"'>"+
+							t.getExam().getName() + " –â" + t.getNo() + " (" + t.getName() + ")</a>";
 					datas.add(s);
 				}
 			}
@@ -65,7 +66,7 @@ public class GenreListServlet extends HttpServlet {
 					String[] s = new String[3];
 					s[0] = genreName;
 					genreName = "";
-					s[1] = t.getParent().getName() + " –â" + t.getNo() + " (" + t.getName() + ")";
+					s[1] = t.getExam().getName() + " –â" + t.getNo() + " (" + t.getName() + ")";
 					AnswerSum as = t.getAnswerSumByMemberId(email);
 					if (as != null) {
 						s[2] = "[" + dateFormat(as.getAnswered()) + " ("

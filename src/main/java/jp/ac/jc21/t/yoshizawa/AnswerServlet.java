@@ -1,6 +1,7 @@
 package jp.ac.jc21.t.yoshizawa;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,7 +30,8 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 public final class AnswerServlet extends HttpServlet {
 
 	@Override
-	public final void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public final void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		final Logger log = Logger.getLogger(AnswerServlet.class.getName());
 
 		Map<String, String[]> paramMap = request.getParameterMap();
@@ -57,7 +59,7 @@ public final class AnswerServlet extends HttpServlet {
 		}
 
 		// Formから送信されたデータごとにMapに入れる
-		HashMap<Long,Answer> answerMap = new HashMap<>();
+		HashMap<Long, Answer> answerMap = new HashMap<>();
 		HashSet<Long> parentSet = new HashSet<>();
 		Set<String> paramMapKeyset = paramMap.keySet();
 
@@ -65,12 +67,12 @@ public final class AnswerServlet extends HttpServlet {
 
 		// 全ての問題のParentが同じか調べる
 		Member member = Member.get(userId);
-		
+
 		for (String s : paramMapKeyset) {
 			if ((!s.equals("userId")) && (!s.equals("toiId"))) {
 				Long qKey = Long.parseLong(s);
 				Question q = Question.getById(qKey);
-				String[] answerArray = paramMap.get(s);				
+				String[] answerArray = paramMap.get(s);
 				Answer answer = Answer.createAnswer(userId, null, q, answerArray, q.getNo());
 				answerMap.put(qKey, answer);
 
@@ -95,11 +97,11 @@ public final class AnswerServlet extends HttpServlet {
 		Map<String, Ref<Answer>> mapAnswer = new HashMap<>();
 
 		List<Ref<Question>> qList = toi.getQuestionRefList();
-		for(Ref<Question> q : qList) {
+		for (Ref<Question> q : qList) {
 			Question question = q.get();
 			Answer a = answerMap.get(question.getId());
-			if(a == null) {
-				a = Answer.createAnswer(userId, null, question,new String[0] , question.getNo());
+			if (a == null) {
+				a = Answer.createAnswer(userId, null, question, new String[0], question.getNo());
 			}
 			a.setAnswerSum(ansSummary);
 			a = a.save();
@@ -109,19 +111,34 @@ public final class AnswerServlet extends HttpServlet {
 				correct++;
 			}
 		}
-		
-		
+
 		ansSummary.setNoOfSeikai(correct);
 		ansSummary.setMapRefAnswer(mapAnswer);
 		ansSummary.setMember(member);
 		ansSummary.save();
-		
+
 		member.addRefAnswerSumList(ansSummary);
 		member.save();
 
 		request.setAttribute("ansSummary", ansSummary);
 
 		request.setAttribute("email", email);
+
+		List<String[]> datas = new ArrayList<String[]>();
+		Map<Integer, Answer> answer = ansSummary.getMapAnswer();
+		Set<Integer> keyset = answer.keySet();
+
+		for (Integer i : keyset) {
+			Answer a = answer.get(i);
+			String[] s = new String[3];
+
+			s[0] = a.getRefQuestion().get().getName();
+			s[1] = a.getRefQuestion().get().getAnswers();
+			s[2] = a.getAnswers();
+			datas.add(s);
+
+		}
+		request.setAttribute("datas", datas);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/answer.jsp");
 		rd.forward(request, response);

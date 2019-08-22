@@ -12,7 +12,16 @@
 	<%
 		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 	%>
+
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
+			<li class="breadcrumb-item active" aria-current="page">分野 一覧</li>
+		</ol>
+	</nav>
+
 	<%@ include file="../common/header.jsp"%><br>
+	
 	<h1>登録されている分野の一覧</h1>
 
 	<%

@@ -121,7 +121,7 @@ public final class Member extends MemberFactory {
 
 		List<AnswerSum> list = new ArrayList<>();
 		for (Ref<AnswerSum> as : getRefAnswerSumList()) {
-			if (as.get().getRefToi().get().getParent().getId() != parentId) {
+			if (as.get().getRefToi().get().getExam().getId() != parentId) {
 				continue;
 			}
 			list.add(as.get());

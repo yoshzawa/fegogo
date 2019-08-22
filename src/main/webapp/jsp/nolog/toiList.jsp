@@ -17,14 +17,18 @@
 	String ExamName  = (String)request.getAttribute("ExamName");
 		List<String[]> datas = (List<String[]>)request.getAttribute("datas");
 	%>
+	
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
+			<li class="breadcrumb-item"><a href="/exam/">試験 一覧</a></li>
+			<li class="breadcrumb-item active" aria-current="page"><%= ExamName %></li>
+		</ol>
+	</nav>
+
 	<%@ include file="../common/header.jsp"%>
 
 	<H1>登録されている問の一覧</H1>
-
-	<p>
-		選択された試験：<%= ExamName %>
-		<a href="/exam/list">(選択解除する)</a>
-	</p>
 
 	<%
 		if (datas == null || datas.size() == 0) {

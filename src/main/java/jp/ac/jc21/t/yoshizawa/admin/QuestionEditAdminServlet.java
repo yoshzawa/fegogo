@@ -27,7 +27,7 @@ public class QuestionEditAdminServlet extends HttpServlet {
 		request.setAttribute("q", q);
 		
 		Toi parent = q.getParent();
-		Exam exam=parent.getParent();
+		Exam exam=parent.getExam();
 
 		request.setAttribute("parent", parent);
 		request.setAttribute("exam", exam);

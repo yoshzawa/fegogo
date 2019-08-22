@@ -41,7 +41,7 @@ public class AnswerDumpAdminServlet extends HttpServlet {
 
 		for (AnswerSum as : answerSumList) {
 			Toi toi = as.getRefToi().get();
-			Exam exam = toi.getParent();
+			Exam exam = toi.getExam();
 			//log.info("AnswerSum="+as.getId().toString());
 			float point = (100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
 			Map<Integer, Answer> answerMap = as.getMapAnswer();

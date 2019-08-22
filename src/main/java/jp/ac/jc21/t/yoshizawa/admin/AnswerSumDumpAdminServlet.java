@@ -41,7 +41,7 @@ public class AnswerSumDumpAdminServlet extends HttpServlet {
 				continue;
 			}
 			Toi toi = as.getRefToi().get();
-			Exam exam = toi.getParent();
+			Exam exam = toi.getExam();
 			float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
 	
 

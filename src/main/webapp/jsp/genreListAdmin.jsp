@@ -50,7 +50,7 @@
 				<%
 					for (Ref<Toi> rt : g.getToiRefList()) {
 								Toi t = rt.get();
-				%> <%=t.getParent().getName()%> 問<%=t.getNo()%>
+				%> <%=t.getExam().getName()%> 問<%=t.getNo()%>
 				<%=t.getName()%> <br /> <%
  	for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
  					if ((as != null) && (as.get().getRefMember() != null)) {
