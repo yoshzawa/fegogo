@@ -12,23 +12,22 @@
 	<%
 		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 	%>
-	<%@ include file="common/header.jsp"%><br>
-	<h1>登録されている試験の一覧</h1>
+	<%@ include file="../common/header.jsp"%><br>
+	<h1>登録されている分野の一覧</h1>
 
 	<%
 		if (datas == null || datas.size() == 0) {
 	%>
-	試験が登録されていません
+	分野が登録されていません
 	<%
 		} else {
 	%>
 
-	<TABLE border="1" class="table table-striped table-hover "
-		align="center">
+	<TABLE border="1" class="table table-striped table-hover">
 		<thead class="thead-dark">
 			<tr>
-				<TH>試験名</TH>
-				<TH>問題登録</TH>
+				<TH>分野名</TH>
+				<TH>問題</TH>
 			</TR>
 		</thead>
 		<%
@@ -50,6 +49,6 @@
 
 
 </body>
-<%@ include file="common/footer.jsp"%>
+<%@ include file="../common/footer.jsp"%>
 
 </html>

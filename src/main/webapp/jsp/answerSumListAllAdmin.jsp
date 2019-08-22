@@ -55,7 +55,7 @@
 		<tr>
 			<td><%= as.getId() %>
 			<% if(member != null){%>
-			<br /><a href="/admin/answerSum/delete?memberId=<%= member.get().geteMail() %>&AnswerSumId=<%= as.getId()%>">delete
+			<br /><a href="/admin/answerSum/delete?memberId=<%= member.get().geteMail() %>&AnswerSumId=<%= as.getId()%>">delete</a>
 						<% }%>
 			</td>
 			<td><%= as.getName() %></td>

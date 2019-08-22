@@ -22,14 +22,14 @@
 
 	<%
 		String parentId = (String) request.getAttribute("parentId");
-		Toi parent = (Toi) request.getAttribute("parent");
-		Map<Long,Question> qMap = (Map<Long,Question>) request.getAttribute("questionMap");
-		Exam exam = (Exam) request.getAttribute("exam");
-		List<Genre>genreList = (List<Genre>)request.getAttribute("genreList");
-		Long genreId=0L;
-		if(parent.getGenre() != null){
-		genreId = parent.getGenre().get().getId();
-		}
+			Toi parent = (Toi) request.getAttribute("parent");
+			Map<Long,Question> qMap = (Map<Long,Question>) request.getAttribute("questionMap");
+			Exam exam = (Exam) request.getAttribute("exam");
+			List<Genre>genreList = (List<Genre>)request.getAttribute("genreList");
+			Long genreId=0L;
+			if(parent.getRefGenre() != null){
+			genreId = parent.getRefGenre().get().getId();
+			}
 	%>
 
 	<p>選択された試験：</p>

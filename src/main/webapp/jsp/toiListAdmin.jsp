@@ -53,10 +53,14 @@
 		<tr>
 			<td><%=t.getId()%></td>
 			<td><%=t.getNo()%></td>
-			<td><% if(t.getGenre() == null){%>
+			<td><%
+				if(t.getRefGenre() == null){
+			%>
 				no Genre
-			<% } else {%>
-				<%= t.getGenre().get().getName() %>
+			<%
+				} else {
+			%>
+				<%=t.getRefGenre().get().getName()%>
 			<% } %>
 			</td>
 			<td><a href="/admin/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
@@ -75,7 +79,7 @@
 		<label>No</label> <input type="text" name="No" /> 
 		<label>ToiName</label>
 		<input type="text" name="toiName" /> 
-		<select name="genreId" =1>
+		<select name="genreId" >
 		<% for (Genre g : genreList){ %>
 		<option value="<%= g.getId()%>"><%= g.getName() %></option>
 		
