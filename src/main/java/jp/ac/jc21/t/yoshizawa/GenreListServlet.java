@@ -39,13 +39,19 @@ public class GenreListServlet extends HttpServlet {
 
 			for (Genre g : genreList) {
 				String genreName = g.getName();
+				{
+					String[] s = new String[3];
+					s[0] = genreName;
+					s[1] = "";
+					s[2] = "";
+					datas.add(s);
+				}
 
 				List<Ref<Toi>> list = g.getToiRefList();
 				for (Ref<Toi> rt : list) {
 					String[] s = new String[3];
-					s[0] = genreName;
-					genreName = "";
 					Toi toi = rt.get();
+					s[0] = "";
 					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
 							+ toi.getNo() + " (" + toi.getName() + ")</a>";
 					s[2] = toi.getAnswerSumRefListSize() + "";
@@ -61,7 +67,15 @@ public class GenreListServlet extends HttpServlet {
 
 			for (Genre g : genreList) {
 				String genreName = g.getName();
-				
+				{
+					String[] s = new String[5];
+					s[0] = genreName;
+					s[1] = "";
+					s[2] = "";
+					s[3] = "";
+					s[4] = "";
+					datas.add(s);
+				}
 				List<Ref<Toi>> list = g.getToiRefList();
 				for (Ref<Toi> rt : list) {
 					Toi toi = rt.get();
@@ -71,10 +85,9 @@ public class GenreListServlet extends HttpServlet {
 					Member member = Member.get(email);
 					List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
 					String toiSize = toi.getAnswerSumRefListSize() + "";
-					if ((las == null)||(las.size()==0)) {
+					if ((las == null) || (las.size() == 0)) {
 						String[] s = new String[5];
-						s[0] = genreName;
-						genreName = "";
+						s[0] = "";
 						s[1] = toiName;
 						toiName = "";
 						s[2] = toiSize;
@@ -85,12 +98,11 @@ public class GenreListServlet extends HttpServlet {
 					} else {
 						for (AnswerSum as : las) {
 							String[] s = new String[5];
-							s[0] = genreName;
-							genreName = "";
+							s[0] = "";
 							s[1] = toiName;
 							toiName = "";
 							s[2] = toiSize;
-							toiSize="";
+							toiSize = "";
 							s[3] = dateFormat(as.getAnswered());
 							s[4] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
 							datas.add(s);
