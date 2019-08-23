@@ -15,7 +15,6 @@
 
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
 		</ol>
 	</nav>
 
