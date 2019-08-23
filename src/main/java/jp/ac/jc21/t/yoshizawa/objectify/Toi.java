@@ -188,7 +188,6 @@ public final class Toi extends ToiFactory {
 	public void setAnswerSumRefList(List<Ref<AnswerSum>> answerSumRefList) {
 		AnswerSumRefList = answerSumRefList;
 		
-//		resetAnswerSumRefMap();
 	}
 
 	public boolean containsAnswerSum(AnswerSum as) {
@@ -205,6 +204,8 @@ public final class Toi extends ToiFactory {
 		List<Ref<AnswerSum>> list = getAnswerSumRefList();
 		list.add(Ref.create(a));
 		setAnswerSumRefList(list);
+		
+		calcAverage();
 
 	}
 

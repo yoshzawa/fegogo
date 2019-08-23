@@ -51,7 +51,7 @@ public class GenreListServlet extends HttpServlet {
 					}
 					String[] s = new String[3];
 					s[0] = genreName;
-					s[1] = "•½‹Ï" + String.format("%1$.1f", sum / count) + "%";
+					s[1] = "<P align='CENTER'>‘S‘Ì•½‹Ï" + String.format("%1$.1f", sum / count) + "%</P>";
 					s[2] = count + "";
 
 					datas.add(s);
@@ -88,10 +88,10 @@ public class GenreListServlet extends HttpServlet {
 					}
 					String[] s = new String[5];
 					s[0] = genreName;
-					s[1] = "•½‹Ï" + String.format("%1$.1f", sum / count) + "%";
+					s[1] = "<P align='CENTER'>‘S‘Ì•½‹Ï" + String.format("%1$.1f", sum / count) + "%</P>";
 					s[2] = count + "";
 					s[3] = "";
-					s[4] = String.format("%1$.1f", sum / count) + "%";
+					s[4] = "";
 
 					datas.add(s);
 				}
