@@ -140,4 +140,16 @@ public final class Member extends MemberFactory {
 		setRefAnswerSumList(listNew);
 	}
 
+	public List<AnswerSum> getAnswerSumListByToi(Long id) {
+		List<AnswerSum> list = new ArrayList<AnswerSum>();
+		for(Ref<AnswerSum> ras : getRefAnswerSumList()) {
+			AnswerSum as = ras.get();
+			if((as.getRefToi() != null) && (as.getRefToi().get().getId() == id)) {
+				list.add(as);
+			}
+		}
+		return list;
+		
+	}
+
 }

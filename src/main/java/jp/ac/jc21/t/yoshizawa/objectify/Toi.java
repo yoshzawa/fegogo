@@ -7,7 +7,10 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 
@@ -31,6 +34,7 @@ public final class Toi extends ToiFactory {
 	private Ref<Exam> parent;
 	private List<Ref<Question>> questionRefList;
 	private List<Ref<AnswerSum>> AnswerSumRefList;
+//	private Map<String,List<Ref<AnswerSum>>> AnswerSumRefMap;
 
 	private Ref<Genre> genre;
 
@@ -165,6 +169,8 @@ public final class Toi extends ToiFactory {
 
 	public void setAnswerSumRefList(List<Ref<AnswerSum>> answerSumRefList) {
 		AnswerSumRefList = answerSumRefList;
+		
+//		resetAnswerSumRefMap();
 	}
 
 	public boolean containsAnswerSum(AnswerSum as) {
@@ -198,5 +204,52 @@ public final class Toi extends ToiFactory {
 		}
 		return null;
 	}
+/*
+	public List<Ref<AnswerSum>> getAnswerSumByMemberId(String email) {
+		return getAnswerSumRefMap().get(email);
+	}
+
+	public Map<String, List<Ref<AnswerSum>>> getAnswerSumRefMap() {
+		if( AnswerSumRefMap == null ) {
+			resetAnswerSumRefMap();
+		}
+		return AnswerSumRefMap;
+	}
+
+	private void resetAnswerSumRefMap() {
+		Map<String, List<Ref<AnswerSum>>> newMap =  new HashMap<String, List<Ref<AnswerSum>>>();
+		for(Ref<AnswerSum> ras:getAnswerSumRefList()) {
+			Ref<Member> refMember = ras.get().getRefMember();
+			if(refMember != null) {
+				String eMail = refMember.get().geteMail();
+				List<Ref<AnswerSum>> list;
+				if (newMap.containsKey(eMail)) {
+					list = newMap.get(eMail);
+					
+					boolean isContain = false;
+					for (Ref<AnswerSum> r : list) {
+						if (r.get().getId() == ras.get().getId()) {
+							isContain = true;
+						}
+					}
+					if (isContain == false) {
+						list.add(ras);
+					}
+				} else {
+					list = new ArrayList<Ref<AnswerSum>>();
+					list.add(ras);
+				}
+				newMap.put(eMail, list);
+			}
+		}
+		setAnswerSumRefMap(newMap);
+	}
+
+
+	public void setAnswerSumRefMap(Map<String, List<Ref<AnswerSum>>> answerSumRefMap) {
+		AnswerSumRefMap = answerSumRefMap;
+	}
+*/
+
 
 }

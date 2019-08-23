@@ -18,6 +18,7 @@ import com.googlecode.objectify.Ref;
 
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Genre;
+import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
@@ -60,24 +61,42 @@ public class GenreListServlet extends HttpServlet {
 
 			for (Genre g : genreList) {
 				String genreName = g.getName();
+				
 				List<Ref<Toi>> list = g.getToiRefList();
 				for (Ref<Toi> rt : list) {
 					Toi toi = rt.get();
 
-					String[] s = new String[5];
-					s[0] = genreName;
-					genreName = "";
-					s[1] = toi.getExam().getName() + " –â" + toi.getNo() + " (" + toi.getName() + ")";
-					AnswerSum as = toi.getAnswerSumByMemberId(email);
-					s[2] = toi.getAnswerSumRefListSize() + "";
-					if (as != null) {
-						s[3] =   dateFormat(as.getAnswered()) ;
-						s[4]=		 changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
-					} else {
-						s[3] =   "–¢‰ñ“š" ;
+					String toiName = toi.getExam().getName() + " –â" + toi.getNo() + " (" + toi.getName() + ")";
+
+					Member member = Member.get(email);
+					List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
+					String toiSize = toi.getAnswerSumRefListSize() + "";
+					if ((las == null)||(las.size()==0)) {
+						String[] s = new String[5];
+						s[0] = genreName;
+						genreName = "";
+						s[1] = toiName;
+						toiName = "";
+						s[2] = toiSize;
+						s[3] = "–¢‰ñ“š";
 						s[4] = "<a href='/question/list?parentId=" + toi.getId() + "'>“š‚¦‚é</a>";
+						datas.add(s);
+
+					} else {
+						for (AnswerSum as : las) {
+							String[] s = new String[5];
+							s[0] = genreName;
+							genreName = "";
+							s[1] = toiName;
+							toiName = "";
+							s[2] = toiSize;
+							toiSize="";
+							s[3] = dateFormat(as.getAnswered());
+							s[4] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
+							datas.add(s);
+						}
+
 					}
-					datas.add(s);
 				}
 			}
 
