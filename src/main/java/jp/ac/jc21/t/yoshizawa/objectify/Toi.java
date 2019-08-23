@@ -35,8 +35,26 @@ public final class Toi extends ToiFactory {
 	private List<Ref<Question>> questionRefList;
 	private List<Ref<AnswerSum>> AnswerSumRefList;
 //	private Map<String,List<Ref<AnswerSum>>> AnswerSumRefMap;
-
+	private float sum;
 	private Ref<Genre> genre;
+
+
+	/**
+	 * @return the average
+	 */
+	public float getAnswerSumSum() {
+		if (sum==0) {
+			calcAverage();
+		}
+		return sum;
+	}
+
+	/**
+	 * @param average the average to set
+	 */
+	public void setAnswerSumSum(float sum) {
+		this.sum = sum;
+	}
 
 	public Long getId() {
 		return id;
@@ -204,52 +222,18 @@ public final class Toi extends ToiFactory {
 		}
 		return null;
 	}
-/*
-	public List<Ref<AnswerSum>> getAnswerSumByMemberId(String email) {
-		return getAnswerSumRefMap().get(email);
-	}
 
-	public Map<String, List<Ref<AnswerSum>>> getAnswerSumRefMap() {
-		if( AnswerSumRefMap == null ) {
-			resetAnswerSumRefMap();
+	final void calcAverage() {
+		float sum=0;
+		for (Ref<AnswerSum> ras : getAnswerSumRefList()) {
+			float temp = 100.0f*ras.get().getNoOfSeikai() / ras.get().getNoOfAnswer();
+			sum += temp;
 		}
-		return AnswerSumRefMap;
+		setAnswerSumSum(sum);
+		save();
 	}
-
-	private void resetAnswerSumRefMap() {
-		Map<String, List<Ref<AnswerSum>>> newMap =  new HashMap<String, List<Ref<AnswerSum>>>();
-		for(Ref<AnswerSum> ras:getAnswerSumRefList()) {
-			Ref<Member> refMember = ras.get().getRefMember();
-			if(refMember != null) {
-				String eMail = refMember.get().geteMail();
-				List<Ref<AnswerSum>> list;
-				if (newMap.containsKey(eMail)) {
-					list = newMap.get(eMail);
-					
-					boolean isContain = false;
-					for (Ref<AnswerSum> r : list) {
-						if (r.get().getId() == ras.get().getId()) {
-							isContain = true;
-						}
-					}
-					if (isContain == false) {
-						list.add(ras);
-					}
-				} else {
-					list = new ArrayList<Ref<AnswerSum>>();
-					list.add(ras);
-				}
-				newMap.put(eMail, list);
-			}
-		}
-		setAnswerSumRefMap(newMap);
+	public final int getAnswerSumCount() {
+		return getAnswerSumRefList().size();
 	}
-
-
-	public void setAnswerSumRefMap(Map<String, List<Ref<AnswerSum>>> answerSumRefMap) {
-		AnswerSumRefMap = answerSumRefMap;
-	}
-*/
-
 
 }

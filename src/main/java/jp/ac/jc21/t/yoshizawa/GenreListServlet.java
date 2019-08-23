@@ -38,16 +38,26 @@ public class GenreListServlet extends HttpServlet {
 			List<String[]> datas = new ArrayList<String[]>();
 
 			for (Genre g : genreList) {
-				String genreName = g.getName();
+				List<Ref<Toi>> toiRefList = g.getToiRefList();
 				{
+
+					String genreName = g.getName();
+					int count = 0;
+					float sum = 0;
+					for (Ref<Toi> rt : toiRefList) {
+						Toi toi = rt.get();
+						sum += toi.getAnswerSumSum();
+						count += toi.getAnswerSumCount();
+					}
 					String[] s = new String[3];
 					s[0] = genreName;
-					s[1] = "";
-					s[2] = "";
+					s[1] = "•½‹Ï" + String.format("%1$.1f", sum / count) + "%";
+					s[2] = count + "";
+
 					datas.add(s);
 				}
 
-				List<Ref<Toi>> list = g.getToiRefList();
+				List<Ref<Toi>> list = toiRefList;
 				for (Ref<Toi> rt : list) {
 					String[] s = new String[3];
 					Toi toi = rt.get();
@@ -66,17 +76,27 @@ public class GenreListServlet extends HttpServlet {
 			List<String[]> datas = new ArrayList<String[]>();
 
 			for (Genre g : genreList) {
-				String genreName = g.getName();
+				List<Ref<Toi>> toiRefList = g.getToiRefList();
 				{
+					String genreName = g.getName();
+					int count = 0;
+					float sum = 0;
+					for (Ref<Toi> rt : toiRefList) {
+						Toi toi = rt.get();
+						sum += toi.getAnswerSumSum();
+						count += toi.getAnswerSumCount();
+					}
 					String[] s = new String[5];
 					s[0] = genreName;
-					s[1] = "";
-					s[2] = "";
+					s[1] = "•½‹Ï" + String.format("%1$.1f", sum / count) + "%";
+					s[2] = count + "";
 					s[3] = "";
-					s[4] = "";
+					s[4] = String.format("%1$.1f", sum / count) + "%";
+
 					datas.add(s);
 				}
-				List<Ref<Toi>> list = g.getToiRefList();
+				List<Ref<Toi>> list = toiRefList;
+
 				for (Ref<Toi> rt : list) {
 					Toi toi = rt.get();
 
