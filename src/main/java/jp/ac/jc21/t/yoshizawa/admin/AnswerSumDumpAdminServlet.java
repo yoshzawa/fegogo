@@ -29,41 +29,41 @@ public class AnswerSumDumpAdminServlet extends HttpServlet {
 
 		List<AnswerSum> answerSumList = AnswerSum.loadAll();
 
-		UserService userService = UserServiceFactory.getUserService();
-		
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
-		out.println( "ID,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,–âÚ×,³‰ğ”,–â‘è”,³‰ğ—¦" );
+		out.println( "ID,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,•ª–ì‡,•ª–ì,–âÚ×,³‰ğ”,–â‘è”,³‰ğ—¦" );
 
 		for (AnswerSum as : answerSumList) {
-			if(as.getRefMember() == null) {
-				continue;
+			if(as.getRefMember() != null) {
+				Toi toi = as.getRefToi().get();
+				Exam exam = toi.getExam();
+				float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
+
+				out.print( as.getId() );
+				out.print( "," );
+				out.print( as.getName() );
+				out.print( "," );
+				out.print( sdf.format(as.getAnswered()) );
+				out.print( "," );
+				out.print( exam.getName() );
+				out.print( "," );
+				out.print( toi.getNo()  );
+				out.print( "," );
+				out.print( toi.getRefGenre().get().getNo()  );
+				out.print( "," );
+				out.print( toi.getRefGenre().get().getName()  );
+				out.print( "," );
+				out.print( toi.getName()  );
+				out.print( "," );
+				out.print( as.getNoOfSeikai()  );
+				out.print( "," );
+				out.print( as.getNoOfAnswer()  );
+				out.print( "," );
+				out.print( String.format("%1$.1f", point)  );
+
+				out.println(  );
+				out.flush();
 			}
-			Toi toi = as.getRefToi().get();
-			Exam exam = toi.getExam();
-			float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
-	
-
-			out.print( as.getId() );
-			out.print( "," );
-			out.print( as.getName() );
-			out.print( "," );
-			out.print( sdf.format(as.getAnswered()) );
-			out.print( "," );
-			out.print( exam.getName() );
-			out.print( "," );
-			out.print( toi.getNo()  );
-			out.print( "," );
-			out.print( toi.getName()  );
-			out.print( "," );
-			out.print( as.getNoOfSeikai()  );
-			out.print( "," );
-			out.print( as.getNoOfAnswer()  );
-			out.print( "," );
-			out.print( String.format("%1$.1f", point)  );
-
-			out.println(  );
 
 		}
 

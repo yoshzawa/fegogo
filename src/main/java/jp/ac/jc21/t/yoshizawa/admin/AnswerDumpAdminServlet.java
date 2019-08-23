@@ -37,17 +37,15 @@ public class AnswerDumpAdminServlet extends HttpServlet {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
-		out.println("–âid,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,–âÚ×,İ–âid,o‘è‡,İ–â,³‰ğ,‰ğ“š,³Œë");
+		out.println("–âid,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,•ª–ì‡,•ª–ì,–âÚ×,İ–âid,o‘è‡,İ–â,³‰ğ,‰ğ“š,³Œë");
 
 		for (AnswerSum as : answerSumList) {
 			Toi toi = as.getRefToi().get();
 			Exam exam = toi.getExam();
-			//log.info("AnswerSum="+as.getId().toString());
-			float point = (100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
 			Map<Integer, Answer> answerMap = as.getMapAnswer();
-			for (Integer i : answerMap.keySet()) {
-				Answer a = answerMap.get(i);
-				//log.info("Answer="+a.getId().toString());
+			for (Integer key : answerMap.keySet()) {
+				Answer answer = answerMap.get(key);
+				Question question = answer.getRefQuestion().get();
 
 				out.print(as.getId());
 				out.print(",");
@@ -59,19 +57,23 @@ public class AnswerDumpAdminServlet extends HttpServlet {
 				out.print(",");
 				out.print(toi.getNo());
 				out.print(",");
+				out.print(toi.getRefGenre().get().getNo());
+				out.print(",");
+				out.print(toi.getRefGenre().get().getName());
+				out.print(",");
 				out.print(toi.getName());
 				out.print(",");
-				out.print(a.getId());
+				out.print(answer.getId());
 				out.print(",");
-				out.print(i);
+				out.print(key);
 				out.print(",");
-				out.print(a.getRefQuestion().get().getName());
+				out.print(question.getName());
 				out.print(",");
-				out.print(a.getRefQuestion().get().getAnswers());
+				out.print(question.getAnswers());
 				out.print(",");
-				out.print(a.getAnswers());
+				out.print(answer.getAnswers());
 				out.print(",");
-				out.print(a.isCorrect() ? 1 : 0);
+				out.print(answer.isCorrect() ? 1 : 0);
 
 				out.println();
 			}
