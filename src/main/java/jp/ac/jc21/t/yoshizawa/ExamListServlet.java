@@ -21,7 +21,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/exam/list", "/index" })
+@WebServlet(urlPatterns = { "/exam/list" })
 public class ExamListServlet extends HttpServlet {
 
 	@Override

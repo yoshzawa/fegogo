@@ -13,8 +13,8 @@
 </script>
 </HEAD>
       <a  href="/">ホーム <span class="sr-only">(current)</span></a>
-      <a  href="/exam/list">問題から選択</a>
-      <a class=" disabled" href="/genre" tabindex="-1" aria-disabled="true">分野から選択</a>
+      <a  href="/exam/list">問題一覧</a>
+      <a class=" disabled" href="/genre" tabindex="-1" aria-disabled="true">分野一覧</a>
       <a class=" disabled" href="/#" tabindex="-1" aria-disabled="true">個人結果分析</a><br>
 <div align="right">
 
