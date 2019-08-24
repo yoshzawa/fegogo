@@ -64,9 +64,11 @@
 			<td><%= sdf.format(as.getAnswered()) %></td>
 			<td>
 				<% Map<String,Ref<Answer>> m = as.getMapRefAnswer(); %>
+				<% if(m != null){ %>
 				<% for(String k : m.keySet()){%>
 					<%= m.get(k).get().getId() %><br />
 				<% } %>
+				<%} %>
 			</td>
 			<td>
 				<%  if ((member == null )||(as.getRefMember().get().containsRef(as) == false)) {%>
