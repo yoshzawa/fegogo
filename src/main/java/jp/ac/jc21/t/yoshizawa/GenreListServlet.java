@@ -53,7 +53,7 @@ public class GenreListServlet extends HttpServlet {
 
 					String[] s = new String[3];
 					s[0] = genreName;
-					s[1] = "<P align='CENTER'>å…¨ä½“å¹³å‡" + String.format("%1$.1f", sum / count) + "%</P>";
+					s[1] = "<P align='CENTER'>‘S‘Ì•½‹Ï" + String.format("%1$.1f", sum / count) + "%</P>";
 					s[2] = count + "";
 
 					datas.add(s);
@@ -64,7 +64,7 @@ public class GenreListServlet extends HttpServlet {
 					String[] s = new String[3];
 					Toi toi = rt.get();
 					s[0] = "";
-					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " å•"
+					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
 							+ toi.getNo() + " (" + toi.getName() + ")</a>";
 					s[2] = toi.getAnswerSumRefListSize() + "";
 					datas.add(s);
@@ -90,7 +90,7 @@ public class GenreListServlet extends HttpServlet {
 					}
 					String[] s = new String[5];
 					s[0] = genreName;
-					s[1] = "<P align='CENTER'>å…¨ä½“å¹³å‡" + String.format("%1$.1f", sum / count) + "%</P>";
+					s[1] = "<P align='CENTER'>‘S‘Ì•½‹Ï" + String.format("%1$.1f", sum / count) + "%</P>";
 					s[2] = count + "";
 					s[3] = "";
 					s[4] = "";
@@ -103,7 +103,7 @@ public class GenreListServlet extends HttpServlet {
 				for (Ref<Toi> rt : list) {
 					Toi toi = rt.get();
 
-					String toiName = toi.getExam().getName() + " å•" + toi.getNo() + " (" + toi.getName() + ")";
+					String toiName = toi.getExam().getName() + " –â" + toi.getNo() + " (" + toi.getName() + ")";
 
 					Member member = Member.get(email);
 					List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
@@ -114,8 +114,8 @@ public class GenreListServlet extends HttpServlet {
 						s[1] = toiName;
 						toiName = "";
 						s[2] = toiSize;
-						s[3] = "æœªå›ç­”";
-						s[4] = "<a href='/question/list?parentId=" + toi.getId() + "'>ç­”ãˆã‚‹</a>";
+						s[3] = "–¢‰ñ“š";
+						s[4] = "<a href='/question/list?parentId=" + toi.getId() + "'>“š‚¦‚é</a>";
 						datas.add(s);
 
 					} else {
