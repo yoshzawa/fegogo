@@ -62,20 +62,19 @@ public class QuestionListServlet extends HttpServlet {
 							+ "' value='1' checked='checked' disabled='disabled' />" + "全員正解 ";
 				} else {
 					if (q.isMulti() == true) {
-						s[1] = " <input type='checkbox' name='" + q.getId()
-								+ "' value='-1' checked='checked' disabled='disabled' />" + "解けない ";
+						s[1] = " <input type='checkbox' name='" + q.getId();
 					} else {
-						s[1] = " <input type='radio' name='" + q.getId()
-								+ "' value='-1' checked='checked' disabled='disabled' /> 解けない ";
+						s[1] = " <input type='radio' name='" + q.getId();
 					}
+					s[1] += "' value='-1' checked='checked' disabled='disabled' /> 解けない ";
 					for (int i = 0; i <= (int) q.getNoOfOption(); i++) {
 						if (q.isMulti() == true) {
-							s[1] += " <input type='checkbox' name='" + q.getId() + "' value='" + i
-									+ "' disabled='disabled' /> " + "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+							s[1] += " <input type='checkbox'";
 						} else {
-							s[1] += " <input type='radio' name='" + q.getId() + "' value='" + i
-									+ "' disabled='disabled' /> " + "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+							s[1] += " <input type='radio'";
 						}
+						s[1] += " name='" + q.getId() + "' value='" + i + "' disabled='disabled' /> "
+								+ "アイウエオカキクケコサシスセソタチツテト".charAt(i);
 					}
 				}
 				datas.add(s);
@@ -97,36 +96,28 @@ public class QuestionListServlet extends HttpServlet {
 				s[0] = q.getName();
 				s[1] = "<div class='bd-example'>";
 				if (q.getNoOfOption() <= 0) {
-					s[1] += "<span class='border border-primary'>" 
-							+ "<input type='radio' name='" + q.getId()
-							+ "' value='-1' checked='checked' disabled='disabled'/>"
-							+							" 解けない " 
-							+ 							"</span>"
-							+ "<span class='border border-primary'>" 
-							+ "<input type='radio' name='" + q.getId()
-							+ "' value='0' checked='checked' />"+
-							" 全員正解 " + 
-							"</span>";
+					s[1] += "<span class='border border-primary'>" + "<input type='radio' name='" + q.getId()
+							+ "' value='-1' checked='checked' disabled='disabled'/>" + " 解けない " + "</span>"
+							+ "<span class='border border-primary'>" + "<input type='radio' name='" + q.getId()
+							+ "' value='0' checked='checked' />" + " 全員正解 " + "</span>";
 				} else {
 
 					s[1] += "<span class='border border-primary'>";
 
 					if (q.isMulti() == true) {
-						s[1] += "<input type='checkbox' name='" + q.getId() + "' value='-1' />" ;
+						s[1] += "<input type='checkbox' name='" + q.getId() + "' value='-1' />";
 					} else {
 						s[1] += " <input type='radio' name='" + q.getId() + "' value='-1' checked='checked' /> ";
 					}
-					s[1] += " 解けない "+"</span>";
+					s[1] += " 解けない " + "</span>";
 					for (int i = 0; i <= (int) q.getNoOfOption(); i++) {
 						s[1] += "<span class='border border-primary'>";
 						if (q.isMulti() == true) {
-							s[1] += "<input type='checkbox' name='" + q.getId() + "' value='" + i + "' /> "
-									+ "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+							s[1] += "<input type='checkbox' name='" + q.getId() + "' value='" + i + "' /> ";
 						} else {
-							s[1] += "<input type='radio' name='" + q.getId() + "' value='" + i + "' /> "
-									+ "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+							s[1] += "<input type='radio' name='" + q.getId() + "' value='" + i + "' /> ";
 						}
-						s[1] += " </span> ";
+						s[1] += "アイウエオカキクケコサシスセソタチツテト".charAt(i) + " </span> ";
 					}
 				}
 
