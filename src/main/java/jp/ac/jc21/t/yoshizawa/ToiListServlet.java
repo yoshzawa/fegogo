@@ -89,7 +89,7 @@ public class ToiListServlet extends HttpServlet {
 				for (AnswerSum as : answerSumList) {
 					if (as.getRefToi().get().getId() == t.getId()) {
 						s[4] += dateFormat(as.getAnswered()) + "(" + changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())
-								+ "%)";
+								+ "%)<br/>";
 						i++;
 					}
 				}
