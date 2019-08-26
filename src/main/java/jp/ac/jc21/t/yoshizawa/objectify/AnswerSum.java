@@ -118,7 +118,12 @@ public final class AnswerSum extends AnswerSumFactory {
 	 * @return the noOfAnswer
 	 */
 	public int getNoOfAnswer() {
-		return getMapRefAnswer().size();
+		Map<String, Ref<Answer>> map = getMapRefAnswer();
+		if(map == null) {
+			return 0;
+		}else {
+			return map.size();
+		}
 	}
 
 	/**
@@ -138,10 +143,12 @@ public final class AnswerSum extends AnswerSumFactory {
 	public Map<Integer, Answer> getMapAnswer() {
 		Map<String, Ref<Answer>> mra = getMapRefAnswer();
 		Map<Integer, Answer> mapAnswer = new HashMap<Integer, Answer>();
-
-		Set<String> mraKey = mra.keySet();
-		for (String k : mraKey) {
-			mapAnswer.put(Integer.parseInt(k), mra.get(k).get());
+		
+		if(mra != null) {
+			Set<String> mraKey = mra.keySet();
+			for (String k : mraKey) {
+				mapAnswer.put(Integer.parseInt(k), mra.get(k).get());
+			}
 		}
 		return mapAnswer;
 
@@ -168,7 +175,6 @@ public final class AnswerSum extends AnswerSumFactory {
 		member.removeRefAnswerSumList(this);
 		member.save();
 		setRefMember(null);
-//		toi.get
 		save();
 		
 	}

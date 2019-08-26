@@ -34,12 +34,13 @@ public final class Toi extends ToiFactory {
 	private Ref<Exam> parent;
 	private List<Ref<Question>> questionRefList;
 	private List<Ref<AnswerSum>> AnswerSumRefList;
-//	private Map<String,List<Ref<AnswerSum>>> AnswerSumRefMap;
 	private float sum;
+
 	private Ref<Genre> genre;
 
 
-	/**
+ 	/**
+
 	 * @return the average
 	 */
 	public float getAnswerSumSum() {
@@ -49,7 +50,7 @@ public final class Toi extends ToiFactory {
 		return sum;
 	}
 
-	/**
+ 	/**
 	 * @param average the average to set
 	 */
 	public void setAnswerSumSum(float sum) {
@@ -207,6 +208,7 @@ public final class Toi extends ToiFactory {
 		
 		calcAverage();
 
+		calcAverage();
 	}
 
 	public AnswerSum getAnswerSumByMemberId(String email) {
@@ -236,5 +238,4 @@ public final class Toi extends ToiFactory {
 	public final int getAnswerSumCount() {
 		return getAnswerSumRefList().size();
 	}
-
 }
