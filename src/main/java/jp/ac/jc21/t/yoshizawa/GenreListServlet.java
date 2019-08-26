@@ -42,27 +42,29 @@ public class GenreListServlet extends HttpServlet {
 				{
 
  					String genreName = g.getName();
-					int count = 0;
+
+          int count = 0;
 					float sum = 0;
 					for (Ref<Toi> rt : toiRefList) {
 						Toi toi = rt.get();
 						sum += toi.getAnswerSumSum();
 						count += toi.getAnswerSumCount();
 					}
+
 					String[] s = new String[3];
 					s[0] = genreName;
-					s[1] = "<P align='CENTER'>ëSëÃïΩãœ" + String.format("%1$.1f", sum / count) + "%</P>";
+					s[1] = "<P align='CENTER'>ÂÖ®‰ΩìÂπ≥Âùá" + String.format("%1$.1f", sum / count) + "%</P>";
 					s[2] = count + "";
-					
+
 					datas.add(s);
 				}
 
- 				List<Ref<Toi>> list = toiRefList;
- 				for (Ref<Toi> rt : list) {
+				List<Ref<Toi>> list = toiRefList;
+				for (Ref<Toi> rt : list) {
 					String[] s = new String[3];
-
 					Toi toi = rt.get();
-					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " ñ‚"
+					s[0] = "";
+					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " Âïè"
 							+ toi.getNo() + " (" + toi.getName() + ")</a>";
 					s[2] = toi.getAnswerSumRefListSize() + "";
 					datas.add(s);
@@ -88,33 +90,32 @@ public class GenreListServlet extends HttpServlet {
 					}
 					String[] s = new String[5];
 					s[0] = genreName;
-					s[1] = "<P align='CENTER'>ëSëÃïΩãœ" + String.format("%1$.1f", sum / count) + "%</P>";
+					s[1] = "<P align='CENTER'>ÂÖ®‰ΩìÂπ≥Âùá" + String.format("%1$.1f", sum / count) + "%</P>";
 					s[2] = count + "";
 					s[3] = "";
 					s[4] = "";
 
- 					datas.add(s);
+
+					datas.add(s);
 				}
 				List<Ref<Toi>> list = toiRefList;
 
-				
-				
 				for (Ref<Toi> rt : list) {
 					Toi toi = rt.get();
 
-					String toiName = toi.getExam().getName() + " ñ‚" + toi.getNo() + " (" + toi.getName() + ")";
+					String toiName = toi.getExam().getName() + " Âïè" + toi.getNo() + " (" + toi.getName() + ")";
 
 					Member member = Member.get(email);
 					List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
 					String toiSize = toi.getAnswerSumRefListSize() + "";
-					if ((las == null)||(las.size()==0)) {
+					if ((las == null) || (las.size() == 0)) {
 						String[] s = new String[5];
 						s[0] = "";
 						s[1] = toiName;
 						toiName = "";
 						s[2] = toiSize;
-						s[3] = "ñ¢âÒìö";
-						s[4] = "<a href='/question/list?parentId=" + toi.getId() + "'>ìöÇ¶ÇÈ</a>";
+						s[3] = "Êú™ÂõûÁ≠î";
+						s[4] = "<a href='/question/list?parentId=" + toi.getId() + "'>Á≠î„Åà„Çã</a>";
 						datas.add(s);
 
 					} else {
@@ -124,7 +125,7 @@ public class GenreListServlet extends HttpServlet {
 							s[1] = toiName;
 							toiName = "";
 							s[2] = toiSize;
-							toiSize="";
+							toiSize = "";
 							s[3] = dateFormat(as.getAnswered());
 							s[4] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
 							datas.add(s);
