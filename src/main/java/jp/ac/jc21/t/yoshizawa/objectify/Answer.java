@@ -28,6 +28,8 @@ public final class Answer extends AnswerFactory {
 	private Ref<AnswerSum> refAnswerSum;
 	private Ref<Question> refQuestion;
 	private int[] answerArray;
+	private String dumpCSV;
+
 
 	public Answer() {
 	}
@@ -188,4 +190,25 @@ public final class Answer extends AnswerFactory {
 		ofy().delete().entity(this).now();
 		
 	}
+
+
+
+
+	/**
+	 * @return the answerDumpCSV
+	 */
+	public String getAnswerDumpCSV() {
+		return dumpCSV;
+	}
+
+
+
+
+	/**
+	 * @param answerDumpCSV the answerDumpCSV to set
+	 */
+	public void setAnswerDumpCSV(String answerDumpCSV) {
+		this.dumpCSV = answerDumpCSV;
+	}
+	
 }

@@ -7,9 +7,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
@@ -44,7 +42,7 @@ public final class Toi extends ToiFactory {
 	 * @return the average
 	 */
 	public float getAnswerSumSum() {
-		if (sum==0) {
+		if (sum<0) {
 			calcAverage();
 		}
 		return sum;
@@ -53,7 +51,7 @@ public final class Toi extends ToiFactory {
  	/**
 	 * @param average the average to set
 	 */
-	public void setAnswerSumSum(float sum) {
+	private final void setAnswerSumSum(float sum) {
 		this.sum = sum;
 	}
 
@@ -206,8 +204,6 @@ public final class Toi extends ToiFactory {
 		list.add(Ref.create(a));
 		setAnswerSumRefList(list);
 		
-		calcAverage();
-
 		calcAverage();
 	}
 

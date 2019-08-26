@@ -12,8 +12,6 @@ import java.util.logging.Logger;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 
-import jp.ac.jc21.t.yoshizawa.admin.QuestionListAdminServlet;
-
 import static com.googlecode.objectify.ObjectifyService.ofy;
 import com.googlecode.objectify.Key;
 
@@ -35,6 +33,8 @@ public final class AnswerSum extends AnswerSumFactory {
 	private int noOfSeikai;
 	private Map<String, Ref<Answer>> mapRefAnswer;
 	private Ref<Member> refMember;
+	private String answerSumDumpCSV;
+
 
 	public AnswerSum() {
 	}
@@ -168,7 +168,7 @@ public final class AnswerSum extends AnswerSumFactory {
 	public void delete() {
 //		ofy().delete().entity(this).now();
 		
-		final Logger log = Logger.getLogger(AnswerSum.class.getName());
+//		final Logger log = Logger.getLogger(AnswerSum.class.getName());
 
 		Member member = getRefMember().get();
 		Toi toi = getRefToi().get();
@@ -178,5 +178,17 @@ public final class AnswerSum extends AnswerSumFactory {
 		save();
 		
 	}
+	/**
+	 * @return the answerSumDumpCSV
+	 */
+	public String getAnswerSumDumpCSV() {
+		return answerSumDumpCSV;
+	}
 
+	/**
+	 * @param answerSumDumpCSV the answerSumDumpCSV to set
+	 */
+	public void setAnswerSumDumpCSV(String answerSumDumpCSV) {
+		this.answerSumDumpCSV = answerSumDumpCSV;
+	}
 }
