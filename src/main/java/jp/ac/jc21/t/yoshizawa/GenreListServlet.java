@@ -38,13 +38,29 @@ public class GenreListServlet extends HttpServlet {
 			List<String[]> datas = new ArrayList<String[]>();
 
 			for (Genre g : genreList) {
-				String genreName = g.getName();
+				List<Ref<Toi>> toiRefList = g.getToiRefList();
+				{
 
-				List<Ref<Toi>> list = g.getToiRefList();
-				for (Ref<Toi> rt : list) {
+ 					String genreName = g.getName();
+					int count = 0;
+					float sum = 0;
+					for (Ref<Toi> rt : toiRefList) {
+						Toi toi = rt.get();
+						sum += toi.getAnswerSumSum();
+						count += toi.getAnswerSumCount();
+					}
 					String[] s = new String[3];
 					s[0] = genreName;
-					genreName = "";
+					s[1] = "<P align='CENTER'>‘S‘Ì•½‹Ï" + String.format("%1$.1f", sum / count) + "%</P>";
+					s[2] = count + "";
+					
+					datas.add(s);
+				}
+
+ 				List<Ref<Toi>> list = toiRefList;
+ 				for (Ref<Toi> rt : list) {
+					String[] s = new String[3];
+
 					Toi toi = rt.get();
 					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
 							+ toi.getNo() + " (" + toi.getName() + ")</a>";
@@ -60,9 +76,29 @@ public class GenreListServlet extends HttpServlet {
 			List<String[]> datas = new ArrayList<String[]>();
 
 			for (Genre g : genreList) {
-				String genreName = g.getName();
+				List<Ref<Toi>> toiRefList = g.getToiRefList();
+				{
+					String genreName = g.getName();
+					int count = 0;
+					float sum = 0;
+					for (Ref<Toi> rt : toiRefList) {
+						Toi toi = rt.get();
+						sum += toi.getAnswerSumSum();
+						count += toi.getAnswerSumCount();
+					}
+					String[] s = new String[5];
+					s[0] = genreName;
+					s[1] = "<P align='CENTER'>‘S‘Ì•½‹Ï" + String.format("%1$.1f", sum / count) + "%</P>";
+					s[2] = count + "";
+					s[3] = "";
+					s[4] = "";
+
+ 					datas.add(s);
+				}
+				List<Ref<Toi>> list = toiRefList;
+
 				
-				List<Ref<Toi>> list = g.getToiRefList();
+				
 				for (Ref<Toi> rt : list) {
 					Toi toi = rt.get();
 
@@ -73,8 +109,7 @@ public class GenreListServlet extends HttpServlet {
 					String toiSize = toi.getAnswerSumRefListSize() + "";
 					if ((las == null)||(las.size()==0)) {
 						String[] s = new String[5];
-						s[0] = genreName;
-						genreName = "";
+						s[0] = "";
 						s[1] = toiName;
 						toiName = "";
 						s[2] = toiSize;
@@ -85,8 +120,7 @@ public class GenreListServlet extends HttpServlet {
 					} else {
 						for (AnswerSum as : las) {
 							String[] s = new String[5];
-							s[0] = genreName;
-							genreName = "";
+							s[0] = "";
 							s[1] = toiName;
 							toiName = "";
 							s[2] = toiSize;
