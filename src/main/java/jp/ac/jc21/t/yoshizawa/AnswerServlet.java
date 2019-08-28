@@ -48,7 +48,7 @@ public final class AnswerServlet extends HttpServlet {
 				rd.forward(request, response);
 			} else {
 				log.info("no userId , no toiId");
-				RequestDispatcher rd = request.getRequestDispatcher("/exam/list");
+				RequestDispatcher rd = request.getRequestDispatcher("/");
 				rd.forward(request, response);
 			}
 		}
@@ -145,4 +145,14 @@ public final class AnswerServlet extends HttpServlet {
 		rd.forward(request, response);
 
 	}
+	public final void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		final Logger log = Logger.getLogger(AnswerServlet.class.getName());
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("email");
+
+		log.warning("/answer:doGet(405) user=" + email);
+		response.sendRedirect("/");
+	}
+
 }

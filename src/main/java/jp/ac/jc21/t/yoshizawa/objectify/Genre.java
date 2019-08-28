@@ -103,6 +103,20 @@ public class Genre extends GenreFactory {
 		addToiRefList(Ref.create(toi));
 	}
 
+	public void removeToiRefList(Long id) {
+		List<Ref<Toi>> toiRefList = getToiRefList();
+		List<Ref<Toi>> newRefList = new ArrayList<Ref<Toi>>();
+		for(Ref<Toi> rt : toiRefList) {
+			Toi toi = rt.get();
+			Long tId = toi.getId();
+			if(!tId.equals(id)) {
+				newRefList.add(rt);
+			}
+		}
+		setToiRefList(newRefList);
+	}
+
+	
 	public Genre save() {
 		Key<Genre> key = ofy().save().entity(this).now();
 		return getById(key.getId());

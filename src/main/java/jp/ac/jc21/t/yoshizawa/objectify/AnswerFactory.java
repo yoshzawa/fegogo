@@ -14,6 +14,7 @@ import com.googlecode.objectify.Ref;
  *
  */
 public class AnswerFactory extends CommonEntity {
+	
 	public static final Answer getById(long id) {
 		return ofy().load().type(Answer.class).id(id).now();
 	}

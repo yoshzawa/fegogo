@@ -16,8 +16,6 @@ import java.util.TreeMap;
  */
 public abstract class ExamFactory extends CommonEntity {
 
-	final static String cacheKeyName = "Exam";
-
 	public static final Exam createExam(Long YYYYMM, String name) {
 		Exam exam = new Exam();
 		exam.setCreated(new Date());
@@ -28,9 +26,9 @@ public abstract class ExamFactory extends CommonEntity {
 	}
 
 	public static final Map<Long, Exam> loadAll() {
-		// https://cloud.google.com/appengine/docs/standard/java/memcache/examples?hl=ja
 
-		List<Exam> examList = loadAllFromOfy();
+		List<Exam> examList = ofy().load().type(Exam.class).list();
+
 		TreeMap<Long, Exam> examMap = new TreeMap<>();
 		for (Exam e : examList) {
 			examMap.put(e.getYYYYMM(), e);
@@ -38,15 +36,8 @@ public abstract class ExamFactory extends CommonEntity {
 		return examMap;
 	}
 
-	private static final List<Exam> loadAllFromOfy() {
-		List<Exam> list = ofy().load().type(Exam.class).list();
-		return list;
-	}
-
 	public static final Exam getById(long id) {
 		return ofy().load().type(Exam.class).id(id).now();
 	}
-	
-
 
 }

@@ -32,6 +32,9 @@ public class ToiAddAdminServlet extends HttpServlet {
 		t = t.save();
 		e.addToiRefList(t);
 		e.save();
+		
+		g.addToiRefList(t);
+		g.save();
 
 		response.sendRedirect("/admin/toi/list?parentId=" + parentId);
 

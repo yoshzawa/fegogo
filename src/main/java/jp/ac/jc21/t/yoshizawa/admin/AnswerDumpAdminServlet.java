@@ -28,7 +28,7 @@ public class AnswerDumpAdminServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		final Logger log = Logger.getLogger(AnswerDumpAdminServlet.class.getName());
-		int count=0;
+		int count = 0;
 
 		response.setContentType("text/csv; charset=Windows-31J");
 		PrintWriter out = response.getWriter();
@@ -37,25 +37,19 @@ public class AnswerDumpAdminServlet extends HttpServlet {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
-		out.println("–âid,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,•ª–ì‡,•ª–ì,–âÚ×,"+
-										"İ–âid,o‘è‡,İ–â,³‰ğ,‰ğ“š,³Œë");
+		out.println("–âid,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,•ª–ì‡,•ª–ì,–âÚ×," + "İ–âid,o‘è‡,İ–â,³‰ğ,‰ğ“š,³Œë");
 
 		Date dateStart = new Date();
 		log.info(getServletName() + "[" + dateStart.toString() + "]START");
 		for (AnswerSum as : answerSumList) {
 
 			String ansSumDump = as.getAnswerSumDumpCSV();
-			if(ansSumDump == null) {
+			if (ansSumDump == null) {
 				Toi toi = as.getRefToi().get();
 				Exam exam = toi.getExam();
-				String s = as.getId() + "," 
-						+ as.getName() + "," 
-						+ sdf.format(as.getAnswered()) + "," 
-						+ exam.getName() + ","
-						+ toi.getNo() + "," 
-						+ toi.getRefGenre().get().getNo() + "," 
-						+ toi.getRefGenre().get().getName() + "," 
-						+ toi.getName() + ",";
+				String s = as.getId() + "," + as.getName() + "," + sdf.format(as.getAnswered()) + "," + exam.getName()
+						+ "," + toi.getNo() + "," + toi.getRefGenre().get().getNo() + ","
+						+ toi.getRefGenre().get().getName() + "," + toi.getName() + ",";
 				as.setAnswerSumDumpCSV(s);
 				ansSumDump = s;
 				as.save();
@@ -66,48 +60,31 @@ public class AnswerDumpAdminServlet extends HttpServlet {
 				Answer answer = answerMap.get(key);
 
 				out.print(ansSumDump);
-				
+
 				String ansDump = answer.getAnswerDumpCSV();
 
-				if(ansDump==null) {
+				if (ansDump == null) {
 					Question question = answer.getRefQuestion().get();
-					String s =answer.getId() + "," + 
-							key + "," + 
-							question.getName() + "," +
-							question.getAnswers() + "," +
-							answer.getAnswers() + "," +
-							(answer.isCorrect() ? 1 : 0);
-					ansDump=s;
+					String s = answer.getId() + "," + key + "," + question.getName() + "," + question.getAnswers() + ","
+							+ answer.getAnswers() + "," + (answer.isCorrect() ? 1 : 0);
+					ansDump = s;
 					answer.setAnswerDumpCSV(s);
 					answer.save();
 				}
-						
-				
-				/*
-				out.print(answer.getId());
-				out.print(",");
-				out.print(key);
-				out.print(",");
-				out.print(question.getName());
-				out.print(",");
-				out.print(question.getAnswers());
-				out.print(",");
-				out.print(answer.getAnswers());
-				out.print(",");
-				out.print(answer.isCorrect() ? 1 : 0);
-*/
+
 				out.print(ansDump);
 
 				out.println();
 			}
 			out.flush();
-			log.info(getServletName() + "[" + new Date().toString() + "]" + count);
-			count++;
+			if(count++ % 5 == 0) {
+				log.info(getServletName() + "[" + new Date().toString() + "]" + count);
+			}
 		}
 		Date dateEnd = new Date();
 		log.info(getServletName() + "[" + dateEnd.toString() + "]END");
-		log.info(getServletName() + "[" +(dateEnd.getTime() - dateStart.getTime())+ "ms]END");
-		
+		log.info(getServletName() + "[" + ((dateEnd.getTime() - dateStart.getTime())/1000) + "s]END");
+		log.info(getServletName() + "[" + ((dateEnd.getTime() - dateStart.getTime())/count) + "ms/AnswerSum]END");
 
 	}
 }
