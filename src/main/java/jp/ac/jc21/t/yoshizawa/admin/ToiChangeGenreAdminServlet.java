@@ -22,15 +22,19 @@ public class ToiChangeGenreAdminServlet extends HttpServlet {
 		String genreId = request.getParameter("genreId");
 		String toiId = request.getParameter("toiId");
 
-		Genre g = Genre.getById(Long.parseLong(genreId));
-		Toi t = Toi.getById(Long.parseLong(toiId));
+		long tId = Long.parseLong(toiId);
+		Toi t = Toi.getById(tId);
 		
+		Genre oldGenre = t.getRefGenre().get();
+		oldGenre.removeToiRefList(tId);
+		oldGenre.save();
+
+		Genre g = Genre.getById(Long.parseLong(genreId));
+
 		g.addToiRefList(t);
 		g.save();
 		t.setGenre(g);
 		t.save();
-		
-		
 
 		response.sendRedirect("/admin/question/list?parentId=" + toiId);
 
