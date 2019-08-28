@@ -43,10 +43,11 @@ public class MakeAnswerSumCSVServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String string = getAnswerSumDump();
 		Storage storage = StorageOptions.getDefaultInstance().getService();
 		BlobId blobId = BlobId.of("fegogo.appspot.com", "dumpAnswerSummary.csv");
 		BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/csv").build();
-		String string = getAnswerSumDump();
 		Blob blob = storage.create(blobInfo, string.getBytes());
 		response.getWriter().println("finished");
 	}
@@ -94,10 +95,10 @@ public class MakeAnswerSumCSVServlet extends HttpServlet {
 				s+=  String.format("%1$.1f", point)  ;
 				s+="\n";
 				
-				count++;
-				if(count%10 == 0) {
-				log.info( "[" + new Date().toString() + "]" + count);
 				}
+			count++;
+			if(count%10 == 0) {
+			log.info( "[" + new Date().toString() + "]" + count);
 
 			}
 		}
