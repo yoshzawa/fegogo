@@ -20,9 +20,6 @@ public class ToiChangeGenreAdminServlet2 extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		//http://localhost:8080/admin/toi/addAnswerSum?toiId=5769501089988608&answerSumId=5137941315715072
-			
-		
 		String answerSumId = request.getParameter("answerSumId");
 		String toiId = request.getParameter("toiId");
 
@@ -33,8 +30,6 @@ public class ToiChangeGenreAdminServlet2 extends HttpServlet {
 		a.save();
 		t.addAnswerSumRefList(a);
 		t.save();
-		
-		
 
 		response.sendRedirect("/admin/answerSum");
 

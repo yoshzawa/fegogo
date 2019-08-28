@@ -17,16 +17,9 @@ public class GenreFactory extends CommonEntity {
 	}
 	
 	public static final List<Genre> loadAll() {
-		return loadAllFromOfy();
+		return ofy().load().type(Genre.class).order("no").list();
 	}
 	
-	private static final List<Genre> loadAllFromOfy() {
-//		List<Genre> list = ofy().load().type(Genre.class).list();
-//		return list;
-		return ofy().load().type(Genre.class).order("no").list();
-
-	}
-
 	public static final Genre getById(long id) {
 		return ofy().load().type(Genre.class).id(id).now();
 	}
