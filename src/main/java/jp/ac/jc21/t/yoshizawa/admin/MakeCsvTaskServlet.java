@@ -42,8 +42,8 @@ public class MakeCsvTaskServlet extends HttpServlet {
 		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "8"));
 		
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.sendRedirect("https://console.cloud.google.com");
 	}
 
 	/**

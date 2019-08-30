@@ -30,8 +30,11 @@
 
 	<H2>連絡</H2>
 	<P>
-		・対策期間中の名簿を作成しました。<a href="https://storage.googleapis.com/fegogo.appspot.com/documents/FE%E5%AF%BE%E7%AD%96%E5%90%8D%E7%B0%BF20190828.pdf">こちら</a>からダウンロードしてください。<br/>
-		　月曜日と火曜日はAクラス(804教室)とBクラス(807教室)、水曜日から金曜日はCクラス(804教室)とDクラス(807/510教室)に集合してください。
+		・8月30日、対策期間中の名簿を更新しました。
+		月曜日と火曜日の名簿は<a href="https://storage.googleapis.com/fegogo.appspot.com/documents/FE%E5%AF%BE%E7%AD%96%E5%90%8D%E7%B0%BF%20%E6%9C%88%E6%9B%9C%E3%83%BB%E7%81%AB%E6%9B%9C.pdf">こちら</a>、
+		水曜日・木曜日・金曜日の名簿は<a href="https://storage.googleapis.com/fegogo.appspot.com/documents/FE%E5%AF%BE%E7%AD%96%E5%90%8D%E7%B0%BF%20%E6%B0%B4%E6%9B%9C%E3%83%BB%E6%9C%A8%E6%9B%9C%E3%83%BB%E9%87%91%E6%9B%9C%20.pdf">こちら</a>からダウンロードしてください。<br/>
+			なお、該当者にはメールで連絡していますので、ご確認いただきますよう、宜しくお願いいたします。
+		
 	</P>
 	
 	<P>
