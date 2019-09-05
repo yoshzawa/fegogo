@@ -41,17 +41,6 @@ public class MakeCsvTaskServlet extends HttpServlet {
 		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "6"));
 		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "8"));
 		
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.sendRedirect("https://console.cloud.google.com");
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

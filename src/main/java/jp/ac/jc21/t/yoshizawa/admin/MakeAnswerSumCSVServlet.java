@@ -48,7 +48,7 @@ public class MakeAnswerSumCSVServlet extends HttpServlet {
 		Storage storage = StorageOptions.getDefaultInstance().getService();
 		BlobId blobId = BlobId.of("fegogo.appspot.com", "dumpAnswerSummary.csv");
 		BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/csv").build();
-		Blob blob = storage.create(blobInfo, string.getBytes());
+		Blob blob = storage.create(blobInfo, string.getBytes(UTF_8));
 		response.getWriter().println("finished");
 	}
 
@@ -108,13 +108,8 @@ public class MakeAnswerSumCSVServlet extends HttpServlet {
 		
 		return s;
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request,response);
 	}
-
 }
