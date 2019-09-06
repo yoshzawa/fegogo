@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,19 +32,19 @@ public class GenreDetailListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
 
-		Genre g = Genre.getById(Long.parseLong(request.getParameter("id")));
-		String genreName = g.getName();
+		Genre genre = Genre.getById(Long.parseLong(request.getParameter("id")));
+		String genreName = genre.getName();
 		request.setAttribute("genreName", genreName);
 
 		if (email == null) {
 			List<String[]> datas = new ArrayList<String[]>();
 
-			List<Ref<Toi>> toiRefList = g.getToiRefList();
+			Map<Long, Toi> toiMap = genre.getToiMap();
 			{
-				List<Ref<Toi>> list = toiRefList;
-				for (Ref<Toi> rt : list) {
+				for (Long key : toiMap.keySet()) {
+					Toi toi = toiMap.get(key);
+
 					String[] s = new String[3];
-					Toi toi = rt.get();
 					s[0] = "";
 					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
 							+ toi.getNo() + " (" + toi.getName() + ")</a>";
@@ -59,12 +60,10 @@ public class GenreDetailListServlet extends HttpServlet {
 		} else {
 			List<String[]> datas = new ArrayList<String[]>();
 
-			List<Ref<Toi>> toiRefList = g.getToiRefList();
+			Map<Long, Toi> toiMap = genre.getToiMap();
 
-			List<Ref<Toi>> list = toiRefList;
-
-			for (Ref<Toi> rt : list) {
-				Toi toi = rt.get();
+			for (Long key : toiMap.keySet()) {
+				Toi toi = toiMap.get(key);
 
 				String toiName = toi.getExam().getName() + " –â" + toi.getNo() + " (" + toi.getName() + ")";
 
