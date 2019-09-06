@@ -34,16 +34,18 @@ public class GenreListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
 
-		if (email == null) {
+//		if (email == null) 
+		if(true)
+		{
 			List<String[]> datas = new ArrayList<String[]>();
 
 			for (Genre g : genreList) {
 				List<Ref<Toi>> toiRefList = g.getToiRefList();
 				{
 
- 					String genreName = g.getName();
+					String genreName = g.getName();
 
-          int count = 0;
+					int count = 0;
 					float sum = 0;
 					for (Ref<Toi> rt : toiRefList) {
 						Toi toi = rt.get();
@@ -52,23 +54,13 @@ public class GenreListServlet extends HttpServlet {
 					}
 
 					String[] s = new String[3];
-					s[0] = genreName;
+					s[0] = "<a href='/genreDetail/list?id="+g.getId()+"'>"+genreName+"</a>";
 					s[1] = "<P align='CENTER'>‘S‘Ì•½‹Ï" + String.format("%1$.1f", sum / count) + "%</P>";
 					s[2] = count + "";
 
 					datas.add(s);
 				}
 
-				List<Ref<Toi>> list = toiRefList;
-				for (Ref<Toi> rt : list) {
-					String[] s = new String[3];
-					Toi toi = rt.get();
-					s[0] = "";
-					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
-							+ toi.getNo() + " (" + toi.getName() + ")</a>";
-					s[2] = toi.getAnswerSumRefListSize() + "";
-					datas.add(s);
-				}
 			}
 			request.setAttribute("datas", datas);
 
@@ -89,12 +81,11 @@ public class GenreListServlet extends HttpServlet {
 						count += toi.getAnswerSumCount();
 					}
 					String[] s = new String[5];
-					s[0] = genreName;
+					s[0] = "<a href='/genreDetail/list?id="+g.getId()+"'>"+genreName+"</a>";
 					s[1] = "<P align='CENTER'>‘S‘Ì•½‹Ï" + String.format("%1$.1f", sum / count) + "%</P>";
 					s[2] = count + "";
 					s[3] = "";
 					s[4] = "";
-
 
 					datas.add(s);
 				}
