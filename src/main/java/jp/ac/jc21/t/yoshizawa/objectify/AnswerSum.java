@@ -35,28 +35,7 @@ public final class AnswerSum extends AnswerSumFactory {
 	private Ref<Member> refMember;
 	private String answerSumDumpCSV;
 
-
-	public AnswerSum() {
-	}
-
-	public AnswerSum save() {
-		Key<AnswerSum> key = ofy().save().entity(this).now();
-		return getById(key.getId());
-	}
-
-	/**
-	 * @return the mapRefAnswer
-	 */
-	public Map<String, Ref<Answer>> getMapRefAnswer() {
-		return mapRefAnswer;
-	}
-
-	/**
-	 * @param mapRefAnswer the mapRefAnswer to set
-	 */
-	public void setMapRefAnswer(Map<String, Ref<Answer>> mapRefAnswer) {
-		this.mapRefAnswer = mapRefAnswer;
-	}
+	////////// id
 
 	/**
 	 * @return the id
@@ -72,6 +51,24 @@ public final class AnswerSum extends AnswerSumFactory {
 		this.id = id;
 	}
 
+	////////// mapRefAnswer
+
+	/**
+	 * @return the mapRefAnswer
+	 */
+	public Map<String, Ref<Answer>> getMapRefAnswer() {
+		return mapRefAnswer;
+	}
+
+	/**
+	 * @param mapRefAnswer the mapRefAnswer to set
+	 */
+	public void setMapRefAnswer(Map<String, Ref<Answer>> mapRefAnswer) {
+		this.mapRefAnswer = mapRefAnswer;
+	}
+
+	////////// name
+
 	/**
 	 * @return the name
 	 */
@@ -85,6 +82,8 @@ public final class AnswerSum extends AnswerSumFactory {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	////////// answered
 
 	/**
 	 * @return the answered
@@ -99,7 +98,9 @@ public final class AnswerSum extends AnswerSumFactory {
 	public void setAnswered(Date answered) {
 		this.answered = answered;
 	}
-
+	
+	////////// refToi
+	
 	/**
 	 * @return the refToi
 	 */
@@ -190,5 +191,13 @@ public final class AnswerSum extends AnswerSumFactory {
 	 */
 	public void setAnswerSumDumpCSV(String answerSumDumpCSV) {
 		this.answerSumDumpCSV = answerSumDumpCSV;
+	}
+
+	public AnswerSum() {
+	}
+
+	public AnswerSum save() {
+		Key<AnswerSum> key = ofy().save().entity(this).now();
+		return getById(key.getId());
 	}
 }

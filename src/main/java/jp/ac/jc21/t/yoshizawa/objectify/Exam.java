@@ -30,6 +30,8 @@ public class Exam extends ExamFactory {
 	private Date created;
 	private List<Ref<Toi>> toiRefList;
 
+	////////// id
+	
 	public Long getId() {
 		return id;
 	}
@@ -37,6 +39,8 @@ public class Exam extends ExamFactory {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	////////// YYYYMM
 
 	public Long getYYYYMM() {
 		return YYYYMM;
@@ -46,6 +50,8 @@ public class Exam extends ExamFactory {
 		YYYYMM = yYYYMM;
 	}
 
+	////////// name
+
 	public String getName() {
 		return name;
 	}
@@ -54,6 +60,8 @@ public class Exam extends ExamFactory {
 		this.name = name;
 	}
 
+	////////// created
+
 	public Date getCreated() {
 		return created;
 	}
@@ -61,6 +69,9 @@ public class Exam extends ExamFactory {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
+
+
+	////////// toiRefList
 
 	public void setToiRefList(List<Ref<Toi>> tois) {
 		this.toiRefList = tois;
@@ -95,6 +106,7 @@ public class Exam extends ExamFactory {
 		addToiRefList(Ref.create(t));
 	}
 
+	////////// 
 	public Exam save() {
 		Key<Exam> key = ofy().save().entity(this).now();
 		return getById(key.getId());
