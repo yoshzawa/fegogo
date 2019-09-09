@@ -57,7 +57,7 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 		
 		String string = getAnswerSumDump(page);
 		Storage storage = StorageOptions.getDefaultInstance().getService();
-		BlobId blobId = BlobId.of("fegogo.appspot.com", "dumpAnswer" + page + ".csv");
+		BlobId blobId = BlobId.of("fegogo.appspot.com", "dumpAnswer" + "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(page) + ".csv");
 		BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/csv").build();
 		Blob blob = storage.create(blobInfo, string.getBytes());
 		response.getWriter().println("finished");
@@ -79,8 +79,12 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 
 		int count = 0;
 		final boolean forceRewrite = false;
-		for (AnswerSum as : answerSumList) {
-			if ((as.getRefMember() != null) && (as.getId() % 10 == page)) {
+//		for (AnswerSum as : answerSumList) {
+		for(int pointer=page ; pointer < answerSumList.size() ; pointer+=30) {
+			AnswerSum as = answerSumList.get(pointer);
+			if ((as.getRefMember() != null) 
+					//&& (as.getId() % 10 == page)
+					) {
 
 				String ansSumDump = as.getAnswerSumDumpCSV();
 				if ((forceRewrite == true) || (ansSumDump == null)) {
@@ -120,8 +124,8 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 			}
 		}
 		Date dateEnd = new Date();
-		log.info(getServletName() + "[" + dateEnd.toString() + "]END");
-		log.info(getServletName() + "[" + (dateEnd.getTime() - dateStart.getTime()) + "ms]END");
+		log.info(getServletName() + "[page" +page+":"+ dateEnd.toString() + "]END");
+		log.info(getServletName() + "[page" +page+":"+(dateEnd.getTime() - dateStart.getTime()) + "ms]END");
 
 		return result;
 	}

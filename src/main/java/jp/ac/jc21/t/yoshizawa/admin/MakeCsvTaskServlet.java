@@ -1,6 +1,9 @@
 package jp.ac.jc21.t.yoshizawa.admin;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,18 +32,15 @@ public class MakeCsvTaskServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Queue queue = QueueFactory.getDefaultQueue();
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerSumCSV"));
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "1"));
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "3"));
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "5"));
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "7"));
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "9"));
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "0"));
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "2"));
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "4"));
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "6"));
-		queue.add(TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", "8"));
+
+		TaskOptions task = TaskOptions.Builder.withUrl("/admin/makeAnswerSumCSV");
+		queue.add(task);
 		
-		response.sendRedirect("https://console.cloud.google.com");
+		for(int i=0 ; i<30 ; i++) {
+			task = TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", i+"");
+			queue.add(task);
+		}
+		
+		response.sendRedirect("https://console.cloud.google.com/storage/browser/fegogo.appspot.com?project=fegogo");
 	}
 }
