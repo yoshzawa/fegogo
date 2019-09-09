@@ -70,6 +70,7 @@ public class GenreDetailListServlet extends HttpServlet {
 				Member member = Member.get(email);
 				List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
 				String toiSize = toi.getAnswerSumRefListSize() + "";
+				String toiSum = String.format("%1$.1f", toi.getAnswerSumSum());
 				if ((las == null) || (las.size() == 0)) {
 					String[] s = new String[5];
 					s[0] = toiName;
@@ -88,6 +89,8 @@ public class GenreDetailListServlet extends HttpServlet {
 						toiSize = "";
 						s[2] = dateFormat(as.getAnswered());
 						s[3] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
+						s[4]=						toiSum;
+
 						datas.add(s);
 					}
 
