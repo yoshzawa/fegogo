@@ -34,22 +34,7 @@ public final class Answer extends AnswerFactory {
 	public Answer() {
 	}
 
-
-
-
-	/**
-	 * @return the no
-	 */
-	public String getNo() {
-		return no;
-	}
-
-	/**
-	 * @param no the no to set
-	 */
-	public void setNo(String no) {
-		this.no = no;
-	}
+	////////// id
 
 	/**
 	 * @return the id
@@ -65,6 +50,24 @@ public final class Answer extends AnswerFactory {
 		this.id = id;
 	}
 
+	////////// no
+
+	/**
+	 * @return the no
+	 */
+	public String getNo() {
+		return no;
+	}
+
+	/**
+	 * @param no the no to set
+	 */
+	public void setNo(String no) {
+		this.no = no;
+	}
+	
+	////////// name
+
 	/**
 	 * @return the name
 	 */
@@ -72,12 +75,15 @@ public final class Answer extends AnswerFactory {
 		return name;
 	}
 
+
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	////////// answered
 
 	/**
 	 * @return the answered
@@ -93,6 +99,8 @@ public final class Answer extends AnswerFactory {
 		this.answered = answered;
 	}
 
+	////////// answerSum
+
 	/**
 	 * @return the refAnswerSum
 	 */
@@ -106,6 +114,21 @@ public final class Answer extends AnswerFactory {
 	public void setRefAnswerSum(Ref<AnswerSum> refAnswerSum) {
 		this.refAnswerSum = refAnswerSum;
 	}
+	
+	/**
+	 * @param answerArray the answerArray to set
+	 */
+	public void setAnswerArray(int[] answerArray) {
+		this.answerArray = answerArray;
+	}
+
+	public void setAnswerSum(AnswerSum a) {
+		setRefAnswerSum(Ref.create(a));
+
+	}
+
+	
+	////////// Question
 
 	/**
 	 * @return the refQuestion
@@ -121,24 +144,32 @@ public final class Answer extends AnswerFactory {
 		this.refQuestion = refQuestion;
 	}
 
+	////////// answerArray
+
 	/**
 	 * @return the answerArray
 	 */
 	public int[] getAnswerArray() {
 		return answerArray;
 	}
+	
+
+	////////// dumpCSV
 
 	/**
-	 * @param answerArray the answerArray to set
+	 * @return the answerDumpCSV
 	 */
-	public void setAnswerArray(int[] answerArray) {
-		this.answerArray = answerArray;
+	public String getAnswerDumpCSV() {
+		return dumpCSV;
 	}
 
-	public void setAnswerSum(AnswerSum a) {
-		setRefAnswerSum(Ref.create(a));
-
+	/**
+	 * @param answerDumpCSV the answerDumpCSV to set
+	 */
+	public void setAnswerDumpCSV(String answerDumpCSV) {
+		this.dumpCSV = answerDumpCSV;
 	}
+
 
 	public boolean isCorrect() {
 //		final Logger log = Logger.getLogger(Answer.class.getName());
@@ -192,23 +223,5 @@ public final class Answer extends AnswerFactory {
 	}
 
 
-
-
-	/**
-	 * @return the answerDumpCSV
-	 */
-	public String getAnswerDumpCSV() {
-		return dumpCSV;
-	}
-
-
-
-
-	/**
-	 * @param answerDumpCSV the answerDumpCSV to set
-	 */
-	public void setAnswerDumpCSV(String answerDumpCSV) {
-		this.dumpCSV = answerDumpCSV;
-	}
 	
 }
