@@ -51,11 +51,8 @@ public class AnswerSumDumpAdminServlet extends HttpServlet {
 		for (AnswerSum as : answerSumList) {
 			if(as.getRefMember() != null) {
 
-				
-				
 				String ansSumDump = as.makeAnswerDumpCSV(cache);
 				float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
-				
 
 				out.print( ansSumDump );
 				out.print( as.getNoOfSeikai()  );

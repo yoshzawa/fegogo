@@ -222,6 +222,32 @@ public final class Answer extends AnswerFactory {
 		
 	}
 
+	public String makeAnswerDumpCSV_OLD(Answer answer) {
+		String ansDump = answer.getAnswerDumpCSV();
 
+		if (ansDump == null) {
+			Question question = answer.getRefQuestion().get();
+			String s = answer.getId() + "," + answer.getNo() + "," + question.getName() + "," + question.getAnswers() + ","
+					+ answer.getAnswers() + "," + (answer.isCorrect() ? 1 : 0);
+			ansDump = s;
+			answer.setAnswerDumpCSV(s);
+			answer.save();
+		}
+		return ansDump;
+	}
+	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
+		String cacheId="Answer:"+getId();
+		if(cache.containsKey(cacheId)== true) {
+			String value = (String) cache.get(cacheId);
+			return value;
+		} else {
+
+			Question question = getRefQuestion().get();
+			String s = getId() + "," + getNo() + "," + question.getName() + "," + question.getAnswers() + ","
+					+ getAnswers() + "," + (isCorrect() ? 1 : 0);
+			cache.put(cacheId,s);
+			return s;
+		}
+	}
 	
 }

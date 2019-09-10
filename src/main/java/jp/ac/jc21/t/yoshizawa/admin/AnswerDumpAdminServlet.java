@@ -3,11 +3,16 @@ package jp.ac.jc21.t.yoshizawa.admin;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.cache.Cache;
+import javax.cache.CacheException;
+import javax.cache.CacheFactory;
+import javax.cache.CacheManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,25 +40,21 @@ public class AnswerDumpAdminServlet extends HttpServlet {
 
 		List<AnswerSum> answerSumList = AnswerSum.loadAll();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-
 		out.println("ñ‚id,âìöé“,âìöì˙,ééå±,ñ‚,ï™ñÏèá,ï™ñÏ,ñ‚è⁄ç◊," + "ê›ñ‚id,èoëËèá,ê›ñ‚,ê≥â,âìö,ê≥åÎ");
 
 		Date dateStart = new Date();
+        Cache cache=null;
+        try {
+            CacheFactory cacheFactory = CacheManager.getInstance().getCacheFactory();
+            cache = cacheFactory.createCache(Collections.emptyMap());
+        } catch (CacheException e) {
+        	e.printStackTrace(System.err);
+        }
 		log.info(getServletName() + "[" + dateStart.toString() + "]START");
 		for (AnswerSum as : answerSumList) {
 
-			String ansSumDump = as.getAnswerSumDumpCSV();
-			if (ansSumDump == null) {
-				Toi toi = as.getRefToi().get();
-				Exam exam = toi.getExam();
-				String s = as.getId() + "," + as.getName() + "," + sdf.format(as.getAnswered()) + "," + exam.getName()
-						+ "," + toi.getNo() + "," + toi.getRefGenre().get().getNo() + ","
-						+ toi.getRefGenre().get().getName() + "," + toi.getName() + ",";
-				as.setAnswerSumDumpCSV(s);
-				ansSumDump = s;
-				as.save();
-			}
+			String ansSumDump = as.makeAnswerDumpCSV(cache);
+
 
 			Map<Integer, Answer> answerMap = as.getMapAnswer();
 			for (Integer key : answerMap.keySet()) {
@@ -61,16 +62,7 @@ public class AnswerDumpAdminServlet extends HttpServlet {
 
 				out.print(ansSumDump);
 
-				String ansDump = answer.getAnswerDumpCSV();
-
-				if (ansDump == null) {
-					Question question = answer.getRefQuestion().get();
-					String s = answer.getId() + "," + key + "," + question.getName() + "," + question.getAnswers() + ","
-							+ answer.getAnswers() + "," + (answer.isCorrect() ? 1 : 0);
-					ansDump = s;
-					answer.setAnswerDumpCSV(s);
-					answer.save();
-				}
+				String ansDump = answer.makeAnswerDumpCSV(cache);
 
 				out.print(ansDump);
 
@@ -87,4 +79,6 @@ public class AnswerDumpAdminServlet extends HttpServlet {
 		log.info(getServletName() + "[" + ((dateEnd.getTime() - dateStart.getTime())/count) + "ms/AnswerSum]END");
 
 	}
+
+
 }
