@@ -85,11 +85,11 @@
 			<td><%=q.getId()%></td>
 			<td><%=q.getNo()%></td>
 			<td><%=q.getName()%></td>
-			<td><%="アイウエオカキクケコサシスセソタチツテト".charAt((int)q.getNoOfOption()) %>
+			<td><%=q.getKana((int)q.getNoOfOption()) %>
 			</td>
 			<td>
 					<% for(int i : q.getAnswerSet()){%> 
-						<%="アイウエオカキクケコサシスセソタチツテト".charAt(i) %>
+						<%=q.getKana(i) %>
 				<% }%>
 			</td>
 			<td><a href="/admin/question/edit?id=<%=q.getId()%>">edit</a></td>
@@ -110,7 +110,7 @@
 				for (int i = 0; i <= 19; i++) {
 			%>
 			<option value="<%=i%>">
-				<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
+				<%=Question.getKana(i)%>
 			</option>
 			<%
 				}
@@ -120,7 +120,7 @@
  	for (int i = 0; i <= 19; i++) {
  %>
 		<input type="checkbox" name="correct" value="<%=i%>" />
-		<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
+		<%=Question.getKana(i)%>
 		<%
 			}
 		%>

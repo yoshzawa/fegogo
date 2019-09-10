@@ -39,4 +39,7 @@ public class QuestionFactory extends CommonEntity {
 		return ofy().load().type(Question.class).id(id).now();
 	}
 
+	public static final String getKana(int i) {
+		return Character.toString( "アイウエオカキクケコサシスセソタチツテト".charAt(i));
+	}
 }

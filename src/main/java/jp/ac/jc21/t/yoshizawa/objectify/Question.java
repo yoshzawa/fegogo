@@ -181,7 +181,7 @@ public final class Question extends QuestionFactory {
 	public String getAnswers() {
 		String s = "";
 		for (int i : getAnswerSet()) {
-			s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+			s += getKana(i);
 		}
 		if(getNoOfOption()<=0) {
 			s="全員正解";
