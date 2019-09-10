@@ -3,6 +3,7 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -199,5 +200,47 @@ public final class AnswerSum extends AnswerSumFactory {
 	public AnswerSum save() {
 		Key<AnswerSum> key = ofy().save().entity(this).now();
 		return getById(key.getId());
+	}
+	
+	public String makeAnswerDumpCSV_OLD() {
+		String ansSumDump = getAnswerSumDumpCSV();
+		if(ansSumDump == null) {
+			Toi toi = getRefToi().get();
+			Exam exam = toi.getExam();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+			String s = getId() + "," 
+					+ getName() + "," 
+					+ sdf.format(getAnswered()) + "," 
+					+ exam.getName() + ","
+					+ toi.getNo() + "," 
+					+ toi.getRefGenre().get().getNo() + "," 
+					+ toi.getRefGenre().get().getName() + "," 
+					+ toi.getName() + ",";
+			setAnswerSumDumpCSV(s);
+			ansSumDump = s;
+			save();
+		}
+		return ansSumDump;
+	}
+	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
+		
+		if(cache.containsKey(getId())== true) {
+			String value = (String) cache.get(getId());
+			return value;
+		} else {
+			Toi toi = getRefToi().get();
+			Exam exam = toi.getExam();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+			String s = getId() + "," 
+					+ getName() + "," 
+					+ sdf.format(getAnswered()) + "," 
+					+ exam.getName() + ","
+					+ toi.getNo() + "," 
+					+ toi.getRefGenre().get().getNo() + "," 
+					+ toi.getRefGenre().get().getName() + "," 
+					+ toi.getName() + ",";
+			cache.put(getId(),s);
+			return s;
+		}
 	}
 }
