@@ -224,8 +224,9 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
 		
-		if(cache.containsKey(getId())== true) {
-			String value = (String) cache.get(getId());
+		String key = "AnswerSum:"+getId();
+		if(cache.containsKey(key)== true) {
+			String value = (String) cache.get(key);
 			return value;
 		} else {
 			Toi toi = getRefToi().get();
@@ -239,7 +240,7 @@ public final class AnswerSum extends AnswerSumFactory {
 					+ toi.getRefGenre().get().getNo() + "," 
 					+ toi.getRefGenre().get().getName() + "," 
 					+ toi.getName() + ",";
-			cache.put(getId(),s);
+			cache.put(key,s);
 			return s;
 		}
 	}

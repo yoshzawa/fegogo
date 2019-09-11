@@ -2,11 +2,16 @@ package jp.ac.jc21.t.yoshizawa.admin.export;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.cache.Cache;
+import javax.cache.CacheException;
+import javax.cache.CacheFactory;
+import javax.cache.CacheManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,8 +72,8 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 		final Logger log = Logger.getLogger(MakeAnswerCSVServlet.class.getName());
 
 		String result = "";
-		result = "–âid,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,•ª–ì‡,•ª–ì,–âÚ×," + "İ–âid,o‘è‡,İ–â,³‰ğ,‰ğ“š,³Œë";
-		result += "\n";
+//		result = "–âid,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,•ª–ì‡,•ª–ì,–âÚ×," + "İ–âid,o‘è‡,İ–â,³‰ğ,‰ğ“š,³Œë";
+//		result += "\n";
 
 		List<AnswerSum> answerSumList = AnswerSum.loadAll();
 
@@ -79,13 +84,18 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 
 		int count = 0;
 		final boolean forceRewrite = false;
-//		for (AnswerSum as : answerSumList) {
+        Cache cache=null;
+        try {
+            CacheFactory cacheFactory = CacheManager.getInstance().getCacheFactory();
+            cache = cacheFactory.createCache(Collections.emptyMap());
+        } catch (CacheException e) {
+        	e.printStackTrace(System.err);
+        }
 		for(int pointer=page ; pointer < answerSumList.size() ; pointer+=30) {
 			AnswerSum as = answerSumList.get(pointer);
 			if ((as.getRefMember() != null) 
-					//&& (as.getId() % 10 == page)
 					) {
-
+/*
 				String ansSumDump = as.getAnswerSumDumpCSV();
 				if ((forceRewrite == true) || (ansSumDump == null)) {
 					Toi toi = as.getRefToi().get();
@@ -97,10 +107,14 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 					ansSumDump = ss;
 					as.save();
 				}
+				*/
+				String ansSumDump = as.makeAnswerDumpCSV(cache);
+
+				
 				Map<Integer, Answer> answerMap = as.getMapAnswer();
 				for (Integer key : answerMap.keySet()) {
 					Answer answer = answerMap.get(key);
-
+/*
 					String ansDump = answer.getAnswerDumpCSV();
 
 					if ((forceRewrite == true) || (ansDump == null)) {
@@ -111,6 +125,9 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 						answer.setAnswerDumpCSV(s);
 						answer.save();
 					}
+					*/
+					String ansDump = answer.makeAnswerDumpCSV(cache);
+
 
 					result += ansSumDump;
 					result += ansDump;

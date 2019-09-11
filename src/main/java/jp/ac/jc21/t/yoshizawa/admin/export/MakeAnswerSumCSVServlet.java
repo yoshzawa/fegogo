@@ -2,10 +2,15 @@ package jp.ac.jc21.t.yoshizawa.admin.export;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.cache.Cache;
+import javax.cache.CacheException;
+import javax.cache.CacheFactory;
+import javax.cache.CacheManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,10 +72,19 @@ public class MakeAnswerSumCSVServlet extends HttpServlet {
 		log.info(getServletName() + "[" + dateStart.toString() + "]START");
 		
 		int count=0;
-		final boolean  forceRewrite = false;
+//		final boolean  forceRewrite = false;
+        Cache cache=null;
+        try {
+            CacheFactory cacheFactory = CacheManager.getInstance().getCacheFactory();
+            cache = cacheFactory.createCache(Collections.emptyMap());
+        } catch (CacheException e) {
+        	e.printStackTrace(System.err);
+        }
 		for (AnswerSum as : answerSumList) {
 			if(as.getRefMember() != null) {
 
+
+				/*
 				String ansSumDump = as.getAnswerSumDumpCSV();
 				if((forceRewrite==true)||(ansSumDump == null)) {
 					Toi toi = as.getRefToi().get();
@@ -87,6 +101,9 @@ public class MakeAnswerSumCSVServlet extends HttpServlet {
 					ansSumDump = ss;
 					as.save();
 				}
+				*/
+				String ansSumDump = as.makeAnswerDumpCSV(cache);
+
 				float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
 				
 				s+= ansSumDump ;
