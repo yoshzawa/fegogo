@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -65,6 +68,12 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 		BlobId blobId = BlobId.of("fegogo.appspot.com", "dumpAnswer" + "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(page) + ".csv");
 		BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/csv").build();
 		Blob blob = storage.create(blobInfo, string.getBytes(UTF_8));
+		page+=5;
+		if(page<30) {
+			Queue queue = QueueFactory.getDefaultQueue();
+			TaskOptions 		task = TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", page+"");
+			queue.add(task);
+		}
 		response.getWriter().println("finished");
 	}
 
