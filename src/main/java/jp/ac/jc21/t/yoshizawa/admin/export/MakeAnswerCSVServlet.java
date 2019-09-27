@@ -1,18 +1,26 @@
-package jp.ac.jc21.t.yoshizawa.admin;
+package jp.ac.jc21.t.yoshizawa.admin.export;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.cache.Cache;
+import javax.cache.CacheException;
+import javax.cache.CacheFactory;
+import javax.cache.CacheManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -57,9 +65,15 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 		
 		String string = getAnswerSumDump(page);
 		Storage storage = StorageOptions.getDefaultInstance().getService();
-		BlobId blobId = BlobId.of("fegogo.appspot.com", "dumpAnswer" + page + ".csv");
+		BlobId blobId = BlobId.of("fegogo.appspot.com", "dumpAnswer" + "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(page) + ".csv");
 		BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/csv").build();
-		Blob blob = storage.create(blobInfo, string.getBytes());
+		Blob blob = storage.create(blobInfo, string.getBytes(UTF_8));
+		page+=5;
+		if(page<30) {
+			Queue queue = QueueFactory.getDefaultQueue();
+			TaskOptions 		task = TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", page+"");
+			queue.add(task);
+		}
 		response.getWriter().println("finished");
 	}
 
@@ -67,8 +81,8 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 		final Logger log = Logger.getLogger(MakeAnswerCSVServlet.class.getName());
 
 		String result = "";
-		result = "–âid,‰ð“šŽÒ,‰ð“š“ú,ŽŽŒ±,–â,•ª–ì‡,•ª–ì,–âÚ×," + "Ý–âid,o‘è‡,Ý–â,³‰ð,‰ð“š,³Œë";
-		result += "\n";
+//		result = "–âid,‰ð“šŽÒ,‰ð“š“ú,ŽŽŒ±,–â,•ª–ì‡,•ª–ì,–âÚ×," + "Ý–âid,o‘è‡,Ý–â,³‰ð,‰ð“š,³Œë";
+//		result += "\n";
 
 		List<AnswerSum> answerSumList = AnswerSum.loadAll();
 
@@ -79,9 +93,18 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 
 		int count = 0;
 		final boolean forceRewrite = false;
-		for (AnswerSum as : answerSumList) {
-			if ((as.getRefMember() != null) && (as.getId() % 10 == page)) {
-
+        Cache cache=null;
+        try {
+            CacheFactory cacheFactory = CacheManager.getInstance().getCacheFactory();
+            cache = cacheFactory.createCache(Collections.emptyMap());
+        } catch (CacheException e) {
+        	e.printStackTrace(System.err);
+        }
+		for(int pointer=page ; pointer < answerSumList.size() ; pointer+=30) {
+			AnswerSum as = answerSumList.get(pointer);
+			if ((as.getRefMember() != null) 
+					) {
+/*
 				String ansSumDump = as.getAnswerSumDumpCSV();
 				if ((forceRewrite == true) || (ansSumDump == null)) {
 					Toi toi = as.getRefToi().get();
@@ -93,10 +116,14 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 					ansSumDump = ss;
 					as.save();
 				}
+				*/
+				String ansSumDump = as.makeAnswerDumpCSV(cache);
+
+				
 				Map<Integer, Answer> answerMap = as.getMapAnswer();
 				for (Integer key : answerMap.keySet()) {
 					Answer answer = answerMap.get(key);
-
+/*
 					String ansDump = answer.getAnswerDumpCSV();
 
 					if ((forceRewrite == true) || (ansDump == null)) {
@@ -107,6 +134,9 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 						answer.setAnswerDumpCSV(s);
 						answer.save();
 					}
+					*/
+					String ansDump = answer.makeAnswerDumpCSV(cache);
+
 
 					result += ansSumDump;
 					result += ansDump;
@@ -120,20 +150,14 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 			}
 		}
 		Date dateEnd = new Date();
-		log.info(getServletName() + "[" + dateEnd.toString() + "]END");
-		log.info(getServletName() + "[" + (dateEnd.getTime() - dateStart.getTime()) + "ms]END");
+		log.info(getServletName() + "[page" +page+":"+ dateEnd.toString() + "]END");
+		log.info(getServletName() + "[page" +page+":"+(dateEnd.getTime() - dateStart.getTime()) + "ms]END");
 
 		return result;
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		doGet(request,response);
 	}
-
 }

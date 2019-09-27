@@ -22,13 +22,18 @@
 	<%@ include file="../common/headerLogin.jsp"%>
 
 	<h1>基本情報技術者試験 過去問題評価システム</h1>
-	<P>8月24日中に、指定された課題を解き、その結果をシステムに入力してください。
-		その結果を基に分析を行い、対策期間のクラス分けなどを行います。</P>
 
 	<P>システムの利用には、Microsoftアカウントが必要です。指定された方法でログインし、
 		解答していない問題の解答を入力してください。</P>
 
 	<H2>連絡</H2>
+	<P>
+		・9月27日、対策期間中の名簿を更新しました。
+		月～水曜の名簿は<a href="https://storage.googleapis.com/fegogo.appspot.com/documents/FE%E5%AF%BE%E7%AD%96%E5%90%8D%E7%B0%BF%20%E6%9C%88%E7%81%AB%E6%B0%B42.pdf">こちら</a>、
+		木・金曜の名簿は<a href="https://storage.googleapis.com/fegogo.appspot.com/documents/FE%E5%AF%BE%E7%AD%96%E5%90%8D%E7%B0%BF%20%E6%9C%A8%E9%87%912.pdf">こちら</a>からダウンロードしてください。<br/>
+			なお、該当者にはメールで連絡していますので、ご確認いただきますよう、宜しくお願いいたします。
+		
+	</P>
 	<P>
 		・8月30日、対策期間中の名簿を更新しました。
 		月曜日と火曜日の名簿は<a href="https://storage.googleapis.com/fegogo.appspot.com/documents/FE%E5%AF%BE%E7%AD%96%E5%90%8D%E7%B0%BF%20%E6%9C%88%E6%9B%9C%E3%83%BB%E7%81%AB%E6%9B%9C.pdf">こちら</a>、

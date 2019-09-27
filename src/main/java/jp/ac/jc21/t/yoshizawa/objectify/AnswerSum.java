@@ -3,6 +3,7 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,28 +36,7 @@ public final class AnswerSum extends AnswerSumFactory {
 	private Ref<Member> refMember;
 	private String answerSumDumpCSV;
 
-
-	public AnswerSum() {
-	}
-
-	public AnswerSum save() {
-		Key<AnswerSum> key = ofy().save().entity(this).now();
-		return getById(key.getId());
-	}
-
-	/**
-	 * @return the mapRefAnswer
-	 */
-	public Map<String, Ref<Answer>> getMapRefAnswer() {
-		return mapRefAnswer;
-	}
-
-	/**
-	 * @param mapRefAnswer the mapRefAnswer to set
-	 */
-	public void setMapRefAnswer(Map<String, Ref<Answer>> mapRefAnswer) {
-		this.mapRefAnswer = mapRefAnswer;
-	}
+	////////// id
 
 	/**
 	 * @return the id
@@ -72,6 +52,24 @@ public final class AnswerSum extends AnswerSumFactory {
 		this.id = id;
 	}
 
+	////////// mapRefAnswer
+
+	/**
+	 * @return the mapRefAnswer
+	 */
+	public Map<String, Ref<Answer>> getMapRefAnswer() {
+		return mapRefAnswer;
+	}
+
+	/**
+	 * @param mapRefAnswer the mapRefAnswer to set
+	 */
+	public void setMapRefAnswer(Map<String, Ref<Answer>> mapRefAnswer) {
+		this.mapRefAnswer = mapRefAnswer;
+	}
+
+	////////// name
+
 	/**
 	 * @return the name
 	 */
@@ -85,6 +83,8 @@ public final class AnswerSum extends AnswerSumFactory {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	////////// answered
 
 	/**
 	 * @return the answered
@@ -99,7 +99,9 @@ public final class AnswerSum extends AnswerSumFactory {
 	public void setAnswered(Date answered) {
 		this.answered = answered;
 	}
-
+	
+	////////// refToi
+	
 	/**
 	 * @return the refToi
 	 */
@@ -190,5 +192,56 @@ public final class AnswerSum extends AnswerSumFactory {
 	 */
 	public void setAnswerSumDumpCSV(String answerSumDumpCSV) {
 		this.answerSumDumpCSV = answerSumDumpCSV;
+	}
+
+	public AnswerSum() {
+	}
+
+	public AnswerSum save() {
+		Key<AnswerSum> key = ofy().save().entity(this).now();
+		return getById(key.getId());
+	}
+	
+	public String makeAnswerDumpCSV_OLD() {
+		String ansSumDump = getAnswerSumDumpCSV();
+		if(ansSumDump == null) {
+			Toi toi = getRefToi().get();
+			Exam exam = toi.getExam();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+			String s = getId() + "," 
+					+ getName() + "," 
+					+ sdf.format(getAnswered()) + "," 
+					+ exam.getName() + ","
+					+ toi.getNo() + "," 
+					+ toi.getRefGenre().get().getNo() + "," 
+					+ toi.getRefGenre().get().getName() + "," 
+					+ toi.getName() + ",";
+			setAnswerSumDumpCSV(s);
+			ansSumDump = s;
+			save();
+		}
+		return ansSumDump;
+	}
+	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
+		
+		String key = "AnswerSum:"+getId();
+		if(cache.containsKey(key)== true) {
+			String value = (String) cache.get(key);
+			return value;
+		} else {
+			Toi toi = getRefToi().get();
+			Exam exam = toi.getExam();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+			String s = getId() + "," 
+					+ getName() + "," 
+					+ sdf.format(getAnswered()) + "," 
+					+ exam.getName() + ","
+					+ toi.getNo() + "," 
+					+ toi.getRefGenre().get().getNo() + "," 
+					+ toi.getRefGenre().get().getName() + "," 
+					+ toi.getName() + ",";
+			cache.put(key,s);
+			return s;
+		}
 	}
 }
