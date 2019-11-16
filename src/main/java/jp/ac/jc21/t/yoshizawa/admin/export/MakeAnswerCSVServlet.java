@@ -1,5 +1,7 @@
 package jp.ac.jc21.t.yoshizawa.admin.export;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -28,12 +30,7 @@ import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Answer;
-import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
-import jp.ac.jc21.t.yoshizawa.objectify.Question;
-import jp.ac.jc21.t.yoshizawa.objectify.Toi;
-
-import static java.nio.charset.StandardCharsets.UTF_8;;
+import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;;
 
 /**
  * Servlet implementation class ExportTestServlet
@@ -68,13 +65,13 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 		BlobId blobId = BlobId.of("fegogo.appspot.com", "dumpAnswer" + "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(page) + ".csv");
 		BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/csv").build();
 		Blob blob = storage.create(blobInfo, string.getBytes(UTF_8));
-		page+=6;
+/*		page+=6;
 		if(page<30) {
 			Queue queue = QueueFactory.getDefaultQueue();
 			TaskOptions 		task = TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", page+"");
 			queue.add(task);
 		}
-		response.getWriter().println("finished");
+*/		response.getWriter().println("finished");
 	}
 
 	public String getAnswerSumDump(int page) {
@@ -104,37 +101,12 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 			AnswerSum as = answerSumList.get(pointer);
 			if ((as.getRefMember() != null) 
 					) {
-/*
-				String ansSumDump = as.getAnswerSumDumpCSV();
-				if ((forceRewrite == true) || (ansSumDump == null)) {
-					Toi toi = as.getRefToi().get();
-					Exam exam = toi.getExam();
-					String ss = as.getId() + "," + as.getName() + "," + sdf.format(as.getAnswered()) + ","
-							+ exam.getName() + "," + toi.getNo() + "," + toi.getRefGenre().get().getNo() + ","
-							+ toi.getRefGenre().get().getName() + "," + toi.getName() + ",";
-					as.setAnswerSumDumpCSV(ss);
-					ansSumDump = ss;
-					as.save();
-				}
-				*/
 				String ansSumDump = as.makeAnswerDumpCSV(cache);
 
 				
 				Map<Integer, Answer> answerMap = as.getMapAnswer();
 				for (Integer key : answerMap.keySet()) {
 					Answer answer = answerMap.get(key);
-/*
-					String ansDump = answer.getAnswerDumpCSV();
-
-					if ((forceRewrite == true) || (ansDump == null)) {
-						Question question = answer.getRefQuestion().get();
-						String s = answer.getId() + "," + key + "," + question.getName() + "," + question.getAnswers()
-								+ "," + answer.getAnswers() + "," + (answer.isCorrect() ? 1 : 0);
-						ansDump = s;
-						answer.setAnswerDumpCSV(s);
-						answer.save();
-					}
-					*/
 					String ansDump = answer.makeAnswerDumpCSV(cache);
 
 

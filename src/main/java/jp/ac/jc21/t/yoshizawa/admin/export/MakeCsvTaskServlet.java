@@ -36,7 +36,8 @@ public class MakeCsvTaskServlet extends HttpServlet {
 		TaskOptions task = TaskOptions.Builder.withUrl("/admin/makeAnswerSumCSV");
 		queue.add(task);
 		
-		for(int i=0 ; i<6 ; i++) {
+//		for(int i=0 ; i<6 ; i++) {
+		for(int i=0 ; i<30 ; i++) {
 			task = TaskOptions.Builder.withUrl("/admin/makeAnswerCSV").param("page", i+"");
 			queue.add(task);
 		}

@@ -49,7 +49,7 @@ public class MakeAnswerCSVServlet2 extends HttpServlet {
 
 		response.setContentType("text/csv; charset=Windows-31J");
 		PrintWriter out = response.getWriter();
-		out.println("ID,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,•ª–ì‡,•ª–ì,–âÚ×,İ–âid,o‘è‡,³‰ğ”,–â‘è”,³‰ğ—¦") ;
+		out.println("–âid,‰ğ“šÒ,‰ğ“š“ú,Œ±,–â,•ª–ì‡,•ª–ì,–âÚ×,İ–âid,o‘è‡,İ–â,³‰ğ,‰ğ“š,³Œë") ;
 		for(int i=0 ; i<30 ; i++) {
 			String name = "dumpAnswer" + "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(i) + ".csv";
 			outFromFile(out, name);
@@ -67,7 +67,6 @@ public class MakeAnswerCSVServlet2 extends HttpServlet {
 			out.println(s);
 		}
 	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

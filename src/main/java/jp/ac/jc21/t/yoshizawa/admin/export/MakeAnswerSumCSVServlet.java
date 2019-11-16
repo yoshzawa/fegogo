@@ -72,7 +72,6 @@ public class MakeAnswerSumCSVServlet extends HttpServlet {
 		log.info(getServletName() + "[" + dateStart.toString() + "]START");
 		
 		int count=0;
-//		final boolean  forceRewrite = false;
         Cache cache=null;
         try {
             CacheFactory cacheFactory = CacheManager.getInstance().getCacheFactory();
@@ -83,25 +82,6 @@ public class MakeAnswerSumCSVServlet extends HttpServlet {
 		for (AnswerSum as : answerSumList) {
 			if(as.getRefMember() != null) {
 
-
-				/*
-				String ansSumDump = as.getAnswerSumDumpCSV();
-				if((forceRewrite==true)||(ansSumDump == null)) {
-					Toi toi = as.getRefToi().get();
-					Exam exam = toi.getExam();
-					String ss = as.getId() + "," 
-							+ as.getName() + "," 
-							+ sdf.format(as.getAnswered()) + "," 
-							+ exam.getName() + ","
-							+ toi.getNo() + "," 
-							+ toi.getRefGenre().get().getNo() + "," 
-							+ toi.getRefGenre().get().getName() + "," 
-							+ toi.getName() + ",";
-					as.setAnswerSumDumpCSV(ss);
-					ansSumDump = ss;
-					as.save();
-				}
-				*/
 				String ansSumDump = as.makeAnswerDumpCSV(cache);
 
 				float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
