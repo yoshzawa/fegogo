@@ -5,7 +5,11 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author t.yoshizawa
@@ -42,4 +46,11 @@ public class QuestionFactory extends CommonEntity {
 	public static final String getKana(int i) {
 		return Character.toString( "アイウエオカキクケコサシスセソタチツテト".charAt(i));
 	}
+	public static final List<Question>  loadAll() {
+
+		List<Question> qList = ofy().load().type(Question.class).list();
+
+		return qList;
+	}
+	
 }

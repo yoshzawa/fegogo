@@ -2,6 +2,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.googlecode.objectify.Key;
@@ -26,6 +27,23 @@ public final class Question extends QuestionFactory {
 	private Set<Integer> answerSet;
 	Long toiId;
 
+	/**
+	 * @return the toiId
+	 */
+	public Long getToiId() {
+		if (toiId == null) {
+			setToiId(getParent().getId());
+			save();
+		}
+		return toiId;
+	}
+
+	/**
+	 * @param toiId the toiId to set
+	 */
+	public void setToiId(Long toiId) {
+		this.toiId = toiId;
+	}
 
 	public Question() {
 	}
@@ -185,8 +203,8 @@ public final class Question extends QuestionFactory {
 		for (int i : getAnswerSet()) {
 			s += getKana(i);
 		}
-		if(getNoOfOption()<=0) {
-			s="‘Sˆõ³‰ð";
+		if (getNoOfOption() <= 0) {
+			s = "‘Sˆõ³‰ð";
 		}
 		return s;
 	}
@@ -196,16 +214,29 @@ public final class Question extends QuestionFactory {
 		Key<Question> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
+
 	public boolean isRefId() {
-		if(toiId == null) {
+		if (toiId == null) {
 			return false;
 		}
 		return true;
 	}
+
 	public void setRefId() {
-		if(toiId == null) {
+		if (toiId == null) {
 			toiId = parent.get().getId();
 		}
 	}
 
+	public String getExportData() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		
+		return getId()+","+
+		getNo() + "," + 
+		getName() + "," + 
+		sdf.format(getCreated()) + "," + 
+		getNoOfOption() + "," + 
+		getToiId() + ",";
+
+	}
 }

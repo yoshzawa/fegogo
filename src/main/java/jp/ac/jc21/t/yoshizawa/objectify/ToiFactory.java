@@ -30,7 +30,7 @@ public class ToiFactory extends CommonEntity {
 		t.setCreated(new Date());
 		t.setExam(parent);
 		t.newQuestionRefList();
-		t.setGenreRef(null);
+		t.setRefGenre(null);
 		return t;
 	}
 
@@ -48,6 +48,13 @@ public class ToiFactory extends CommonEntity {
 	public static final Toi getById(long id) {
 		return ofy().load().type(Toi.class).id(id).now();
 
+	}
+	
+	public static final List<Toi>  loadAll() {
+
+		List<Toi> tList = ofy().load().type(Toi.class).list();
+
+		return tList;
 	}
 
 }

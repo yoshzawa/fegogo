@@ -3,6 +3,7 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -127,4 +128,12 @@ public class Exam extends ExamFactory {
 		return toiMap;
 	}
 
+	public String getExportData() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+		return getId()+","+
+				getYYYYMM()+","+
+				getName()+","+
+				sdf.format(getCreated());
+	}
 }

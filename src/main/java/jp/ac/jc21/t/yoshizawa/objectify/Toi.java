@@ -5,6 +5,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,9 +38,47 @@ public final class Toi extends ToiFactory {
 	private Ref<Genre> genre;
 	Long genreId;
 	Long examId;
+	
+	
 
 
  	/**
+	 * @return the genreId
+	 */
+	public Long getGenreId() {
+		if(genreId == null) {
+			setGenreId(getRefGenre().get().getId());
+			save();
+		}
+		return genreId;
+	}
+
+	/**
+	 * @param genreId the genreId to set
+	 */
+	public void setGenreId(Long genreId) {
+		this.genreId = genreId;
+	}
+
+	/**
+	 * @return the examId
+	 */
+	public Long getExamId() {
+		if(examId==null) {
+			setExamId(parent.get().getId());
+			save();
+		}
+		return examId;
+	}
+
+	/**
+	 * @param examId the examId to set
+	 */
+	public void setExamId(Long examId) {
+		this.examId = examId;
+	}
+
+	/**
 
 	 * @return the average
 	 */
@@ -157,12 +196,12 @@ public final class Toi extends ToiFactory {
 	/**
 	 * @param genre the genre to set
 	 */
-	public void setGenreRef(Ref<Genre> genre) {
+	public void setRefGenre(Ref<Genre> genre) {
 		this.genre = genre;
 	}
 
 	public void setGenre(Genre genre) {
-		setGenreRef(Ref.create(genre));
+		setRefGenre(Ref.create(genre));
 	}
 
 	public Toi save() {
@@ -254,5 +293,17 @@ public final class Toi extends ToiFactory {
 	}
 	public final int getAnswerSumCount() {
 		return getAnswerSumRefList().size();
+	}
+
+	public String getExportData() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+		return getId()+","+
+				getNo()+","+
+				getName()+","+
+				sdf.format(getCreated()) + "," + 
+				getExamId()+","+
+				getGenreId()+","+
+				getAnswerSumSum();
 	}
 }
