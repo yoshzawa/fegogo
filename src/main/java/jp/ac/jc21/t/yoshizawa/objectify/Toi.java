@@ -35,6 +35,8 @@ public final class Toi extends ToiFactory {
 	private float sum;
 
 	private Ref<Genre> genre;
+	Long genreId;
+	Long examId;
 
 
  	/**
@@ -164,8 +166,27 @@ public final class Toi extends ToiFactory {
 	}
 
 	public Toi save() {
+		setRefId();
 		Key<Toi> key = ofy().save().entity(this).now();
 		return getById(key.getId());
+	}
+
+	public boolean isRefId() {
+		if(genreId == null) {
+			return false;
+		}
+		if(examId == null) {
+			return false;
+		}
+		return true;
+	}
+	public void setRefId() {
+		if(genreId == null) {
+			genreId = genre.get().getId();
+		}
+		if(examId == null) {
+			examId = parent.get().getId();
+		}
 	}
 
 	public List<Ref<AnswerSum>> getAnswerSumRefList() {

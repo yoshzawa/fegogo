@@ -28,7 +28,9 @@ public final class Answer extends AnswerFactory {
 	private Ref<AnswerSum> refAnswerSum;
 	private Ref<Question> refQuestion;
 	private int[] answerArray;
-	private String dumpCSV;
+//	private String dumpCSV;
+	Long answerSumId;
+	Long questionId;
 
 
 	public Answer() {
@@ -159,16 +161,16 @@ public final class Answer extends AnswerFactory {
 	/**
 	 * @return the answerDumpCSV
 	 */
-	public String getAnswerDumpCSV() {
-		return dumpCSV;
-	}
+//	public String getAnswerDumpCSV() {
+//		return dumpCSV;
+//	}
 
 	/**
 	 * @param answerDumpCSV the answerDumpCSV to set
 	 */
-	public void setAnswerDumpCSV(String answerDumpCSV) {
-		this.dumpCSV = answerDumpCSV;
-	}
+//	public void setAnswerDumpCSV(String answerDumpCSV) {
+//		this.dumpCSV = answerDumpCSV;
+//	}
 
 
 	public boolean isCorrect() {
@@ -210,10 +212,27 @@ public final class Answer extends AnswerFactory {
 		return s;
 	}
 	public Answer save() {
+		setRefId();
 		Key<Answer> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
-
+	public boolean isRefId() {
+		if(answerSumId == null) {
+			return false;
+		}
+		if(questionId == null) {
+			return false;
+		}
+		return true;
+	}
+	public void setRefId() {
+		if(answerSumId == null) {
+			answerSumId = refAnswerSum.get().getId();
+		}
+		if(questionId == null) {
+			questionId = refQuestion.get().getId();
+		}
+	}
 
 
 
@@ -221,7 +240,7 @@ public final class Answer extends AnswerFactory {
 		ofy().delete().entity(this).now();
 		
 	}
-
+/*
 	public String makeAnswerDumpCSV_OLD(Answer answer) {
 		String ansDump = answer.getAnswerDumpCSV();
 
@@ -235,6 +254,8 @@ public final class Answer extends AnswerFactory {
 		}
 		return ansDump;
 	}
+*/
+	@SuppressWarnings("unchecked")
 	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
 		String cacheId="Answer:"+getId();
 		if(cache.containsKey(cacheId)== true) {

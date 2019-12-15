@@ -17,7 +17,7 @@ import com.googlecode.objectify.Key;
 public class MemberFactory extends CommonEntity{
 	@SuppressWarnings("unchecked")
 	public static List<Member> loadAll() {
-		return loadAll(Member.class);
+		return (List<Member>) loadAll(Member.class);
 	}
 
 	protected static Member getByeMail(String eMail) {

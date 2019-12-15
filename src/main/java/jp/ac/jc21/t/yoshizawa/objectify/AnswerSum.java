@@ -34,7 +34,10 @@ public final class AnswerSum extends AnswerSumFactory {
 	private int noOfSeikai;
 	private Map<String, Ref<Answer>> mapRefAnswer;
 	private Ref<Member> refMember;
-	private String answerSumDumpCSV;
+//	private String answerSumDumpCSV;
+
+	String memberId;
+	Long toiId;
 
 	////////// id
 
@@ -183,25 +186,45 @@ public final class AnswerSum extends AnswerSumFactory {
 	/**
 	 * @return the answerSumDumpCSV
 	 */
-	public String getAnswerSumDumpCSV() {
-		return answerSumDumpCSV;
-	}
+//	public String getAnswerSumDumpCSV() {
+//		return answerSumDumpCSV;
+//	}
 
 	/**
 	 * @param answerSumDumpCSV the answerSumDumpCSV to set
 	 */
-	public void setAnswerSumDumpCSV(String answerSumDumpCSV) {
-		this.answerSumDumpCSV = answerSumDumpCSV;
-	}
+//	public void setAnswerSumDumpCSV(String answerSumDumpCSV) {
+//		this.answerSumDumpCSV = answerSumDumpCSV;
+//	}
 
 	public AnswerSum() {
 	}
 
 	public AnswerSum save() {
+		setRefId();
 		Key<AnswerSum> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
+	public boolean isRefId() {
+		if(memberId == null) {
+			return false;
+		}
+		if(toiId == null) {
+			return false;
+		}
+		return true;
+	}
+	public void setRefId() {
+		if(memberId == null) {
+			memberId = refMember.get().geteMail();
+		}
+		if(toiId == null) {
+			toiId = refToi.get().getId();
+		}
+	}
 	
+	
+/*	
 	public String makeAnswerDumpCSV_OLD() {
 		String ansSumDump = getAnswerSumDumpCSV();
 		if(ansSumDump == null) {
@@ -222,6 +245,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		}
 		return ansSumDump;
 	}
+	*/
 	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
 		
 		String key = "AnswerSum:"+getId();

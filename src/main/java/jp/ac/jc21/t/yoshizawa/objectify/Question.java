@@ -24,6 +24,8 @@ public final class Question extends QuestionFactory {
 	private long noOfOption;
 	private Ref<Toi> parent;
 	private Set<Integer> answerSet;
+	Long toiId;
+
 
 	public Question() {
 	}
@@ -190,8 +192,20 @@ public final class Question extends QuestionFactory {
 	}
 
 	public Question save() {
+		setRefId();
 		Key<Question> key = ofy().save().entity(this).now();
 		return getById(key.getId());
+	}
+	public boolean isRefId() {
+		if(toiId == null) {
+			return false;
+		}
+		return true;
+	}
+	public void setRefId() {
+		if(toiId == null) {
+			toiId = parent.get().getId();
+		}
 	}
 
 }

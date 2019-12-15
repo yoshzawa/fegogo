@@ -35,6 +35,6 @@ public class AnswerSumFactory extends CommonEntity {
 	
 	@SuppressWarnings("unchecked")
 	public static final List<AnswerSum> loadAll() {
-		return loadAll(AnswerSum.class);
+		return (List<AnswerSum>) loadAll(AnswerSum.class);
 	}
 }
