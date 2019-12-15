@@ -1,7 +1,7 @@
 # fegogo
 
-�ߌ�����W�v���č̓_����
+午後問題を集計して採点する
 
-## ���J��T�[�o�[
+## 公開先サーバー
 
-http://fegogo.fivepro.xyz
+https://fegogo.fivepro.xyz
