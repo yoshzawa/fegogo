@@ -3,6 +3,7 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -151,5 +152,13 @@ public class Genre extends GenreFactory {
 	public void setNo(int no) {
 		this.no = no;
 	}
+	public String getExportData() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		
+		return getId()+","+
+		getName() + "," + 
+		sdf.format(getCreated()) + "," + 
+		getNo() + "," ;
 
+	}
 }
