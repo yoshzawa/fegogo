@@ -3,6 +3,7 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -114,8 +115,9 @@ public final class Member extends MemberFactory {
 
 	/**
 	 * parentId‚Éˆê’v‚·‚éExam‚ÉŠÖ˜A‚·‚éAnswerSum‚Ìˆê——‚ğ•Ô‚·
+	 * 
 	 * @param parentId æ“¾‚µ‚½‚¢Exam‚ÌId
-	 * @return@parentId‚Éˆê’v‚·‚éExam‚ÉŠÖ˜A‚·‚éAnswerSum‚Ìˆê——
+	 * @return parentId‚Éˆê’v‚·‚éExam‚ÉŠÖ˜A‚·‚éAnswerSum‚Ìˆê——
 	 */
 	public List<AnswerSum> getAnswerSumListByExamId(long parentId) {
 
@@ -132,8 +134,8 @@ public final class Member extends MemberFactory {
 	public void removeRefAnswerSumList(AnswerSum answerSum) {
 		List<Ref<AnswerSum>> list = getRefAnswerSumList();
 		List<Ref<AnswerSum>> listNew = new ArrayList<>();
-		for(Ref<AnswerSum> refAnswerSum : list) {
-			if(refAnswerSum.get().getId() != answerSum.getId()) {
+		for (Ref<AnswerSum> refAnswerSum : list) {
+			if (refAnswerSum.get().getId() != answerSum.getId()) {
 				listNew.add(refAnswerSum);
 			}
 		}
@@ -142,14 +144,20 @@ public final class Member extends MemberFactory {
 
 	public List<AnswerSum> getAnswerSumListByToi(Long id) {
 		List<AnswerSum> list = new ArrayList<AnswerSum>();
-		for(Ref<AnswerSum> ras : getRefAnswerSumList()) {
+		for (Ref<AnswerSum> ras : getRefAnswerSumList()) {
 			AnswerSum as = ras.get();
-			if((as.getRefToi() != null) && (as.getRefToi().get().getId() == id)) {
+			if ((as.getRefToi() != null) && (as.getRefToi().get().getId() == id)) {
 				list.add(as);
 			}
 		}
 		return list;
-		
+
+	}
+
+	public String getExportData() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+		return geteMail() + "," + sdf.format(getCreated()) + "," + sdf.format(getModified());
 	}
 
 }
