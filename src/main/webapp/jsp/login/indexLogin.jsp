@@ -28,25 +28,8 @@
 
 	<H2>連絡</H2>
 	<P>
-		・9月27日、対策期間中の名簿を更新しました。
-		月～水曜の名簿は<a href="https://storage.googleapis.com/fegogo.appspot.com/documents/FE%E5%AF%BE%E7%AD%96%E5%90%8D%E7%B0%BF%20%E6%9C%88%E7%81%AB%E6%B0%B42.pdf">こちら</a>、
-		木・金曜の名簿は<a href="https://storage.googleapis.com/fegogo.appspot.com/documents/FE%E5%AF%BE%E7%AD%96%E5%90%8D%E7%B0%BF%20%E6%9C%A8%E9%87%912.pdf">こちら</a>からダウンロードしてください。<br/>
-			なお、該当者にはメールで連絡していますので、ご確認いただきますよう、宜しくお願いいたします。
-		
+	・現在、令和元年度秋期試験対策のデータを削除しています。登録できない場合があるかもしれませんが、しばらくお待ちください。
 	</P>
-	<P>
-		・8月30日、対策期間中の名簿を更新しました。
-		月曜日と火曜日の名簿は<a href="https://storage.googleapis.com/fegogo.appspot.com/documents/FE%E5%AF%BE%E7%AD%96%E5%90%8D%E7%B0%BF%20%E6%9C%88%E6%9B%9C%E3%83%BB%E7%81%AB%E6%9B%9C.pdf">こちら</a>、
-		水曜日・木曜日・金曜日の名簿は<a href="https://storage.googleapis.com/fegogo.appspot.com/documents/FE%E5%AF%BE%E7%AD%96%E5%90%8D%E7%B0%BF%20%E6%B0%B4%E6%9B%9C%E3%83%BB%E6%9C%A8%E6%9B%9C%E3%83%BB%E9%87%91%E6%9B%9C%20.pdf">こちら</a>からダウンロードしてください。<br/>
-			なお、該当者にはメールで連絡していますので、ご確認いただきますよう、宜しくお願いいたします。
-		
-	</P>
-	
-	<P>
-		・8月23日（金曜）より、8月24日（土曜）にかけて、プログラムの不具合により登録時にエラーが発生していました。現在、エラーは修正されていますので、ご迷惑をおかけしますが、入力エラーだったデータの再入力を宜しくお願いいたします。
-	</P>
-	<P>・8月27日（月曜）最初の対策授業は、807教室に集合してください。ただし、事前にiPadにメールが届いている学生は、
-		指定された教室に移動してください。</P>
 
 </body>
 
