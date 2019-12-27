@@ -153,11 +153,10 @@ public class Genre extends GenreFactory {
 		this.no = no;
 	}
 	public String getExportData() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		
 		return getId()+","+
 		getName() + "," + 
-		sdf.format(getCreated()) + "," + 
+		getDateString(getCreated()) + "," + 
 		getNo() + "," ;
 
 	}

@@ -5,6 +5,8 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -26,11 +28,11 @@ public class CommonEntity {
 		return ofy().load().type(c).list();
 	}
 
-	public static Object getById(Class<?> c, long id) {
+	public static final Object getById(Class<?> c, long id) {
 		return ofy().load().type(c).id(id).now();
 	}
 
-	protected static MemcacheService getCache() {
+	protected static final MemcacheService getCache() {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 		return syncCache;
@@ -38,4 +40,10 @@ public class CommonEntity {
 	protected static final boolean isCached(MemcacheService syncCache, String key) {
 		return syncCache.get(key) != null;
 	}
+	
+	public static final String getDateString(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		return sdf.format(date);
+	}
+
 }

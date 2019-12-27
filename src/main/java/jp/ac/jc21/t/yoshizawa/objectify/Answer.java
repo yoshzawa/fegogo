@@ -288,11 +288,12 @@ public final class Answer extends AnswerFactory {
 	}
 
 	public String getExportData() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
-		return getId() + "," + getNo() + "," + getName() + "," + sdf.format(getAnswered()) + "," + getAnswerSumId()
+		return getId() + "," + getNo() + "," + getName() + "," + getDateString(getAnswered()) + "," + getAnswerSumId()
 				+ "," + getQuestionId() + "," + getAnswers();
 
 	}
+
+	
 
 }

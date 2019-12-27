@@ -276,8 +276,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		} else {
 			Toi toi = getRefToi().get();
 			Exam exam = toi.getExam();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-			String s = getId() + "," + getName() + "," + sdf.format(getAnswered()) + "," + exam.getName() + ","
+			String s = getId() + "," + getName() + "," + getDateString(getAnswered()) + "," + exam.getName() + ","
 					+ toi.getNo() + "," + toi.getRefGenre().get().getNo() + "," + toi.getRefGenre().get().getName()
 					+ "," + toi.getName() + ",";
 			cache.put(key, s);
@@ -286,11 +285,10 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 
 	public String getExportData() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 		return getId() + "," + 
 		getName() + "," + 
-		sdf.format(getAnswered()) + "," + 
+		getDateString(getAnswered()) + "," + 
 		getToiId() + "," + 
 		getMemberId()				+ "," + 
 		getNoOfAnswer() + "," + 

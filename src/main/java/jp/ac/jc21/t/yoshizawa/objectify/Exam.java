@@ -129,11 +129,10 @@ public class Exam extends ExamFactory {
 	}
 
 	public String getExportData() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 		return getId()+","+
 				getYYYYMM()+","+
 				getName()+","+
-				sdf.format(getCreated());
+				getDateString(getCreated());
 	}
 }

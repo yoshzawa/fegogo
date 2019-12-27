@@ -296,12 +296,11 @@ public final class Toi extends ToiFactory {
 	}
 
 	public String getExportData() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 		return getId()+","+
 				getNo()+","+
 				getName()+","+
-				sdf.format(getCreated()) + "," + 
+				getDateString(getCreated()) + "," + 
 				getExamId()+","+
 				getGenreId()+","+
 				getAnswerSumSum();

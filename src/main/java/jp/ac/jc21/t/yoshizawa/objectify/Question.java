@@ -229,12 +229,11 @@ public final class Question extends QuestionFactory {
 	}
 
 	public String getExportData() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		
 		return getId()+","+
 		getNo() + "," + 
 		getName() + "," + 
-		sdf.format(getCreated()) + "," + 
+		getDateString(getCreated()) + "," + 
 		getNoOfOption() + "," + 
 		getToiId() + ",";
 

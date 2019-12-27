@@ -155,9 +155,8 @@ public final class Member extends MemberFactory {
 	}
 
 	public String getExportData() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
-		return geteMail() + "," + sdf.format(getCreated()) + "," + sdf.format(getModified());
+		return geteMail() + "," + getDateString(getCreated()) + "," + getDateString(getModified());
 	}
 
 }
