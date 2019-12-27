@@ -3,7 +3,10 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
+
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 
@@ -32,6 +35,43 @@ public final class Answer extends AnswerFactory {
 	Long answerSumId;
 	Long questionId;
 
+	/**
+	 * @return the questionId
+	 */
+	public Long getQuestionId() {
+		if(questionId == null) {
+			setQuestionId(getRefQuestion().get().getId());
+			save();
+		}
+		return questionId;
+	}
+
+	/**
+	 * @param questionId the questionId to set
+	 */
+	public void setQuestionId(Long questionId) {
+		this.questionId = questionId;
+	}
+
+	/**
+	 * @return the answerSumId
+	 */
+	public Long getAnswerSumId() {
+		if (answerSumId == null) {
+			Long asId = getRefAnswerSum().get().getId();
+			setAnswerSumId(asId);
+			save();
+
+		}
+		return answerSumId;
+	}
+
+	/**
+	 * @param answerSumId the answerSumId to set
+	 */
+	public void setAnswerSumId(Long answerSumId) {
+		this.answerSumId = answerSumId;
+	}
 
 	public Answer() {
 	}
@@ -67,7 +107,7 @@ public final class Answer extends AnswerFactory {
 	public void setNo(String no) {
 		this.no = no;
 	}
-	
+
 	////////// name
 
 	/**
@@ -76,7 +116,6 @@ public final class Answer extends AnswerFactory {
 	public String getName() {
 		return name;
 	}
-
 
 	/**
 	 * @param name the name to set
@@ -116,7 +155,7 @@ public final class Answer extends AnswerFactory {
 	public void setRefAnswerSum(Ref<AnswerSum> refAnswerSum) {
 		this.refAnswerSum = refAnswerSum;
 	}
-	
+
 	/**
 	 * @param answerArray the answerArray to set
 	 */
@@ -129,7 +168,6 @@ public final class Answer extends AnswerFactory {
 
 	}
 
-	
 	////////// Question
 
 	/**
@@ -154,27 +192,13 @@ public final class Answer extends AnswerFactory {
 	public int[] getAnswerArray() {
 		return answerArray;
 	}
-	
-
-	////////// dumpCSV
-
-	/**
-	 * @return the answerDumpCSV
-	 */
-//	public String getAnswerDumpCSV() {
-//		return dumpCSV;
-//	}
 
 	/**
 	 * @param answerDumpCSV the answerDumpCSV to set
 	 */
-//	public void setAnswerDumpCSV(String answerDumpCSV) {
-//		this.dumpCSV = answerDumpCSV;
-//	}
-
 
 	public boolean isCorrect() {
-//		final Logger log = Logger.getLogger(Answer.class.getName());
+		final Logger log = getLogger();
 
 		int[] answerArray = getAnswerArray();
 		Question question = getRefQuestion().get();
@@ -191,74 +215,66 @@ public final class Answer extends AnswerFactory {
 		}
 	}
 
+	public Logger getLogger() {
+		final Logger log = Logger.getLogger(Answer.class.getName());
+		return log;
+	}
+
 	public String getAnswers() {
 		String s = "";
 		int[] answers = getAnswerArray();
-		if(answers == null) {
+		if (answers == null) {
 			return "";
 		}
 		for (int i : answers) {
-			if(i == -1) {
-				s+= "[解けない]";
-				
+			if (i == -1) {
+				s += "[解けない]";
+
 			} else {
 				s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
 			}
-			if(getRefQuestion().get().getNoOfOption()<=0) {
-				s="全員正解";
+			if (getRefQuestion().get().getNoOfOption() <= 0) {
+				s = "全員正解";
 			}
 
 		}
 		return s;
 	}
+
 	public Answer save() {
 		setRefId();
 		Key<Answer> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
+
 	public boolean isRefId() {
-		if(answerSumId == null) {
+		if (answerSumId == null) {
 			return false;
 		}
-		if(questionId == null) {
+		if (questionId == null) {
 			return false;
 		}
 		return true;
 	}
+
 	public void setRefId() {
-		if(answerSumId == null) {
+		if (answerSumId == null) {
 			answerSumId = refAnswerSum.get().getId();
 		}
-		if(questionId == null) {
+		if (questionId == null) {
 			questionId = refQuestion.get().getId();
 		}
 	}
 
-
-
 	public void delete() {
 		ofy().delete().entity(this).now();
-		
-	}
-/*
-	public String makeAnswerDumpCSV_OLD(Answer answer) {
-		String ansDump = answer.getAnswerDumpCSV();
 
-		if (ansDump == null) {
-			Question question = answer.getRefQuestion().get();
-			String s = answer.getId() + "," + answer.getNo() + "," + question.getName() + "," + question.getAnswers() + ","
-					+ answer.getAnswers() + "," + (answer.isCorrect() ? 1 : 0);
-			ansDump = s;
-			answer.setAnswerDumpCSV(s);
-			answer.save();
-		}
-		return ansDump;
 	}
-*/
+
 	@SuppressWarnings("unchecked")
 	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
-		String cacheId="Answer:"+getId();
-		if(cache.containsKey(cacheId)== true) {
+		String cacheId = "Answer:" + getId();
+		if (cache.containsKey(cacheId) == true) {
 			String value = (String) cache.get(cacheId);
 			return value;
 		} else {
@@ -266,9 +282,17 @@ public final class Answer extends AnswerFactory {
 			Question question = getRefQuestion().get();
 			String s = getId() + "," + getNo() + "," + question.getName() + "," + question.getAnswers() + ","
 					+ getAnswers() + "," + (isCorrect() ? 1 : 0);
-			cache.put(cacheId,s);
+			cache.put(cacheId, s);
 			return s;
 		}
 	}
-	
+
+	public String getExportData() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+		return getId() + "," + getNo() + "," + getName() + "," + sdf.format(getAnswered()) + "," + getAnswerSumId()
+				+ "," + getQuestionId() + "," + getAnswers();
+
+	}
+
 }

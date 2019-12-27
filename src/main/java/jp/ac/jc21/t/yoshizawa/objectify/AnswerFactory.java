@@ -6,6 +6,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
+import java.util.List;
 
 import com.googlecode.objectify.Ref;
 
@@ -47,5 +48,8 @@ public class AnswerFactory extends CommonEntity {
 		a.setAnswerArray(answerArray);
 		a.setNo(no);
 		return a;
+	}
+	public static List<Answer> loadAll() {
+		return (List<Answer>) loadAll(Answer.class);
 	}
 }
