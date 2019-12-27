@@ -49,6 +49,45 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 
 	/**
+	 * @return the memberId
+	 */
+	public String getMemberId() {
+		if (memberId == null) {
+			Ref<Member> refMem = getRefMember();
+			if (refMem != null) {
+				setMemberId(refMem.get().geteMail());
+				save();
+			}
+		}
+		return memberId;
+	}
+
+	/**
+	 * @param memberId the memberId to set
+	 */
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	/**
+	 * @return the toiId
+	 */
+	public Long getToiId() {
+		if (toiId == null) {
+			setToiId(getRefToi().get().getId());
+			save();
+		}
+		return toiId;
+	}
+
+	/**
+	 * @param toiId the toiId to set
+	 */
+	public void setToiId(Long toiId) {
+		this.toiId = toiId;
+	}
+
+	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
@@ -86,7 +125,7 @@ public final class AnswerSum extends AnswerSumFactory {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	////////// answered
 
 	/**
@@ -102,9 +141,9 @@ public final class AnswerSum extends AnswerSumFactory {
 	public void setAnswered(Date answered) {
 		this.answered = answered;
 	}
-	
+
 	////////// refToi
-	
+
 	/**
 	 * @return the refToi
 	 */
@@ -117,6 +156,7 @@ public final class AnswerSum extends AnswerSumFactory {
 	 */
 	public void setRefToi(Ref<Toi> refToi) {
 		this.refToi = refToi;
+		setToiId(refToi.get().getId());
 	}
 
 	/**
@@ -124,9 +164,9 @@ public final class AnswerSum extends AnswerSumFactory {
 	 */
 	public int getNoOfAnswer() {
 		Map<String, Ref<Answer>> map = getMapRefAnswer();
-		if(map == null) {
+		if (map == null) {
 			return 0;
-		}else {
+		} else {
 			return map.size();
 		}
 	}
@@ -148,8 +188,8 @@ public final class AnswerSum extends AnswerSumFactory {
 	public Map<Integer, Answer> getMapAnswer() {
 		Map<String, Ref<Answer>> mra = getMapRefAnswer();
 		Map<Integer, Answer> mapAnswer = new HashMap<Integer, Answer>();
-		
-		if(mra != null) {
+
+		if (mra != null) {
 			Set<String> mraKey = mra.keySet();
 			for (String k : mraKey) {
 				mapAnswer.put(Integer.parseInt(k), mra.get(k).get());
@@ -165,14 +205,16 @@ public final class AnswerSum extends AnswerSumFactory {
 
 	public void setRefMember(Ref<Member> refMember) {
 		this.refMember = refMember;
+		setMemberId(refMember.get().geteMail());
 	}
 
 	public void setMember(Member member) {
 		setRefMember(Ref.create(member));
 	}
+
 	public void delete() {
 //		ofy().delete().entity(this).now();
-		
+
 //		final Logger log = Logger.getLogger(AnswerSum.class.getName());
 
 		Member member = getRefMember().get();
@@ -181,7 +223,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		member.save();
 		setRefMember(null);
 		save();
-		
+
 	}
 	/**
 	 * @return the answerSumDumpCSV
@@ -201,71 +243,59 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 
 	public AnswerSum save() {
-		setRefId();
+//		setRefId();
 		Key<AnswerSum> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
+
 	public boolean isRefId() {
-		if(memberId == null) {
+		if (memberId == null) {
 			return false;
 		}
-		if(toiId == null) {
+		if (toiId == null) {
 			return false;
 		}
 		return true;
 	}
+
 	public void setRefId() {
-		if(memberId == null) {
-			memberId = refMember.get().geteMail();
+		if (getMemberId() == null) {
+			setMemberId(getRefMember().get().geteMail());
 		}
-		if(toiId == null) {
-			toiId = refToi.get().getId();
+		if (toiId == null) {
+			setToiId(getRefToi().get().getId());
 		}
 	}
-	
-	
-/*	
-	public String makeAnswerDumpCSV_OLD() {
-		String ansSumDump = getAnswerSumDumpCSV();
-		if(ansSumDump == null) {
-			Toi toi = getRefToi().get();
-			Exam exam = toi.getExam();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-			String s = getId() + "," 
-					+ getName() + "," 
-					+ sdf.format(getAnswered()) + "," 
-					+ exam.getName() + ","
-					+ toi.getNo() + "," 
-					+ toi.getRefGenre().get().getNo() + "," 
-					+ toi.getRefGenre().get().getName() + "," 
-					+ toi.getName() + ",";
-			setAnswerSumDumpCSV(s);
-			ansSumDump = s;
-			save();
-		}
-		return ansSumDump;
-	}
-	*/
+
 	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
-		
-		String key = "AnswerSum:"+getId();
-		if(cache.containsKey(key)== true) {
+
+		String key = "AnswerSum:" + getId();
+		if (cache.containsKey(key) == true) {
 			String value = (String) cache.get(key);
 			return value;
 		} else {
 			Toi toi = getRefToi().get();
 			Exam exam = toi.getExam();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-			String s = getId() + "," 
-					+ getName() + "," 
-					+ sdf.format(getAnswered()) + "," 
-					+ exam.getName() + ","
-					+ toi.getNo() + "," 
-					+ toi.getRefGenre().get().getNo() + "," 
-					+ toi.getRefGenre().get().getName() + "," 
-					+ toi.getName() + ",";
-			cache.put(key,s);
+			String s = getId() + "," + getName() + "," + sdf.format(getAnswered()) + "," + exam.getName() + ","
+					+ toi.getNo() + "," + toi.getRefGenre().get().getNo() + "," + toi.getRefGenre().get().getName()
+					+ "," + toi.getName() + ",";
+			cache.put(key, s);
 			return s;
 		}
 	}
+
+	public String getExportData() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+		return getId() + "," + 
+		getName() + "," + 
+		sdf.format(getAnswered()) + "," + 
+		getToiId() + "," + 
+		getMemberId()				+ "," + 
+		getNoOfAnswer() + "," + 
+		getNoOfSeikai();
+
+	}
+
 }
