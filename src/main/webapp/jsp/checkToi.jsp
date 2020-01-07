@@ -43,22 +43,30 @@
 	<TABLE border=1>
 		<TR>
 			<TD>answerSum.id</TD>
-			<TD>answerSum.toi</TD>
+			<TD>link Toi</TD>
 			<TD>answerSum.toi.id</TD>
 			<TD>answerSum.memberId</TD>
-			<TD>answerSum.member</TD>
+			<TD>link Member</TD>
 			<TD>answerSum.member.answerSumlist.contain</TD>
 		</TR>
 		<%
 		for (String[]  s : list) {
+			String answerSumAndToi="<-->";
+			if(s[1].equals("null")){
+				 answerSumAndToi="->";
+			}
+			String answerSumAndMember="<-->";
+			if(s[4].equals("null")){
+				answerSumAndMember="->";
+			}
 			
 		%>
 		<tr>
 			<td><%=s[0]%></td>
-			<td><%=s[1]%></td>
+			<td><%=answerSumAndToi%></td>
 			<td><%=s[2]%></td>
 			<td><%=s[3]%></td>
-			<td><%=s[4]%></td>
+			<td><%=answerSumAndMember%></td>
 			<td><%=s[5]%></td>
 		</tr>
 		<%
