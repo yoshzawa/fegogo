@@ -36,6 +36,7 @@
 			<TD>YYYYMM</TD>
 			<TD>NAME</TD>
 			<TD>問題登録</TD>
+			<TD>内容確認</TD>
 		</TR>
 		<%
 		for (Long k : examMap.keySet()) {
@@ -48,6 +49,7 @@
 			<td>
 				<%= e.getToiRefListSize() %>
 			</td>
+			<td><a href="/admin/check/exam?examId=<%=e.getId()%>">チェック</a></td>
 		</tr>
 		<%
 			}

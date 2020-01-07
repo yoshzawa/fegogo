@@ -252,7 +252,8 @@ public final class Toi extends ToiFactory {
 	public boolean containsAnswerSum(AnswerSum as) {
 		Long asId = as.getId();
 		for (Ref<AnswerSum> r : getAnswerSumRefList()) {
-			if (r.get().getId() == asId) {
+			AnswerSum answerSum = r.get();
+			if ((answerSum!=null)&&(answerSum.getId() == asId)) {
 				return true;
 			}
 		}
@@ -285,8 +286,11 @@ public final class Toi extends ToiFactory {
 	final void calcAverage() {
 		float sum=0;
 		for (Ref<AnswerSum> ras : getAnswerSumRefList()) {
-			float temp = 100.0f*ras.get().getNoOfSeikai() / ras.get().getNoOfAnswer();
-			sum += temp;
+			AnswerSum answerSum = ras.get();
+			if(answerSum != null) {
+				float temp = 100.0f*answerSum.getNoOfSeikai() / answerSum.getNoOfAnswer();
+				sum += temp;
+			}
 		}
 		setAnswerSumSum(sum);
 		save();

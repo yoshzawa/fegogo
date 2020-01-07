@@ -157,7 +157,7 @@ public class Genre extends GenreFactory {
 		return getId()+","+
 		getName() + "," + 
 		getDateString(getCreated()) + "," + 
-		getNo() + "," ;
+		getNo()  ;
 
 	}
 }

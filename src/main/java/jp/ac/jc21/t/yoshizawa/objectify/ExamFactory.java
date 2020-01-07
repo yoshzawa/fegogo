@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.googlecode.objectify.Key;
+
 /**
  * @author t.yoshizawa
  *
@@ -40,4 +42,7 @@ public abstract class ExamFactory extends CommonEntity {
 		return ofy().load().type(Exam.class).id(id).now();
 	}
 
+	public static final Exam getById(Key<Exam> k) {
+		return ofy().load().type(Exam.class).filterKey(k).first().now();
+	}
 }
