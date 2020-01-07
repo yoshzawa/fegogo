@@ -78,8 +78,17 @@
 					<%= member.get().geteMail() %>
 				<% } %>
 			</td>
+				<%  if ((toi!=null)&&(toi.getExam() != null )) {%>		
 			<td><%=toi.getExam().getName()%></td>
+				<% } else {%>
+			<td>null</td>
+				<% } %>
+				
+				<%  if ((toi!=null)) {%>		
 			<td><%= toi.getNo() %></td>
+				<% } else {%>
+			<td>null</td>
+				<% } %>
 			<td>
 				<%= toi.getName() %>
 				<% if ((toi != null ) && (toi.containsAnswerSum(as) == false)){%>

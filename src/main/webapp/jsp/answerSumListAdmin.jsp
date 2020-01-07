@@ -53,17 +53,33 @@
 
 			for (AnswerSum as : answerSumList) {
 				Toi toi = as.getRefToi().get();
+				String tName="null";
+				if(toi!=null){
+					tName=toi.getName();
+				}
+				Exam e = toi.getExam();
+				String eName="null";
+				if(e!=null){
+					eName=e.getName();
+				}
+				Member member = as.getRefMember().get();
+				String mMail="null";
+				if(member!=null){
+					mMail=member.geteMail();
+				}
+				
+				
 		%>
 		<tr>
-			<td><%= as.getId() %><a href="/admin/answerSum/delete?memberId=<%= as.getRefMember().get().geteMail() %>&AnswerSumId=<%= as.getId()%>">削除</a></td>
+			<td><%= as.getId() %><a href="/admin/answerSum/delete?memberId=<%= mMail %>&AnswerSumId=<%= as.getId()%>">削除</a></td>
 			<td><%= as.getName() %></td>
 			<td><%= as.getNoOfAnswer() %></td>
 			<td><%= as.getNoOfSeikai() %></td>
 			<td><%= sdf.format(as.getAnswered()) %></td>
 			<td><%= as.getMapAnswer() %></td>
 			<td><%= as.getRefMember() %><a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>'>reChain</a></td>
-			<td><%=toi.getExam().getName()%></td>
-			<td><%= toi.getName() %></td>
+			<td><%= eName %></td>
+			<td><%= tName %></td>
 		</tr>
 		<%
 			}

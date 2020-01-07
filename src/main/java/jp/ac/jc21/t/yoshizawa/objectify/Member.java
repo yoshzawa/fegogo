@@ -7,8 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
+
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
+
+import jp.ac.jc21.t.yoshizawa.AnswerServlet;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -120,13 +124,32 @@ public final class Member extends MemberFactory {
 	 * @return parentId‚Éˆê’v‚·‚éExam‚ÉŠÖ˜A‚·‚éAnswerSum‚Ìˆê——
 	 */
 	public List<AnswerSum> getAnswerSumListByExamId(long parentId) {
+		final Logger log = Logger.getLogger(Member.class.getName());
 
 		List<AnswerSum> list = new ArrayList<>();
 		for (Ref<AnswerSum> as : getRefAnswerSumList()) {
-			if (as.get().getRefToi().get().getExam().getId() != parentId) {
+			
+			AnswerSum answerSum = as.get();
+			if(answerSum == null) {
+				log.warning("answerSum == null:MemberId="+geteMail());
 				continue;
 			}
-			list.add(as.get());
+			
+			Toi toi = answerSum.getRefToi().get();
+			if(toi == null) {
+				log.warning("toi == null:MemberId="+geteMail());
+				continue;
+			}
+
+			Exam exam = toi.getExam();
+			if(exam == null) {
+				log.warning("exam == null:MemberId="+geteMail());
+				continue;
+			}
+			if (exam.getId() != parentId) {
+				continue;
+			}
+			list.add(answerSum);
 		}
 		return list;
 	}
