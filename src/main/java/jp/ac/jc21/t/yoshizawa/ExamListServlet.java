@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,6 +27,8 @@ public class ExamListServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+		final Logger log = Logger.getLogger(ExamListServlet.class.getName());
 
 		Map<Long, Exam> examMap = Exam.loadAll();
 		//request.setAttribute("examMap", examMap);
@@ -59,17 +62,21 @@ public class ExamListServlet extends HttpServlet {
 			List<String[]> datas2 = new ArrayList<String[]>();
 
 			for (AnswerSum as : answerSumList) {
-				String[] s = new String[6];
 
 				Toi toi = as.getRefToi().get();
+				if(toi == null) {
+					log.warning("toi==null email="+email);
+				}else {
+					String[] s = new String[6];
+					s[0] = toi.getExam().getName();
+					s[1] = toi.getNo().toString();
+					s[2] = toi.getRefGenre().get().getName();
+					s[3] = toi.getName();
+					s[4] = dateFormat(as.getAnswered());
+					s[5] = changePoint(as);
+					datas2.add(s);
+				}
 
-				s[0] = toi.getExam().getName();
-				s[1] = toi.getNo().toString();
-				s[2] = toi.getRefGenre().get().getName();
-				s[3] = toi.getName();
-				s[4] = dateFormat(as.getAnswered());
-				s[5] = changePoint(as);
-				datas2.add(s);
 
 			}
 			request.setAttribute("datas2", datas2);
