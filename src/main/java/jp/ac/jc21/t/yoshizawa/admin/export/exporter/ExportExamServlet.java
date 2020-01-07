@@ -36,6 +36,10 @@ public class ExportExamServlet extends HttpServlet {
 		response.setContentType("text/csv; charset=Windows-31J");
 		PrintWriter out = response.getWriter();
 		Map<Long, Exam> map = Exam.loadAll();
+		out.println(
+				"id,YYYYMM,Name,Created"
+				);
+				
 		for(Exam e:map.values()) {
 			out.println(e.getExportData());
 		}
