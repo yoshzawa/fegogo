@@ -44,7 +44,6 @@
 			<TD>geteMail</TD>
 			<TD>getCreated</TD>
 			<TD>getModified</TD>
-			<TD>getRefAnswerSumList</TD>
 			<TD>数</TD>
 		</TR>
 		<%
@@ -54,28 +53,6 @@
 			<td><%=m.geteMail()%></td>
 			<td><%=m.getCreated()%></td>
 			<td><%=m.getModified()%></td>
-			<td>
-				<%
-					List<Ref<AnswerSum>> l = m.getRefAnswerSumList();
-				%>
-				<table>
-					<%
-						for (Ref<AnswerSum> ras : l) {
-									AnswerSum as = ras.get();
-									float point=(100.0f * as.getNoOfSeikai() / as.getNoOfAnswer());
-					%>
-					<tr>
-						<td><%=as.getId()%> 
-						[<%=as.getRefToi().get().getExam().getName()%>]
-						[<%= as.getRefToi().get().getNo() %>]
-						(<%= String.format("%1$.1f", point) %>)
-						</td>
-					</tr>
-					<%
-						}
-					%>
-				</table>
-			</td>
 			<td><a href='/admin/answerSum/list?memberId=<%=m.geteMail()%>'><%=m.getRefAnswerSumListCount()%></a></td>
 		</tr>
 		<%

@@ -49,8 +49,10 @@ public class GenreListServlet extends HttpServlet {
 					float sum = 0;
 					for (Ref<Toi> rt : toiRefList) {
 						Toi toi = rt.get();
-						sum += toi.getAnswerSumSum();
-						count += toi.getAnswerSumCount();
+						if(toi != null) {
+							sum += toi.getAnswerSumSum();
+							count += toi.getAnswerSumCount();
+						}
 					}
 
 					String[] s = new String[3];
