@@ -38,6 +38,7 @@
 		<TR>
 			<TD>toi.key</TD>
 			<TD>toi.id</TD>
+			<TD>toi 内容確認</TD>
 			<TD>toi.name</TD>
 			<TD>toi.examId</TD>
 		</TR>
@@ -48,6 +49,7 @@
 		<tr>
 			<td><%=s[0]%></td>
 			<td><%=s[1]%></td>
+			<td> <a href='http://localhost:8080/admin/check/toi?toiId=<%=s[1]%>'>チェック</a></td>
 			<td><%=s[2]%></td>
 			<td><%=s[3]%></td>
 		</tr>

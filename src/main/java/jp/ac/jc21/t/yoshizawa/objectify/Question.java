@@ -235,7 +235,8 @@ public final class Question extends QuestionFactory {
 		getName() + "," + 
 		getDateString(getCreated()) + "," + 
 		getNoOfOption() + "," + 
-		getToiId() ;
+		getToiId()+","+
+		getAnswers();
 
 	}
 }
