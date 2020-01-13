@@ -1,12 +1,10 @@
-<%@page import="jp.ac.jc21.t.yoshizawa.objectify.AnswerSum"%>
+<%@page import="java.util.Optional"%>
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.*"%>
 <%@page import="com.googlecode.objectify.Ref"%>
-<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Genre"%>
-<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="com.google.appengine.api.users.User"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -50,12 +48,18 @@
 				<%
 					for (Ref<Toi> rt : g.getToiRefList()) {
 								Toi t = rt.get();
-				%> <%=t.getExam().getName()%> 問<%=t.getNo()%>
-				<%=t.getName()%> <br /> <%
- 	for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
- 					if ((as != null) && (as.get().getRefMember() != null)) {
- 						AnswerSum a = as.get();
- %> --- <%=a.getRefMember().get().geteMail()%> <%=changePoint(a.getNoOfSeikai(), a.getNoOfAnswer())%>
+				%> <%=t.getExam().getName()%> 問<%=t.getNo()%> <%=t.getName()%> <br />
+				<%
+					for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
+									if ((as != null)&&(as.get() != null)) {
+										AnswerSum a = as.get();
+										String eMail = "null";
+										Optional<Member> opt = a.getMember();
+										if (opt.isPresent()) {
+											Member m = opt.get();
+											m.geteMail();
+										}
+				%> --- <%=eMail%> <%=changePoint(a.getNoOfSeikai(), a.getNoOfAnswer())%>
 				<br /> <%
  	}
  %> <%

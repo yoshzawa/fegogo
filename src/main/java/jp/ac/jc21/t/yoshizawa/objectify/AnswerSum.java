@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -294,6 +295,14 @@ public final class AnswerSum extends AnswerSumFactory {
 		getNoOfAnswer() + "," + 
 		getNoOfSeikai();
 
+	}
+	public Optional<Member> getMember(){
+		Ref<Member> refMem = getRefMember();
+		Member member = null;
+		if(refMem!=null) {
+			member=refMem.get();
+		}
+		return Optional.ofNullable(member); 
 	}
 
 }

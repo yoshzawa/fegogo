@@ -90,7 +90,11 @@
 			<td>null</td>
 				<% } %>
 			<td>
+				<% if ((toi != null ) ){%>
 				<%= toi.getName() %>
+				<% } else {%>
+			null
+				<% } %>
 				<% if ((toi != null ) && (toi.containsAnswerSum(as) == false)){%>
 					<a href='/admin/toi/addAnswerSum?toiId=<%= toi.getId() %>&answerSumId=<%= as.getId() %>'>addAnswerSum</a>
 				<%} %>
