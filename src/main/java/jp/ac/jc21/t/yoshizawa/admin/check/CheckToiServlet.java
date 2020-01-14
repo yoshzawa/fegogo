@@ -56,8 +56,14 @@ public class CheckToiServlet extends HttpServlet {
 			AnswerSum answerSum = refAnswerSum.get();
 
 			if(answerSum == null) {
-				String[] s = new String[1];
+				String[] s = new String[4];
 				s[0]=null;
+				s[1]=refAnswerSum.getKey().getId()+"";
+				Key<AnswerSum> key = Key.create(AnswerSum.class,Long.parseLong(s[1]));
+				Ref<AnswerSum> refASum = Ref.create(key);
+				s[2]=answerSumRefList.contains(refASum)+"";
+
+				
 				list.add(s);
 			}else {
 				String[] s = new String[7];

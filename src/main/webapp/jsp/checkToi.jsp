@@ -55,6 +55,8 @@
 				%>
 				<tr>
 				<td>deadlink</td>
+				<td><%= s[1] %></td>
+				<td><%= s[2] %></td>
 				</tr>
 		<%
 			} else {
