@@ -297,12 +297,13 @@ public final class AnswerSum extends AnswerSumFactory {
 
 	}
 	public Optional<Member> getMember(){
-		Ref<Member> refMem = getRefMember();
-		Member member = null;
-		if(refMem!=null) {
-			member=refMem.get();
+		Optional<Ref<Member>> optRefMem = Optional.ofNullable(getRefMember());
+		Optional<Member> optMem =null; 
+		if(optRefMem.isPresent()) {
+			optMem=Optional.ofNullable(optRefMem.get().get());
 		}
-		return Optional.ofNullable(member); 
+		
+		return optMem; 
 	}
 
 }

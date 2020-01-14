@@ -1,3 +1,4 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.AnswerSum"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
@@ -18,64 +19,53 @@
 	<%
 	ArrayList<String[]> list = 
 			(ArrayList<String[]>)request.getAttribute("list");
-	Toi t=
-			(Toi)request.getAttribute("t");
+	AnswerSum answerSum=
+			(AnswerSum)request.getAttribute("answerSum");
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
 	
-<H1>試験に関するチェック</H1>
+<H1>解答に関するチェック</H1>
 	<%
 	if (list == null || list.size() == 0) {
 	%>
-	試験が登録されていません
+	解答が登録されていません
 	<%
 		} else {
 	%>
-	<p>Toi id=<%=t.getId() %></p>
-	<p>Toi name=<%=t.getName() %></p>
-	
-	<p>Exam id=<%=t.getExamId() %></p>
-	<p>Exam id=<%=t.getExam().getId() %></p>
-	<p>Genre id=<%=t.getRefGenre().get().getId() %></p>
-	<p>Genre name=<%=t.getRefGenre().get().getName() %></p>
-	
+	<p>AnswerSum id=<%=answerSum.getId() %></p>
 	<TABLE border=1>
 		<TR>
-			<TD>answerSum id</TD>
-						<TD>answerSum check</TD>
-			
-			<TD>answerSum created</TD>
-			<TD>link Toi</TD>
-			<TD>answerSum toiのid</TD>
+			<TD>answer id</TD>
+			<TD>answer 作成日付</TD>
+			<TD>answer no</TD>
+			<TD>answer name</TD>
+			<TD>answer answers</TD>
+			<TD>answer answerAumId</TD>
 		</TR>
+			
 		<%
 		for (String[]  s : list) {
-			if(s[0]==null){
+			if(s[0] == null){
 				%>
 				<tr>
-				<td>deadlink</td>
+					<td><%=s[0]%></td>
 				</tr>
-		<%
+				<%
+				
 			} else {
-				String answerSumAndToi="<-->";
-				if(s[1].equals("null")){
-					 answerSumAndToi="->";
-				}
-			
 		%>
 		<tr>
 			<td><%=s[0]%></td>
-						<td><a href="/admin/check/answerSum?answerSumId=<%=s[0]%>">check</a></td>
-			
-			<td><%=s[6]%></td>
-			<td><%=answerSumAndToi%></td>
+			<td><%=s[1]%></td>
 			<td><%=s[2]%></td>
-
+			<td><%=s[3]%></td>
+			<td><%=s[4]%></td>
+			<td><%=s[5]%></td>
 		</tr>
 		<%
 			}
-			}
+		}
 		%>
 	</TABLE>
 	<%

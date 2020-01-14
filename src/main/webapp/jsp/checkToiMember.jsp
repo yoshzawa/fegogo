@@ -43,35 +43,42 @@
 	<TABLE border=1>
 		<TR>
 			<TD>answerSum id</TD>
-						<TD>answerSum check</TD>
-			
+			<TD>answerSum check</TD>
 			<TD>answerSum created</TD>
 			<TD>link Toi</TD>
 			<TD>answerSum toiのid</TD>
+			<TD>answerSum memberId</TD>
+			<TD>link Member</TD>
+			<TD>answerSum memberのanswerSumlistに含まれる</TD>
 		</TR>
 		<%
 		for (String[]  s : list) {
-			if(s[0]==null){
+			if(s[0].equals("null")){
 				%>
 				<tr>
 				<td>deadlink</td>
-				</tr>
+		</tr>
 		<%
 			} else {
 				String answerSumAndToi="<-->";
 				if(s[1].equals("null")){
 					 answerSumAndToi="->";
 				}
+				String answerSumAndMember="<-->";
+				if(s[4].equals("null")){
+					answerSumAndMember="-><a href='/admin/delete/toi?toiId="+t.getId()+"&answerSumId="+s[0]+"'>delete answerSum</a>";
+				}
 			
 		%>
 		<tr>
 			<td><%=s[0]%></td>
-						<td><a href="/admin/check/answerSum?answerSumId=<%=s[0]%>">check</a></td>
-			
+			<td><a href="/admin/check/answerSum?answerSumId=<%=s[0]%>">check</a></td>
 			<td><%=s[6]%></td>
 			<td><%=answerSumAndToi%></td>
 			<td><%=s[2]%></td>
-
+			<td><%=s[3]%></td>
+			<td><%=answerSumAndMember%></td>
+			<td><%=s[5]%></td>
 		</tr>
 		<%
 			}

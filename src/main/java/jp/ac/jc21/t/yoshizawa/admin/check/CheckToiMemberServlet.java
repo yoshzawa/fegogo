@@ -25,14 +25,14 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 /**
  * Servlet implementation class AnswerExportServlet
  */
-@WebServlet("/admin/check/toi")
-public class CheckToiServlet extends HttpServlet {
+@WebServlet("/admin/check/toiMember")
+public class CheckToiMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckToiServlet() {
+    public CheckToiMemberServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,7 +42,7 @@ public class CheckToiServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/csv; charset=Windows-31J");
+//		response.setContentType("text/csv; charset=Windows-31J");
 //		PrintWriter out = response.getWriter();
 		
 		String keyString = request.getParameter("toiId");
@@ -57,15 +57,27 @@ public class CheckToiServlet extends HttpServlet {
 
 			if(answerSum == null) {
 				String[] s = new String[1];
-				s[0]=null;
+				s[0]="null";
 				list.add(s);
 			}else {
 				String[] s = new String[7];
 				s[0]=answerSum.getId().toString();
 				s[1]=answerSum.getRefToi().toString();
 				s[2]=answerSum.getRefToi().get().getId().toString();
-
+				s[3]=answerSum.getMemberId();
+				Member member = null;
+				if(answerSum.getRefMember()!=null) {
+					member=answerSum.getRefMember().get();
+				}
 				
+				if(member==null) {
+					s[5]="null";
+					s[4]="null";
+				}else {
+					s[4]=member.toString();
+					List<AnswerSum> answerSumList = member.getAnswerSumList();
+					s[5]=answerSumList.contains(answerSum)+"";
+				}
 				s[6]=answerSum.getDateString(answerSum.getAnswered());
 				list.add(s);
 				
@@ -76,7 +88,7 @@ public class CheckToiServlet extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("t", t);
 		
-		request.getRequestDispatcher("/jsp/checkToi.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/checkToiMember.jsp").forward(request, response);
 	}
 
 }
