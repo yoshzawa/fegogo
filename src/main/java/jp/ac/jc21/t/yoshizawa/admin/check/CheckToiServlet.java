@@ -58,23 +58,31 @@ public class CheckToiServlet extends HttpServlet {
 		
 		for(Ref<AnswerSum> refAnswerSum : answerSumRefList) {
 			AnswerSum answerSum = refAnswerSum.get();
-			
-					
-			String[] s = new String[6];
-			s[0]=answerSum.getId().toString();
-			s[1]=answerSum.getRefToi().toString();
-			s[2]=answerSum.getRefToi().get().getId().toString();
-			s[3]=answerSum.getMemberId();
-			Member member = answerSum.getRefMember().get();
-			if(member==null) {
-				s[5]="null";
-				s[4]="null";
+
+			if(answerSum == null) {
+				String[] s = new String[1];
+				s[0]="null";
+				list.add(s);
 			}else {
-				s[4]=member.toString();
-				List<AnswerSum> answerSumList = member.getAnswerSumList();
-				s[5]=answerSumList.contains(answerSum)+"";
+				String[] s = new String[7];
+				s[0]=answerSum.getId().toString();
+				s[1]=answerSum.getRefToi().toString();
+				s[2]=answerSum.getRefToi().get().getId().toString();
+				s[3]=answerSum.getMemberId();
+				Member member = answerSum.getRefMember().get();
+				if(member==null) {
+					s[5]="null";
+					s[4]="null";
+				}else {
+					s[4]=member.toString();
+					List<AnswerSum> answerSumList = member.getAnswerSumList();
+					s[5]=answerSumList.contains(answerSum)+"";
+				}
+				s[6]=answerSum.getDateString(answerSum.getAnswered());
+				list.add(s);
+				
 			}
-			list.add(s);
+					
 		}
 		
 		request.setAttribute("list", list);
