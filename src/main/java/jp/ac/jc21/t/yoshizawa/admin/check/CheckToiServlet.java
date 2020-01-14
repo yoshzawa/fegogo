@@ -48,11 +48,7 @@ public class CheckToiServlet extends HttpServlet {
 		String keyString = request.getParameter("toiId");
 		Toi t =Toi.getById(Long.parseLong(keyString));
 		
-
-		
 		List<Ref<AnswerSum>> answerSumRefList = t.getAnswerSumRefList();
-		
-		
 		
 		ArrayList<String[]> list = new ArrayList<>();
 		
