@@ -298,14 +298,28 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 	public Optional<Member> getMember(){
 		Optional<Ref<Member>> optRefMem = Optional.ofNullable(getRefMember());
-		Optional<Member> optMem =null; 
-		if(optRefMem.isPresent()) {
-			optMem=Optional.ofNullable(optRefMem.get().get());
-		}else {
-			optMem=Optional.ofNullable(null);
-		}
-		
+//		Optional<Member> optMem =Optional.ofNullable(null); 
+//		if(optRefMem.isPresent()) {
+//			optMem=Optional.ofNullable(optRefMem.get().get());
+//		}else {
+//			optMem=Optional.ofNullable(null);
+//		}
+
+		Optional<Member> optMem = optRefMem.map(refMem -> refMem.get());
 		return optMem; 
 	}
+	public Optional<Toi> getToi(){
+		Optional<Ref<Toi>> optRefToi = Optional.ofNullable(getRefToi());
+		Optional<Toi> optToi =null;
+		if(optRefToi.isPresent()) {
+			optToi = Optional.ofNullable(optRefToi.get().get());
+		}else {
+//			optToi = Optional.ofNullable(null);
+			optToi = Optional.empty();
+		}
+		return optToi;
+		
+	}
+	
 
 }

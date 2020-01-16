@@ -1,3 +1,5 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.*"%>
+<%@page import="java.util.Optional"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.AnswerSum"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.Map"%>
@@ -21,6 +23,19 @@
 			(ArrayList<String[]>)request.getAttribute("list");
 	AnswerSum answerSum=
 			(AnswerSum)request.getAttribute("answerSum");
+	
+	Optional<Member> member =
+	(Optional<Member>)request.getAttribute("member");
+	String memberId=null;
+	if(member.isPresent()){
+		memberId =member.get().geteMail();
+	}
+	Optional<Toi> toi= 
+	(Optional<Toi>)request.getAttribute("toi");
+	String toiId = null;
+	if(toi.isPresent()){
+		toiId =toi.get().getId().toString();
+	}
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
@@ -34,6 +49,9 @@
 		} else {
 	%>
 	<p>AnswerSum id=<%=answerSum.getId() %></p>
+	<p>Member id=<%=answerSum.getMemberId() %> -> <%=memberId %></p>
+	<p>Toi id=<%= answerSum.getToiId()%> -> <%=toiId %></p>
+	
 	<TABLE border=1>
 		<TR>
 			<TD>answer id</TD>
@@ -49,7 +67,9 @@
 			if(s[0] == null){
 				%>
 				<tr>
+					<td><%=s[1]%></td>
 					<td><%=s[0]%></td>
+					<td><%=s[2]%></td>
 				</tr>
 				<%
 				

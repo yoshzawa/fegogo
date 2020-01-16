@@ -20,6 +20,7 @@ import com.googlecode.objectify.Ref;
 import jp.ac.jc21.t.yoshizawa.objectify.Answer;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 /**
@@ -49,8 +50,11 @@ public class CheckAnswerSumServlet extends HttpServlet {
 //		Exam e =Exam.getById(Long.parseLong(keyString));
 		AnswerSum answerSum = AnswerSum.getById(Long.parseLong(keyString));
 		
-		answerSum.getRefMember();
-		answerSum.getRefToi();
+		Optional<Member> member = answerSum.getMember();
+		request.setAttribute("member", member);
+		Optional<Toi> toi= answerSum.getToi();
+		request.setAttribute("toi", toi);
+		
 		
 		Map<String, Ref<Answer>> answerMap = answerSum.getMapRefAnswer();
 		
@@ -60,20 +64,23 @@ public class CheckAnswerSumServlet extends HttpServlet {
 			Ref<Answer> refAnswer = answerMap.get(key); 
 			Answer answer = refAnswer.get();
 			if(answer == null) {
-				String[] s = new String[1];
+				String[] s = new String[3];
 				s[0]=null;
+				s[1]=refAnswer.getKey().getId()+"";
+				s[2]=key;
 				list.add(s);
 			}else {
 				String[] s = new String[6];
 				s[0]=answer.getId().toString();
-				s[1]=answer.getDateString(answer.getAnswered()).toString();
+				s[1]=Answer.getDateString(answer.getAnswered());
 				s[2]=answer.getNo().toString();
 				s[3]=answer.getName();
 				s[4]=answer.getAnswers();
 				
 				s[5]=null;
-				Optional<Ref<AnswerSum>> refASum = Optional.ofNullable(answer.getRefAnswerSum());
-				Optional<AnswerSum> aSum = Optional.ofNullable(refASum.get().get());
+//				Optional<Ref<AnswerSum>> refASum = Optional.ofNullable(answer.getRefAnswerSum());
+//				Optional<AnswerSum> aSum = Optional.ofNullable(refASum.get().get());
+				Optional<AnswerSum> aSum=answer.getAnswerSum();
 				if(aSum.isPresent()) {
 					s[5]=aSum.get().getId().toString();
 				}
