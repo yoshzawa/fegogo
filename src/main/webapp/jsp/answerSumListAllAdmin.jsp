@@ -1,3 +1,4 @@
+<%@page import="java.util.Optional"%>
 <%@page import="com.googlecode.objectify.Ref"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -22,8 +23,8 @@
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
-	
-<H1>登録されている解答の一覧</H1>
+
+	<H1>登録されている解答の一覧</H1>
 	<%
 		if (answerSumList == null || answerSumList.size() == 0) {
 	%>
@@ -53,50 +54,50 @@
 				Ref<Member> member=as.getRefMember();
 		%>
 		<tr>
-			<td><%= as.getId() %>
-			<% if(member != null){%>
-			<br /><a href="/admin/answerSum/delete?memberId=<%= member.get().geteMail() %>&AnswerSumId=<%= as.getId()%>">delete</a>
-						<% }%>
-			</td>
+			<td><%= as.getId() %> <% if((member != null)&&( member.get() != null)){%>
+				<br />
+			<a
+				href="/admin/answerSum/delete?memberId=<%= member.get().geteMail() %>&AnswerSumId=<%= as.getId()%>">delete</a>
+				<% }%></td>
 			<td><%= as.getName() %></td>
 			<td><%= as.getNoOfAnswer() %></td>
 			<td><%= as.getNoOfSeikai() %></td>
 			<td><%= sdf.format(as.getAnswered()) %></td>
 			<td>
-				<% Map<String,Ref<Answer>> m = as.getMapRefAnswer(); %>
-				<% if(m != null){ %>
-				<% for(String k : m.keySet()){%>
-					<%= m.get(k).get().getId() %><br />
-				<% } %>
-				<%} %>
+				<% Map<String,Ref<Answer>> m = as.getMapRefAnswer(); %> <% if(m != null){ %>
+				<% for(String k : m.keySet()){%> <%= m.get(k).get().getId() %><br />
+				<% } %> <%} %>
 			</td>
 			<td>
-				<%  if ((member == null )||(as.getRefMember().get().containsRef(as) == false)) {%>
-					<a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>
-					reChain</a>
-				<% } else {%>
-					<%= member.get().geteMail() %>
-				<% } %>
+				<%  
+				Optional<Ref<Member>> refMem = Optional.ofNullable( as.getRefMember());
+				boolean contain=false;
+				if(refMem.isPresent()==true){
+					Optional<Member> mem = Optional.ofNullable(refMem.get().get());
+					if(mem.isPresent()){
+						 contain = mem.get().containsRef(as);
+					}
+				}
+				if ((member == null )||(contain == false)) {%>
+				<a
+				href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>
+					reChain</a> <% } else {%> <%= member.get().geteMail() %> <% } %>
 			</td>
-				<%  if ((toi!=null)&&(toi.getExam() != null )) {%>		
+			<%  if ((toi!=null)&&(toi.getExam() != null )) {%>
 			<td><%=toi.getExam().getName()%></td>
-				<% } else {%>
+			<% } else {%>
 			<td>null</td>
-				<% } %>
-				
-				<%  if ((toi!=null)) {%>		
+			<% } %>
+
+			<%  if ((toi!=null)) {%>
 			<td><%= toi.getNo() %></td>
-				<% } else {%>
+			<% } else {%>
 			<td>null</td>
-				<% } %>
+			<% } %>
 			<td>
-				<% if ((toi != null ) ){%>
-				<%= toi.getName() %>
-				<% } else {%>
-			null
-				<% } %>
-				<% if ((toi != null ) && (toi.containsAnswerSum(as) == false)){%>
-					<a href='/admin/toi/addAnswerSum?toiId=<%= toi.getId() %>&answerSumId=<%= as.getId() %>'>addAnswerSum</a>
+				<% if ((toi != null ) ){%> <%= toi.getName() %> <% } else {%> null <% } %>
+				<% if ((toi != null ) && (toi.containsAnswerSum(as) == false)){%> <a
+				href='/admin/toi/addAnswerSum?toiId=<%= toi.getId() %>&answerSumId=<%= as.getId() %>'>addAnswerSum</a>
 				<%} %>
 			</td>
 		</tr>
@@ -111,5 +112,5 @@
 	<hr />
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>

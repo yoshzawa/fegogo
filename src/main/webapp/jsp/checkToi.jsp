@@ -54,9 +54,11 @@
 			if(s[0]==null){
 				%>
 				<tr>
-				<td>deadlink</td>
-				<td><%= s[1] %></td>
-				<td><%= s[2] %></td>
+				<td><%= s[1] %><br>
+				deadlink</td>
+				<td><a href="/admin/delete/toiDeadLink?toiId=<%= t.getId() %>&answerSumId=<%= s[1] %>">delete link</a></td>
+				<td>null</td>
+				<td><-</td>
 				</tr>
 		<%
 			} else {

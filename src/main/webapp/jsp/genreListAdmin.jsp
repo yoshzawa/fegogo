@@ -52,8 +52,8 @@
 				<%
 					for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
 									if ((as != null)&&(as.get() != null)) {
-										AnswerSum a = as.get();
 										String eMail = "null";
+										AnswerSum a = as.get();
 										Optional<Member> opt = a.getMember();
 										if (opt.isPresent()) {
 											Member m = opt.get();

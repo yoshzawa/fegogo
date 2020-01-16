@@ -301,6 +301,8 @@ public final class AnswerSum extends AnswerSumFactory {
 		Optional<Member> optMem =null; 
 		if(optRefMem.isPresent()) {
 			optMem=Optional.ofNullable(optRefMem.get().get());
+		}else {
+			optMem=Optional.ofNullable(null);
 		}
 		
 		return optMem; 
