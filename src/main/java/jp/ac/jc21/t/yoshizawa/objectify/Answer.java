@@ -5,6 +5,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.googlecode.objectify.Ref;
@@ -292,6 +293,12 @@ public final class Answer extends AnswerFactory {
 		return getId() + "," + getNo() + "," + getName() + "," + getDateString(getAnswered()) + "," + getAnswerSumId()
 				+ "," + getQuestionId() + "," + getAnswers();
 
+	}
+
+	public Optional<AnswerSum> getAnswerSum() {
+		Optional<Ref<AnswerSum>> refASum = Optional.ofNullable(getRefAnswerSum());
+		Optional<AnswerSum> aSum = Optional.ofNullable(refASum.get().get());
+		return aSum;
 	}
 
 	
