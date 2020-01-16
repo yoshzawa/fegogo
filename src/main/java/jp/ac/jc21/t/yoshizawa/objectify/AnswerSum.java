@@ -305,7 +305,7 @@ public final class AnswerSum extends AnswerSumFactory {
 //			optMem=Optional.ofNullable(null);
 //		}
 
-		Optional<Member> optMem = optRefMem.map(h -> h.get());
+		Optional<Member> optMem = optRefMem.map(refMem -> refMem.get());
 		return optMem; 
 	}
 	public Optional<Toi> getToi(){
