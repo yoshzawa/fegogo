@@ -60,8 +60,10 @@ public class CheckAnswerSumServlet extends HttpServlet {
 			Ref<Answer> refAnswer = answerMap.get(key); 
 			Answer answer = refAnswer.get();
 			if(answer == null) {
-				String[] s = new String[1];
+				String[] s = new String[3];
 				s[0]=null;
+				s[1]=refAnswer.getKey().getId()+"";
+				s[2]=key;
 				list.add(s);
 			}else {
 				String[] s = new String[6];
