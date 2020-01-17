@@ -24,11 +24,13 @@
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
 	
-<H1>試験に関するチェック</H1>
+<H1>問に関するチェック</H1>
+<a href="/admin/check/toi?toiId=<%=t.getId() %>">問とリンク</a>　問と学生のリンク
+
 	<%
 	if (list == null || list.size() == 0) {
 	%>
-	試験が登録されていません
+	問が登録されていません
 	<%
 		} else {
 	%>
