@@ -65,7 +65,7 @@ public class DeleteToiServlet extends HttpServlet {
 			t.save();
 		}
 		
-		response.sendRedirect("/admin/check/toi?toiId="+toiKeyString);
+		response.sendRedirect("/admin/check/toiMember?toiId="+toiKeyString);
 
 		
 
