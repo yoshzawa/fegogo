@@ -36,9 +36,8 @@
 	<p>Toi id=<%=t.getId() %></p>
 	<p>Toi name=<%=t.getName() %></p>
 	
-	<p>Exam id=<%=t.getExamId() %></p>
-	<p>Exam id=<%=t.getExam().getId() %></p>
-	<p>Genre id=<%=t.getRefGenre().get().getId() %></p>
+	<p>Exam id=<%=t.getExamId() %> -> <%=t.getExam().getId() %></p>
+	<p>Genre id=<%=t.getGenreId() %> -> <%=t.getRefGenre().get().getId() %></p>
 	<p>Genre name=<%=t.getRefGenre().get().getName() %></p>
 	
 	<TABLE border=1>
