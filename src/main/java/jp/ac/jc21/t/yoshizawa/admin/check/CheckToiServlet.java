@@ -42,7 +42,7 @@ public class CheckToiServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/csv; charset=Windows-31J");
+//		response.setContentType("text/csv; charset=Windows-31J");
 //		PrintWriter out = response.getWriter();
 		
 		String keyString = request.getParameter("toiId");
@@ -72,7 +72,7 @@ public class CheckToiServlet extends HttpServlet {
 				s[2]=answerSum.getRefToi().get().getId().toString();
 
 				
-				s[6]=answerSum.getDateString(answerSum.getAnswered());
+				s[6]=AnswerSum.getDateString(answerSum.getAnswered());
 				list.add(s);
 				
 			}
