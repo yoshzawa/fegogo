@@ -122,7 +122,7 @@ public final class Member extends MemberFactory {
 	}
 	public boolean containsRefAnswerSum(Ref<AnswerSum> RefAnsSummary, List<Ref<AnswerSum>> l) {
 		boolean b = false;
-		l.contains(RefAnsSummary);
+		b=l.contains(RefAnsSummary);
 		return b;
 	}
 
