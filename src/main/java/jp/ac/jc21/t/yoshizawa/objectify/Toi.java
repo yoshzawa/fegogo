@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
@@ -131,10 +132,19 @@ public final class Toi extends ToiFactory {
 	/**
 	 * @return the parent
 	 */
+	
 	public Exam getExam() {
 
 		Ref<Exam> re = parent;
 		return re.get();
+
+	}
+	
+	public Optional<Exam> getOptExam() {
+
+		Optional<Ref<Exam>> optReExam = Optional.ofNullable(parent);
+		Optional<Exam> optExam = optReExam.map(reExam -> reExam.get());
+		return optExam;
 
 	}
 

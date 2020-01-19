@@ -320,6 +320,9 @@ public final class AnswerSum extends AnswerSumFactory {
 		return optToi;
 		
 	}
-	
+	public boolean containAnswer(Long answerId) {
+		Ref<Answer> rAns=Ref.create(Key.create(Answer.class,answerId));
+		return getMapRefAnswer().values().contains(rAns);
+	}
 
 }

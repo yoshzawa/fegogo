@@ -3,18 +3,18 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
-import java.text.SimpleDateFormat;
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
 import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.*;
-
-import jp.ac.jc21.t.yoshizawa.AnswerServlet;
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
+import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * @author t.yoshizawa

@@ -3,16 +3,18 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
-import java.text.SimpleDateFormat;
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.util.Date;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.*;
-
-import static com.googlecode.objectify.ObjectifyService.ofy;
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * @author t.yoshizawa
@@ -199,7 +201,7 @@ public final class Answer extends AnswerFactory {
 	 */
 
 	public boolean isCorrect() {
-		final Logger log = getLogger();
+//		final Logger log = getLogger();
 
 		int[] answerArray = getAnswerArray();
 		Question question = getRefQuestion().get();
@@ -299,6 +301,14 @@ public final class Answer extends AnswerFactory {
 		Optional<Ref<AnswerSum>> refASum = Optional.ofNullable(getRefAnswerSum());
 		Optional<AnswerSum> aSum = Optional.ofNullable(refASum.get().get());
 		return aSum;
+	}
+
+	public Optional<Question> getOptQuestion() {
+		
+		Optional<Ref<Question>> optRefQ = Optional.ofNullable(getRefQuestion());
+		Optional<Question> optQ = optRefQ.map(q -> q.get());
+		
+		return optQ;
 	}
 
 	

@@ -239,4 +239,8 @@ public final class Question extends QuestionFactory {
 		getAnswers();
 
 	}
+	public boolean containAnswer(Long answerId) {
+		Ref<Answer> rAns=Ref.create(Key.create(Answer.class,answerId));
+		return false;
+	}
 }
