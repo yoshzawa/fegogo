@@ -20,9 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.api.taskqueue.Queue;
-import com.google.appengine.api.taskqueue.QueueFactory;
-import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -83,7 +80,7 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 
 		List<AnswerSum> answerSumList = AnswerSum.loadAll();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 		Date dateStart = new Date();
 		log.info(getServletName() + "[" + dateStart.toString() + "]START");

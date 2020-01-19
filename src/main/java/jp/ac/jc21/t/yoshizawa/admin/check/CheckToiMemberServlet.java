@@ -78,15 +78,17 @@ public class CheckToiMemberServlet extends HttpServlet {
 
 //				if (member == null) {
 				if(!mem.isPresent()) {
-					s[5] = "null";
 					s[4] = "null";
+					s[5] = "null";
 				} else {
 					Member member = mem.get();
 					s[4] = member.toString();
-//					List<AnswerSum> answerSumList = member.getAnswerSumList();
-					List<Ref<AnswerSum>> refAnswerSumList = member.getRefAnswerSumList();
 
-					s[5] = refAnswerSumList.contains(Ref.create(new Key(AnswerSum.class,answerSum.getId()))) + "";
+					List<Ref<AnswerSum>> refAnswerSumList = member.getRefAnswerSumList();
+					Key<AnswerSum> key = Key.create(AnswerSum.class,answerSum.getId());
+					Ref<AnswerSum> refASum = Ref.create(key);
+					s[5]=refAnswerSumList.contains(refASum)+"";
+
 				}
 				s[6] = AnswerSum.getDateString(answerSum.getAnswered());
 				list.add(s);

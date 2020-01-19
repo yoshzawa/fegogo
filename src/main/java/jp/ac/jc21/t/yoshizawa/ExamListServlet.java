@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -68,7 +69,14 @@ public class ExamListServlet extends HttpServlet {
 					log.warning("toi==null email="+email);
 				}else {
 					String[] s = new String[6];
-					s[0] = toi.getExam().getName();
+					Optional<Exam> optExam = toi.getOptExam();
+					String examName ;
+					if(optExam.isPresent()) {
+						examName = optExam.get().getName();
+					}else {
+						examName = null;
+					}
+					s[0] = examName;
 					s[1] = toi.getNo().toString();
 					s[2] = toi.getRefGenre().get().getName();
 					s[3] = toi.getName();

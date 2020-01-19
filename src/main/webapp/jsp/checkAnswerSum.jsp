@@ -19,23 +19,21 @@
 <body>
 
 	<%
-	ArrayList<String[]> list = 
-			(ArrayList<String[]>)request.getAttribute("list");
-	AnswerSum answerSum=
-			(AnswerSum)request.getAttribute("answerSum");
-	
-	Optional<Member> member =
-	(Optional<Member>)request.getAttribute("member");
-	String memberId=null;
-	if(member.isPresent()){
-		memberId =member.get().geteMail();
-	}
-	Optional<Toi> toi= 
-	(Optional<Toi>)request.getAttribute("toi");
-	String toiId = null;
-	if(toi.isPresent()){
-		toiId =toi.get().getId().toString();
-	}
+		ArrayList<String[]> list = (ArrayList<String[]>) request.getAttribute("list");
+		AnswerSum answerSum = (AnswerSum) request.getAttribute("answerSum");
+
+		Optional<Member> member = (Optional<Member>) request.getAttribute("member");
+		String memberId = null;
+		String containMember = null;
+		if (member.isPresent()) {
+			memberId = member.get().geteMail();
+			containMember = member.get().containsRef(answerSum)+"";
+		}
+		Optional<Toi> toi = (Optional<Toi>) request.getAttribute("toi");
+		String toiId = null;
+		if (toi.isPresent()) {
+			toiId = toi.get().getId().toString();
+		}
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
@@ -49,7 +47,7 @@
 		} else {
 	%>
 	<p>AnswerSum id=<%=answerSum.getId() %></p>
-	<p>Member id=<%=answerSum.getMemberId() %> -> <%=memberId %></p>
+	<p>Member id=<%=answerSum.getMemberId() %> -> <%=memberId %>(contain AnswerRef:<%= containMember %>)</p>
 	<p>Toi id=<%= answerSum.getToiId()%> -> <%=toiId %></p>
 	
 	<TABLE border=1>

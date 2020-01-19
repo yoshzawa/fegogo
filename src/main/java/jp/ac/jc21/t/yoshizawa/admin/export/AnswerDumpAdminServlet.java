@@ -2,7 +2,6 @@ package jp.ac.jc21.t.yoshizawa.admin.export;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -19,11 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-
-import jp.ac.jc21.t.yoshizawa.AnswerServlet;
-import jp.ac.jc21.t.yoshizawa.objectify.*;
+import jp.ac.jc21.t.yoshizawa.objectify.Answer;
+import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 
 @SuppressWarnings("serial")
 

@@ -1,7 +1,8 @@
 package jp.ac.jc21.t.yoshizawa.admin.export;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -23,11 +24,7 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
-import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
-import jp.ac.jc21.t.yoshizawa.objectify.Toi;
-
-import static java.nio.charset.StandardCharsets.UTF_8;;
+import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;;
 
 /**
  * Servlet implementation class ExportTestServlet
@@ -66,7 +63,7 @@ public class MakeAnswerSumCSVServlet extends HttpServlet {
 		
 		List<AnswerSum> answerSumList = AnswerSum.loadAll();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 		Date dateStart = new Date();
 		log.info(getServletName() + "[" + dateStart.toString() + "]START");

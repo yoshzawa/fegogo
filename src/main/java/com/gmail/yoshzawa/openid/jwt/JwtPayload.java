@@ -134,7 +134,7 @@ public final class JwtPayload {
 		this.preferred_username = preferredUsername;
 	}
 	
-	private Date epochToDate(String s){
+/*	private Date epochToDate(String s){
 		try{
 		Long l = Long.parseLong(s);
 		l*=1000;
@@ -143,5 +143,5 @@ public final class JwtPayload {
 			return null;
 		}
 	}
-
+*/
 }
