@@ -69,16 +69,17 @@
 				<% } %> <%} %>
 			</td>
 			<td>
-				<%  
-				Optional<Ref<Member>> refMem = Optional.ofNullable( as.getRefMember());
-				boolean contain=false;
-				if(refMem.isPresent()==true){
-					Optional<Member> mem = Optional.ofNullable(refMem.get().get());
-					if(mem.isPresent()){
-						 contain = mem.get().containsRef(as);
-					}
-				}
-				if ((member == null )||(contain == false)) {%>
+				<%
+					Optional<Ref<Member>> refMem = Optional.ofNullable( as.getRefMember());
+						boolean contain=false;
+						if(refMem.isPresent()==true){
+							Optional<Member> mem = Optional.ofNullable(refMem.get().get());
+							if(mem.isPresent()){
+								 contain = mem.get().containsRefAnswerSum(as);
+							}
+						}
+						if ((member == null )||(contain == false)) {
+				%>
 				<a
 				href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>
 					reChain</a> <% } else {%> <%= member.get().geteMail() %> <% } %>

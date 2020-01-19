@@ -20,20 +20,20 @@
 
 	<%
 		ArrayList<String[]> list = (ArrayList<String[]>) request.getAttribute("list");
-		AnswerSum answerSum = (AnswerSum) request.getAttribute("answerSum");
+			AnswerSum answerSum = (AnswerSum) request.getAttribute("answerSum");
 
-		Optional<Member> member = (Optional<Member>) request.getAttribute("member");
-		String memberId = null;
-		String containMember = null;
-		if (member.isPresent()) {
-			memberId = member.get().geteMail();
-			containMember = member.get().containsRef(answerSum)+"";
-		}
-		Optional<Toi> toi = (Optional<Toi>) request.getAttribute("toi");
-		String toiId = null;
-		if (toi.isPresent()) {
-			toiId = toi.get().getId().toString();
-		}
+			Optional<Member> member = (Optional<Member>) request.getAttribute("member");
+			String memberId = null;
+			String containMember = null;
+			if (member.isPresent()) {
+		memberId = member.get().geteMail();
+		containMember = member.get().containsRefAnswerSum(answerSum)+"";
+			}
+			Optional<Toi> toi = (Optional<Toi>) request.getAttribute("toi");
+			String toiId = null;
+			if (toi.isPresent()) {
+		toiId = toi.get().getId().toString();
+			}
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
