@@ -47,7 +47,7 @@ public abstract class ExamFactory extends CommonEntity {
 		return ofy().load().type(Exam.class).filterKey(k).first().now();
 	}
 	public static Optional<Exam> getByToi(Toi toi) {
-		Key<Exam> key = Key.create(Exam.class,toi.getId());
+		Key<Exam> key = Key.create(Exam.class,toi.getExam().getId());
 		return Optional.ofNullable(getById(key));
 	}
 }

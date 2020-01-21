@@ -17,107 +17,208 @@
 <body>
 
 	<%
-	Optional<Answer> optAnswer =
-	(Optional<Answer>)request.getAttribute("optAnswer");
-	
-	// answer -> answerSum
-	Optional<AnswerSum> optAnswerSum = (Optional<AnswerSum> )
-	request.getAttribute("optAnswerSum");
+		Optional<Answer> optAnswer = (Optional<Answer>) request.getAttribute("optAnswer");
 
-	// answer -> answerSum
-	Optional<AnswerSum> optAnswerSumReal = (Optional<AnswerSum> )
-	request.getAttribute("optAnswerSumReal");
+		// answer -> answerSum
+		Optional<AnswerSum> optAnswerSum = (Optional<AnswerSum>) request.getAttribute("optAnswerSum");
 
-	// answer -> Question
-	Optional<Question> optQuestion = 
-	(Optional<Question>)request.getAttribute("optQuestion");
-	
-	// answer -> Question
-	Optional<Question> optQuestionReal = 
-	(Optional<Question>)request.getAttribute("optQuestionReal");
-	
-	// answer -> answerSum -> toi
-		Optional<Toi> optToi=(Optional<Toi> )
-		request.getAttribute("optToi");
-		Optional<Toi> optToiReal=(Optional<Toi> )
-		request.getAttribute("optToiReal");
+		// answer -> answerSum
+		Optional<AnswerSum> optAnswerSumReal = (Optional<AnswerSum>) request.getAttribute("optAnswerSumReal");
 
-		Optional<Exam> optExam = (Optional<Exam>)
-		request.getAttribute("optExam");
+		// answer -> Question
+		Optional<Question> optQuestion = (Optional<Question>) request.getAttribute("optQuestion");
 
-		Optional<Exam> optExamReal = (Optional<Exam>)
-		request.getAttribute("optExamReal");
-		
-	
+		// answer -> Question
+		Optional<Question> optQuestionReal = (Optional<Question>) request.getAttribute("optQuestionReal");
+
+		// answer -> answerSum -> toi
+		Optional<Toi> optToi = (Optional<Toi>) request.getAttribute("optToi");
+		Optional<Toi> optToiReal = (Optional<Toi>) request.getAttribute("optToiReal");
+
+		Optional<Exam> optExam = (Optional<Exam>) request.getAttribute("optExam");
+
+		Optional<Exam> optExamReal = (Optional<Exam>) request.getAttribute("optExamReal");
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
-	
-<H1>解答詳細に関するチェック</H1>
+
+	<H1>解答詳細に関するチェック</H1>
 	<%
-	if (!optAnswer.isPresent()) {
+		if (!optAnswer.isPresent()) {
 	%>
 	解答詳細が登録されていません
 	<%
 		} else {
 	%>
 	<table border="1">
-	<tr>
-	<td>Answer id</td><td><%= optAnswer.get().getId() %></td>
-	<td>Answer date</td><td><%= Answer.getDateString( optAnswer.get().getAnswered()) %></td>
-	
-	</tr>
-	</table>
+		<tr>
+			<th>Exam</th>
+			<th>Toi</th>
+			<th>AnswerSum</th>
+			<th>Answer</th>
+		</tr>
+		<tr>
+		<td>
 
-	<table border="1">
-	<tr>	<td>answer->AnswerSumへのリンク</td><td><%= optAnswerSum.get().getId() %></td>	</tr>
-	<% if(optAnswerSumReal.isPresent()){%>
-	<tr>	<td>AnswerSum確認 </td><td>存在する（ID=<%= optAnswerSumReal.get().getId() %>)</td>	</tr>
-	<tr>	<td>AnswerSum.mapAnswerに含まれる </td><td><%= optAnswerSumReal.get().containAnswer(optAnswer.get().getId()) %></td>	</tr>
-	<% } else {%>
-	<tr> 	<td>AnswerSum確認 </td><td>存在しない</td>	</tr>
-	<% }%>
-	</table>
-	
-	<table border="1">
-	<tr>	<td>answer->Questionへのリンク</td><td><%= optQuestion.get().getId() %></td>	</tr>
-	<% if(optQuestionReal.isPresent()){%>
-	<tr>	<td>Question確認</td><td><%= optQuestionReal.get().getId() %></td>	</tr>
-	
-	<% } else {%>
-	<tr>	<td>Question確認</td><td>存在しない</td>	</tr>
-	<% }%>
-	</table>
+			// Exam
+			<table border="1">
+				<tr>
+					<td>exam <- toi へのリンク</td>
+					<td><%=optExam.get().getId()%><br />
+					<a
+						href="/admin/check/exam?examId=<%=optExam.get().getId()%>">check</a></td>
 
-	<table border="1">
-	<tr>	<td>answer -> answerSum -> toiへのリンク</td><td><%= optToi.get().getId() %></td>	</tr>
-	<% if(optToiReal.isPresent()){%>
-	<tr>	<td>toi確認</td><td><%= optToiReal.get().getId() %></td>	</tr>
-	<tr>	<td>toi.mapAnswerに含まれる </td><td><%= optToiReal.get().containAnswer(optAnswerSum.get().getId()) %></td>	</tr>
-	
-	<% } else {%>
-	<tr>	<td>toi確認</td><td>存在しない</td>	</tr>
-	<% }%>
-	</table>
+				</tr>
+				<%
+					if (optExamReal.isPresent()) {
+				%>
+				<tr>
+					<td>Exam確認</td>
+					<td>存在する(id=<%=optExamReal.get().getId()%>)
+					</td>
+				</tr>
+				<tr>
+					<td>Exam.toiRefListに含まれる</td>
+					<td><%=optExamReal.get().containAnswer(optToi.get().getId())%></td>
+				</tr>
 
-	<table border="1">
-	<tr>	<td>answer -> answerSum -> toi -> examへのリンク</td><td><%= optExam.get().getId() %></td>	</tr>
-	<% if(optExamReal.isPresent()){%>
-	<tr>	<td>Exam確認</td><td><%= optExamReal.get().getId() %></td>	</tr>
-	<tr>	<td>Exam.mapAnswerに含まれる </td><td><%= optExamReal.get().containAnswer(optToi.get().getId()) %></td>	</tr>
-	
-	<% } else {%>
-	<tr>	<td>Exam確認</td><td>存在しない</td>	</tr>
-	<% }%>
-	</table>
+				<%
+					} else {
+				%>
+				<tr>
+					<td>Exam確認</td>
+					<td>存在しない</td>
+				</tr>
+				<%
+					}
+				%>
+			</table>
+		</td>
+		<td>
 
 
-	<%
+			// Toi
+
+			<table border="1">
+				<tr>
+					<td>toi <- answerSum へのリンク</td>
+					<td><%=optToi.get().getId()%><br />
+					<a href="/admin/check/toi?toiId=<%=optToi.get().getId()%>">check</a></td>
+				</tr>
+				<%
+					if (optToiReal.isPresent()) {
+				%>
+				<tr>
+					<td>toi確認</td>
+					<td>存在する(id=<%=optToiReal.get().getId()%>)
+					</td>
+				</tr>
+				<tr>
+					<td>toi.AnswerSumRefListに含まれる</td>
+					<td><%=optToiReal.get().containAnswer(optAnswerSum.get().getId())%></td>
+				</tr>
+
+				<%
+					} else {
+				%>
+				<tr>
+					<td>toi確認</td>
+					<td>存在しない</td>
+				</tr>
+				<%
+					}
+				%>
+			</table>
+		</td>
+		<td>
+			// AnswerSum
+
+			<table border="1">
+				<tr>
+					<td>AnswerSum <- answerへのリンク</td>
+					<td><%=optAnswerSum.get().getId()%><br />
+					<a
+						href="/admin/check/answerSum?answerSumId=<%=optAnswerSum.get().getId()%>">check</a></td>
+				</tr>
+				<%
+					if (optAnswerSumReal.isPresent()) {
+				%>
+				<tr>
+					<td>AnswerSum確認</td>
+					<td>存在する（ID=<%=optAnswerSumReal.get().getId()%>)
+					</td>
+				</tr>
+				<tr>
+					<td>AnswerSum.mapAnswerに含まれる</td>
+					<td><%=optAnswerSumReal.get().containAnswer(optAnswer.get().getId())%></td>
+				</tr>
+				<%
+					} else {
+				%>
+				<tr>
+					<td>AnswerSum確認</td>
+					<td>存在しない</td>
+				</tr>
+				<%
+					}
+				%>
+			</table>
+		</td>
+		<td>
+
+			// Answer
+			<table border="1">
+				<tr>
+					<td>Answer id</td>
+					<td><%=optAnswer.get().getId()%></td>
+				</tr>
+				<tr>
+					<td>Answer date</td>
+					<td><%=Answer.getDateString(optAnswer.get().getAnswered())%></td>
+
+				</tr>
+			</table>
+
+
+			<table border="1">
+				<tr>
+					<td>answer->Questionへのリンク</td>
+					<td><%=optQuestion.get().getId()%></td>
+				</tr>
+				<%
+					if (optQuestionReal.isPresent()) {
+				%>
+				<tr>
+					<td>Question確認</td>
+					<td><%=optQuestionReal.get().getId()%></td>
+				</tr>
+
+				<%
+					} else {
+				%>
+				<tr>
+					<td>Question確認</td>
+					<td>存在しない</td>
+				</tr>
+				<%
+			}
+		%>
+			</table>
+			
+			</td>
+			</tr>
+			</table>
+
+
+
+
+
+			<%
 		} 
 	%>
 
 
-	<hr />
+			<hr />
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>
