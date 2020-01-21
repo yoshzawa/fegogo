@@ -84,11 +84,14 @@ public class CheckToiMemberServlet extends HttpServlet {
 					Member member = mem.get();
 					s[4] = member.toString();
 
-					List<Ref<AnswerSum>> refAnswerSumList = member.getRefAnswerSumList();
-					Key<AnswerSum> key = Key.create(AnswerSum.class,answerSum.getId());
-					Ref<AnswerSum> refASum = Ref.create(key);
-					s[5]=refAnswerSumList.contains(refASum)+"";
+//					List<Ref<AnswerSum>> refAnswerSumList = member.getRefAnswerSumList();
+//					Key<AnswerSum> key = Key.create(AnswerSum.class,answerSum.getId());
+//					Ref<AnswerSum> refASum = Ref.create(key);
+//					s[5]=refAnswerSumList.contains(refASum)+"";
+					
+					s[5]=member.containsRefAnswerSum(answerSum)+"";
 
+					
 				}
 				s[6] = AnswerSum.getDateString(answerSum.getAnswered());
 				list.add(s);

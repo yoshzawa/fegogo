@@ -94,19 +94,23 @@ public final class Member extends MemberFactory {
 
 	public void addRefAnswerSumList(AnswerSum ansSummary) {
 		List<Ref<AnswerSum>> l = getRefAnswerSumList();
-		boolean b = containsRef(ansSummary, l);
+		boolean b = containsRefAnswerSum(ansSummary, l);
 		if (b == false) {
 			l.add(Ref.create(ansSummary));
 		}
 		setRefAnswerSumList(l);
 	}
 
-	public boolean containsRef(AnswerSum ansSummary) {
+	public boolean containsRefAnswerSum(AnswerSum ansSummary) {
 		List<Ref<AnswerSum>> l = getRefAnswerSumList();
-		return containsRef(ansSummary, l);
+		return containsRefAnswerSum(Ref.create(ansSummary), l);
+	}
+	public boolean containsRefAnswerSum(Ref<AnswerSum> ansRefSummary) {
+		List<Ref<AnswerSum>> l = getRefAnswerSumList();
+		return containsRefAnswerSum(ansRefSummary, l);
 	}
 
-	public boolean containsRef(AnswerSum ansSummary, List<Ref<AnswerSum>> l) {
+	public boolean containsRefAnswerSum(AnswerSum ansSummary, List<Ref<AnswerSum>> l) {
 		boolean b = false;
 		for (Ref<AnswerSum> ras : l) {
 			if (ras.get().getId() == ansSummary.getId()) {
@@ -116,6 +120,12 @@ public final class Member extends MemberFactory {
 		}
 		return b;
 	}
+	public boolean containsRefAnswerSum(Ref<AnswerSum> RefAnsSummary, List<Ref<AnswerSum>> l) {
+		boolean b = false;
+		b=l.contains(RefAnsSummary);
+		return b;
+	}
+
 
 	/**
 	 * parentId‚Éˆê’v‚·‚éExam‚ÉŠÖ˜A‚·‚éAnswerSum‚Ìˆê——‚ð•Ô‚·
