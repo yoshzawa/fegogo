@@ -4,6 +4,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.TreeMap;
 
 import com.googlecode.objectify.Ref;
@@ -55,6 +56,17 @@ public class ToiFactory extends CommonEntity {
 		List<Toi> tList = ofy().load().type(Toi.class).list();
 
 		return tList;
+	}
+	public static Optional<Toi> getByAnswerSum(AnswerSum aSum){
+		Optional<Long> toiId = Optional.ofNullable(aSum.getRefToi().getKey().getId());
+		Optional<Toi> toi;
+		if(toiId.isPresent()) {
+			 toi = Optional.ofNullable(Toi.getById(toiId.get()));
+		}else {
+			toi = Optional.empty();
+		}
+		return toi;
+
 	}
 
 }

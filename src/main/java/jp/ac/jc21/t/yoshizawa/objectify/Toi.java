@@ -139,6 +139,13 @@ public final class Toi extends ToiFactory {
 		return re.get();
 
 	}
+	public Ref<Exam> getRefExam() {
+
+		Ref<Exam> re = parent;
+		return re;
+
+	}
+
 	
 	public Optional<Exam> getOptExam() {
 
@@ -151,12 +158,12 @@ public final class Toi extends ToiFactory {
 	/**
 	 * @param parent the parent to set
 	 */
-	public void setExam(Ref<Exam> exam) {
+	public void setRefExam(Ref<Exam> exam) {
 		this.parent = exam;
 	}
 
 	public void setExam(Exam exam) {
-		setExam(Ref.create(exam));
+		setRefExam(Ref.create(exam));
 	}
 
 	public List<Ref<Question>> getQuestionRefList() {
@@ -319,4 +326,12 @@ public final class Toi extends ToiFactory {
 				getGenreId()+","+
 				getAnswerSumSum();
 	}
+	public boolean containAnswer(Long toiId){
+		
+		Ref<AnswerSum> refASum = Ref.create(Key.create(AnswerSum.class, toiId));
+		return getAnswerSumRefList().contains(refASum);
+		
+		
+	}
+
 }

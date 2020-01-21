@@ -53,6 +53,7 @@
 	<TABLE border=1>
 		<TR>
 			<TD>answer id</TD>
+			<TD>answer check</TD>
 			<TD>answer 作成日付</TD>
 			<TD>answer no</TD>
 			<TD>answer name</TD>
@@ -66,6 +67,7 @@
 				%>
 				<tr>
 					<td><%=s[1]%></td>
+					<td></td>
 					<td><%=s[0]%></td>
 					<td><%=s[2]%></td>
 				</tr>
@@ -75,6 +77,7 @@
 		%>
 		<tr>
 			<td><%=s[0]%></td>
+			<td><a href="/admin/check/Answer?answerId=<%= s[0] %>">check</a></td>
 			<td><%=s[1]%></td>
 			<td><%=s[2]%></td>
 			<td><%=s[3]%></td>

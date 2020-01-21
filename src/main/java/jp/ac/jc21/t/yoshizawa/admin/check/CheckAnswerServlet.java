@@ -39,13 +39,20 @@ public class CheckAnswerServlet extends HttpServlet {
 //		PrintWriter out = response.getWriter();
 
 		// answer
-		String keyString = request.getParameter("answerId");
-		Optional<Answer> optAnswer =Optional.ofNullable(Answer.getById(Long.parseLong(keyString)));
-		request.setAttribute("optAnswer", optAnswer);
+		Optional<Answer> optAnswer;
+		{
+			String keyString = request.getParameter("answerId");
+			optAnswer =Optional.ofNullable(Answer.getById(Long.parseLong(keyString)));
+			request.setAttribute("optAnswer", optAnswer);
+		}
 		
 		// answer -> answerSum(Link)
-		Optional<AnswerSum> optAnswerSum = optAnswer.flatMap(a -> a.getAnswerSum());
-		request.setAttribute("optAnswerSum", optAnswerSum);
+		Optional<AnswerSum> optAnswerSum;
+		{
+			optAnswerSum = optAnswer.flatMap(a -> a.getAnswerSum());
+			request.setAttribute("optAnswerSum", optAnswerSum);
+		}
+		
 		
 		// answerSum(Real)
 		{
@@ -79,21 +86,29 @@ public class CheckAnswerServlet extends HttpServlet {
 		
 		// answer -> answerSum -> toi
 		Optional<Toi> optToi;
+		Optional<Toi> optToiReal;
 		if(optAnswerSum.isPresent()) {
 			optToi = optAnswerSum.get().getToi();  
+			optToiReal=Toi.getByAnswerSum(optAnswerSum.get());
 		} else {
 			optToi=Optional.empty();
+			optToiReal=Optional.empty();
 		}
 		request.setAttribute("optToi", optToi);
+		request.setAttribute("optToiReal", optToiReal);
 		
 		// answer -> answerSum -> toi -> exam
 		Optional<Exam> optExam;
+		Optional<Exam> optExamReal;
 		if(optToi.isPresent()) {
 			optExam = optToi.get().getOptExam();
+			optExamReal = Exam.getByToi(optToi.get());
 		}else {
 			optExam = Optional.empty();
+			optExamReal = Optional.empty();
 		}
 		request.setAttribute("optExam", optExam);
+		request.setAttribute("optExamReal", optExamReal);
 
 		
 		

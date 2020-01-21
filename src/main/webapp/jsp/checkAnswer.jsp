@@ -36,6 +36,18 @@
 	Optional<Question> optQuestionReal = 
 	(Optional<Question>)request.getAttribute("optQuestionReal");
 	
+	// answer -> answerSum -> toi
+		Optional<Toi> optToi=(Optional<Toi> )
+		request.getAttribute("optToi");
+		Optional<Toi> optToiReal=(Optional<Toi> )
+		request.getAttribute("optToiReal");
+
+		Optional<Exam> optExam = (Optional<Exam>)
+		request.getAttribute("optExam");
+
+		Optional<Exam> optExamReal = (Optional<Exam>)
+		request.getAttribute("optExamReal");
+		
 	
 	%>
 
@@ -56,6 +68,7 @@
 	
 	</tr>
 	</table>
+
 	<table border="1">
 	<tr>	<td>answer->AnswerSumへのリンク</td><td><%= optAnswerSum.get().getId() %></td>	</tr>
 	<% if(optAnswerSumReal.isPresent()){%>
@@ -65,6 +78,7 @@
 	<tr> 	<td>AnswerSum確認 </td><td>存在しない</td>	</tr>
 	<% }%>
 	</table>
+	
 	<table border="1">
 	<tr>	<td>answer->Questionへのリンク</td><td><%= optQuestion.get().getId() %></td>	</tr>
 	<% if(optQuestionReal.isPresent()){%>
@@ -74,9 +88,34 @@
 	<tr>	<td>Question確認</td><td>存在しない</td>	</tr>
 	<% }%>
 	</table>
+
+	<table border="1">
+	<tr>	<td>answer -> answerSum -> toiへのリンク</td><td><%= optToi.get().getId() %></td>	</tr>
+	<% if(optToiReal.isPresent()){%>
+	<tr>	<td>toi確認</td><td><%= optToiReal.get().getId() %></td>	</tr>
+	<tr>	<td>toi.mapAnswerに含まれる </td><td><%= optToiReal.get().containAnswer(optAnswerSum.get().getId()) %></td>	</tr>
+	
+	<% } else {%>
+	<tr>	<td>toi確認</td><td>存在しない</td>	</tr>
+	<% }%>
+	</table>
+
+	<table border="1">
+	<tr>	<td>answer -> answerSum -> toi -> examへのリンク</td><td><%= optExam.get().getId() %></td>	</tr>
+	<% if(optExamReal.isPresent()){%>
+	<tr>	<td>Exam確認</td><td><%= optExamReal.get().getId() %></td>	</tr>
+	<tr>	<td>Exam.mapAnswerに含まれる </td><td><%= optExamReal.get().containAnswer(optToi.get().getId()) %></td>	</tr>
+	
+	<% } else {%>
+	<tr>	<td>Exam確認</td><td>存在しない</td>	</tr>
+	<% }%>
+	</table>
+
+
 	<%
 		} 
 	%>
+
 
 	<hr />
 </body>

@@ -135,4 +135,9 @@ public class Exam extends ExamFactory {
 				getName()+","+
 				getDateString(getCreated());
 	}
+	public boolean containAnswer(Long toiId ) {
+		Ref<Toi> rToi = Ref.create(Key.create(Toi.class,toiId));
+		return getToiRefList().contains(rToi);
+		
+	}
 }

@@ -8,6 +8,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
 import com.googlecode.objectify.Key;
@@ -44,5 +45,9 @@ public abstract class ExamFactory extends CommonEntity {
 
 	public static final Exam getById(Key<Exam> k) {
 		return ofy().load().type(Exam.class).filterKey(k).first().now();
+	}
+	public static Optional<Exam> getByToi(Toi toi) {
+		Key<Exam> key = Key.create(Exam.class,toi.getId());
+		return Optional.ofNullable(getById(key));
 	}
 }
