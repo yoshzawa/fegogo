@@ -67,23 +67,6 @@ public class CheckAnswerServlet extends HttpServlet {
 			
 		}
 		
-		// answer -> Question(Link)
-		Optional<Question> optQuestion = optAnswer.flatMap(a -> a.getOptQuestion());
-		request.setAttribute("optQuestion", optQuestion);
-		
-		// Question(Real)
-		{
-			Optional<Long> questionId = optAnswer.map(q -> q.getQuestionId());
-			Optional<Question> optQuestionReal;
-			if(questionId.isPresent()){
-				optQuestionReal = Optional.ofNullable(Question.getById(questionId.get()));
-			} else {
-				optQuestionReal =Optional.empty();
-			}
-			request.setAttribute("optQuestionReal", optQuestionReal);
-			
-		}
-		
 		// answer -> answerSum -> toi
 		Optional<Toi> optToi;
 		Optional<Toi> optToiReal;
@@ -109,6 +92,38 @@ public class CheckAnswerServlet extends HttpServlet {
 		}
 		request.setAttribute("optExam", optExam);
 		request.setAttribute("optExamReal", optExamReal);
+		
+		// answer -> Question(Link)
+		Optional<Question> optQuestion = optAnswer.flatMap(a -> a.getOptQuestion());
+		request.setAttribute("optQuestion", optQuestion);
+		
+		// Question(Real)
+		{
+			Optional<Long> questionId = optAnswer.map(q -> q.getQuestionId());
+			Optional<Question> optQuestionReal;
+			if(questionId.isPresent()){
+				optQuestionReal = Optional.ofNullable(Question.getById(questionId.get()));
+			} else {
+				optQuestionReal =Optional.empty();
+			}
+			request.setAttribute("optQuestionReal", optQuestionReal);
+			
+		}
+		
+		// answer -> Question -> Toi(Link)
+		Optional<Toi> optToiQ = optQuestion.flatMap(q -> q.getOptToi());
+		request.setAttribute("optToiQ", optToiQ);
+		Optional<Toi> optToiQReal ;
+		
+		if(optQuestion.isPresent()) {
+			optToiQReal=Optional.ofNullable(Toi.getById(optQuestion.get().getToiId()));
+		}else {
+			optToiQReal=Optional.empty();
+		}
+		request.setAttribute("optToiQReal", optToiQReal);
+
+		
+
 
 		
 		

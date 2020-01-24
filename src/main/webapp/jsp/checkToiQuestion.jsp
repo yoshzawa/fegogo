@@ -25,10 +25,9 @@
 	<%@ include file="common/headerAdmin.jsp"%><br>
 	
 <H1>問に関するチェック</H1>
-問とリンク　<a href="/admin/check/toiMember?toiId=<%=t.getId() %>">問と学生のリンク</a>
-設問とリンク　<a href="/admin/check/toiQuestion?toiId=<%=t.getId() %>">問と設問のリンク</a>
 
-
+<a href="/admin/check/toi?toiId=<%=t.getId() %>">問とリンク</a>　<a href="/admin/check/toiMember?toiId=<%=t.getId() %>">問と学生のリンク</a>
+　問と設問のリンク
 	<%
 	if (list == null || list.size() == 0) {
 	%>
@@ -45,12 +44,12 @@
 	
 	<TABLE border=1>
 		<TR>
-			<TD>answerSum id</TD>
-						<TD>answerSum check</TD>
+			<TD>question id</TD>
+						<TD>question check</TD>
 			
-			<TD>answerSum created</TD>
+			<TD>question created</TD>
 			<TD>link Toi</TD>
-			<TD>answerSum toiのid</TD>
+			<TD>question toiのid</TD>
 		</TR>
 		<%
 		for (String[]  s : list) {

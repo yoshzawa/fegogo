@@ -69,14 +69,9 @@ public class CheckToiMemberServlet extends HttpServlet {
 				s[2] = answerSum.getRefToi().get().getId().toString();
 				s[3] = answerSum.getMemberId();
 
-//				Member member = null;
-//				if (answerSum.getRefMember() != null) {
-//					member = answerSum.getRefMember().get();
-//				}
 				Optional<Ref<Member>> refMem = Optional.ofNullable(answerSum.getRefMember());
 				Optional<Member> mem = refMem.map(rm -> rm.get());
 
-//				if (member == null) {
 				if(!mem.isPresent()) {
 					s[4] = "null";
 					s[5] = "null";
@@ -84,11 +79,7 @@ public class CheckToiMemberServlet extends HttpServlet {
 					Member member = mem.get();
 					s[4] = member.toString();
 
-//					List<Ref<AnswerSum>> refAnswerSumList = member.getRefAnswerSumList();
-//					Key<AnswerSum> key = Key.create(AnswerSum.class,answerSum.getId());
-//					Ref<AnswerSum> refASum = Ref.create(key);
-//					s[5]=refAnswerSumList.contains(refASum)+"";
-					
+			
 					s[5]=member.containsRefAnswerSum(answerSum)+"";
 
 					

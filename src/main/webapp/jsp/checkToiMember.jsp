@@ -26,6 +26,8 @@
 	
 <H1>問に関するチェック</H1>
 <a href="/admin/check/toi?toiId=<%=t.getId() %>">問とリンク</a>　問と学生のリンク
+<a href="/admin/check/toiQuestion?toiId=<%=t.getId() %>">問と設問のリンク</a>
+
 
 	<%
 	if (list == null || list.size() == 0) {
