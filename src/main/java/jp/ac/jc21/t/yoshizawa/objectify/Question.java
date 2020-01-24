@@ -142,6 +142,13 @@ public final class Question extends QuestionFactory {
 	public void setParent(Ref<Toi> parent) {
 		this.parent = parent;
 	}
+	public Optional<Toi> getOptToi() {
+		Optional<Ref<Toi>> optRefT = Optional.ofNullable(parent);
+		Optional<Toi> optQ = optRefT.map(q -> q.get());
+
+		return optQ;
+	}
+	
 
 	/**
 	 * @return the answerSet
@@ -241,6 +248,11 @@ public final class Question extends QuestionFactory {
 	}
 	public boolean containAnswer(Long answerId) {
 		Ref<Answer> rAns=Ref.create(Key.create(Answer.class,answerId));
-		return false;
+		return getAnswerSet().contains(answerId);
 	}
+//	public boolean containQuestion(Question q) {
+//		Ref<Toi> rToi=Ref.create(Key.create(Toi.class,q));
+		
+//	}
+	
 }

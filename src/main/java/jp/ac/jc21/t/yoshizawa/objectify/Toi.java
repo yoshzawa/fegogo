@@ -333,5 +333,9 @@ public final class Toi extends ToiFactory {
 		
 		
 	}
+	public boolean containQuestion(Question q) {
+		return getQuestionRefList().contains(Ref.create(q));
+		
+	}
 
 }
