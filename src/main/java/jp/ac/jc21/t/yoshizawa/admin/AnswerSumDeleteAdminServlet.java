@@ -33,7 +33,7 @@ public class AnswerSumDeleteAdminServlet extends HttpServlet {
 			response.getWriter().println("DELETE AnswerId:"+answer.getId()+"<br />");
 //			answer.delete();
 		}
-		as.delete();
+		as.deleteLink();
 		
 		
 		

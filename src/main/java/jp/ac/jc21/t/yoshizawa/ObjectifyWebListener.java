@@ -8,6 +8,7 @@ import com.googlecode.objectify.ObjectifyService;
 
 
 import jp.ac.jc21.t.yoshizawa.objectify.*;
+import jp.ac.jc21.t.yoshizawa.objectify.backup.*;
 
 
 @WebListener
@@ -26,7 +27,11 @@ public class ObjectifyWebListener implements ServletContextListener {
 		ObjectifyService.register(AnswerSum.class);
 		ObjectifyService.register(Member.class);
 		ObjectifyService.register(Genre.class);
-	}
+
+	
+		ObjectifyService.register(BackupAnswer.class);
+		ObjectifyService.register(BackupAnswerSum.class);
+}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {

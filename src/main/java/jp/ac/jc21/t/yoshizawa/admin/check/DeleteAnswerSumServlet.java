@@ -23,6 +23,8 @@ import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
+import jp.ac.jc21.t.yoshizawa.objectify.backup.BackupAnswer;
+import jp.ac.jc21.t.yoshizawa.objectify.backup.BackupAnswerSum;
 
 /**
  * Servlet implementation class AnswerExportServlet
@@ -49,6 +51,7 @@ public class DeleteAnswerSumServlet extends HttpServlet {
 		
 		String answerSumKeyString = request.getParameter("answerSumId");
 		AnswerSum answerSum =AnswerSum.getById(Long.parseLong(answerSumKeyString));
+		BackupAnswerSum.createAnswerSum(answerSum).save();
 
 		// answerÇçÌèú
 		
@@ -58,28 +61,40 @@ public class DeleteAnswerSumServlet extends HttpServlet {
 			Optional<Answer> answer = Optional.ofNullable(refAnswer.get());
 			if(answer.isPresent()) {
 				System.out.println("answer:"+answer.get().getId());
+				BackupAnswer ba = BackupAnswer.createBackupAnswer(answer.get());
+				ba.save();
+				answer.get().delete();
 			}
 		}
 		
 		// memberÇ©ÇÁçÌèú
 		
-		Optional<Member> member = answerSum.getMember();
-		if(member.isPresent()) {
-			System.out.println("member:"+member.get().geteMail());
-			List<Ref<AnswerSum>> refAnswerSumList = member.get().getRefAnswerSumList();
-			System.out.println("member:"+refAnswerSumList.size());
+		Optional<Member> optmember = answerSum.getMember();
+		if(optmember.isPresent()) {
+			Member member = optmember.get();
+			System.out.println("member:"+member.geteMail());
+			List<Ref<AnswerSum>> refAnswerSumList = member.getRefAnswerSumList();
+			System.out.println("memberLen:"+refAnswerSumList.size());
 			refAnswerSumList.remove(Ref.create(answerSum));
-			System.out.println("member:"+refAnswerSumList.size());
+			System.out.println("memberLen:"+refAnswerSumList.size());
+			member.setRefAnswerSumList(refAnswerSumList);
+			member.save();
 		}
 		
-		Optional<Toi> toi = answerSum.getToi();
-		if(toi.isPresent()) {
-			System.out.println("toi:"+toi.get().getId());
-			List<Ref<AnswerSum>> answerSumRefList = toi.get().getAnswerSumRefList();
+		Optional<Toi> optToi = answerSum.getToi();
+		if(optToi.isPresent()) {
+			Toi toi = optToi.get();
+			System.out.println("toi:"+toi.getId());
+			List<Ref<AnswerSum>> answerSumRefList = toi.getAnswerSumRefList();
 			System.out.println("toi:"+answerSumRefList.size());
 			answerSumRefList.remove(Ref.create(answerSum));
 			System.out.println("toi:"+answerSumRefList.size());
+			toi.setAnswerSumRefList(answerSumRefList);
+			toi.save();
 		}
+		
+		answerSum.delete();
+		
 
 			
 			

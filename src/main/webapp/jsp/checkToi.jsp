@@ -26,7 +26,7 @@
 	
 <H1>問に関するチェック</H1>
 問とリンク　<a href="/admin/check/toiMember?toiId=<%=t.getId() %>">問と学生のリンク</a>
-設問とリンク　<a href="/admin/check/toiQuestion?toiId=<%=t.getId() %>">問と設問のリンク</a>
+<a href="/admin/check/toiQuestion?toiId=<%=t.getId() %>">問と設問のリンク</a>
 
 
 	<%
