@@ -68,6 +68,7 @@ public class CheckToiQuestionServlet extends HttpServlet {
 				s[0]=question.getId().toString();
 				s[1]=question.getOptToi().toString();
 				s[2]=question.getOptToi().get().getId().toString();
+				s[3]=question.getOptToi().get().containQuestion(question)+"";
 					
 
 				

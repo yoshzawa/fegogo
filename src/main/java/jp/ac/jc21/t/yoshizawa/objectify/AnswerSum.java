@@ -102,8 +102,19 @@ public final class AnswerSum extends AnswerSumFactory {
 	 * @return the mapRefAnswer
 	 */
 	public Map<String, Ref<Answer>> getMapRefAnswer() {
-		return mapRefAnswer;
+		Optional<Map<String, Ref<Answer>>> oMRA = getOptMapRefAnswer();
+		if(oMRA.isPresent()) {
+			return oMRA.get();
+		}
+		else {
+			return new HashMap<String, Ref<Answer>> ();
+		}
 	}
+	public Optional<Map<String, Ref<Answer>>> getOptMapRefAnswer() {
+		return Optional.ofNullable(mapRefAnswer);
+	}
+	
+	
 
 	/**
 	 * @param mapRefAnswer the mapRefAnswer to set
@@ -215,11 +226,6 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 
 	public void delete() {
-		ofy().delete().entity(this).now();
-	}
-	
-
-	public void deleteLink() {
 //		ofy().delete().entity(this).now();
 
 //		final Logger log = Logger.getLogger(AnswerSum.class.getName());

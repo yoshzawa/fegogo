@@ -123,10 +123,6 @@ public class CheckAnswerServlet extends HttpServlet {
 		request.setAttribute("optToiQReal", optToiQReal);
 
 		
-
-
-		
-		
 		request.getRequestDispatcher("/jsp/checkAnswer.jsp").forward(request, response);
 	}
 

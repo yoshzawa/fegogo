@@ -36,12 +36,15 @@
 		Optional<Toi> optToiReal = (Optional<Toi>) request.getAttribute("optToiReal");
 
 		Optional<Exam> optExam = (Optional<Exam>) request.getAttribute("optExam");
-
 		Optional<Exam> optExamReal = (Optional<Exam>) request.getAttribute("optExamReal");
 
 		// answer -> Question -> toi
 		Optional<Toi> optToiQ = (Optional<Toi>) request.getAttribute("optToiQ");
 		Optional<Toi> optToiQReal = (Optional<Toi>) request.getAttribute("optToiQReal");
+
+		// answer -> Question -> toi
+		Optional<Exam> optExamQ = (Optional<Exam>) request.getAttribute("optExamQ");
+		Optional<Exam> optExamQReal = (Optional<Exam>) request.getAttribute("optExamQReal");
 
 		%>
 
@@ -161,7 +164,7 @@
 					%>
 				</table>
 			</td>
-			<td>// Answer
+			<td rowspan="2">// Answer
 				<table border="1">
 					<tr>
 						<td>Answer id</td>
@@ -175,34 +178,44 @@
 				</table>
 			</td>
 		</tr>
-	</table>
-
-
-				<table border="1">
+		<tr><td>
+		
+		
+						<table border="1">
 					<tr>
-						<td>Question <- answerへのリンク</td>
-						<td><%=optQuestion.get().getId()%></td>
+						<td>exam <- toi へのリンク</td>
+						<td><%=optExamQ.get().getId()%><br /> 
+						<a href="/admin/check/exam?examId=<%=optExamQ.get().getId()%>">check</a></td>
+
 					</tr>
 					<%
-						if (optQuestionReal.isPresent()) {
+						if (optExamQReal.isPresent()) {
 					%>
 					<tr>
-						<td>Question確認</td>
-						<td><%=optQuestionReal.get().getId()%></td>
+						<td>Exam確認</td>
+						<td>存在する(id=<%=optExamQReal.get().getId()%>)
+						</td>
+					</tr>
+					<tr>
+						<td>Exam.toiRefListに含まれる</td>
+						<td><%=optExamQReal.get().containAnswer(optToiQ.get().getId())%></td>
 					</tr>
 
 					<%
 						} else {
 					%>
 					<tr>
-						<td>Question確認</td>
+						<td>Exam確認</td>
 						<td>存在しない</td>
 					</tr>
 					<%
 						}
 					%>
 				</table>
-				<table border="1">
+						</td>
+						<td>
+				
+						<table border="1">
 					<tr>
 						<td>toi <- Question へのリンク</td>
 						<td><%=optToiQ.get().getId()%><br /> <a
@@ -217,7 +230,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>toi.AnswerSumRefListに含まれる</td>
+						<td>toi.getQuestionRefListに含まれる</td>
 						<td><%=optToiQReal.get().containQuestion(optQuestion.get())%></td>
 					</tr>
 
@@ -232,6 +245,37 @@
 						}
 					%>
 				</table>
+						</td>
+						<td>
+
+
+				<table border="1">
+					<tr>
+						<td>Question <- answerへのリンク</td>
+						<td><%=optQuestion.get().getId()%></td>
+					</tr>
+					<%
+						if (optQuestionReal.isPresent()) {
+					%>
+					<tr>
+						<td>Question確認</td>
+						<td>存在する(id=<%=optQuestionReal.get().getId()%>)</td>
+					</tr>
+
+					<%
+						} else {
+					%>
+					<tr>
+						<td>Question確認</td>
+						<td>存在しない</td>
+					</tr>
+					<%
+						}
+					%>
+				</table>
+</td>
+		</tr>
+	</table>
 
 
 

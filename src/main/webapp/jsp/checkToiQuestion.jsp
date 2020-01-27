@@ -72,7 +72,7 @@
 		%>
 		<tr>
 			<td><%=s[0]%></td>
-						<td><a href="/admin/check/answerSum?answerSumId=<%=s[0]%>">check</a></td>
+						<td><a href="/admin/check/Question?questionId=<%=s[0]%>">check</a></td>
 			
 			<td><%=s[6]%></td>
 			<td><%=answerSumAndToi%></td>
