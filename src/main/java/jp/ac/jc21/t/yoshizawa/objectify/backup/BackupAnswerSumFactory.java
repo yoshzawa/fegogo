@@ -19,14 +19,17 @@ import jp.ac.jc21.t.yoshizawa.objectify.CommonEntity;
 public class BackupAnswerSumFactory extends CommonEntity {
 	
 	public static final BackupAnswerSum createAnswerSum(AnswerSum aSum) {
-		BackupAnswerSum as = new BackupAnswerSum();
-		as.setId(aSum.getId());
-		as.setName(aSum.getName());
-		as.setRefToi(aSum.getRefToi());
-		as.setAnswered(aSum.getAnswered());
-		as.setMapRefAnswer(aSum.getMapRefAnswer());
-		as.setNoOfSeikai(aSum.getNoOfSeikai());
-		return as;
+		if(aSum != null) {
+			BackupAnswerSum bas = new BackupAnswerSum();
+			bas.setId(aSum.getId());
+			bas.setName(aSum.getName());
+			bas.setRefToi(aSum.getRefToi());
+			bas.setAnswered(aSum.getAnswered());
+			bas.setMapRefAnswer(aSum.getMapRefAnswer());
+			bas.setNoOfSeikai(aSum.getNoOfSeikai());
+			return bas;
+		}
+		return null;
 	}
 	
 

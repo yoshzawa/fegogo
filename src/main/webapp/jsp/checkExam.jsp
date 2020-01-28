@@ -49,7 +49,7 @@
 		<tr>
 			<td><%=s[0]%></td>
 			<td><%=s[1]%></td>
-			<td> <a href='http://localhost:8080/admin/check/toi?toiId=<%=s[1]%>'>チェック</a></td>
+			<td> <a href='/admin/check/toi?toiId=<%=s[1]%>'>チェック</a></td>
 			<td><%=s[2]%></td>
 			<td><%=s[3]%></td>
 		</tr>

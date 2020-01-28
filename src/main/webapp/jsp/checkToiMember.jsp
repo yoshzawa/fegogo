@@ -76,7 +76,8 @@
 		%>
 		<tr>
 			<td><%=s[0]%></td>
-			<td><a href="/admin/check/answerSum?answerSumId=<%=s[0]%>">check</a></td>
+			<td><a href="/admin/check/answerSum?answerSumId=<%=s[0]%>">check</a>　
+			<a href="/admin/delete/answerSum?answerSumId=<%=s[0]%>">delete</a>　</td>
 			<td><%=s[6]%></td>
 			<td><%=answerSumAndToi%></td>
 			<td><%=s[2]%></td>
