@@ -226,6 +226,11 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 
 	public void delete() {
+		ofy().delete().entity(this).now();
+	}
+
+
+	public void deleteLink() {
 //		ofy().delete().entity(this).now();
 
 //		final Logger log = Logger.getLogger(AnswerSum.class.getName());
