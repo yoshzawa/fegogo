@@ -6,6 +6,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.googlecode.objectify.Ref;
 
@@ -32,6 +33,11 @@ public class AnswerSumFactory extends CommonEntity {
 	public static final AnswerSum getById(long id) {
 		return (AnswerSum) getById(AnswerSum.class,id);
 	}
+	
+	public static final Optional<AnswerSum> getOptById(long id) {
+		return Optional.ofNullable(getById(id));
+	}
+
 	
 	@SuppressWarnings("unchecked")
 	public static final List<AnswerSum> loadAll() {
