@@ -58,6 +58,8 @@
 				<br />
 			<a
 				href="/admin/answerSum/delete?memberId=<%= member.get().geteMail() %>&AnswerSumId=<%= as.getId()%>">delete</a>
+			<a
+				href="/admin/delete/answerSum?answerSumId=<%= as.getId()%>">delete(CHECK)</a>
 				<% }%></td>
 			<td><%= as.getName() %></td>
 			<td><%= as.getNoOfAnswer() %></td>
