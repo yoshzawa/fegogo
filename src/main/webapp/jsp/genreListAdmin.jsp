@@ -48,12 +48,16 @@
 				<%
 					for (Ref<Toi> rt : g.getToiRefList()) {
 								Toi t = rt.get();
-				%> <%=t.getExam().getName()%> 問<%=t.getNo()%> <%=t.getName()%> <br />
+								if(t==null)
+									continue;
+				%> 
+				<%=t.getExam().getName()%> 問<%=t.getNo()%> <%=t.getName()%> <br />
 				<%
 					for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
 									if ((as != null)&&(as.get() != null)) {
 										String eMail = "null";
 										AnswerSum a = as.get();
+										if(a==null) continue;
 										Optional<Member> opt = a.getMember();
 										if (opt.isPresent()) {
 											Member m = opt.get();

@@ -32,7 +32,7 @@
 	<%
 		if (answerSumList == null || answerSumList.size() == 0) {
 	%>
-	試験が解答されていませんされていません
+	試験が解答されていません
 	<%
 		} else {
 	%>

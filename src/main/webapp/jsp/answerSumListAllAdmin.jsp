@@ -66,9 +66,16 @@
 			<td><%= as.getNoOfSeikai() %></td>
 			<td><%= sdf.format(as.getAnswered()) %></td>
 			<td>
-				<% Map<String,Ref<Answer>> m = as.getMapRefAnswer(); %> <% if(m != null){ %>
-				<% for(String k : m.keySet()){%> <%= m.get(k).get().getId() %><br />
-				<% } %> <%} %>
+				<% Map<String,Ref<Answer>> m = as.getMapRefAnswer(); %> 
+				<% if(m != null){ %>
+					<% for(String k : m.keySet()){
+						Ref<Answer> rAns = m.get(k);
+						if(rAns==null) continue;
+					%> 
+						<%= rAns.get().getId() %>
+						<br />
+					<% } %> 
+				<%} %>
 			</td>
 			<td>
 				<%
