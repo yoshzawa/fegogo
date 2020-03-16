@@ -31,12 +31,10 @@ public class Toi2NoLogListServlet extends HttpServlet {
 
 		// Exam‚ğæ“¾
 		Exam e = Exam.getById(parentId);
-//		request.setAttribute("parent", e);
 
 
 		// –â‚Ìˆê——‚ğæ“¾
 		TreeMap<Long, Toi> toiMap = e.getToiMap();
-//		request.setAttribute("toiMap", toiMap);
 
 		// ƒ†[ƒU[î•ñæ“¾
 		HttpSession session = request.getSession();
@@ -53,7 +51,7 @@ public class Toi2NoLogListServlet extends HttpServlet {
 				String[] s = new String[4];
 				s[0] = t.getNo().toString();
 				s[1] = t.getRefGenre().get().getName();
-				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
+				s[2] = "<a href='/question2/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
 				s[3] = t.getQuestionRefListSize() + "";
 				datas.add(s);
 			}

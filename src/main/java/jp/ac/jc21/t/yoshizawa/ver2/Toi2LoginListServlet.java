@@ -31,12 +31,10 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 		// Exam‚ğæ“¾
 		Exam e = Exam.getById(parentId);
-//		request.setAttribute("parent", e);
 
 
 		// –â‚Ìˆê——‚ğæ“¾
 		TreeMap<Long, Toi> toiMap = e.getToiMap();
-//		request.setAttribute("toiMap", toiMap);
 
 		// ƒ†[ƒU[î•ñæ“¾
 		HttpSession session = request.getSession();
@@ -64,7 +62,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 				s[0] = t.getNo().toString();
 				s[1] = t.getRefGenre().get().getName();
-				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
+				s[2] = "<a href='/question2/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
 				s[3] = t.getQuestionRefListSize() + "";
 				s[4] = "";
 
@@ -77,7 +75,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 					}
 				}
 				if (i == 0) {
-					s[4] = "<a href='/question/list?parentId=" + t.getId() + "'>“š‚¦‚é</a>";
+					s[4] = "<a href='/question2/list?parentId=" + t.getId() + "'>“š‚¦‚é</a>";
 
 				}
 				datas.add(s);
