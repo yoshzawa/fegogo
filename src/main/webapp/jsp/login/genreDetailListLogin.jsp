@@ -17,7 +17,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
-			<li class="breadcrumb-item"><a href="/"genre/>分野 一覧</a></li>
+			<li class="breadcrumb-item"><a href="/genre/">分野 一覧</a></li>
 			<li class="breadcrumb-item active" aria-current="page">[<%= genreName %>]分野 一覧</li>
 		</ol>
 	</nav>

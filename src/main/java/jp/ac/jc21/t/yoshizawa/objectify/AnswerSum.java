@@ -163,6 +163,11 @@ public final class AnswerSum extends AnswerSumFactory {
 	public Ref<Toi> getRefToi() {
 		return refToi;
 	}
+	public Optional<Ref<Toi>> getOptRefToi() {
+		return Optional.ofNullable(getRefToi());
+	}
+
+	
 
 	/**
 	 * @param refToi the refToi to set

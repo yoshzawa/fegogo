@@ -29,7 +29,7 @@
       <a class="active" href="/admin/dumpAnswerSummary2.csv">解答情報CSV</a>
       <a class="active" href="/admin/dumpAnswer2.csv">解答詳細CSV</a>
 
-<H3>バージョン３：テーブルの中身をそのままexportするタイプ</H2>
+<H2>バージョン３：テーブルの中身をそのままexportするタイプ</H2>
       <a class="active" href="/admin/export/exam.csv">exam.csv</a>
       <a class="active" href="/admin/export/toi.csv">toi.csv</a>
       <a class="active" href="/admin/export/question.csv">question.csv</a>

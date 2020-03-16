@@ -6,6 +6,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,6 @@
 			<TD>getNoOfAnswer</TD>
 			<TD>getNoOfSeikai</TD>
 			<TD>getAnswered</TD>
-			<TD>getMapAnswer</TD>
 			<TD>getRefMember</TD>
 			<TD>EXAM</TD>
 			<TD>TOI</TD>
@@ -76,7 +76,6 @@
 			<td><%= as.getNoOfAnswer() %></td>
 			<td><%= as.getNoOfSeikai() %></td>
 			<td><%= sdf.format(as.getAnswered()) %></td>
-			<td><%= as.getMapAnswer() %></td>
 			<td><%= as.getRefMember() %><a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>'>reChain</a></td>
 			<td><%= eName %></td>
 			<td><%= tName %></td>

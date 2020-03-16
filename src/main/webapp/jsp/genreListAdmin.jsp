@@ -48,8 +48,9 @@
 				<%
 					for (Ref<Toi> rt : g.getToiRefList()) {
 								Toi t = rt.get();
+								if(t != null){
 				%> <%=t.getExam().getName()%> 問<%=t.getNo()%> <%=t.getName()%> <br />
-				<%
+				<%}
 					for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
 									if ((as != null)&&(as.get() != null)) {
 										String eMail = "null";

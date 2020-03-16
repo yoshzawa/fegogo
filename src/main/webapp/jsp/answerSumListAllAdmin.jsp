@@ -1,4 +1,4 @@
-<%@page import="java.util.Optional"%>
+<%@page import="java.util.Optional"%> 
 <%@page import="com.googlecode.objectify.Ref"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -40,7 +40,6 @@
 			<TD>getNoOfAnswer</TD>
 			<TD>getNoOfSeikai</TD>
 			<TD>getAnswered</TD>
-			<TD>getMapAnswer</TD>
 			<TD>getRefMember</TD>
 			<TD>EXAM</TD>
 			<TD>NO</TD>
@@ -50,7 +49,13 @@
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 			for (AnswerSum as : answerSumList) {
-				Toi toi = as.getRefToi().get();
+				if(as==null) continue;
+				Optional<Ref<Toi>> ort=as.getOptRefToi();
+//				if(ort==null) continue;
+				if(ort.isPresent()== false){
+					continue;
+				}
+				Toi toi = ort.get().get();
 				Ref<Member> member=as.getRefMember();
 		%>
 		<tr>
@@ -65,11 +70,7 @@
 			<td><%= as.getNoOfAnswer() %></td>
 			<td><%= as.getNoOfSeikai() %></td>
 			<td><%= sdf.format(as.getAnswered()) %></td>
-			<td>
-				<% Map<String,Ref<Answer>> m = as.getMapRefAnswer(); %> <% if(m != null){ %>
-				<% for(String k : m.keySet()){%> <%= m.get(k).get().getId() %><br />
-				<% } %> <%} %>
-			</td>
+ 
 			<td>
 				<%
 					Optional<Ref<Member>> refMem = Optional.ofNullable( as.getRefMember());
