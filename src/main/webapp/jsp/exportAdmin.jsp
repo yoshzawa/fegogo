@@ -1,10 +1,3 @@
-<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
-<%@page import="java.util.Map"%>
-<%@page import="com.google.appengine.api.users.UserService"%>
-<%@page import="com.google.appengine.api.users.User"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -31,6 +24,7 @@
 
 <H2>バージョン３：exportを読むタイプ</H2>
       <a class="active" href="/admin/import/genre">genre.csv</a>
+      <a class="active" href="/admin/import/exam">exam.csv</a>
 
 
 
