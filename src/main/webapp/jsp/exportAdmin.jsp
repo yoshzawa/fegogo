@@ -26,6 +26,7 @@
       <a class="active" href="/admin/import/genre">genre.csv</a>
       <a class="active" href="/admin/import/exam">exam.csv</a>
       <a class="active" href="/admin/import/toi">toi.csv</a>
+      <a class="active" href="/admin/import/question">question.csv</a>
 
 
 

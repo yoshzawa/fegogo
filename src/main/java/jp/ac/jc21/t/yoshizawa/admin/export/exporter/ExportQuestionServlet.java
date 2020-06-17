@@ -37,7 +37,7 @@ public class ExportQuestionServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		List<Question> list = Question.loadAll();
 		out.println(
-				"id,No,Name,Created,OnOfOption,ToiId,Answers"
+				"id,No,Name,Created,NoOfOption,ToiId,Answers"
 				);
 		
 		for(Question q:list) {

@@ -131,7 +131,11 @@ public final class Question extends QuestionFactory {
 	public Toi getParent() {
 		return parent.get();
 	}
+	public Ref<Toi> getRefParent() {
+		return parent;
+	}
 
+	
 	/**
 	 * @param parent the parent to set
 	 */
@@ -252,6 +256,24 @@ public final class Question extends QuestionFactory {
 	}
 //	public boolean containQuestion(Question q) {
 //		Ref<Toi> rToi=Ref.create(Key.create(Toi.class,q));
+
+	public void setAnswerSet(String answers) {
+		if(answers.equals("全員正解")) {
+			setNoOfOption(0);
+			Set<Integer> aSet = new HashSet<Integer>();
+			aSet.add(0);
+			setAnswerSet(aSet);
+		}else {
+			Set<Integer> aSet = new HashSet<Integer>();
+			for(int i=0 ; i<answers.length() ; i++) {
+				char a = answers.charAt(i);
+				int ans = "アイウエオカキクケコサシスセソ".indexOf(a);
+				aSet.add(ans);
+			}
+			setAnswerSet(aSet);
+		}
+		
+	}
 		
 //	}
 	
