@@ -25,6 +25,7 @@
 <H2>バージョン３：exportを読むタイプ</H2>
       <a class="active" href="/admin/import/genre">genre.csv</a>
       <a class="active" href="/admin/import/exam">exam.csv</a>
+      <a class="active" href="/admin/import/toi">toi.csv</a>
 
 
 
