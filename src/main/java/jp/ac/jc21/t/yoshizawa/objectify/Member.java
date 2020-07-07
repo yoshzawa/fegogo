@@ -137,6 +137,9 @@ public final class Member extends MemberFactory {
 		final Logger log = Logger.getLogger(Member.class.getName());
 
 		List<AnswerSum> list = new ArrayList<>();
+		if(getRefAnswerSumList()==null) {
+			return list;
+		}
 		for (Ref<AnswerSum> as : getRefAnswerSumList()) {
 			
 			AnswerSum answerSum = as.get();

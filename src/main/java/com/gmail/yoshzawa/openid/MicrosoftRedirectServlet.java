@@ -42,15 +42,6 @@ public final class MicrosoftRedirectServlet extends HttpServlet implements
 		log.info("error = " + error);
 		log.info("error_description = " + error_description);
 
-		/*
-		resp.getWriter().println("id_token = " + id_token);
-		resp.getWriter().println("state = " + state);
-		resp.getWriter().println("error = " + error);
-		resp.getWriter().println("error_description = " + error_description);
-		*/
-
-
-
 		String[] tokens = id_token.split("\\.");
 
 		String head = new String(Base64.decode(tokens[0]));
@@ -105,7 +96,7 @@ public final class MicrosoftRedirectServlet extends HttpServlet implements
 		
 
 		resp.getWriter().println("<H1>Welcome," + email+"</h1>");
-		resp.getWriter().println("<a href='/index'>Continue</a>");
+		resp.getWriter().println("<a href='/index2'>Continue</a>");
 
 	}
 }
