@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -20,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.googlecode.objectify.Ref;
 
-import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
@@ -36,7 +34,6 @@ public class ImportQuestionServlet extends HttpServlet {
 	 */
 	public ImportQuestionServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -63,32 +60,31 @@ public class ImportQuestionServlet extends HttpServlet {
 		params = param.replaceAll("\r\n", "\n").replaceAll("\r", "\n").split("\n");
 
 		List<Question> list = new ArrayList<Question>();
-		boolean discarded=false;
-		
+		boolean discarded = false;
+
 		for (String s : params) {
 			String[] ss = s.split(",");
 
 			Long id = Long.parseLong(ss[0]);
 			Long no = Long.parseLong(ss[1]);
-			String name=ss[2];
-		      SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd hh:mm");
-		      format.setTimeZone(TimeZone.getTimeZone("Asia/Tokyo"));
-		      Date created;
+			String name = ss[2];
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+			format.setTimeZone(TimeZone.getTimeZone("Asia/Tokyo"));
+			Date created;
 			try {
 				created = format.parse(ss[3]);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				created=null;
+				created = null;
 			}
-			
-			long noOfOption=Long.parseLong(ss[4]);
+
+			long noOfOption = Long.parseLong(ss[4]);
 			Toi t = Toi.getById(Long.parseLong(ss[5]));
-			if(t==null) {
-				System.out.println("ERROR:No Toi "+ ss[5]);
-				discarded=true;
+			if (t == null) {
+				System.out.println("ERROR:No Toi " + ss[5]);
+				discarded = true;
 				break;
 			}
-			String answers=ss[6];
+			String answers = ss[6];
 
 			Question q = new Question();
 			q.setId(id);
@@ -98,22 +94,21 @@ public class ImportQuestionServlet extends HttpServlet {
 			q.setNoOfOption(noOfOption);
 			q.setParent(Ref.create(t));
 			q.setAnswerSet(answers);
-			
-			list.add(q);
-			out.println("INSERT Question ID=["+id+"]");
 
+			list.add(q);
+			out.println("INSERT Question ID=[" + id + "]");
+			out.flush();
 
 		}
-		
-		if(discarded != true) {
-			for(Question q:list) {
+
+		if (discarded != true) {
+			for (Question q : list) {
 				q.save();
 				Toi t = q.getParent();
 				t.addQuestionRefList(q);
 				t.save();
 			}
 		}
-
 
 	}
 

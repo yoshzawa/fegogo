@@ -37,7 +37,7 @@ public class GenreListServlet extends HttpServlet {
 //		if (email == null) 
 		if(true)
 		{
-			List<String[]> datas = new ArrayList<String[]>();
+			List<String[]> datas = new ArrayList<String[]>(genreList.size());
 
 			for (Genre g : genreList) {
 				List<Ref<Toi>> toiRefList = g.getToiRefList();

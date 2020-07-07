@@ -42,10 +42,9 @@ public class Toi2NoLogListServlet extends HttpServlet {
 		request.setAttribute("ExamName", e.getName());
 
 
-		if (email == null) {
 			// ÉçÉOÉCÉìÇµÇƒÇ¢Ç»Ç¢èÍçá
-			List<String[]> datas = new ArrayList<String[]>();
-			Set<Long> toiKeySet = toiMap.keySet();
+		Set<Long> toiKeySet = toiMap.keySet();
+			List<String[]> datas = new ArrayList<String[]>(toiKeySet.size());
 			for (Long key : toiKeySet) {
 				Toi t = toiMap.get(key);
 				String[] s = new String[4];
@@ -59,7 +58,6 @@ public class Toi2NoLogListServlet extends HttpServlet {
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/nolog/toiList.jsp");
 			rd.forward(request, response);
-		} 		
 	}
 
 }
