@@ -16,20 +16,46 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
-
+			<li class="breadcrumb-item active" aria-current="page">試験 一覧</li>
 		</ol>
 	</nav>
 
 	<%@ include file="../common/header.jsp"%><br>
-
-	<P>システムの利用には、Microsoftアカウントが必要です。指定された方法でログインし、
-		解答していない問題の解答を入力してください。</P>
-
-	<H2>連絡</H2>
-	<P>
-	・現在、ほぼすべてのデータを削除しています。復旧までしばらくお待ちください。
-	</P>
 	
+	<h1>登録されている試験の一覧</h1>
+
+	<%
+		if (datas == null || datas.size() == 0) {
+	%>
+	試験が登録されていません
+	<%
+		} else {
+	%>
+
+	<TABLE border="1" class="table table-striped table-hover">
+		<thead class="thead-dark">
+			<tr>
+				<TH>試験名</TH>
+				<TH>問題登録</TH>
+			</TR>
+		</thead>
+		<%
+			for (String[] s : datas) {
+		%>
+		<tr>
+			<td><%=s[0]%></td>
+			<td><%=s[1]%></td>
+		</tr>
+		<%
+			}
+		%>
+	</TABLE>
+
+
+	<%
+		}
+	%>
+
 
 </body>
 <%@ include file="../common/footer.jsp"%>

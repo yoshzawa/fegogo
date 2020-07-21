@@ -39,11 +39,13 @@ public class GenreListServlet extends HttpServlet {
 //		if (email == null) 
 		if(true)
 		{
+
 			rd = extractedTrue(request, genreList, datas);
 		} else {
 			rd = extractedFalse(request, genreList, email, datas);
 		}
 			rd.forward(request, response);
+
 
 	}
 

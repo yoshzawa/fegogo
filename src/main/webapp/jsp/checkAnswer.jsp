@@ -42,7 +42,7 @@
 		Optional<Toi> optToiQ = (Optional<Toi>) request.getAttribute("optToiQ");
 		Optional<Toi> optToiQReal = (Optional<Toi>) request.getAttribute("optToiQReal");
 
-		// answer -> Question -> toi
+		// answer -> Question -> Exam
 		Optional<Exam> optExamQ = (Optional<Exam>) request.getAttribute("optExamQ");
 		Optional<Exam> optExamQReal = (Optional<Exam>) request.getAttribute("optExamQReal");
 

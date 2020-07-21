@@ -121,6 +121,18 @@ public class CheckAnswerServlet extends HttpServlet {
 			optToiQReal=Optional.empty();
 		}
 		request.setAttribute("optToiQReal", optToiQReal);
+		
+		// answer -> Question -> Exam
+		 Optional<Exam> a = optToiQ.flatMap(q -> q.getOptExam());
+			request.setAttribute("optExamQ", a);
+			Optional<Exam> optRefExam;
+			if(a.isPresent()) {
+				 optRefExam = Optional.ofNullable(Exam.getById(optToiQ.get().getExamId()));
+			}else {
+				optRefExam = Optional.empty();
+			}
+			request.setAttribute("optExamQReal", optRefExam);
+
 
 		
 		request.getRequestDispatcher("/jsp/checkAnswer.jsp").forward(request, response);
