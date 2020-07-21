@@ -1,7 +1,5 @@
 package com.gmail.yoshzawa.openid.jwt;
 
-import java.util.Date;
-
 public final class JwtPayload {
 	private String aud;
 	private String iss;

@@ -6,9 +6,6 @@ package jp.ac.jc21.t.yoshizawa.objectify.backup;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
-import java.util.Optional;
-import java.util.logging.Logger;
-
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;

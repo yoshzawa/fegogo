@@ -5,12 +5,10 @@ package jp.ac.jc21.t.yoshizawa.objectify.backup;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.util.Date;
 import java.util.List;
 
-import com.googlecode.objectify.Ref;
-
-import jp.ac.jc21.t.yoshizawa.objectify.*;
+import jp.ac.jc21.t.yoshizawa.objectify.Answer;
+import jp.ac.jc21.t.yoshizawa.objectify.CommonEntity;
 
 /**
  * @author t.yoshizawa

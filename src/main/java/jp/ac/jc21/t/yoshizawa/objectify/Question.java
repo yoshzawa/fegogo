@@ -2,7 +2,6 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.googlecode.objectify.Key;
