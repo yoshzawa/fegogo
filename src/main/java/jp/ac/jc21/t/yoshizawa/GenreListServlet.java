@@ -34,107 +34,115 @@ public class GenreListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
 
+		List<String[]> datas = new ArrayList<String[]>();
+		RequestDispatcher rd=null;
 //		if (email == null) 
 		if(true)
 		{
-			List<String[]> datas = new ArrayList<String[]>();
-
-			for (Genre g : genreList) {
-				List<Ref<Toi>> toiRefList = g.getToiRefList();
-				{
-
-					String genreName = g.getName();
-
-					int count = 0;
-					float sum = 0;
-					for (Ref<Toi> rt : toiRefList) {
-						Toi toi = rt.get();
-						if(toi != null) {
-							sum += toi.getAnswerSumSum();
-							count += toi.getAnswerSumCount();
-						}
-					}
-
-					String[] s = new String[3];
-					s[0] = "<a href='/genreDetail/list?id="+g.getId()+"'>"+genreName+"</a>";
-					s[1] = "<P align='CENTER'>全体平均" + String.format("%1$.1f", sum / count) + "%</P>";
-					s[2] = count + "";
-
-					datas.add(s);
-				}
-
-			}
-			request.setAttribute("datas", datas);
-
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/genreList.jsp");
-			rd.forward(request, response);
+			rd = extractedTrue(request, genreList, datas);
 		} else {
-			List<String[]> datas = new ArrayList<String[]>();
+			rd = extractedFalse(request, genreList, email, datas);
+		}
+			rd.forward(request, response);
 
-			for (Genre g : genreList) {
-				List<Ref<Toi>> toiRefList = g.getToiRefList();
-				{
-					String genreName = g.getName();
-					int count = 0;
-					float sum = 0;
-					for (Ref<Toi> rt : toiRefList) {
-						Toi toi = rt.get();
+	}
+
+	private RequestDispatcher extractedTrue(HttpServletRequest request, List<Genre> genreList, List<String[]> datas) {
+		for (Genre g : genreList) {
+			List<Ref<Toi>> toiRefList = g.getToiRefList();
+			{
+	
+				String genreName = g.getName();
+	
+				int count = 0;
+				float sum = 0;
+				for (Ref<Toi> rt : toiRefList) {
+					Toi toi = rt.get();
+					if(toi != null) {
 						sum += toi.getAnswerSumSum();
 						count += toi.getAnswerSumCount();
 					}
-					String[] s = new String[5];
-					s[0] = "<a href='/genreDetail/list?id="+g.getId()+"'>"+genreName+"</a>";
-					s[1] = "<P align='CENTER'>全体平均" + String.format("%1$.1f", sum / count) + "%</P>";
-					s[2] = count + "";
-					s[3] = "";
-					s[4] = "";
-
-					datas.add(s);
 				}
-				List<Ref<Toi>> list = toiRefList;
+	
+				String[] s = new String[3];
+				s[0] = "<a href='/genreDetail/list?id="+g.getId()+"'>"+genreName+"</a>";
+				s[1] = "<P align='CENTER'>全体平均" + String.format("%1$.1f", sum / count) + "%</P>";
+				s[2] = count + "";
+	
+				datas.add(s);
+			}
+	
+		}
+		request.setAttribute("datas", datas);
+	
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/genreList.jsp");
+		return rd;
+	}
 
-				for (Ref<Toi> rt : list) {
+	private RequestDispatcher extractedFalse(HttpServletRequest request, List<Genre> genreList, String email,
+			List<String[]> datas) {
+		for (Genre g : genreList) {
+			List<Ref<Toi>> toiRefList = g.getToiRefList();
+			{
+				String genreName = g.getName();
+				int count = 0;
+				float sum = 0;
+				for (Ref<Toi> rt : toiRefList) {
 					Toi toi = rt.get();
+					sum += toi.getAnswerSumSum();
+					count += toi.getAnswerSumCount();
+				}
+				String[] s = new String[5];
+				s[0] = "<a href='/genreDetail/list?id="+g.getId()+"'>"+genreName+"</a>";
+				s[1] = "<P align='CENTER'>全体平均" + String.format("%1$.1f", sum / count) + "%</P>";
+				s[2] = count + "";
+				s[3] = "";
+				s[4] = "";
 
-					String toiName = toi.getExam().getName() + " 問" + toi.getNo() + " (" + toi.getName() + ")";
+				datas.add(s);
+			}
+			List<Ref<Toi>> list = toiRefList;
 
-					Member member = Member.get(email);
-					List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
-					String toiSize = toi.getAnswerSumRefListSize() + "";
-					if ((las == null) || (las.size() == 0)) {
+			for (Ref<Toi> rt : list) {
+				Toi toi = rt.get();
+
+				String toiName = toi.getExam().getName() + " 問" + toi.getNo() + " (" + toi.getName() + ")";
+
+				Member member = Member.get(email);
+				List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
+				String toiSize = toi.getAnswerSumRefListSize() + "";
+				if ((las == null) || (las.size() == 0)) {
+					String[] s = new String[5];
+					s[0] = "";
+					s[1] = toiName;
+					toiName = "";
+					s[2] = toiSize;
+					s[3] = "未回答";
+					s[4] = "<a href='/question/list?parentId=" + toi.getId() + "'>答える</a>";
+					datas.add(s);
+
+				} else {
+					for (AnswerSum as : las) {
 						String[] s = new String[5];
 						s[0] = "";
 						s[1] = toiName;
 						toiName = "";
 						s[2] = toiSize;
-						s[3] = "未回答";
-						s[4] = "<a href='/question/list?parentId=" + toi.getId() + "'>答える</a>";
+						toiSize = "";
+						s[3] = dateFormat(as.getAnswered());
+						s[4] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
 						datas.add(s);
-
-					} else {
-						for (AnswerSum as : las) {
-							String[] s = new String[5];
-							s[0] = "";
-							s[1] = toiName;
-							toiName = "";
-							s[2] = toiSize;
-							toiSize = "";
-							s[3] = dateFormat(as.getAnswered());
-							s[4] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
-							datas.add(s);
-						}
-
 					}
+
 				}
 			}
-
-			request.setAttribute("datas", datas);
-			request.setAttribute("email", email);
-
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/genreListLogin.jsp");
-			rd.forward(request, response);
 		}
 
+		request.setAttribute("datas", datas);
+		request.setAttribute("email", email);
+
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/genreListLogin.jsp");
+		return rd;
 	}
 
 	private final String changePoint(int seikai, int answer) {

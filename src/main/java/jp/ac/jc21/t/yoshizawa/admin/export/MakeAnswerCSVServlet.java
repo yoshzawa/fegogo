@@ -3,7 +3,6 @@ package jp.ac.jc21.t.yoshizawa.admin.export;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
