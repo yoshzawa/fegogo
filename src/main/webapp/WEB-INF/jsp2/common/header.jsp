@@ -12,10 +12,10 @@
   gtag('config', 'UA-146071751-1');
 </script>
 </HEAD>
-      <a  href="/">ホーム <span class="sr-only">(current)</span></a>
+      <a  href="/index2">ホーム <span class="sr-only">(current)</span></a>
       <a  href="/exam2/list">問題一覧</a>
-      <a class=" disabled" href="/genre" tabindex="-1" aria-disabled="true">分野一覧</a>
-      <a class=" disabled" href="/#" tabindex="-1" aria-disabled="true">個人結果分析</a><br>
+      <a class=" disabled" href="/genre2/list" tabindex="-1" aria-disabled="true">分野一覧</a>
+      <a class=" disabled" href="/index2" tabindex="-1" aria-disabled="true">個人結果分析</a><br>
 <div align="right">
 
   <a  href="/openidSignIn">

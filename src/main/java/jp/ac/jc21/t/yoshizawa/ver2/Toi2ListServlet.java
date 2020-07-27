@@ -28,7 +28,7 @@ public class Toi2ListServlet extends HttpServlet {
 			rd.forward(request, response);
 
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/toi2/Login/list");
+			RequestDispatcher rd = request.getRequestDispatcher("/toi2/login/list");
 			rd.forward(request, response);
 
 		}
