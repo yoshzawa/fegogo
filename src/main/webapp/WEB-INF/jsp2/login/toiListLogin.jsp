@@ -19,7 +19,7 @@
 		<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
-			<li class="breadcrumb-item"><a href="/exam2/">試験 一覧</a></li>
+			<li class="breadcrumb-item"><a href="/exam/">試験 一覧</a></li>
 			<li class="breadcrumb-item active" aria-current="page"><%= ExamName %></li>
 		</ol>
 	</nav>
