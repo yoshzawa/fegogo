@@ -23,7 +23,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/genreDetail2/list" })
+@WebServlet(urlPatterns = { "/genreDetail/list","/genreDetail2/list" })
 public class GenreDetail2ListServlet extends HttpServlet {
 
 	@Override

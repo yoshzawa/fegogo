@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/toi2/list" })
+@WebServlet(urlPatterns = { "/toi/list","/toi2/list" })
 public class Toi2ListServlet extends HttpServlet {
 
 	@Override

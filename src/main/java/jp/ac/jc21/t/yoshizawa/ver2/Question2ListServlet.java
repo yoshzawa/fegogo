@@ -19,7 +19,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/question2/list" })
+@WebServlet(urlPatterns = { "/question/list","/question2/list" })
 public class Question2ListServlet extends HttpServlet {
 
 	@Override
