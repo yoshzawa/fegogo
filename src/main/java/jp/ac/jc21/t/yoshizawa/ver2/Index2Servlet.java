@@ -13,7 +13,8 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class IndexServlet
  */
-@WebServlet("/index2")
+
+@WebServlet(urlPatterns = { "/index","/index2" })
 public class Index2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

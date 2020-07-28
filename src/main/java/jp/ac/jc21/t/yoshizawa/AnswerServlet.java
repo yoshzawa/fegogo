@@ -26,7 +26,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/answer" })
+@WebServlet(urlPatterns = { "/answer1" })
 public final class AnswerServlet extends HttpServlet {
 
 	@Override

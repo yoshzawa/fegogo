@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa;
+package jp.ac.jc21.t.yoshizawa.ver2;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -15,14 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.googlecode.objectify.Ref;
+
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/genreDetail1/list" })
-public class GenreDetailListServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/genreDetail2/login/list" })
+public class GenreDetail2LoginListServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -33,29 +35,7 @@ public class GenreDetailListServlet extends HttpServlet {
 		Genre genre = Genre.getById(Long.parseLong(request.getParameter("id")));
 		String genreName = genre.getName();
 		request.setAttribute("genreName", genreName);
-
-		if (email == null) {
-			List<String[]> datas = new ArrayList<String[]>();
-
-			Map<Long, Toi> toiMap = genre.getToiMap();
-			{
-				for (Long key : toiMap.keySet()) {
-					Toi toi = toiMap.get(key);
-
-					String[] s = new String[3];
-					s[0] = "";
-					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
-							+ toi.getNo() + " (" + toi.getName() + ")</a>";
-					s[2] = toi.getAnswerSumRefListSize() + "";
-					datas.add(s);
-				}
-
-			}
-			request.setAttribute("datas", datas);
-
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/genreList.jsp");
-			rd.forward(request, response);
-		} else {
+		{
 			List<String[]> datas = new ArrayList<String[]>();
 
 			Map<Long, Toi> toiMap = genre.getToiMap();
@@ -87,7 +67,7 @@ public class GenreDetailListServlet extends HttpServlet {
 						toiSize = "";
 						s[2] = dateFormat(as.getAnswered());
 						s[3] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
-						s[4]=						toiSum;
+						s[4] = toiSum;
 
 						datas.add(s);
 					}
@@ -98,7 +78,7 @@ public class GenreDetailListServlet extends HttpServlet {
 			request.setAttribute("datas", datas);
 			request.setAttribute("email", email);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/genreDetailListLogin.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/genreDetailListLogin.jsp");
 			rd.forward(request, response);
 		}
 

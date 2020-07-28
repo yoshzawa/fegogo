@@ -19,7 +19,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/toi2/Login/list" })
+@WebServlet(urlPatterns = { "/toi2/login/list" })
 public class Toi2LoginListServlet extends HttpServlet {
 
 	@Override
@@ -62,7 +62,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 				s[0] = t.getNo().toString();
 				s[1] = t.getRefGenre().get().getName();
-				s[2] = "<a href='/question2/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
+				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
 				s[3] = t.getQuestionRefListSize() + "";
 				s[4] = "";
 

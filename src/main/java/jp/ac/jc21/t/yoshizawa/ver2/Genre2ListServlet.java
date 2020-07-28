@@ -8,29 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
-
-@WebServlet(urlPatterns = { "/toi/list","/toi2/list" })
-public class Toi2ListServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/genre/list", "/genre2/list" })
+public class Genre2ListServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		// ÉÜÅ[ÉUÅ[èÓïÒéÊìæ
-		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
-
-
-		if (email == null) {
-			RequestDispatcher rd = request.getRequestDispatcher("/toi2/NoLog/list");
+//		if (email == null) 
+		if (true) {
+			RequestDispatcher rd = request.getRequestDispatcher("/genre2/Nolog/list");
 			rd.forward(request, response);
-
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/toi2/login/list");
+			RequestDispatcher rd = request.getRequestDispatcher("/genre2/login/list");
 			rd.forward(request, response);
-
 		}
+
 	}
 }

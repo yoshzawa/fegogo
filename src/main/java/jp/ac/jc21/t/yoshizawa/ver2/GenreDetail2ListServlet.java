@@ -1,8 +1,11 @@
 package jp.ac.jc21.t.yoshizawa.ver2;
 
 import java.io.IOException;
-import java.util.*;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,31 +15,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jp.ac.jc21.t.yoshizawa.admin.QuestionListAdminServlet;
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
-import jp.ac.jc21.t.yoshizawa.objectify.Question;
+import com.googlecode.objectify.Ref;
+
+import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
+import jp.ac.jc21.t.yoshizawa.objectify.Genre;
+import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
-
-@WebServlet(urlPatterns = { "/question/list","/question2/list" })
-public class Question2ListServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/genreDetail/list","/genreDetail2/list" })
+public class GenreDetail2ListServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		final Logger log = Logger.getLogger(QuestionListAdminServlet.class.getName());
 
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
 
+
+
 		if (email == null) {
 
-			RequestDispatcher rd = request.getRequestDispatcher("/question2/NoLog/list");
+
+			RequestDispatcher rd = request.getRequestDispatcher("/genreDetail2/noLog/list");
 			rd.forward(request, response);
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/question2/Login/list");
+
+			RequestDispatcher rd = request.getRequestDispatcher("/genreDetail2/login/list");
 			rd.forward(request, response);
 		}
 
 	}
+
 }
