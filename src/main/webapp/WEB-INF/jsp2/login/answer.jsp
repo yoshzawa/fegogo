@@ -34,6 +34,8 @@
 	<%@ include file="../common/headerLogin.jsp"%>
 
 	<H1>解答を登録しました</H1>
+		    <main class="mb-5">
+	
 	<h3>
 		<%=ansSummary.getNoOfAnswer()%>問中<%=ansSummary.getNoOfSeikai()%>問正解
 	</h3>
@@ -64,8 +66,9 @@
 	<a
 		href="/toi2/list?parentId=<%=exam.getId()%>">戻る</a>
 
-
-</body>
+<p></p>
+</main>
 <%@ include file="../common/footer.jsp"%>
+</body>
 
 </html>

@@ -29,6 +29,7 @@
 	<%@ include file="../common/header.jsp"%>
 
 	<H1>登録されている問の一覧</H1>
+    <main role="main" class="container">
 
 	<%
 		if (datas == null || datas.size() == 0) {
@@ -65,9 +66,9 @@
 	<%
 		}
 	%>
-
-
-</body>
+<p></p>
+</main>
 <%@ include file="../common/footer.jsp"%>
+</body>
 
 </html>

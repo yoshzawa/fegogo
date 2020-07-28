@@ -14,7 +14,7 @@
 		return sdf.format(d);	
 	}	
  %>		
- <footer class="footer">
+ <footer class="footer fixed-bottom">
   <div class="container">
     <p class="text-muted">fegogo.appspot.com Version 1.20</p>
   </div>

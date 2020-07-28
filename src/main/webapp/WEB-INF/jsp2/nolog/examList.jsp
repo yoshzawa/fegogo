@@ -23,6 +23,7 @@
 	<%@ include file="../common/header.jsp"%><br>
 	
 	<h1>登録されている試験の一覧</h1>
+	    <main class="mb-5">
 
 	<%
 		if (datas == null || datas.size() == 0) {
@@ -56,8 +57,9 @@
 		}
 	%>
 
-
-</body>
+<p></p>
+</main>
 <%@ include file="../common/footer.jsp"%>
+</body>
 
 </html>

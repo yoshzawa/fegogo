@@ -18,6 +18,8 @@
 	</nav>
 
 	<%@ include file="../common/header.jsp"%><br>
+		    <main class="mb-5">
+	
 
 	<P>システムの利用には、Microsoftアカウントが必要です。指定された方法でログインし、
 		解答していない問題の解答を入力してください。</P>
@@ -27,8 +29,9 @@
 	・（2020/07/07）メンテ終わりました
 	</P>
 	
-
-</body>
+<p></p>
+</main>
 <%@ include file="../common/footer.jsp"%>
+</body>
 
 </html>

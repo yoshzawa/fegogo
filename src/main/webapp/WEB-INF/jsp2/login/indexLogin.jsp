@@ -18,6 +18,7 @@
 	<%@ include file="../common/headerLogin.jsp"%>
 
 	<h1>基本情報技術者試験 過去問題評価システム</h1>
+	    <main class="mb-5">
 
 	<P>システムの利用には、Microsoftアカウントが必要です。指定された方法でログインし、
 		解答していない問題の解答を入力してください。</P>
@@ -26,11 +27,12 @@
 	<P>
 	・（2020/07/07）メンテ終わりました
 	</P>
-
+<p></p>
+</main>
+<%@ include file="../common/footer.jsp"%>
 </body>
 
 
-<body></body>
-<%@ include file="../common/footer.jsp"%>
+
 
 </html>

@@ -23,6 +23,7 @@
 	</nav>
 	<%@ include file="../common/headerLogin.jsp"%><br>
 	<h1>[<%= genreName %>]分野の一覧</h1>
+	    <main class="mb-5">
 
 	<%
 		if (datas == null || datas.size() == 0) {
@@ -61,8 +62,9 @@
 		}
 	%>
 
-
-</body>
+<p></p>
+</main>
 <%@ include file="../common/footer.jsp"%>
+</body>
 
 </html>
