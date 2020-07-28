@@ -49,7 +49,7 @@ public class Genre2LoginListServlet extends HttpServlet {
 						count += toi.getAnswerSumCount();
 					}
 					String[] s = new String[5];
-					s[0] = "<a href='/genreDetail/list?id=" + g.getId() + "'>" + genreName + "</a>";
+					s[0] = "<a href='/genreDetail2/list?id=" + g.getId() + "'>" + genreName + "</a>";
 					s[1] = "<P align='CENTER'>‘S‘Ì•½‹Ï" + String.format("%1$.1f", sum / count) + "%</P>";
 					s[2] = count + "";
 					s[3] = "";
@@ -74,7 +74,7 @@ public class Genre2LoginListServlet extends HttpServlet {
 						toiName = "";
 						s[2] = toiSize;
 						s[3] = "–¢‰ñ“š";
-						s[4] = "<a href='/question/list?parentId=" + toi.getId() + "'>“š‚¦‚é</a>";
+						s[4] = "<a href='/question2/list?parentId=" + toi.getId() + "'>“š‚¦‚é</a>";
 						datas.add(s);
 
 					} else {

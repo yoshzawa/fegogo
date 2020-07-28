@@ -50,7 +50,7 @@ public class Genre2NoLogListServlet extends HttpServlet {
 					}
 
 					String[] s = new String[3];
-					s[0] = "<a href='/genreDetail/list?id=" + g.getId() + "'>" + genreName + "</a>";
+					s[0] = "<a href='/genreDetail2/list?id=" + g.getId() + "'>" + genreName + "</a>";
 					s[1] = "<P align='CENTER'>‘S‘Ì•½‹Ï" + String.format("%1$.1f", sum / count) + "%</P>";
 					s[2] = count + "";
 
