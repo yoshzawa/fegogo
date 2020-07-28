@@ -39,7 +39,7 @@ public class Exam2LoginListServlet extends HttpServlet {
 			Exam e = examMap.get(k);
 			String[] s = new String[2];
 
-			s[0] = "<a href='/toi2/list?parentId=" + e.getId() + "'>" + e.getName() + "</a>";
+			s[0] = "<a href='/toi/list?parentId=" + e.getId() + "'>" + e.getName() + "</a>";
 			s[1] = e.getToiRefListSize() + "";
 			datas.add(s);
 		}

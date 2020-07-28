@@ -55,7 +55,7 @@ public class GenreDetail2LoginListServlet extends HttpServlet {
 					toiName = "";
 					s[1] = toiSize;
 					s[2] = "–¢‰ñ“š";
-					s[3] = "<a href='/question2/list?parentId=" + toi.getId() + "'>“š‚¦‚é</a>";
+					s[3] = "<a href='/question/list?parentId=" + toi.getId() + "'>“š‚¦‚é</a>";
 					datas.add(s);
 
 				} else {

@@ -42,7 +42,7 @@ public class GenreDetail2NologListServlet extends HttpServlet {
 
 				String[] s = new String[3];
 				s[0] = "";
-				s[1] = "<a href='/question2/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
+				s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
 						+ toi.getNo() + " (" + toi.getName() + ")</a>";
 				s[2] = toi.getAnswerSumRefListSize() + "";
 				datas.add(s);
