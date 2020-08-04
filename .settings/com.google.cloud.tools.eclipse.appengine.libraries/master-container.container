@@ -35,8 +35,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/fasterxml/jackson/core/jackson-core/2.11.0/jackson-core-2.11.0-sources.jar",
-      "path": "com/fasterxml/jackson/core/jackson-core/2.11.0/jackson-core-2.11.0.jar",
+      "sourceAttachmentPath": "BIN/com/fasterxml/jackson/core/jackson-core/2.11.1/jackson-core-2.11.1-sources.jar",
+      "path": "com/fasterxml/jackson/core/jackson-core/2.11.1/jackson-core-2.11.1.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -56,7 +56,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "2.11.0"
+          "value": "2.11.1"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -252,8 +252,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/api/api-common/1.9.0/api-common-1.9.0-sources.jar",
-      "path": "com/google/api/api-common/1.9.0/api-common-1.9.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/api/api-common/1.9.3/api-common-1.9.3-sources.jar",
+      "path": "com/google/api/api-common/1.9.3/api-common-1.9.3.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -273,7 +273,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "1.9.0"
+          "value": "1.9.3"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -283,8 +283,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/api/gax/1.56.0/gax-1.56.0-sources.jar",
-      "path": "com/google/api/gax/1.56.0/gax-1.56.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/api/gax/1.57.1/gax-1.57.1-sources.jar",
+      "path": "com/google/api/gax/1.57.1/gax-1.57.1.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -304,7 +304,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "1.56.0"
+          "value": "1.57.1"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -314,8 +314,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/api/gax-httpjson/0.73.0/gax-httpjson-0.73.0-sources.jar",
-      "path": "com/google/api/gax-httpjson/0.73.0/gax-httpjson-0.73.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/api/gax-httpjson/0.74.1/gax-httpjson-0.74.1-sources.jar",
+      "path": "com/google/api/gax-httpjson/0.74.1/gax-httpjson-0.74.1.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -335,7 +335,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "0.73.0"
+          "value": "0.74.1"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -345,8 +345,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/apis/google-api-services-storage/v1-rev20200430-1.30.9/google-api-services-storage-v1-rev20200430-1.30.9-sources.jar",
-      "path": "com/google/apis/google-api-services-storage/v1-rev20200430-1.30.9/google-api-services-storage-v1-rev20200430-1.30.9.jar",
+      "sourceAttachmentPath": "BIN/com/google/apis/google-api-services-storage/v1-rev20200611-1.30.9/google-api-services-storage-v1-rev20200611-1.30.9-sources.jar",
+      "path": "com/google/apis/google-api-services-storage/v1-rev20200611-1.30.9/google-api-services-storage-v1-rev20200611-1.30.9.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -366,7 +366,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "v1-rev20200430-1.30.9"
+          "value": "v1-rev20200611-1.30.9"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -394,7 +394,7 @@
         }
       ],
       "sourceAttachmentPath": "",
-      "path": "com/google/appengine/appengine-api-1.0-sdk/1.9.80/appengine-api-1.0-sdk-1.9.80.jar",
+      "path": "com/google/appengine/appengine-api-1.0-sdk/1.9.81/appengine-api-1.0-sdk-1.9.81.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -414,7 +414,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "1.9.80"
+          "value": "1.9.81"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -428,8 +428,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/auth/google-auth-library-credentials/0.20.0/google-auth-library-credentials-0.20.0-sources.jar",
-      "path": "com/google/auth/google-auth-library-credentials/0.20.0/google-auth-library-credentials-0.20.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/auth/google-auth-library-credentials/0.21.1/google-auth-library-credentials-0.21.1-sources.jar",
+      "path": "com/google/auth/google-auth-library-credentials/0.21.1/google-auth-library-credentials-0.21.1.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -449,7 +449,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "0.20.0"
+          "value": "0.21.1"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -459,8 +459,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/auth/google-auth-library-oauth2-http/0.20.0/google-auth-library-oauth2-http-0.20.0-sources.jar",
-      "path": "com/google/auth/google-auth-library-oauth2-http/0.20.0/google-auth-library-oauth2-http-0.20.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/auth/google-auth-library-oauth2-http/0.21.1/google-auth-library-oauth2-http-0.21.1-sources.jar",
+      "path": "com/google/auth/google-auth-library-oauth2-http/0.21.1/google-auth-library-oauth2-http-0.21.1.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -480,7 +480,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "0.20.0"
+          "value": "0.21.1"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -552,8 +552,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/cloud/google-cloud-core/1.93.4/google-cloud-core-1.93.4-sources.jar",
-      "path": "com/google/cloud/google-cloud-core/1.93.4/google-cloud-core-1.93.4.jar",
+      "sourceAttachmentPath": "BIN/com/google/cloud/google-cloud-core/1.93.7/google-cloud-core-1.93.7-sources.jar",
+      "path": "com/google/cloud/google-cloud-core/1.93.7/google-cloud-core-1.93.7.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -573,7 +573,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "1.93.4"
+          "value": "1.93.7"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -583,8 +583,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/cloud/google-cloud-core-http/1.93.4/google-cloud-core-http-1.93.4-sources.jar",
-      "path": "com/google/cloud/google-cloud-core-http/1.93.4/google-cloud-core-http-1.93.4.jar",
+      "sourceAttachmentPath": "BIN/com/google/cloud/google-cloud-core-http/1.93.7/google-cloud-core-http-1.93.7-sources.jar",
+      "path": "com/google/cloud/google-cloud-core-http/1.93.7/google-cloud-core-http-1.93.7.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -604,7 +604,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "1.93.4"
+          "value": "1.93.7"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -645,8 +645,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/cloud/google-cloud-storage/1.109.0/google-cloud-storage-1.109.0-sources.jar",
-      "path": "com/google/cloud/google-cloud-storage/1.109.0/google-cloud-storage-1.109.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/cloud/google-cloud-storage/1.111.2/google-cloud-storage-1.111.2-sources.jar",
+      "path": "com/google/cloud/google-cloud-storage/1.111.2/google-cloud-storage-1.111.2.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -666,7 +666,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "1.109.0"
+          "value": "1.111.2"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -862,8 +862,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/http-client/google-http-client/1.35.0/google-http-client-1.35.0-sources.jar",
-      "path": "com/google/http-client/google-http-client/1.35.0/google-http-client-1.35.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/http-client/google-http-client/1.36.0/google-http-client-1.36.0-sources.jar",
+      "path": "com/google/http-client/google-http-client/1.36.0/google-http-client-1.36.0.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -883,7 +883,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "1.35.0"
+          "value": "1.36.0"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -893,8 +893,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/http-client/google-http-client-appengine/1.35.0/google-http-client-appengine-1.35.0-sources.jar",
-      "path": "com/google/http-client/google-http-client-appengine/1.35.0/google-http-client-appengine-1.35.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/http-client/google-http-client-appengine/1.36.0/google-http-client-appengine-1.36.0-sources.jar",
+      "path": "com/google/http-client/google-http-client-appengine/1.36.0/google-http-client-appengine-1.36.0.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -914,7 +914,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "1.35.0"
+          "value": "1.36.0"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -924,8 +924,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/http-client/google-http-client-jackson2/1.35.0/google-http-client-jackson2-1.35.0-sources.jar",
-      "path": "com/google/http-client/google-http-client-jackson2/1.35.0/google-http-client-jackson2-1.35.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/http-client/google-http-client-jackson2/1.36.0/google-http-client-jackson2-1.36.0-sources.jar",
+      "path": "com/google/http-client/google-http-client-jackson2/1.36.0/google-http-client-jackson2-1.36.0.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -945,7 +945,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "1.35.0"
+          "value": "1.36.0"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -1048,8 +1048,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/protobuf/protobuf-java/3.12.0/protobuf-java-3.12.0-sources.jar",
-      "path": "com/google/protobuf/protobuf-java/3.12.0/protobuf-java-3.12.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/protobuf/protobuf-java/3.12.2/protobuf-java-3.12.2-sources.jar",
+      "path": "com/google/protobuf/protobuf-java/3.12.2/protobuf-java-3.12.2.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -1069,7 +1069,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "3.12.0"
+          "value": "3.12.2"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -1079,8 +1079,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/com/google/protobuf/protobuf-java-util/3.12.0/protobuf-java-util-3.12.0-sources.jar",
-      "path": "com/google/protobuf/protobuf-java-util/3.12.0/protobuf-java-util-3.12.0.jar",
+      "sourceAttachmentPath": "BIN/com/google/protobuf/protobuf-java-util/3.12.2/protobuf-java-util-3.12.2-sources.jar",
+      "path": "com/google/protobuf/protobuf-java-util/3.12.2/protobuf-java-util-3.12.2.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -1100,7 +1100,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "3.12.0"
+          "value": "3.12.2"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -1238,8 +1238,8 @@
     },
     {
       "accessRules": [],
-      "sourceAttachmentPath": "BIN/io/grpc/grpc-context/1.29.0/grpc-context-1.29.0-sources.jar",
-      "path": "io/grpc/grpc-context/1.29.0/grpc-context-1.29.0.jar",
+      "sourceAttachmentPath": "BIN/io/grpc/grpc-context/1.30.2/grpc-context-1.30.2-sources.jar",
+      "path": "io/grpc/grpc-context/1.30.2/grpc-context-1.30.2.jar",
       "attributes": [
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.repository",
@@ -1259,7 +1259,7 @@
         },
         {
           "name": "com.google.cloud.tools.eclipse.appengine.libraries.version",
-          "value": "1.29.0"
+          "value": "1.30.2"
         },
         {
           "name": "org.eclipse.jst.component.dependency",
@@ -1753,7 +1753,7 @@
         "repository": "central",
         "groupId": "com.fasterxml.jackson.core",
         "artifactId": "jackson-core",
-        "version": "2.11.0",
+        "version": "2.11.1",
         "type": "jar"
       },
       "export": true,
@@ -1844,7 +1844,7 @@
         "repository": "central",
         "groupId": "com.google.api",
         "artifactId": "api-common",
-        "version": "1.9.0",
+        "version": "1.9.3",
         "type": "jar"
       },
       "export": true,
@@ -1857,7 +1857,7 @@
         "repository": "central",
         "groupId": "com.google.api",
         "artifactId": "gax",
-        "version": "1.56.0",
+        "version": "1.57.1",
         "type": "jar"
       },
       "export": true,
@@ -1870,7 +1870,7 @@
         "repository": "central",
         "groupId": "com.google.api",
         "artifactId": "gax-httpjson",
-        "version": "0.73.0",
+        "version": "0.74.1",
         "type": "jar"
       },
       "export": true,
@@ -1883,7 +1883,7 @@
         "repository": "central",
         "groupId": "com.google.apis",
         "artifactId": "google-api-services-storage",
-        "version": "v1-rev20200430-1.30.9",
+        "version": "v1-rev20200611-1.30.9",
         "type": "jar"
       },
       "export": true,
@@ -1913,7 +1913,7 @@
         "repository": "central",
         "groupId": "com.google.appengine",
         "artifactId": "appengine-api-1.0-sdk",
-        "version": "1.9.80",
+        "version": "1.9.81",
         "type": "jar"
       },
       "javadocUri": "https://cloud.google.com/appengine/docs/java/javadoc/",
@@ -1927,7 +1927,7 @@
         "repository": "central",
         "groupId": "com.google.auth",
         "artifactId": "google-auth-library-credentials",
-        "version": "0.20.0",
+        "version": "0.21.1",
         "type": "jar"
       },
       "export": true,
@@ -1940,7 +1940,7 @@
         "repository": "central",
         "groupId": "com.google.auth",
         "artifactId": "google-auth-library-oauth2-http",
-        "version": "0.20.0",
+        "version": "0.21.1",
         "type": "jar"
       },
       "export": true,
@@ -1979,7 +1979,7 @@
         "repository": "central",
         "groupId": "com.google.cloud",
         "artifactId": "google-cloud-core",
-        "version": "1.93.4",
+        "version": "1.93.7",
         "type": "jar"
       },
       "export": true,
@@ -1992,7 +1992,7 @@
         "repository": "central",
         "groupId": "com.google.cloud",
         "artifactId": "google-cloud-core-http",
-        "version": "1.93.4",
+        "version": "1.93.7",
         "type": "jar"
       },
       "export": true,
@@ -2018,7 +2018,7 @@
         "repository": "central",
         "groupId": "com.google.cloud",
         "artifactId": "google-cloud-storage",
-        "version": "1.109.0",
+        "version": "1.111.2",
         "type": "jar"
       },
       "export": true,
@@ -2109,7 +2109,7 @@
         "repository": "central",
         "groupId": "com.google.http-client",
         "artifactId": "google-http-client",
-        "version": "1.35.0",
+        "version": "1.36.0",
         "type": "jar"
       },
       "export": true,
@@ -2122,7 +2122,7 @@
         "repository": "central",
         "groupId": "com.google.http-client",
         "artifactId": "google-http-client-appengine",
-        "version": "1.35.0",
+        "version": "1.36.0",
         "type": "jar"
       },
       "export": true,
@@ -2135,7 +2135,7 @@
         "repository": "central",
         "groupId": "com.google.http-client",
         "artifactId": "google-http-client-jackson2",
-        "version": "1.35.0",
+        "version": "1.36.0",
         "type": "jar"
       },
       "export": true,
@@ -2187,7 +2187,7 @@
         "repository": "central",
         "groupId": "com.google.protobuf",
         "artifactId": "protobuf-java",
-        "version": "3.12.0",
+        "version": "3.12.2",
         "type": "jar"
       },
       "export": true,
@@ -2200,7 +2200,7 @@
         "repository": "central",
         "groupId": "com.google.protobuf",
         "artifactId": "protobuf-java-util",
-        "version": "3.12.0",
+        "version": "3.12.2",
         "type": "jar"
       },
       "export": true,
@@ -2266,7 +2266,7 @@
         "repository": "central",
         "groupId": "io.grpc",
         "artifactId": "grpc-context",
-        "version": "1.29.0",
+        "version": "1.30.2",
         "type": "jar"
       },
       "export": true,
