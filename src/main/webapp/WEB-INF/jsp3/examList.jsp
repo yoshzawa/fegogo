@@ -1,3 +1,4 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Optional"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
@@ -21,19 +22,9 @@
 </head>
 <body>
 	<%
-		Map<Long, Exam> examMap = (Map<Long, Exam>)request.getAttribute("examMap");
-/*
-		Optional<String> optExamId = (Optional<String>)	request.getAttribute("optExamId");
-		Long examId = null;
-		if(optExamId.isPresent()){
-			examId=Long.parseLong(optExamId.get());
-		}else{
-			Long maxKey = Collections.max(examMap.keySet());
-			examId=examMap.get(maxKey).getId();
-		}
-*/
-		Long examId = (Long)request.getAttribute("examId");
-
+		Map<Long, Exam> examMap = (Map<Long, Exam>) request.getAttribute("examMap");
+		Long examId = (Long) request.getAttribute("examId");
+		Map<Long, Toi> toiMap = (Map<Long, Toi>) request.getAttribute("toiMap");
 	%>
 	<a href="https://fegogo.appspot.com/"
 		class="d-block px-3 py-2 text-center small"
@@ -60,29 +51,41 @@
 		<div class="row">
 			<nav id="sidebarMenu"
 				class="nav flex-column nav-pills col-md-3 col-lg-2 d-md-block bg-light sidebar collapse show">
-				<a class="nav-link" href="../">index</a> 
-				<a class="nav-link text-success disabled" href="../exam/index" tabindex="-1" aria-disabled="true">試験別</a>
+				<a class="nav-link" href="../">index</a> <a
+					class="nav-link text-success disabled" href="../exam/index"
+					tabindex="-1" aria-disabled="true">試験別</a>
 
-<% 
-	for(Long key : examMap.keySet()){
-		Exam exam = examMap.get(key);
-		if(exam.getId().equals( examId)){
-		
-%>
-				<a class="nav-link active" aria-current="page" href="../exam/list?examId=<%= exam.getId()%>"><%= exam.getName()%></a> 
-<%
-		} else {
-%>
-				<a class="nav-link" href="../exam/list?examId=<%= exam.getId()%>"><%= exam.getName()%></a> 
-<%
-		}
-	}
-%>
+				<%
+					for (Long key : examMap.keySet()) {
+						Exam exam = examMap.get(key);
+						if (exam.getId().equals(examId)) {
+				%>
+				<a class="nav-link active" aria-current="page"
+					href="../exam/list?examId=<%=exam.getId()%>"><%=exam.getName()%></a>
+				<%
+						} else {
+				%>
+				<a class="nav-link" href="../exam/list?examId=<%=exam.getId()%>"><%=exam.getName()%></a>
+				<%
+						}
+					}
+				%>
 
-				<a class="nav-link"	href="../genre/list">分野別</a>
+				<a class="nav-link" href="../genre/list">分野別</a>
 			</nav>
-			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-			<p>・(2020/08/04) 新しいページを開発中です</p>
+			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4"> 
+			<table border=1>
+			<% for(Long key:toiMap.keySet()){
+				Toi toi = toiMap.get(key);
+			%>
+			<tr>
+			<th><%= toi.getNo() %></th>
+			<td><a href="../toi/list?toiId=<%= toi.getId() %>">
+			<%= toi.getName() %></a></td>
+			</tr>
+			<% }
+			%>
+			</table>
 			</main>
 		</div>
 	</div>

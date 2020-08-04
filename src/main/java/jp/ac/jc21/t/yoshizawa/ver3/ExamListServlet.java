@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 /**
  * Servlet implementation class IndexServlet
@@ -52,12 +54,10 @@ public class ExamListServlet extends HttpServlet {
 		}
 		request.setAttribute("examId", examId);
 		
+		Map<Long, Toi> toiMap = Exam.getById(examId).getToiMap();
+		request.setAttribute("toiMap", toiMap);
 		
 
-		
-		
-		
-		
 		
 		RequestDispatcher rd;
 			rd = request.getRequestDispatcher("/WEB-INF/jsp3/examList.jsp");
