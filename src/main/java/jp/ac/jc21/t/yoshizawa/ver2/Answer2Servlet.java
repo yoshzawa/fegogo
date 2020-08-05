@@ -40,23 +40,8 @@ public final class Answer2Servlet extends HttpServlet {
 		String email = (String) session.getAttribute("email");
 
 		// userIdが入っていない場合の処理
-		if (paramMap.containsKey("userId") == false) {
-			if (paramMap.containsKey("toiId") == true) {
-				log.info("no userId , one toiId");
-				RequestDispatcher rd = request
-						.getRequestDispatcher("/question2/list?parentId=" + paramMap.get("ParentId")[0]);
-				rd.forward(request, response);
-			} else {
-				log.info("no userId , no toiId");
-				RequestDispatcher rd = request.getRequestDispatcher("/");
-				rd.forward(request, response);
-			}
-		}
-		if ((email == null) || (!email.equals(request.getParameter("userId")))) {
-			RequestDispatcher rd = request
-					.getRequestDispatcher("/question2/list?parentId=" + paramMap.get("ParentId")[0]);
-			rd.forward(request, response);
-		}
+		check1(request, response, log, paramMap);
+		check2(request, response, log,paramMap, email);
 
 		// Formから送信されたデータごとにMapに入れる
 		HashMap<Long, Answer> answerMap = new HashMap<>();
@@ -144,6 +129,30 @@ public final class Answer2Servlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/answer.jsp");
 		rd.forward(request, response);
 
+	}
+	private void check2(HttpServletRequest request, HttpServletResponse response, final Logger log,Map<String, String[]> paramMap,
+			String email) throws ServletException, IOException {
+		if ((email == null) || (!email.equals(request.getParameter("userId")))) {
+			log.info("no email");
+			RequestDispatcher rd = request
+					.getRequestDispatcher("/question2/list?parentId=" + paramMap.get("ParentId")[0]);
+			rd.forward(request, response);
+		}
+	}
+	private void check1(HttpServletRequest request, HttpServletResponse response, final Logger log,
+			Map<String, String[]> paramMap) throws ServletException, IOException {
+		if (paramMap.containsKey("userId") == false) {
+			if (paramMap.containsKey("toiId") == true) {
+				log.info("no userId , one toiId");
+				RequestDispatcher rd = request
+						.getRequestDispatcher("/question2/list?parentId=" + paramMap.get("ParentId")[0]);
+				rd.forward(request, response);
+			} else {
+				log.info("no userId , no toiId");
+				RequestDispatcher rd = request.getRequestDispatcher("/");
+				rd.forward(request, response);
+			}
+		}
 	}
 	public final void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
