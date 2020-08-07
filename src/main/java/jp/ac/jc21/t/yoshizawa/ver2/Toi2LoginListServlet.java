@@ -75,7 +75,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 					}
 				}
 				if (i == 0) {
-					s[4] = "<a href='/question2/list?parentId=" + t.getId() + "'>“š‚¦‚é</a>";
+					s[4] = "<a href='/question/list?parentId=" + t.getId() + "'>“š‚¦‚é</a>";
 
 				}
 				datas.add(s);
