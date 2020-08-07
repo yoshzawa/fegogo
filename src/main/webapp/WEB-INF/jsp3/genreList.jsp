@@ -1,3 +1,10 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Genre"%>
+<%@page import="java.util.List"%>
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.Optional"%>
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!doctype html>
@@ -16,25 +23,29 @@
 <title>fegogo v3 index</title>
 </head>
 <body>
-
+	<%
+		List<Genre> genreList = (List<Genre>) request.getAttribute("genreList");
+	Long gId =(Long)
+	request.getAttribute("gId");
+	%>
 	<a href="https://fegogo.appspot.com/"
 		class="d-block px-3 py-2 text-center small"
 		style="background-color: infobackground;"> 安定版(Ver.1.20)に戻る </a>
 
 	<nav
 		class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-		<a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">基本情報技術者試験対策　午後問題
-			</a>
-					<button class="navbar-toggler position-absolute d-md-none collapsed"
+		<a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">基本情報技術者試験対策
+			午後問題 </a>
+		<button class="navbar-toggler position-absolute d-md-none collapsed"
 			type="button" data-toggle="collapse" data-target="#sidebarMenu"
 			aria-controls="sidebarMenu" aria-expanded="true"
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-			
+
 		<ul class="navbar-nav px-3">
 			<li class="nav-item text-nowrap"><a class="nav-link" href="#">MicrosoftAccountでサインイン
-					</a></li>
+			</a></li>
 		</ul>
 	</nav>
 
@@ -42,14 +53,49 @@
 		<div class="row">
 			<nav id="sidebarMenu"
 				class="nav flex-column nav-pills col-md-3 col-lg-2 d-md-block bg-light sidebar collapse show">
-				<a class="nav-link text-success disabled" href="./index" tabindex="-1"	aria-disabled="true">index</a>
-				<a class="nav-link" href="./exam/list">試験別</a>
-				<a class="nav-link" href="./genre/list">分野別</a>
+				<a class="nav-link" href="../">index</a> 
+				<a class="nav-link" href="../exam/list">試験別</a>
+				<a
+					class="nav-link text-success disabled" href="../genre/index"
+					tabindex="-1" aria-disabled="true">分野別</a>
+
+				<%
+					for(Genre g : genreList){
+						if (g.getId().equals(gId)) {
+				%>
+				<a class="nav-link active" aria-current="page"
+					href="../genre/list?genreId=<%=g.getId()%>"><%=g.getName()%></a>
+				<%
+					} else {
+				%>
+				<a class="nav-link" href="../genre/list?genreId=<%=g.getId()%>"><%=g.getName()%></a>
+				<%
+					}
+					}
+				%>
+
 			</nav>
 			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-			<p>
-			・(2020/08/04)　新しいページを開発中です
-			</p>
+			<table border=1>
+				<%
+					Genre g=null;
+					for(Genre gg : genreList){
+						if(gg.getId().equals(gId)){
+							g = gg;
+						}
+					}
+					Map<Long,Toi> tMap = g.getToiMap();
+					for (Long key : tMap.keySet()) {
+						Toi toi = tMap.get(key);
+				%>
+				<tr>
+					<th><%=toi.getExam().getName()%></th>
+					<td><a href="../toi/list?toiId=<%=toi.getId()%>"> <%=toi.getName()%></a></td>
+				</tr>
+				<%
+					}
+				%>
+			</table>
 			</main>
 		</div>
 	</div>
