@@ -105,6 +105,17 @@ public class Genre extends GenreFactory {
 		}
 		return toiMap;
 	}
+	public List<Ref<Toi>> resetToiRefList() {
+		List<Ref<Toi>> tRefList = new ArrayList<>();
+		Map<Long,Toi> toiMap = getToiMap();
+		for (Long key : toiMap.keySet()) {
+			System.out.println(key);
+			Toi toi = toiMap.get(key);
+			tRefList.add(Ref.create(toi));
+		}
+		setToiRefList(tRefList);
+		return tRefList;
+	}
 	
 	
 
