@@ -1,3 +1,4 @@
+<%@page import="com.googlecode.objectify.Ref"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Genre"%>
 <%@page import="java.util.List"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
@@ -25,8 +26,7 @@
 <body>
 	<%
 		List<Genre> genreList = (List<Genre>) request.getAttribute("genreList");
-	Long gId =(Long)
-	request.getAttribute("gId");
+	Long gId = (Long) request.getAttribute("gId");
 	%>
 	<a href="https://fegogo.appspot.com/"
 		class="d-block px-3 py-2 text-center small"
@@ -53,15 +53,14 @@
 		<div class="row">
 			<nav id="sidebarMenu"
 				class="nav flex-column nav-pills col-md-3 col-lg-2 d-md-block bg-light sidebar collapse show">
-				<a class="nav-link" href="../">index</a> 
-				<a class="nav-link" href="../exam/list">試験別</a>
-				<a
+				<a class="nav-link" href="../">index</a> <a class="nav-link"
+					href="../exam/list">試験別</a> <a
 					class="nav-link text-success disabled" href="../genre/index"
 					tabindex="-1" aria-disabled="true">分野別</a>
 
 				<%
-					for(Genre g : genreList){
-						if (g.getId().equals(gId)) {
+					for (Genre g : genreList) {
+					if (g.getId().equals(gId)) {
 				%>
 				<a class="nav-link active" aria-current="page"
 					href="../genre/list?genreId=<%=g.getId()%>"><%=g.getName()%></a>
@@ -71,31 +70,31 @@
 				<a class="nav-link" href="../genre/list?genreId=<%=g.getId()%>"><%=g.getName()%></a>
 				<%
 					}
-					}
+				}
 				%>
 
 			</nav>
 			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-			<table border=1>
-				<%
-					Genre g=null;
-					for(Genre gg : genreList){
-						if(gg.getId().equals(gId)){
+				<table border=1>
+					<%
+						Genre g = null;
+					for (Genre gg : genreList) {
+						if (gg.getId().equals(gId)) {
 							g = gg;
 						}
 					}
-					Map<Long,Toi> tMap = g.getToiMap();
-					for (Long key : tMap.keySet()) {
-						Toi toi = tMap.get(key);
-				%>
-				<tr>
-					<th><%=toi.getExam().getName()%></th>
-					<td><a href="../toi/list?toiId=<%=toi.getId()%>"> <%=toi.getName()%></a></td>
-				</tr>
-				<%
-					}
-				%>
-			</table>
+					List<Ref<Toi>> tRefList = g.getToiRefList();
+					for (Ref<Toi> refToi : tRefList) {
+						Toi toi = refToi.get();
+					%>
+					<tr>
+						<th><%=toi.getExam().getName()%></th>
+						<td><a href="../toi/list?toiId=<%=toi.getId()%>"> <%=toi.getName()%></a></td>
+					</tr>
+					<%
+						}
+					%>
+				</table>
 			</main>
 		</div>
 	</div>

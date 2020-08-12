@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.googlecode.objectify.Ref;
+
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
@@ -37,10 +39,10 @@ public class GenreDetailListServlet extends HttpServlet {
 		if (email == null) {
 			List<String[]> datas = new ArrayList<String[]>();
 
-			Map<Long, Toi> toiMap = genre.getToiMap();
+			List<Ref<Toi>> list = genre.getToiRefList();
 			{
-				for (Long key : toiMap.keySet()) {
-					Toi toi = toiMap.get(key);
+				for(Ref<Toi> refToi : list) {
+					Toi toi = refToi.get();
 
 					String[] s = new String[3];
 					s[0] = "";
@@ -58,10 +60,10 @@ public class GenreDetailListServlet extends HttpServlet {
 		} else {
 			List<String[]> datas = new ArrayList<String[]>();
 
-			Map<Long, Toi> toiMap = genre.getToiMap();
+			List<Ref<Toi>> list = genre.getToiRefList();
 
-			for (Long key : toiMap.keySet()) {
-				Toi toi = toiMap.get(key);
+				for(Ref<Toi> refToi : list) {
+					Toi toi = refToi.get();
 
 				String toiName = toi.getExam().getName() + " –â" + toi.getNo() + " (" + toi.getName() + ")";
 

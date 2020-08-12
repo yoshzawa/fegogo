@@ -38,10 +38,11 @@ public class GenreDetail2LoginListServlet extends HttpServlet {
 		{
 			List<String[]> datas = new ArrayList<String[]>();
 
-			Map<Long, Toi> toiMap = genre.getToiMap();
+			List<Ref<Toi>> list = genre.getToiRefList();
 
-			for (Long key : toiMap.keySet()) {
-				Toi toi = toiMap.get(key);
+			for(Ref<Toi> refToi : list) {
+				Toi toi = refToi.get();
+
 
 				String toiName = toi.getExam().getName() + " –â" + toi.getNo() + " (" + toi.getName() + ")";
 

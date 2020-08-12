@@ -89,7 +89,7 @@ public class Genre extends GenreFactory {
 		}
 		return toiRefList;
 	}
-	public Map<Long, Toi> getToiMap() {
+	private Map<Long, Toi> getToiMap() {
 		toiRefList = getToiRefList();
 		Map<Long,Toi> toiMap = new TreeMap<Long,Toi>(
 				 new Comparator<Long>() {

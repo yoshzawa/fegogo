@@ -44,8 +44,16 @@ public class GenreListServlet extends HttpServlet {
 
 		List<Genre> genreList = Genre.loadAll();
 		request.setAttribute("genreList", genreList);
-		Genre g = genreList.get(0);
-		Long gId = g.getId();
+		
+		String genreId = request.getParameter("genreId");
+		long gId;
+		if((genreId==null)||(Genre.getById(Long.parseLong(genreId))==null)) {
+			Genre g = genreList.get(0);
+			 gId = g.getId();
+		}else {
+			gId = Long.parseLong(genreId);
+		
+		}
 		request.setAttribute("gId", gId);
 
 		RequestDispatcher rd;

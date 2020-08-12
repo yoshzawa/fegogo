@@ -35,10 +35,11 @@ public class GenreDetail2NologListServlet extends HttpServlet {
 
 		List<String[]> datas = new ArrayList<String[]>();
 
-		Map<Long, Toi> toiMap = genre.getToiMap();
+		List<Ref<Toi>> list = genre.getToiRefList();
+
 		{
-			for (Long key : toiMap.keySet()) {
-				Toi toi = toiMap.get(key);
+			for (Ref<Toi> refToi : list) {
+				Toi toi = refToi.get();
 
 				String[] s = new String[3];
 				s[0] = "";

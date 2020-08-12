@@ -14,7 +14,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 /**
  * Servlet implementation class AdminServlet
  */
-@WebServlet(urlPatterns = { "/admin/ver3/maintenanceGenre" })
+@WebServlet(urlPatterns = { "/admin/ver3/maintenance/genre" })
 public class MaintenanceGenreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
