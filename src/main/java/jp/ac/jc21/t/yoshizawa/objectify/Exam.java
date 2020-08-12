@@ -6,6 +6,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
@@ -116,9 +117,10 @@ public class Exam extends ExamFactory {
 		return getById(key.getId());
 	}
 	
-	public final TreeMap<Long, Toi> getToiMap() {
+	private final TreeMap<Long, Toi> getToiMap() {
 
-		TreeMap<Long, Toi> toiMap = new TreeMap<>();
+		TreeMap<Long, Toi> toiMap = new TreeMap<>(
+				);
 
 		List<Ref<Toi>> toiRefList = getToiRefList();
 
@@ -130,6 +132,24 @@ public class Exam extends ExamFactory {
 		}
 		return toiMap;
 	}
+	public List<Ref<Toi>> resetToiRefList() {
+		TreeMap<Long, Toi> toiMap = getToiMap();
+		List<Ref<Toi>> rToiList = new ArrayList<Ref<Toi>>();
+		
+		for(Long key : toiMap.keySet()) {
+			System.out.println(key);
+			Toi toi = toiMap.get(key);
+			rToiList.add(Ref.create(toi));
+		}
+		
+		setToiRefList(rToiList);
+		return rToiList;
+		
+		
+	}
+
+	
+	
 
 	public String getExportData() {
 

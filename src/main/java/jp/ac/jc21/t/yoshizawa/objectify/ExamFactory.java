@@ -5,6 +5,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,12 @@ public abstract class ExamFactory extends CommonEntity {
 
 		List<Exam> examList = ofy().load().type(Exam.class).list();
 
-		TreeMap<Long, Exam> examMap = new TreeMap<>();
+		TreeMap<Long, Exam> examMap = new TreeMap<>(
+				 new Comparator<Long>() {
+				        public int compare(Long m, Long n){
+				            return ((Long)m).compareTo(n) * -1;
+				        }
+				    });
 		for (Exam e : examList) {
 			examMap.put(e.getYYYYMM(), e);
 		}

@@ -2,6 +2,7 @@ package jp.ac.jc21.t.yoshizawa.ver3;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.googlecode.objectify.Ref;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
@@ -54,9 +57,10 @@ public class ExamListServlet extends HttpServlet {
 		}
 		request.setAttribute("examId", examId);
 		
-		Map<Long, Toi> toiMap = Exam.getById(examId).getToiMap();
-		request.setAttribute("toiMap", toiMap);
-		
+//		Map<Long, Toi> toiMap = Exam.getById(examId).getToiMap();
+//		request.setAttribute("toiMap", toiMap);
+		List<Ref<Toi>> toiRefList = Exam.getById(examId).getToiRefList();
+		request.setAttribute("toiRefList", toiRefList);
 
 		
 		RequestDispatcher rd;

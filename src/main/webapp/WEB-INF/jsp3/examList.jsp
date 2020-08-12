@@ -1,3 +1,5 @@
+<%@page import="com.googlecode.objectify.Ref"%>
+<%@page import="java.util.List"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Optional"%>
@@ -23,8 +25,9 @@
 <body>
 	<%
 		Map<Long, Exam> examMap = (Map<Long, Exam>) request.getAttribute("examMap");
+		List<Ref<Toi>> toiRefList = (List<Ref<Toi>> )request.getAttribute("toiRefList");
 		Long examId = (Long) request.getAttribute("examId");
-		Map<Long, Toi> toiMap = (Map<Long, Toi>) request.getAttribute("toiMap");
+//		Map<Long, Toi> toiMap = (Map<Long, Toi>) request.getAttribute("toiMap");
 	%>
 	<a href="https://fegogo.appspot.com/"
 		class="d-block px-3 py-2 text-center small"
@@ -75,8 +78,9 @@
 			</nav>
 			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4"> 
 			<table border=1>
-			<% for(Long key:toiMap.keySet()){
-				Toi toi = toiMap.get(key);
+			<% 
+			for(Ref<Toi> refToi : toiRefList){
+				Toi toi = refToi.get();
 			%>
 			<tr>
 			<th><%= toi.getNo() %></th>
