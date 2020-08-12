@@ -37,13 +37,13 @@ public class GenreListServlet extends HttpServlet {
 		List<String[]> datas = new ArrayList<String[]>();
 		RequestDispatcher rd=null;
 //		if (email == null) 
-		if(true)
-		{
+//		if(true)
+//		{
 
 			rd = extractedTrue(request, genreList, datas);
-		} else {
-			rd = extractedFalse(request, genreList, email, datas);
-		}
+//		} else {
+//			rd = extractedFalse(request, genreList, email, datas);
+//		}
 			rd.forward(request, response);
 
 
@@ -80,6 +80,7 @@ public class GenreListServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/nolog/genreList.jsp");
 		return rd;
 	}
+/*
 
 	private RequestDispatcher extractedFalse(HttpServletRequest request, List<Genre> genreList, String email,
 			List<String[]> datas) {
@@ -146,6 +147,7 @@ public class GenreListServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/login/genreListLogin.jsp");
 		return rd;
 	}
+ */
 
 	private final String changePoint(int seikai, int answer) {
 		float point = (100.0f * seikai / answer);

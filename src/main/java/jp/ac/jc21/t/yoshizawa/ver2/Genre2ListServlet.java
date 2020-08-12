@@ -17,13 +17,13 @@ public class Genre2ListServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 //		if (email == null) 
-		if (true) {
+//		if (true) {
 			RequestDispatcher rd = request.getRequestDispatcher("/genre2/Nolog/list");
 			rd.forward(request, response);
-		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/genre2/login/list");
-			rd.forward(request, response);
-		}
+//		} else {
+//			RequestDispatcher rd = request.getRequestDispatcher("/genre2/login/list");
+//			rd.forward(request, response);
+//		}
 
 	}
 }
