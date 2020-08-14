@@ -1,3 +1,4 @@
+<%@page import="com.googlecode.objectify.Ref"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Genre"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
@@ -17,9 +18,10 @@
 
 	<%
 		Exam parentExam = (Exam) request.getAttribute("parent");
-		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
+//		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
 		List<Genre> genreList =		(List<Genre>)request.getAttribute("genreList");
+		List<Ref<Toi>> toiRefList = (List<Ref<Toi>>)		request.getAttribute("toiRefList");
 
 	%>
 
@@ -31,7 +33,7 @@
 	</p>
 
 	<%
-		if (toiMap == null || toiMap.size() == 0) {
+		if (toiRefList == null || toiRefList.size() == 0) {
 	%>
 	試験が登録されていません
 	<%
@@ -46,9 +48,8 @@
 			<TD>問題数</TD>
 		</TR>
 		<%
-			Set<Long> toiKeySet = toiMap.keySet();
-				for (Long l : toiKeySet) {
-					Toi t = toiMap.get(l);
+				for(Ref<Toi> refToi : toiRefList){
+					Toi t = refToi.get();
 		%>
 		<tr>
 			<td><%=t.getId()%></td>

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.googlecode.objectify.Ref;
+
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
@@ -35,8 +37,8 @@ public class ToiListServlet extends HttpServlet {
 
 
 		// 問の一覧を取得
-		TreeMap<Long, Toi> toiMap = e.getToiMap();
-//		request.setAttribute("toiMap", toiMap);
+//		TreeMap<Long, Toi> toiMap = e.getToiMap();
+		List<Ref<Toi>> toiRefList = e.getToiRefList();
 
 		// ユーザー情報取得
 		HttpSession session = request.getSession();
@@ -47,9 +49,8 @@ public class ToiListServlet extends HttpServlet {
 		if (email == null) {
 			// ログインしていない場合
 			List<String[]> datas = new ArrayList<String[]>();
-			Set<Long> toiKeySet = toiMap.keySet();
-			for (Long key : toiKeySet) {
-				Toi t = toiMap.get(key);
+			for(Ref<Toi> refToi : toiRefList) {
+				Toi t = refToi.get();
 				String[] s = new String[4];
 				s[0] = t.getNo().toString();
 				s[1] = t.getRefGenre().get().getName();
@@ -74,9 +75,8 @@ public class ToiListServlet extends HttpServlet {
 
 			/////
 
-			Set<Long> toiKeySet = toiMap.keySet();
-			for (Long key : toiKeySet) {
-				Toi t = toiMap.get(key);
+			for(Ref<Toi> refToi : toiRefList) {
+				Toi t = refToi.get();
 				String[] s = new String[5];
 
 				s[0] = t.getNo().toString();

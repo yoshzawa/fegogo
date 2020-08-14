@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.googlecode.objectify.Ref;
+
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
@@ -27,12 +29,15 @@ public class ToiListAdminServlet extends HttpServlet {
 		long parentId = Long.parseLong(parentIdString);
 		Exam e = Exam.getById(parentId);
 
-		TreeMap<Long, Toi> toiMap = e.getToiMap();
+//		TreeMap<Long, Toi> toiMap = e.getToiMap();
+		List<Ref<Toi>> toiRefList = e.getToiRefList();
+
 		
 		List<Genre> genreList = Genre.loadAll();
 
 		request.setAttribute("parent", e);
-		request.setAttribute("toiMap", toiMap);
+//		request.setAttribute("toiMap", toiMap);
+		request.setAttribute("toiRefList", toiRefList);
 		request.setAttribute("parentId", parentIdString);
 		request.setAttribute("genreList", genreList);
 		

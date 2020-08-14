@@ -2,6 +2,7 @@ package jp.ac.jc21.t.yoshizawa.admin.check;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -10,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.googlecode.objectify.Ref;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
@@ -40,19 +43,15 @@ public class CheckExamServlet extends HttpServlet {
 		String keyString = request.getParameter("examId");
 		Exam e =Exam.getById(Long.parseLong(keyString));
 		
-		
-		
-		TreeMap<Long, Toi> map = e.getToiMap();
-		
-		Set<Long> keyset = map.keySet();
+		List<Ref<Toi>> toiRefList = e.getToiRefList();
 		
 		ArrayList<String[]> list = new ArrayList<>();
 		
-		for(Long key : keyset) {
-			Toi toi = map.get(key);
+		for(Ref<Toi> refToi:toiRefList) {
+			Toi toi = refToi.get();
 			Long examId = toi.getExamId();
 			String[] s = new String[4];
-			s[0]=key.toString();
+			s[0]=toi.getExam().getId().toString();
 			s[1]=toi.getId().toString();
 			s[2]=toi.getName();
 			s[3]=examId.toString();

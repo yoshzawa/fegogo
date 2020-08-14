@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.googlecode.objectify.Ref;
+
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
@@ -34,7 +36,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 
 		// –â‚Ìˆê——‚ğæ“¾
-		TreeMap<Long, Toi> toiMap = e.getToiMap();
+		List<Ref<Toi>> toiRefList = e.getToiRefList();
 
 		// ƒ†[ƒU[î•ñæ“¾
 		HttpSession session = request.getSession();
@@ -55,9 +57,8 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 			/////
 
-			Set<Long> toiKeySet = toiMap.keySet();
-			for (Long key : toiKeySet) {
-				Toi t = toiMap.get(key);
+			for(Ref<Toi> refToi :toiRefList) {
+				Toi t = refToi.get();
 				String[] s = new String[5];
 
 				s[0] = t.getNo().toString();
