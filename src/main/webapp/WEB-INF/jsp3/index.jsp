@@ -33,7 +33,7 @@
 		</button>
 			
 		<ul class="navbar-nav px-3">
-			<li class="nav-item text-nowrap"><a class="nav-link" href="#">MicrosoftAccountでサインイン
+			<li class="nav-item text-nowrap"><a class="nav-link" href="/openidSignIn">MicrosoftAccountでサインイン
 					</a></li>
 		</ul>
 	</nav>

@@ -1,3 +1,4 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Question"%>
 <%@page import="com.googlecode.objectify.Ref"%>
 <%@page import="java.util.List"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
@@ -45,7 +46,7 @@
 		</button>
 
 		<ul class="navbar-nav px-3">
-			<li class="nav-item text-nowrap"><a class="nav-link" href="#">MicrosoftAccountでサインイン
+			<li class="nav-item text-nowrap"><a class="nav-link" href="/openidSignIn">MicrosoftAccountでサインイン
 			</a></li>
 		</ul>
 	</nav>
@@ -83,9 +84,12 @@
 				Toi toi = refToi.get();
 			%>
 			<tr>
-			<th><%= toi.getNo() %></th>
-			<td><a href="../toi/list?toiId=<%= toi.getId() %>">
-			<%= toi.getName() %></a></td>
+			<th><p><%= toi.getNo() %></p>
+			<p><a href="../toi/list?toiId=<%= toi.getId() %>">
+			<%= toi.getName() %></a></th>
+			<td>
+			<%= getToiTable(toi.getId()) %>
+			</td>
 			</tr>
 			<% }
 			%>
@@ -106,4 +110,46 @@
 	integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
 	crossorigin="anonymous"></script>
 
+<%!
+	String getToiTable(Long toiId){
+	String result="<table>";
+		Toi toi = Toi.getById(toiId);
+		for (Ref<Question> refQ : toi.getQuestionRefList()){
+			Question q = refQ.get();
+			
+			result +="<TR>";
+			result +="<TH>";
+			result += q.getName();
+			result +="</TH>";
+			result +="<TD>";
+			if (q.getNoOfOption() <= 0) {
+				result += " <input type='radio' name='" + q.getId() + "' value='-1' disabled='disabled' /> "
+						+ "解けない <input type='radio' name='" + q.getId()
+						+ "' value='1' checked='checked' disabled='disabled' />" + "全員正解 ";
+			} else {
+				if (q.isMulti() == true) {
+					result += " <input type='checkbox' name='" + q.getId();
+				} else {
+					result += " <input type='radio' name='" + q.getId();
+				}
+				result += "' value='-1' checked='checked' disabled='disabled' /> 解けない ";
+				for (int i = 0; i <= (int) q.getNoOfOption(); i++) {
+					if (q.isMulti() == true) {
+						result += " <input type='checkbox'";
+					} else {
+						result += " <input type='radio'";
+					}
+					result += " name='" + q.getId() + "' value='" + i + "' disabled='disabled' /> "
+							+ "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+				}
+			}
+			result +="</TD>";
+			result +="</TR>";
+		}
+		result +="</TABLE>";
+		return result;
+	
+	}
+%>
 </html>
+

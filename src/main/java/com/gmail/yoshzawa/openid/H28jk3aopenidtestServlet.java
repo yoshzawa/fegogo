@@ -13,15 +13,12 @@ import com.google.appengine.api.utils.SystemProperty;
 public final class H28jk3aopenidtestServlet extends HttpServlet implements AzureConstant{
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-//		resp.setContentType("text/html");
-//		resp.getWriter().println("<h1>Sign In</H1>");
 		String url =null;
 		if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
 			   // Production
 			 url = "https://login.microsoftonline.com/organizations/oauth2/v2.0/authorize";
 			url+="?client_id=" + AzureAppId;
 			url+="&response_type=id_token";
-//			url+="&redirec_uri=https%3A%2F%2Ffegogo.fivepro.xyz%2Fmsredirect" ;
 			url+="&redirec_uri=https%3A%2F%2Ffegogo.appspot.com%2Fmsredirect" ;
 			url+="&response_mode=form_post";
 			url+="&scope=openid%20profile";
@@ -40,8 +37,6 @@ public final class H28jk3aopenidtestServlet extends HttpServlet implements Azure
 
 			}
 		
-		
-//		resp.getWriter().println("<a href='"+url+"'>sign-in with microsoft account</a>");
 		resp.sendRedirect(url);
 		
 	}

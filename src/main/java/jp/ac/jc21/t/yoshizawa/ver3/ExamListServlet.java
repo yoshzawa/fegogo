@@ -57,8 +57,6 @@ public class ExamListServlet extends HttpServlet {
 		}
 		request.setAttribute("examId", examId);
 		
-//		Map<Long, Toi> toiMap = Exam.getById(examId).getToiMap();
-//		request.setAttribute("toiMap", toiMap);
 		List<Ref<Toi>> toiRefList = Exam.getById(examId).getToiRefList();
 		request.setAttribute("toiRefList", toiRefList);
 
