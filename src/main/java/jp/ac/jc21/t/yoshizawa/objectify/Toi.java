@@ -38,15 +38,40 @@ public final class Toi extends ToiFactory {
 	private Ref<Genre> genre;
 	Long genreId;
 	Long examId;
+
+	String genreName;
+	String examName;
+
 	
 	
+	public String getExamName() {
+		if(examName== null) {
+			examName=getRefExam().get().getName();
+		}
+		return examName;
+	}
 
+	public void setExamName(String examName) {
+		this.examName = examName;
+	}
 
- 	/**
+	public String getGenreName() {
+		if(genreName == null) {
+			genreName = getRefGenre().get().getName();
+			save();
+		}
+		return genreName;
+	}
+
+	public void setGenreName(String genreName) {
+		this.genreName = genreName;
+	}
+
+	/**
 	 * @return the genreId
 	 */
 	public Long getGenreId() {
-		if(genreId == null) {
+		if (genreId == null) {
 			setGenreId(getRefGenre().get().getId());
 			save();
 		}
@@ -64,7 +89,7 @@ public final class Toi extends ToiFactory {
 	 * @return the examId
 	 */
 	public Long getExamId() {
-		if(examId==null) {
+		if (examId == null) {
 			setExamId(parent.get().getId());
 			save();
 		}
@@ -79,17 +104,17 @@ public final class Toi extends ToiFactory {
 	}
 
 	/**
-
+	 * 
 	 * @return the average
 	 */
 	public float getAnswerSumSum() {
-		if (sum<0) {
+		if (sum < 0) {
 			calcAverage();
 		}
 		return sum;
 	}
 
- 	/**
+	/**
 	 * @param average the average to set
 	 */
 	private final void setAnswerSumSum(float sum) {
@@ -131,13 +156,14 @@ public final class Toi extends ToiFactory {
 	/**
 	 * @return the parent
 	 */
-	
+
 	public Exam getExam() {
 
 		Ref<Exam> re = parent;
 		return re.get();
 
 	}
+
 	public Ref<Exam> getRefExam() {
 
 		Ref<Exam> re = parent;
@@ -145,7 +171,6 @@ public final class Toi extends ToiFactory {
 
 	}
 
-	
 	public Optional<Exam> getOptExam() {
 
 		Optional<Ref<Exam>> optReExam = Optional.ofNullable(parent);
@@ -214,6 +239,7 @@ public final class Toi extends ToiFactory {
 	 */
 	public void setRefGenre(Ref<Genre> genre) {
 		this.genre = genre;
+		setGenreName(genre.get().getName());
 	}
 
 	public void setGenre(Genre genre) {
@@ -227,19 +253,20 @@ public final class Toi extends ToiFactory {
 	}
 
 	public boolean isRefId() {
-		if(genreId == null) {
+		if (genreId == null) {
 			return false;
 		}
-		if(examId == null) {
+		if (examId == null) {
 			return false;
 		}
 		return true;
 	}
+
 	public void setRefId() {
-		if(genreId == null) {
+		if (genreId == null) {
 			genreId = genre.get().getId();
 		}
-		if(examId == null) {
+		if (examId == null) {
 			examId = parent.get().getId();
 		}
 	}
@@ -262,14 +289,14 @@ public final class Toi extends ToiFactory {
 
 	public void setAnswerSumRefList(List<Ref<AnswerSum>> answerSumRefList) {
 		AnswerSumRefList = answerSumRefList;
-		
+
 	}
 
 	public boolean containsAnswerSum(AnswerSum as) {
 		Long asId = as.getId();
 		for (Ref<AnswerSum> r : getAnswerSumRefList()) {
 			AnswerSum answerSum = r.get();
-			if ((answerSum!=null)&&(answerSum.getId() == asId)) {
+			if ((answerSum != null) && (answerSum.getId() == asId)) {
 				return true;
 			}
 		}
@@ -280,7 +307,7 @@ public final class Toi extends ToiFactory {
 		List<Ref<AnswerSum>> list = getAnswerSumRefList();
 		list.add(Ref.create(a));
 		setAnswerSumRefList(list);
-		
+
 		calcAverage();
 	}
 
@@ -300,41 +327,40 @@ public final class Toi extends ToiFactory {
 	}
 
 	final void calcAverage() {
-		float sum=0;
+		float sum = 0;
 		for (Ref<AnswerSum> ras : getAnswerSumRefList()) {
 			AnswerSum answerSum = ras.get();
-			if(answerSum != null) {
-				float temp = 100.0f*answerSum.getNoOfSeikai() / answerSum.getNoOfAnswer();
+			if (answerSum != null) {
+				float temp = 100.0f * answerSum.getNoOfSeikai() / answerSum.getNoOfAnswer();
 				sum += temp;
 			}
 		}
 		setAnswerSumSum(sum);
 		save();
 	}
+
 	public final int getAnswerSumCount() {
 		return getAnswerSumRefList().size();
 	}
 
 	public String getExportData() {
 
-		return getId()+","+
-				getNo()+","+
-				getName()+","+
-				getDateString(getCreated()) + "," + 
-				getExamId()+","+
-				getGenreId()+","+
-				getAnswerSumSum();
+		return getId() + "," + getNo() + "," + getName() + "," + getDateString(getCreated()) + "," + getExamId() + ","
+				+ getGenreId() + "," + getAnswerSumSum();
 	}
-	public boolean containAnswer(Long toiId){
-		
+
+	public boolean containAnswer(Long toiId) {
+
 		Ref<AnswerSum> refASum = Ref.create(Key.create(AnswerSum.class, toiId));
 		return getAnswerSumRefList().contains(refASum);
-		
-		
+
 	}
+
 	public boolean containQuestion(Question q) {
 		return getQuestionRefList().contains(Ref.create(q));
-		
+
 	}
+
+
 
 }

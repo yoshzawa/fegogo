@@ -49,7 +49,8 @@ public class Toi2NoLogListServlet extends HttpServlet {
 				Toi t = toiMap.get(key);
 				String[] s = new String[4];
 				s[0] = t.getNo().toString();
-				s[1] = t.getRefGenre().get().getName();
+//				s[1] = t.getRefGenre().get().getName();
+				s[1] = t.getGenreName();
 				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
 				s[3] = t.getQuestionRefListSize() + "";
 				datas.add(s);

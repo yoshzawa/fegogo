@@ -41,7 +41,8 @@ public class Question2LoginListServlet extends HttpServlet {
 		request.setAttribute("parentId", parentIdString);
 		request.setAttribute("questionMap", qMap);
 		request.setAttribute("exam", exam);
-		request.setAttribute("examName", exam.getName());
+//		request.setAttribute("examName", exam.getName());
+		request.setAttribute("examName", parent.getExamName());
 
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");

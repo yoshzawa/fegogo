@@ -39,9 +39,9 @@ public class Question2NoLogListServlet extends HttpServlet {
 
 		request.setAttribute("parent", parent);
 		request.setAttribute("parentId", parentIdString);
-		request.setAttribute("questionMap", qMap);
-		request.setAttribute("exam", exam);
-		request.setAttribute("examName", exam.getName());
+//		request.setAttribute("questionMap", qMap);
+//		request.setAttribute("exam", exam);
+//		request.setAttribute("examName", parent.getExamName());
 
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");

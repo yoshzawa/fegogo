@@ -16,7 +16,6 @@
   	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi toi = (Toi) request.getAttribute("parent");
-		Exam exam = (Exam) request.getAttribute("exam");
 		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 
 	%>
@@ -24,8 +23,8 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
 			<li class="breadcrumb-item"><a href="/exam/">試験 一覧</a></li>
-			<li class="breadcrumb-item"><a href="/toi/list?parentId=<%=exam.getId()%>"><%=exam.getName()%> 試験</a></li>
-			<li class="breadcrumb-item active" aria-current="page">問<%=toi.getNo()%> <%= toi.getRefGenre().get().getName() %>
+			<li class="breadcrumb-item"><a href="/toi/list?parentId=<%=toi.getExamId()%>"><%=toi.getExamName()%> 試験</a></li>
+			<li class="breadcrumb-item active" aria-current="page">問<%=toi.getNo()%> <%= toi.getGenreName() %>
 			(<%=toi.getName()%>)</li>
 		</ol>
 	</nav>
