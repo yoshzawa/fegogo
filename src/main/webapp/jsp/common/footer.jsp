@@ -16,7 +16,7 @@
  %>		
  <footer class="footer">
   <div class="container">
-    <p class="text-muted">fegogo.appspot.com Version 1.16</p>
+    <p class="text-muted">fegogo.appspot.com Version 1.22</p>
   </div>
 </footer>
 <!-- Custom styles for this template -->
