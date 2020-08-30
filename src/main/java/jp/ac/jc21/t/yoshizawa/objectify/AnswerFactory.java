@@ -20,6 +20,10 @@ public class AnswerFactory extends CommonEntity {
 		return ofy().load().type(Answer.class).id(id).now();
 	}
 
+	public static final Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question, String[] answerArray) {
+		return createAnswer( name, refAnswerSum,  question,  answerArray,question.getNo());
+	}
+
 	public static final Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question, String[] answerArray,
 			long no) {
 		int answerIntArray[] = null;
