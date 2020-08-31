@@ -37,6 +37,23 @@ public final class Answer extends AnswerFactory {
 //	private String dumpCSV;
 	Long answerSumId;
 	Long questionId;
+	private String[] answersStr;
+
+	
+	
+	/**
+	 * @return the answersStr
+	 */
+	public String[] getAnswersStr() {
+		return answersStr;
+	}
+
+	/**
+	 * @param answersStr the answersStr to set
+	 */
+	public void setAnswersStr(String[] answersStr) {
+		this.answersStr = answersStr;
+	}
 
 	/**
 	 * @return the questionId
@@ -224,22 +241,36 @@ public final class Answer extends AnswerFactory {
 	}
 
 	public String getAnswers() {
-		String s = "";
+		if(getAnswersStr()==null) {
+			setAnswersStr(makeAnswersStr());
+			save();
+		}
+		String s="";
+		for(String ss :getAnswersStr()) {
+			s += ss;
+		}
+		return s;
+		
+	}
+	public String[] makeAnswersStr() {
 		int[] answers = getAnswerArray();
 		if (answers == null) {
-			return "";
+			return new String[0];
 		}
+		if (getRefQuestion().get().getNoOfOption() <= 0) {
+			String[] s = new String[1];
+			s[0] = "全員正解";
+			return s;
+		}
+		String[] s = new String[answers.length];
+		int count=0;
 		for (int i : answers) {
 			if (i == -1) {
-				s += "[解けない]";
+				s[count++] = "[解けない]";
 
 			} else {
-				s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
+				s[count++] ="アイウエオカキクケコサシスセソタチツテト".charAt(i)+"";
 			}
-			if (getRefQuestion().get().getNoOfOption() <= 0) {
-				s = "全員正解";
-			}
-
 		}
 		return s;
 	}
