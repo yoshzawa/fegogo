@@ -40,6 +40,17 @@ public final class AnswerSum extends AnswerSumFactory {
 
 	String memberId;
 	Long toiId;
+	private	String version;
+
+	
+	
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
 
 	////////// id
 

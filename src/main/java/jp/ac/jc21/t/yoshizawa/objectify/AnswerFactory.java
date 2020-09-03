@@ -51,6 +51,7 @@ public class AnswerFactory extends CommonEntity {
 		a.setRefQuestion(refQuestion);
 		a.setAnswerArray(answerArray);
 		a.setNo(no);
+		a.setVersion(ofyVersion);
 		return a;
 	}
 	public static List<Answer> loadAll() {

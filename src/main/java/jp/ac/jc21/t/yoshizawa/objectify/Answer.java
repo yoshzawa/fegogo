@@ -37,6 +37,17 @@ public final class Answer extends AnswerFactory {
 //	private String dumpCSV;
 	Long answerSumId;
 	Long questionId;
+	private	String version;
+
+	
+	
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
 
 	/**
 	 * @return the questionId
