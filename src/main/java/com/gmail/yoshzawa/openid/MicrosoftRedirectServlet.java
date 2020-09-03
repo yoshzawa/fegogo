@@ -96,7 +96,7 @@ public final class MicrosoftRedirectServlet extends HttpServlet implements
 		
 
 		resp.getWriter().println("<H1>Welcome," + email+"</h1>");
-		resp.getWriter().println("<a href='/index2'>Continue</a>");
+		resp.getWriter().println("<a href='/index'>Continue</a>");
 
 	}
 }
