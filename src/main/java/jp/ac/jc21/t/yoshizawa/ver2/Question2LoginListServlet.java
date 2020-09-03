@@ -57,27 +57,28 @@ public class Question2LoginListServlet extends HttpServlet {
 
 			s[0] = q.getName();
 			s[1] = "<div class='bd-example'>";
+			Long questionId = q.getId();
 			if (q.getNoOfOption() <= 0) {
-				s[1] += "<span class='border border-primary'>" + "<input type='radio' name='" + q.getId()
+				s[1] += "<span class='border border-primary'>" + "<input type='radio' name='" + questionId
 						+ "' value='-1' checked='checked' disabled='disabled'/>" + " 解けない " + "</span>"
-						+ "<span class='border border-primary'>" + "<input type='radio' name='" + q.getId()
+						+ "<span class='border border-primary'>" + "<input type='radio' name='" + questionId
 						+ "' value='0' checked='checked' />" + " 全員正解 " + "</span>";
 			} else {
 
 				s[1] += "<span class='border border-primary'>";
 
 				if (q.isMulti() == true) {
-					s[1] += "<input type='checkbox' name='" + q.getId() + "' value='-1' />";
+					s[1] += "<input type='checkbox' name='" + questionId + "' value='-1' />";
 				} else {
-					s[1] += " <input type='radio' name='" + q.getId() + "' value='-1' checked='checked' /> ";
+					s[1] += " <input type='radio' name='" + questionId + "' value='-1' checked='checked' /> ";
 				}
 				s[1] += " 解けない " + "</span>";
 				for (int i = 0; i <= (int) q.getNoOfOption(); i++) {
 					s[1] += "<span class='border border-primary'>";
 					if (q.isMulti() == true) {
-						s[1] += "<input type='checkbox' name='" + q.getId() + "' value='" + i + "' /> ";
+						s[1] += "<input type='checkbox' name='" + questionId + "' value='" + i + "' /> ";
 					} else {
-						s[1] += "<input type='radio' name='" + q.getId() + "' value='" + i + "' /> ";
+						s[1] += "<input type='radio' name='" + questionId + "' value='" + i + "' /> ";
 					}
 					s[1] += "アイウエオカキクケコサシスセソタチツテト".charAt(i) + " </span> ";
 				}
