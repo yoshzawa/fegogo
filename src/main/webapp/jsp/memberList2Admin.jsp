@@ -1,3 +1,5 @@
+<%@page import="java.util.TreeMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="com.googlecode.objectify.Ref"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="com.google.appengine.api.users.User"%>
@@ -15,9 +17,11 @@
 <body>
 
 	<%
-		List<Member> memberList = (List<Member>) request.getAttribute("memberList");
-		UserService userService = (UserService) request.getAttribute("userService");
+		Map<Long, List> map = (Map<Long, List>) request.getAttribute("map");
+	UserService userService = (UserService) request.getAttribute("userService");
+
 	%>
+	
 	<%
 		if ((userService != null) && (userService.isUserAdmin() == true)) {
 	%>
@@ -32,40 +36,29 @@
 	<%@ include file="common/headerAdmin.jsp"%><br>
 	
 	<H1>登録されている学生の一覧</H1>
+<table border=1>
 	<%
-		if (memberList == null || memberList.size() == 0) {
+		for(Long toiId : map.keySet()){
+			List<AnswerSum> aSumList = map.get(toiId);
 	%>
-	試験が登録されていません
-	<%
-		} else {
+		<tr><th><%= toiId %></th><td>
+	<% 
+			for(AnswerSum aSum : aSumList){
+		
 	%>
-	<TABLE border=1>
-		<TR>
-			<TD>geteMail</TD>
-			<TD>getCreated</TD>
-			<TD>getModified</TD>
-			<TD>数</TD>
-		</TR>
-		<%
-			for (Member m : memberList) {
-		%>
-		<tr>
-			<td><%=m.geteMail()%></td>
-			<td><%=m.getCreated()%></td>
-			<td><%=m.getModified()%></td>
-			<td><a href='/admin/answerSum/list?memberId=<%=m.geteMail()%>'><%=m.getRefAnswerSumListCount()%></a></td>
-			<td><a href='/admin/member2/list?email=<%=m.geteMail()%>'>解答リスト</a></td>
-		</tr>
-		<%
-			}
-		%>
-	</TABLE>
+	<p>
+	(<a href="/admin/check/answerSum?answerSumId=<%= aSum.getId() %>"><%= aSum.getId() %></a> )
+	<%= aSum.getAnswered() %>
+	(<%= aSum.getNoOfSeikai() %>/<%= aSum.getNoOfAnswer() %>)</p>
 	<%
 		}
 	%>
-
-	<hr />
+	</td></tr>
+	<%
+		}
+	%>
+</table>	
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>

@@ -235,22 +235,36 @@ public final class Answer extends AnswerFactory {
 	}
 
 	public String getAnswers() {
-		String s = "";
+		if(getAnswersStr()==null) {
+			setAnswersStr(makeAnswersStr());
+			save();
+		}
+		String s="";
+		for(String ss :getAnswersStr()) {
+			s += ss;
+		}
+		return s;
+		
+	}
+	public String[] makeAnswersStr() {
 		int[] answers = getAnswerArray();
 		if (answers == null) {
-			return "";
+			return new String[0];
 		}
+		if (getRefQuestion().get().getNoOfOption() <= 0) {
+			String[] s = new String[1];
+			s[0] = "å…¨å“¡æ­£è§£";
+			return s;
+		}
+		String[] s = new String[answers.length];
+		int count=0;
 		for (int i : answers) {
 			if (i == -1) {
-				s += "[‰ð‚¯‚È‚¢]";
+				s[count++] = "[è§£ã‘ãªã„]";
 
 			} else {
-				s += "ƒAƒCƒEƒGƒIƒJƒLƒNƒPƒRƒTƒVƒXƒZƒ\ƒ^ƒ`ƒcƒeƒg".charAt(i);
+				s[count++] ="ã‚¢ã‚¤ã‚¦ã‚¨ã‚ªã‚«ã‚­ã‚¯ã‚±ã‚³ã‚µã‚·ã‚¹ã‚»ã‚½ã‚¿ãƒãƒ„ãƒ†ãƒˆ".charAt(i)+"";
 			}
-			if (getRefQuestion().get().getNoOfOption() <= 0) {
-				s = "‘Sˆõ³‰ð";
-			}
-
 		}
 		return s;
 	}
