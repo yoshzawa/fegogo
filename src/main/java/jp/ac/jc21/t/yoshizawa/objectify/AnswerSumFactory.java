@@ -3,6 +3,8 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ public class AnswerSumFactory extends CommonEntity {
 		as.setAnswered(new Date());
 		as.setMapRefAnswer(mapRefAnswer);
 		as.setNoOfSeikai(noOfSeikai);
+		as.setVersion(ofyVersion);
 		return as;
 	}
 	
@@ -38,7 +41,11 @@ public class AnswerSumFactory extends CommonEntity {
 		return Optional.ofNullable(getById(id));
 	}
 
-	
+	@SuppressWarnings("unchecked")
+	public final static List<AnswerSum> loadByEMail(String eMail) {
+		return (List<AnswerSum>)loadByIndex(AnswerSum.class,"name",eMail);
+	}
+
 	@SuppressWarnings("unchecked")
 	public static final List<AnswerSum> loadAll() {
 		return (List<AnswerSum>) loadAll(AnswerSum.class);

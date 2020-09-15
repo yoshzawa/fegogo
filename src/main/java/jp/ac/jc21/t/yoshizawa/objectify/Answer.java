@@ -37,22 +37,16 @@ public final class Answer extends AnswerFactory {
 //	private String dumpCSV;
 	Long answerSumId;
 	Long questionId;
-	private String[] answersStr;
+	private	String version;
 
 	
 	
-	/**
-	 * @return the answersStr
-	 */
-	public String[] getAnswersStr() {
-		return answersStr;
+	public String getVersion() {
+		return version;
 	}
 
-	/**
-	 * @param answersStr the answersStr to set
-	 */
-	public void setAnswersStr(String[] answersStr) {
-		this.answersStr = answersStr;
+	public void setVersion(String version) {
+		this.version = version;
 	}
 
 	/**
@@ -259,17 +253,17 @@ public final class Answer extends AnswerFactory {
 		}
 		if (getRefQuestion().get().getNoOfOption() <= 0) {
 			String[] s = new String[1];
-			s[0] = "‘Sˆõ³‰ð";
+			s[0] = "å…¨å“¡æ­£è§£";
 			return s;
 		}
 		String[] s = new String[answers.length];
 		int count=0;
 		for (int i : answers) {
 			if (i == -1) {
-				s[count++] = "[‰ð‚¯‚È‚¢]";
+				s[count++] = "[è§£ã‘ãªã„]";
 
 			} else {
-				s[count++] ="ƒAƒCƒEƒGƒIƒJƒLƒNƒPƒRƒTƒVƒXƒZƒ\ƒ^ƒ`ƒcƒeƒg".charAt(i)+"";
+				s[count++] ="ã‚¢ã‚¤ã‚¦ã‚¨ã‚ªã‚«ã‚­ã‚¯ã‚±ã‚³ã‚µã‚·ã‚¹ã‚»ã‚½ã‚¿ãƒãƒ„ãƒ†ãƒˆ".charAt(i)+"";
 			}
 		}
 		return s;

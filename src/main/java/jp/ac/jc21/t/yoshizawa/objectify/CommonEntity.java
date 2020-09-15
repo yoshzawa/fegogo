@@ -31,6 +31,9 @@ public class CommonEntity {
 	public static final Object getById(Class<?> c, long id) {
 		return ofy().load().type(c).id(id).now();
 	}
+	public final static List<?> loadByIndex(Class<?> c , String index,String value) {
+		return ofy().load().type(c).filter(index, value).list();
+	}
 
 	protected static final MemcacheService getCache() {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
@@ -45,5 +48,6 @@ public class CommonEntity {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		return sdf.format(date);
 	}
+	final static String ofyVersion = "1.24";
 
 }

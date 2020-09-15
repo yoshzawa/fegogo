@@ -2,11 +2,13 @@ package jp.ac.jc21.t.yoshizawa.ver2;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -26,134 +28,164 @@ import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/answer","/answer2" })
+@WebServlet(urlPatterns = { "/answer", "/answer2" })
 public final class Answer2Servlet extends HttpServlet {
 
 	@Override
 	public final void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		final Logger log = Logger.getLogger(Answer2Servlet.class.getName());
-
+		
 		Map<String, String[]> paramMap = request.getParameterMap();
+		
+		String paramUserId=paramMap.get("userId")[0];
+		String paramToiId=paramMap.get("toiId")[0];
+		
+		// AnswerSum‚ğì¬‚·‚é
+		AnswerSum aSum = new AnswerSum();
+		aSum.setName(paramUserId);
+		aSum.setAnswered(new Date());
+//		aSum.setRefToi(null);
+		aSum.setNoOfSeikai(-1);
+//		aSum.setMapRefAnswer(null);
+//		aSum.setRefMember(null);
+		aSum.setMemberId(paramToiId);
+		aSum.setToiId(Long.parseLong(paramToiId));
 
+		// AnswerSum‚ğ•Û‘¶‚·‚é
+		aSum.save();
+		
+		// Answer‚ğì¬‚·‚é
+		Map<String, Ref<Answer>> mapRefAnswer = new TreeMap<String, Ref<Answer>>();
+		int correct = 0;
+
+		Ref<AnswerSum> refAsum = Ref.create(aSum);
+		Set<String> paramMapKey = paramMap.keySet();
+				for(String name : paramMapKey) {
+			switch (name) {
+			case "userId":
+			case "toiId":
+				break;
+			default:
+				// Answer‚ÉQuestion‚ğ“o˜^
+				Question question = Question.getById(Long.parseLong(name));
+				Answer answer = Answer.createAnswer(paramUserId, refAsum, question, paramMap.get(name));
+				// Answer‚ğ•Û‘¶‚·‚é
+				answer.save();
+				mapRefAnswer.put(answer.getNo(), Ref.create(answer));
+				if (answer.isCorrect() == true) {
+					correct++;
+				}
+			}
+		}
+		// AnswerSum‚ğÄ“x•Û‘¶‚·‚é
+		aSum.setNoOfSeikai(correct);
+		aSum.setMapRefAnswer(mapRefAnswer);
+		aSum.save();
+
+		// id‚ğŠm”F‚·‚é
+		
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
 
-		// userId‚ª“ü‚Á‚Ä‚¢‚È‚¢ê‡‚Ìˆ—
-		check1(request, response, log, paramMap);
-		check2(request, response, log,paramMap, email);
+		boolean error=false;
 
-		// Form‚©‚ç‘—M‚³‚ê‚½ƒf[ƒ^‚²‚Æ‚ÉMap‚É“ü‚ê‚é
-		HashMap<Long, Answer> answerMap = new HashMap<>();
-		HashSet<Long> parentSet = new HashSet<>();
-		Set<String> paramMapKeyset = paramMap.keySet();
+		error = check1(request, response, paramMap, paramUserId, paramToiId, aSum);
+		// userId‚ªˆá‚¤ê‡‚Ìˆ—
+		error = error || check2(request, response, paramUserId, paramToiId, aSum, email);
+		
+		// ‰ß‹‚ÌAnswerSum‚ğŠm”F‚·‚é
+		error = error ||check3(request, response, paramUserId, paramToiId, aSum, email);
+		
+		if(error == false) {
+			// AnswerSum‚ÉToi‚ğ“o˜^
+			Toi toi = Toi.getById(Long.parseLong(paramToiId));
+				aSum.setRefToi(Ref.create(toi));
+				toi.addAnswerSumRefList(aSum);
+			// AnswerSum‚ÉMember‚ğ“o˜^
+				Member member = Member.get(paramUserId);
+				aSum.setRefMember(Ref.create(member));
+				member.addRefAnswerSumList(aSum);
+			// AnswerSum‚ğ•Û‘¶‚·‚é
+				member.save();
+				toi.save();
+				aSum.save();
+				RequestDispatcher rd = request.getRequestDispatcher("/answer2/show?answerSumId="+aSum.getId());
+				rd.forward(request, response);
 
-		String userId = request.getParameter("userId");
+		}
+	}
 
-		// ‘S‚Ä‚Ì–â‘è‚ÌParent‚ª“¯‚¶‚©’²‚×‚é
-		Member member = Member.get(userId);
+	private boolean  check3(HttpServletRequest request, HttpServletResponse response, String paramUserId, String paramToiId,
+			AnswerSum aSum, String email) throws ServletException, IOException {
+		final Logger log = Logger.getLogger(Answer2Servlet.class.getName());
 
-		for (String s : paramMapKeyset) {
-			if ((!s.equals("userId")) && (!s.equals("toiId"))) {
-				Long qKey = Long.parseLong(s);
-				Question q = Question.getById(qKey);
-				String[] answerArray = paramMap.get(s);
-				Answer answer = Answer.createAnswer(userId, null, q, answerArray, q.getNo());
-				answerMap.put(qKey, answer);
+		boolean error = false;
 
-				Long parentId = q.getParent().getId();
-				parentSet.add(parentId);
+		List<AnswerSum> list = AnswerSum.loadByEMail(email);
+		for(AnswerSum ansSum:list) {
+			if(ansSum.getToiId().equals( Long.parseLong(paramToiId))) {
+				long diff = aSum.getAnswered().getTime() - ansSum.getAnswered().getTime();
+				diff /= 1000;
+				System.out.println(aSum.getId() +"("+aSum.getAnswered()+"):" +
+						ansSum.getId() + "(" + ansSum.getAnswered()+")["+diff+"]");
+				if((diff != 0)&&(diff<240*60*60)) {
+					log.warning("interval too short");
+
+					RequestDispatcher rd = request
+							.getRequestDispatcher("/answer2/drop?status=4&answerSumId=" + aSum.getId()+"&masterAnswerSumId="+ansSum.getId()
+							+"&userId="+paramUserId+"&toiId="+paramToiId);
+					rd.forward(request, response);
+					error = true;
+
+				}
 			}
 		}
-		if (parentSet.size() != 1) {
-			log.info("toi is not single");
-			RequestDispatcher rd = request.getRequestDispatcher("/exam/list");
-			rd.forward(request, response);
-		}
-
-		long toiKey = (Long) parentSet.toArray()[0];
-		Toi toi = Toi.getById(toiKey);
-		AnswerSum ansSummary = AnswerSum.createAnswerSum(userId, toi, -1, null);
-		ansSummary.save();
-		toi.addAnswerSumRefList(ansSummary);
-		toi.save();
-
-		int correct = 0;
-		Map<String, Ref<Answer>> mapAnswer = new HashMap<>();
-
-		List<Ref<Question>> qList = toi.getQuestionRefList();
-		for (Ref<Question> q : qList) {
-			Question question = q.get();
-			Answer a = answerMap.get(question.getId());
-			if (a == null) {
-				a = Answer.createAnswer(userId, null, question, new String[0], question.getNo());
-			}
-			a.setAnswerSum(ansSummary);
-			a = a.save();
-			mapAnswer.put(a.getNo(), Ref.create(a));
-
-			if (a.isCorrect() == true) {
-				correct++;
-			}
-		}
-
-		ansSummary.setNoOfSeikai(correct);
-		ansSummary.setMapRefAnswer(mapAnswer);
-		ansSummary.setMember(member);
-		ansSummary.save();
-
-		member.addRefAnswerSumList(ansSummary);
-		member.save();
-
-		request.setAttribute("ansSummary", ansSummary);
-
-		request.setAttribute("email", email);
-
-		List<String[]> datas = new ArrayList<String[]>();
-		Map<Integer, Answer> answer = ansSummary.getMapAnswer();
-		Set<Integer> keyset = answer.keySet();
-
-		for (Integer i : keyset) {
-			Answer a = answer.get(i);
-			String[] s = new String[3];
-			Question question = a.getRefQuestion().get();
-
-			s[0] = question.getName();
-			s[1] = question.getAnswers();
-			s[2] = a.getAnswers();
-			datas.add(s);
-
-		}
-		request.setAttribute("datas", datas);
-
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/answer.jsp");
-		rd.forward(request, response);
+		return error;
 
 	}
-	private void check2(HttpServletRequest request, HttpServletResponse response, final Logger log,Map<String, String[]> paramMap,
-			String email) throws ServletException, IOException {
+
+	private boolean check2(HttpServletRequest request, HttpServletResponse response, String paramUserId,
+			String paramToiId, AnswerSum aSum, String email) throws ServletException, IOException {
+		final Logger log = Logger.getLogger(Answer2Servlet.class.getName());
+
+		boolean error = false;
+
 		if ((email == null) || (!email.equals(request.getParameter("userId")))) {
-			log.info("no email");
-			RequestDispatcher rd = request
-					.getRequestDispatcher("/question2/list?parentId=" + paramMap.get("ParentId")[0]);
+			log.warning("email error");
+			RequestDispatcher rd = request.getRequestDispatcher("/answer2/drop?status=3&answerSumId=" + aSum.getId()
+					+ "&userId=" + paramUserId + "&toiId=" + paramToiId);
 			rd.forward(request, response);
+			error = true;
+
 		}
+		return error;
 	}
-	private void check1(HttpServletRequest request, HttpServletResponse response, final Logger log,
-			Map<String, String[]> paramMap) throws ServletException, IOException {
+
+	private boolean check1(HttpServletRequest request, HttpServletResponse response, 
+			Map<String, String[]> paramMap, String paramUserId, String paramToiId, AnswerSum aSum)
+			throws ServletException, IOException {
+		final Logger log = Logger.getLogger(Answer2Servlet.class.getName());
+
+		boolean error = false;
+		// userId‚ª“ü‚Á‚Ä‚¢‚È‚¢ê‡‚Ìˆ—
 		if (paramMap.containsKey("userId") == false) {
 			if (paramMap.containsKey("toiId") == true) {
-				log.info("no userId , one toiId");
-				RequestDispatcher rd = request
-						.getRequestDispatcher("/question2/list?parentId=" + paramMap.get("ParentId")[0]);
+				log.warning("no userId , one toiId");
+				RequestDispatcher rd = request.getRequestDispatcher("/answer2/drop?status=1&answerSumId=" + aSum.getId()
+						+ "&userId=" + paramUserId + "&toiId=" + paramToiId);
 				rd.forward(request, response);
+				error = true;
 			} else {
-				log.info("no userId , no toiId");
-				RequestDispatcher rd = request.getRequestDispatcher("/");
+				log.warning("no userId , no toiId");
+				RequestDispatcher rd = request.getRequestDispatcher("/answer2/drop?status=2&answerSumId=" + aSum.getId()
+						+ "&userId=" + paramUserId + "&toiId=" + paramToiId);
 				rd.forward(request, response);
+				error = true;
 			}
 		}
+		return error;
 	}
+
 	public final void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		final Logger log = Logger.getLogger(Answer2Servlet.class.getName());

@@ -35,6 +35,7 @@
 
 	<H1>解答を登録しました</H1>
 		    <main class="mb-5">
+		    <P>最後の回答から10日間は、新規の回答は受け付けません。</P>
 	
 	<h3>
 		<%=ansSummary.getNoOfAnswer()%>問中<%=ansSummary.getNoOfSeikai()%>問正解
