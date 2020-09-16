@@ -61,9 +61,9 @@ public class Toi2LoginListServlet extends HttpServlet {
 				String[] s = new String[5];
 
 				s[0] = t.getNo().toString();
-//				s[1] = t.getRefGenre().get().getName();
 				s[1] = t.getGenreName();
-				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
+//				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
+				s[2] =  t.getName() ;
 				s[3] = t.getQuestionRefListSize() + "";
 				s[4] = "";
 
@@ -72,11 +72,16 @@ public class Toi2LoginListServlet extends HttpServlet {
 					if (as.getRefToi().get().getId() == t.getId()) {
 						s[4] += dateFormat(as.getAnswered()) + "(" + changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())
 								+ "%)<br/>";
-						i++;
+						long diff =  new Date().getTime() -as.getAnswered().getTime() ;
+						diff /= 1000;
+						if(diff<240*60*60) {
+							//log.warning("interval too short");
+							i++;
+						}
 					}
 				}
 				if (i == 0) {
-					s[4] = "<a href='/question/list?parentId=" + t.getId() + "'>“š‚¦‚é</a>";
+					s[4] += "<a href='/question/list?parentId=" + t.getId() + "'>“š‚¦‚é</a>";
 
 				}
 				datas.add(s);
