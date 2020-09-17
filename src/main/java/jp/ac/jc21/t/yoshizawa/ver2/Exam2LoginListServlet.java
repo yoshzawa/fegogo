@@ -78,7 +78,7 @@ public class Exam2LoginListServlet extends HttpServlet {
 				s[2] = "<a href='/genreDetail/list?id="+toi.getRefGenre().get().getId()+"'>" + toi.getRefGenre().get().getName() + "</a>";
 				s[3] = toi.getName();
 				s[4] = dateFormat(as.getAnswered());
-				s[5] = changePoint(as);
+				s[5] = changePoint(as)+"%";
 				datas2.add(s);
 			}
 
