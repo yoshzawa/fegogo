@@ -73,25 +73,7 @@ public final class Member extends MemberFactory {
 	public List<AnswerSum> getAnswerSumListSorted() {
 		List<AnswerSum> list = getAnswerSumList();
 
-		Collections.sort(list, new Comparator<AnswerSum>() {
-
-			public int compare(AnswerSum a, AnswerSum b) {
-
-//				return Integer.compare(personFirst.getId(), personSecond.getId());
-				Long aYYYYMM = a.getToi().get().getExam().getYYYYMM();
-				Long bYYYYMM = b.getToi().get().getExam().getYYYYMM();
-				if (aYYYYMM != bYYYYMM) {
-					return (int) (aYYYYMM - bYYYYMM);
-				}
-				Long ano = a.getToi().get().getNo();
-				Long bno = b.getToi().get().getNo();
-				if (ano != bno) {
-					return (int) (ano - bno);
-				}
-				return a.getAnswered().compareTo(b.getAnswered());
-			}
-
-		});
+		list = sort(list);
 
 		return list;
 	}

@@ -32,7 +32,6 @@ public class Toi2LoginListServlet extends HttpServlet {
 		// Exam‚ğæ“¾
 		Exam e = Exam.getById(parentId);
 
-
 		// –â‚Ìˆê——‚ğæ“¾
 		TreeMap<Long, Toi> toiMap = e.getToiMap();
 
@@ -41,14 +40,15 @@ public class Toi2LoginListServlet extends HttpServlet {
 		String email = (String) session.getAttribute("email");
 		request.setAttribute("ExamName", e.getName());
 
-
- {
+		{
 			// ƒƒOƒCƒ“‚µ‚Ä‚¢‚éê‡
 			request.setAttribute("email", email);
 
 			// ‰ñ“š‚µ‚½î•ñ‚ğæ“¾
 			Member member = Member.get(email);
 			List<AnswerSum> answerSumList = member.getAnswerSumListByExamId(parentId);
+			answerSumList = Member.sort(answerSumList);
+			
 			request.setAttribute("answerSumList", answerSumList);
 
 			List<String[]> datas = new ArrayList<String[]>();
@@ -63,7 +63,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 				s[0] = t.getNo().toString();
 				s[1] = t.getGenreName();
 //				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
-				s[2] =  t.getName() ;
+				s[2] = t.getName();
 				s[3] = t.getQuestionRefListSize() + "";
 				s[4] = "";
 
@@ -72,10 +72,10 @@ public class Toi2LoginListServlet extends HttpServlet {
 					if (as.getRefToi().get().getId() == t.getId()) {
 						s[4] += dateFormat(as.getAnswered()) + "(" + changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())
 								+ "%)<br/>";
-						long diff =  new Date().getTime() -as.getAnswered().getTime() ;
+						long diff = new Date().getTime() - as.getAnswered().getTime();
 						diff /= 1000;
-						if(diff<240*60*60) {
-							//log.warning("interval too short");
+						if (diff < 240 * 60 * 60) {
+							// log.warning("interval too short");
 							i++;
 						}
 					}
@@ -89,23 +89,26 @@ public class Toi2LoginListServlet extends HttpServlet {
 			}
 			/////
 			request.setAttribute("datas", datas);
-			
+
 			List<String[]> datas2 = new ArrayList<String[]>();
 
 			for (AnswerSum as : answerSumList) {
 				String[] s = new String[6];
-					Toi toi = as.getRefToi().get();
-			s[0]=toi.getExam().getName();
-			s[1]=toi.getNo().toString();
-			s[2]=toi.getRefGenre().get().getName();
-			s[3]=toi.getName();
-			s[4]=dateFormat(as.getAnswered());
-			s[5]= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) +"%";
-			datas2.add(s);
-			
+				Toi toi = as.getRefToi().get();
+				// s[0]=toi.getExam().getName();
+				String examName = toi.getExam().getName();
+				s[0] = "<a href='/toi/list?parentId=" + toi.getExam().getId() + "'>" + examName + "</a>";
+				s[1] = toi.getNo().toString();
+				// s[2]=toi.getRefGenre().get().getName();
+				s[2] = "<a href='/genreDetail/list?id=" + toi.getRefGenre().get().getId() + "'>"
+						+ toi.getRefGenre().get().getName() + "</a>";
+				s[3] = toi.getName();
+				s[4] = dateFormat(as.getAnswered());
+				s[5] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
+				datas2.add(s);
+
 			}
 			request.setAttribute("datas2", datas2);
-			
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/toiListLogin.jsp");
 			rd.forward(request, response);
