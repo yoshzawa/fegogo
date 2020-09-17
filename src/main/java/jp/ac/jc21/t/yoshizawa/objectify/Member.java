@@ -6,6 +6,8 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -68,6 +70,32 @@ public final class Member extends MemberFactory {
 		return list;
 	}
 
+	public List<AnswerSum> getAnswerSumListSorted() {
+		List<AnswerSum> list = getAnswerSumList();
+
+		Collections.sort(list, new Comparator<AnswerSum>() {
+
+			public int compare(AnswerSum a, AnswerSum b) {
+
+//				return Integer.compare(personFirst.getId(), personSecond.getId());
+				Long aYYYYMM = a.getToi().get().getExam().getYYYYMM();
+				Long bYYYYMM = b.getToi().get().getExam().getYYYYMM();
+				if (aYYYYMM != bYYYYMM) {
+					return (int) (aYYYYMM - bYYYYMM);
+				}
+				Long ano = a.getToi().get().getNo();
+				Long bno = b.getToi().get().getNo();
+				if (ano != bno) {
+					return (int) (ano - bno);
+				}
+				return a.getAnswered().compareTo(b.getAnswered());
+			}
+
+		});
+
+		return list;
+	}
+
 	public void newRefAnswerSumList() {
 		setRefAnswerSumList(new ArrayList<>());
 	}
@@ -105,6 +133,7 @@ public final class Member extends MemberFactory {
 		List<Ref<AnswerSum>> l = getRefAnswerSumList();
 		return containsRefAnswerSum(Ref.create(ansSummary), l);
 	}
+
 	public boolean containsRefAnswerSum(Ref<AnswerSum> ansRefSummary) {
 		List<Ref<AnswerSum>> l = getRefAnswerSumList();
 		return containsRefAnswerSum(ansRefSummary, l);
@@ -120,12 +149,12 @@ public final class Member extends MemberFactory {
 		}
 		return b;
 	}
+
 	public boolean containsRefAnswerSum(Ref<AnswerSum> RefAnsSummary, List<Ref<AnswerSum>> l) {
 		boolean b = false;
-		b=l.contains(RefAnsSummary);
+		b = l.contains(RefAnsSummary);
 		return b;
 	}
-
 
 	/**
 	 * parentId‚Éˆê’v‚·‚éExam‚ÉŠÖ˜A‚·‚éAnswerSum‚Ìˆê——‚ð•Ô‚·
@@ -137,26 +166,26 @@ public final class Member extends MemberFactory {
 		final Logger log = Logger.getLogger(Member.class.getName());
 
 		List<AnswerSum> list = new ArrayList<>();
-		if(getRefAnswerSumList()==null) {
+		if (getRefAnswerSumList() == null) {
 			return list;
 		}
 		for (Ref<AnswerSum> as : getRefAnswerSumList()) {
-			
+
 			AnswerSum answerSum = as.get();
-			if(answerSum == null) {
-				log.warning("answerSum == null:MemberId="+geteMail());
+			if (answerSum == null) {
+				log.warning("answerSum == null:MemberId=" + geteMail());
 				continue;
 			}
-			
+
 			Toi toi = answerSum.getRefToi().get();
-			if(toi == null) {
-				log.warning("toi == null:MemberId="+geteMail());
+			if (toi == null) {
+				log.warning("toi == null:MemberId=" + geteMail());
 				continue;
 			}
 
 			Exam exam = toi.getExam();
-			if(exam == null) {
-				log.warning("exam == null:MemberId="+geteMail());
+			if (exam == null) {
+				log.warning("exam == null:MemberId=" + geteMail());
 				continue;
 			}
 			if (exam.getId() != parentId) {

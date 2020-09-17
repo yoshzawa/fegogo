@@ -53,7 +53,8 @@ public class Exam2LoginListServlet extends HttpServlet {
 
 		Member member = Member.get(email);
 
-		List<AnswerSum> answerSumList = member.getAnswerSumList();
+		List<AnswerSum> answerSumList = member.getAnswerSumListSorted();
+		
 
 		List<String[]> datas2 = new ArrayList<String[]>();
 
@@ -68,12 +69,13 @@ public class Exam2LoginListServlet extends HttpServlet {
 				String examName;
 				if (optExam.isPresent()) {
 					examName = optExam.get().getName();
+					s[0] = "<a href='/toi/list?parentId="+optExam.get().getId()+"'>"+examName+"</a>";
 				} else {
 					examName = null;
+					s[0] = examName;
 				}
-				s[0] = examName;
 				s[1] = toi.getNo().toString();
-				s[2] = toi.getRefGenre().get().getName();
+				s[2] = "<a href='/genreDetail/list?id="+toi.getRefGenre().get().getId()+"'>" + toi.getRefGenre().get().getName() + "</a>";
 				s[3] = toi.getName();
 				s[4] = dateFormat(as.getAnswered());
 				s[5] = changePoint(as);
