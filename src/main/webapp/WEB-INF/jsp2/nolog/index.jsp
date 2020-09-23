@@ -9,6 +9,7 @@
 </head>
 
 <body>
+  <div class="container">
 
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
@@ -26,11 +27,12 @@
 
 	<H2>連絡</H2>
 	<P>
-	・（2020/07/07）メンテ終わりました
+		・（2020/09/23）CBT対策で、問題文付きの解答サイトを作成しました。完成し次第徐々に公開していきます。
 	</P>
 	
 <p></p>
 </main>
+</div>
 <%@ include file="../common/footer.jsp"%>
 </body>
 

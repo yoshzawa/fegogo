@@ -37,10 +37,8 @@ public final class Answer extends AnswerFactory {
 //	private String dumpCSV;
 	Long answerSumId;
 	Long questionId;
-	private	String version;
+	private String version;
 
-	
-	
 	public String getVersion() {
 		return version;
 	}
@@ -53,7 +51,7 @@ public final class Answer extends AnswerFactory {
 	 * @return the questionId
 	 */
 	public Long getQuestionId() {
-		if(questionId == null) {
+		if (questionId == null) {
 			setQuestionId(getRefQuestion().get().getId());
 			save();
 		}
@@ -235,36 +233,22 @@ public final class Answer extends AnswerFactory {
 	}
 
 	public String getAnswers() {
-		if(getAnswersStr()==null) {
-			setAnswersStr(makeAnswersStr());
-			save();
-		}
-		String s="";
-		for(String ss :getAnswersStr()) {
-			s += ss;
-		}
-		return s;
-		
-	}
-	public String[] makeAnswersStr() {
+		String s = "";
 		int[] answers = getAnswerArray();
 		if (answers == null) {
-			return new String[0];
+			return "";
 		}
-		if (getRefQuestion().get().getNoOfOption() <= 0) {
-			String[] s = new String[1];
-			s[0] = "å…¨å“¡æ­£è§£";
-			return s;
-		}
-		String[] s = new String[answers.length];
-		int count=0;
 		for (int i : answers) {
 			if (i == -1) {
-				s[count++] = "[è§£ã‘ãªã„]";
+				s += "[‰ð‚¯‚È‚¢]";
 
 			} else {
-				s[count++] ="ã‚¢ã‚¤ã‚¦ã‚¨ã‚ªã‚«ã‚­ã‚¯ã‚±ã‚³ã‚µã‚·ã‚¹ã‚»ã‚½ã‚¿ãƒãƒ„ãƒ†ãƒˆ".charAt(i)+"";
+				s += "ƒAƒCƒEƒGƒIƒJƒLƒNƒPƒRƒTƒVƒXƒZƒ\ƒ^ƒ`ƒcƒeƒg".charAt(i);
 			}
+			if (getRefQuestion().get().getNoOfOption() <= 0) {
+				s = "‘Sˆõ³‰ð";
+			}
+
 		}
 		return s;
 	}
@@ -329,13 +313,10 @@ public final class Answer extends AnswerFactory {
 	}
 
 	public Optional<Question> getOptQuestion() {
-		
+
 		Optional<Ref<Question>> optRefQ = Optional.ofNullable(getRefQuestion());
 		Optional<Question> optQ = optRefQ.map(q -> q.get());
-		
+
 		return optQ;
 	}
-
-	
-
 }

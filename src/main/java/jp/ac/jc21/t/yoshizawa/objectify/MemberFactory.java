@@ -5,6 +5,8 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -40,5 +42,27 @@ public class MemberFactory extends CommonEntity{
 			m = createMember(email);
 		}
 		return m;
+	}
+	public static List<AnswerSum> sort(List<AnswerSum> list) {
+		Collections.sort(list, new Comparator<AnswerSum>() {
+
+			public int compare(AnswerSum a, AnswerSum b) {
+
+//				return Integer.compare(personFirst.getId(), personSecond.getId());
+				Long aYYYYMM = a.getToi().get().getExam().getYYYYMM();
+				Long bYYYYMM = b.getToi().get().getExam().getYYYYMM();
+				if (aYYYYMM != bYYYYMM) {
+					return (int) (aYYYYMM - bYYYYMM);
+				}
+				Long ano = a.getToi().get().getNo();
+				Long bno = b.getToi().get().getNo();
+				if (ano != bno) {
+					return (int) (ano - bno);
+				}
+				return a.getAnswered().compareTo(b.getAnswered());
+			}
+
+		});
+		return list;
 	}
 }

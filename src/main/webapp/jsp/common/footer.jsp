@@ -1,3 +1,4 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.CommonEntity"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,7 +17,7 @@
  %>		
  <footer class="footer">
   <div class="container">
-    <p class="text-muted">fegogo.appspot.com Version 1.24</p>
+    <p class="text-muted">fegogo.appspot.com Version <%= CommonEntity.ofyVersion %></p>
   </div>
 </footer>
 <!-- Custom styles for this template -->
