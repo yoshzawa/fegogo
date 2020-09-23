@@ -48,6 +48,6 @@ public class CommonEntity {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		return sdf.format(date);
 	}
-	final public static String ofyVersion = "1.25";
+	final public static String ofyVersion = "1.26";
 
 }
