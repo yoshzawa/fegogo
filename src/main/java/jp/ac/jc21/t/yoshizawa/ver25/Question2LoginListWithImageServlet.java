@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.ver2;
+package jp.ac.jc21.t.yoshizawa.ver25;
 
 import java.io.IOException;
 import java.util.*;
@@ -19,8 +19,8 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/question2/Login/list" })
-public class Question2LoginListServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/question2/Login/list/withImage" })
+public class Question2LoginListWithImageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -41,7 +41,6 @@ public class Question2LoginListServlet extends HttpServlet {
 		request.setAttribute("parentId", parentIdString);
 		request.setAttribute("questionMap", qMap);
 		request.setAttribute("exam", exam);
-//		request.setAttribute("examName", exam.getName());
 		request.setAttribute("examName", parent.getExamName());
 
 		HttpSession session = request.getSession();

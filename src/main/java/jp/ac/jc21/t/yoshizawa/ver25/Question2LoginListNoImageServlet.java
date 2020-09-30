@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.ver2;
+package jp.ac.jc21.t.yoshizawa.ver25;
 
 import java.io.IOException;
 import java.util.*;
@@ -19,18 +19,14 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/question2WithImage/Login/list" })
-public class Question2LoginListWithImageServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/question2/Login/list/noImage" })
+public class Question2LoginListNoImageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		final Logger log = Logger.getLogger(QuestionListAdminServlet.class.getName());
 
 		String parentIdString = request.getParameter("parentId");
-		
-		if(!parentIdString.contentEquals("5640638045356032")) {
-			response.sendRedirect("/question2/Login/list?parentId="+parentIdString);
-		}
 
 		long parentId = Long.parseLong(parentIdString);
 		log.info("[" + request.getServletPath() + "]parentId:" + parentId);
@@ -93,7 +89,7 @@ public class Question2LoginListWithImageServlet extends HttpServlet {
 		}
 		request.setAttribute("datas", datas);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/questionListWithImageLogin.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/questionListLogin.jsp");
 		rd.forward(request, response);
 
 	}
