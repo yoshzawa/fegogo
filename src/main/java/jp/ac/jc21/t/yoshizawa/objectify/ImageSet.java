@@ -7,6 +7,9 @@ public class ImageSet {
 	private int top;
 	private Long[] questionIds;
 	
+	public ImageSet() {
+	}
+	
 	public ImageSet(Long[] questionIds) {
 		setImage(false);
 		setQuestionIds(questionIds);

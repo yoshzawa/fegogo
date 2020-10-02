@@ -54,6 +54,7 @@ public class QuestionImageAdminServlet extends HttpServlet {
 				imageSet.add(new ImageSet(qMap.get(key).getId()));
 			}
 			parent.setImageSet(imageSet);
+			parent.save();
 		}
 		request.setAttribute("imageSet", imageSet);
 		

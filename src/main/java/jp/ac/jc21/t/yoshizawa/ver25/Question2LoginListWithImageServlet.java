@@ -49,6 +49,8 @@ public class Question2LoginListWithImageServlet extends HttpServlet {
 		request.setAttribute("email", email);
 		List<String[]> datas = new ArrayList<String[]>();
 
+		parent.getImageSet();
+		
 		Set<Long> toiKeySet = qMap.keySet();
 		for (Long l : toiKeySet) {
 			Question q = qMap.get(l);
