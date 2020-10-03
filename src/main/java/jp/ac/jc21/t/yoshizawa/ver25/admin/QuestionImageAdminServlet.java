@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.admin;
+package jp.ac.jc21.t.yoshizawa.ver25.admin;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -51,7 +51,7 @@ public class QuestionImageAdminServlet extends HttpServlet {
 		if (imageSet== null) {
 			imageSet = new ArrayList<ImageSet>();
 			for(Long key : qMap.keySet()) {
-				imageSet.add(new ImageSet(qMap.get(key).getId()));
+				imageSet.add(new ImageSet(qMap.get(key).getNo()));
 			}
 			parent.setImageSet(imageSet);
 			parent.save();

@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.admin;
+package jp.ac.jc21.t.yoshizawa.ver25.admin;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -19,12 +19,12 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/question/imageTop" })
-public class QuestionImageTopAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/question/imageAdd" })
+public class QuestionImageAddAdminServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		final Logger log = Logger.getLogger(QuestionImageTopAdminServlet.class.getName());
+		final Logger log = Logger.getLogger(QuestionImageAddAdminServlet.class.getName());
 
 		// ñ‚ÇÃIDÇéÊÇËèoÇ∑
 		String parentIdString = request.getParameter("parentId");
@@ -32,8 +32,7 @@ public class QuestionImageTopAdminServlet extends HttpServlet {
 		String noString = request.getParameter("no");
 		int no = Integer.parseInt(noString)-1;
 		
-		String topString = request.getParameter("top");
-		int top = Integer.parseInt(topString);
+		String urlString = "/image/"+request.getParameter("url");
 
 		Toi parent = Toi.getById(Long.parseLong(parentIdString));
 
@@ -41,9 +40,14 @@ public class QuestionImageTopAdminServlet extends HttpServlet {
 		if (imageSet== null) {
 			response.sendRedirect("./image?parentId="+parentIdString);
 		}else {
-			imageSet.get(no).setTop(top);
-			
-			parent.setImageSet(imageSet);
+			List<ImageSet> imageSetNew = new ArrayList<ImageSet>();
+			for(int i=0 ; i<imageSet.size() ; i++) {
+				if(i == no) {
+					imageSetNew.add(new ImageSet(urlString,1000,0));
+				}
+				imageSetNew.add(imageSet.get(i));
+			}
+			parent.setImageSet(imageSetNew);
 			parent.save();
 		}
 		

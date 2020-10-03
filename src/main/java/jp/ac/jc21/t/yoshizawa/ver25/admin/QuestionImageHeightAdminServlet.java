@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.admin;
+package jp.ac.jc21.t.yoshizawa.ver25.admin;
 
 import java.io.IOException;
 import java.util.logging.Logger;

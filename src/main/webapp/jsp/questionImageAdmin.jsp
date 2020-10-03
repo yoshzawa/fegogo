@@ -39,6 +39,8 @@
 				<P>
 					<%=exam.getName()%>
 					問<%=parent.getNo()%>(<%=parent.getName()%>)
+					<a href="./imageReset?parentId=<%=parentId%>">登録をリセットする</a>
+					
 				</p>
 			</div>
 		</div>
