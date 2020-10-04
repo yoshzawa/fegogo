@@ -26,7 +26,9 @@
 
 	<H2>連絡</H2>
 	<P>
-	・（2020/09/23）CBT対策で、問題文付きの解答サイトを作成しました。完成し次第徐々に公開していきます。　<a href="/question2WithImage/Login/list?parentId=5640638045356032">H31春問8</a>
+	・（2020/09/23）CBT対策で、問題文付きの解答サイトを作成しました。完成し次第徐々に公開していきます。　
+	<a href="/question/list?parentId=5705808872472576">H31春問1</a> 
+	<a href="/question/list?parentId=5640638045356032">H31春問8</a>
 	</P>
 <p></p>
 </main>

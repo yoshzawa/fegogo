@@ -19,7 +19,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/question/image" })
+@WebServlet(urlPatterns = { "/admin/question/image"  })
 public class QuestionImageAdminServlet extends HttpServlet {
 
 	@Override

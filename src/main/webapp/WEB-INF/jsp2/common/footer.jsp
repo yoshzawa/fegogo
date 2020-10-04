@@ -14,7 +14,7 @@
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return sdf.format(d);
 	}%>
-<footer class="footer fixed-bottom">
+<footer class="footer ">
 	<div class="container">
 		<p class="text-muted">
 			fegogo.appspot.com Version
