@@ -47,6 +47,10 @@ public class QuestionImageAddAdminServlet extends HttpServlet {
 				}
 				imageSetNew.add(imageSet.get(i));
 			}
+			if(no<0) {
+				imageSetNew.add(new ImageSet(urlString,1000,0));
+			}
+			
 			parent.setImageSet(imageSetNew);
 			parent.save();
 		}
