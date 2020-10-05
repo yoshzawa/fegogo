@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.ver2;
+package jp.ac.jc21.t.yoshizawa.ver25;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,6 +52,9 @@ public class Toi2NoLogListServlet extends HttpServlet {
 //				s[1] = t.getRefGenre().get().getName();
 				s[1] = t.getGenreName();
 				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
+				if(t.getImageSet() != null) {
+					s[2] = s[2]+"<B>(CBT)</B>";
+				}
 				s[3] = t.getQuestionRefListSize() + "";
 				datas.add(s);
 			}
