@@ -35,6 +35,8 @@ public final class Answer2Servlet extends HttpServlet {
 	public final void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		
+		
+		
 		Map<String, String[]> paramMap = request.getParameterMap();
 		
 		String paramUserId=paramMap.get("userId")[0];
@@ -86,6 +88,8 @@ public final class Answer2Servlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
+		request.setAttribute("email", email);
+
 
 		boolean error=false;
 

@@ -16,6 +16,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div class="container">
 	<%@ include file="common/headerAdmin.jsp"%><br>
 	<%
 		String parentId = (String) request.getAttribute("parentId");
@@ -30,7 +31,6 @@
 		List<ImageSet> imageSet = (List<ImageSet>) request.getAttribute("imageSet");
 	%>
 
-	<div class="container">
 		<div class="row">
 			<div class="container-sm">
 
