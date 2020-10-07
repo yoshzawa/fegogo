@@ -46,6 +46,10 @@
 		</div>
 		<div class="row">
 			<div style="overflow: auto;">
+				<%
+					int no = 1;
+				%>
+			
 				<table border=1>
 					<% 
 						for (ImageSet is : imageSet){
@@ -53,6 +57,7 @@
 					%>
 
 					<tr>
+											<td><%=no%></td>
 						<td>
 							<p
 								style="position:relative;
@@ -64,15 +69,41 @@
 									overflow: hidden;">
 							</p>
 						</td>
+												<td><%=is.getUrl()%> <a
+							href="./imageRemove?parentId=<%=parentId%>&no=<%=no%>">消す</a>
+							<br>
+							<form method="post" action="./imageHeight">
+								<input type="hidden" name="parentId" value="<%=parentId%>" />
+								<input type="hidden" value="<%=no%>" name="no"> height=<input
+									type="number" value="<%=is.getHeight()%>" name="height">
+								<input type="submit" value="変更">
+							</form>
+							<form method="post" action="./imageTop">
+								<input type="hidden" name="parentId" value="<%=parentId%>" />
+								<input type="hidden" value="<%=no%>" name="no"> top=<input
+									type="number" value="<%=is.getTop()%>" name="top"> <input
+									type="submit" value="変更">
+							</form></td>
+						
 					</tr>
 					<%
 						} else {
 					%>
 					<tr>
+																<td><%=no%></td>
 						<td>Question <%=is.getQuestionIds() + ""%></td>
+												<td>
+							<%
+								for (Long id : is.getQuestionIds()) {
+							%> Question <%=id%><br> <%
+ 	}
+ %>
+						</td>
+						
 					</tr>
 					<%
 						}
+						no++;
 					%>
 					<%
 						}
@@ -82,7 +113,7 @@
 			<div style="float: right; overflow: auto;">
 
 				<%
-					int no = 1;
+					no = 1;
 				%>
 				<table border=1>
 					<%
