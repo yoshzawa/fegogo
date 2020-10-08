@@ -47,7 +47,7 @@ public class QuestionImageTopAdminServlet extends HttpServlet {
 			parent.save();
 		}
 		
-		response.sendRedirect("./image?parentId="+parentIdString);
+		response.sendRedirect("./image"+"?parentId="+parentIdString+"#"+noString);
 
 
 	}

@@ -21,6 +21,7 @@
       <a class="active" href="/admin/export/genre.csv">genre.csv</a>
       <a class="active" href="/admin/export/answerSum.csv">answerSum.csv</a>
       <a class="active" href="/admin/export/answer.csv">answer.csv</a>
+      <a class="active" href="/admin/export/answer2.csv">answer2.csv</a>
 
 <H2>バージョン３：exportを読むタイプ</H2>
       <a class="active" href="/admin/import/genre">genre.csv</a>

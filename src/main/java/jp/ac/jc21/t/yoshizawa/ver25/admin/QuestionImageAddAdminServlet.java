@@ -32,7 +32,7 @@ public class QuestionImageAddAdminServlet extends HttpServlet {
 		String noString = request.getParameter("no");
 		int no = Integer.parseInt(noString)-1;
 		
-		String urlString = "/image/"+request.getParameter("url");
+		String urlString = request.getParameter("url");
 
 		Toi parent = Toi.getById(Long.parseLong(parentIdString));
 

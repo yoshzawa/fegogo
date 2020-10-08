@@ -65,7 +65,9 @@
 			</td>
 			<td><a href="/admin/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
 			<td><%=t.getQuestionRefListSize()%></td>
-			<td><a href="/admin/question/image?parentId=<%=t.getId()%>">画像調整</a></td>
+			<td><a href="/admin/question/image?parentId=<%=t.getId()%>">
+			<% if(t.getImageSet() != null){out.print("(CBT)"); }%>
+			画像調整</a></td>
 		</tr>
 		<%
 			}
