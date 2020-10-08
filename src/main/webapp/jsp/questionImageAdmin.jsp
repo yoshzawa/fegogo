@@ -17,8 +17,8 @@
 </head>
 <body>
 	<div class="container">
-	<%@ include file="common/headerAdmin.jsp"%><br>
-	<%
+		<%@ include file="common/headerAdmin.jsp"%><br>
+		<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
 		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
@@ -38,9 +38,9 @@
 				<p>選択された試験：</p>
 				<P>
 					<%=exam.getName()%>
-					問<%=parent.getNo()%>(<%=parent.getName()%>)
-					<a href="./imageReset?parentId=<%=parentId%>">登録をリセットする</a>
-					
+					問<%=parent.getNo()%>(<%=parent.getName()%>) <a
+						href="./imageReset?parentId=<%=parentId%>">登録をリセットする</a>
+
 				</p>
 			</div>
 		</div>
@@ -49,7 +49,7 @@
 				<%
 					int no = 1;
 				%>
-			
+
 				<table border=1>
 					<% 
 						for (ImageSet is : imageSet){
@@ -57,7 +57,7 @@
 					%>
 
 					<tr>
-											<td><a name="<%=no%>"><%=no%></td>
+						<td><a name="<%=no%>"><%=no%></td>
 						<td>
 							<p
 								style="position:relative;
@@ -69,37 +69,44 @@
 									overflow: hidden;">
 							</p>
 						</td>
-												<td><%=is.getUrl()%> <a
-							href="./imageRemove?parentId=<%=parentId%>&no=<%=no%>">消す</a>
-							<br>
+						<td>
+						<a href="./imageRemove?parentId=<%=parentId%>&no=<%=no%>">消す</a> <br>
+						<form method="post" action="./imageRename">
+								<input type="hidden" name="parentId" value="<%=parentId%>" /> 
+								<input
+									type="hidden" value="<%=no%>" name="no"> 
+									url<input
+									type="url" value="<%=is.getUrl()%>" name="url">
+								<input type="submit" value="変更">
+						</form>
 							<form method="post" action="./imageHeight">
-								<input type="hidden" name="parentId" value="<%=parentId%>" />
-								<input type="hidden" value="<%=no%>" name="no"> height=<input
+								<input type="hidden" name="parentId" value="<%=parentId%>" /> <input
+									type="hidden" value="<%=no%>" name="no"> height=<input
 									type="number" value="<%=is.getHeight()%>" name="height">
 								<input type="submit" value="変更">
 							</form>
 							<form method="post" action="./imageTop">
-								<input type="hidden" name="parentId" value="<%=parentId%>" />
-								<input type="hidden" value="<%=no%>" name="no"> top=<input
+								<input type="hidden" name="parentId" value="<%=parentId%>" /> <input
+									type="hidden" value="<%=no%>" name="no"> top=<input
 									type="number" value="<%=is.getTop()%>" name="top"> <input
 									type="submit" value="変更">
 							</form></td>
-						
+
 					</tr>
 					<%
 						} else {
 					%>
 					<tr>
-																<td><%=no%></td>
+						<td><%=no%></td>
 						<td>Question <%=is.getQuestionIds() + ""%></td>
-												<td>
+						<td>
 							<%
 								for (Long id : is.getQuestionIds()) {
 							%> Question <%=id%><br> <%
  	}
  %>
 						</td>
-						
+
 					</tr>
 					<%
 						}
@@ -119,7 +126,7 @@
 							<form method="post" action="./imageAdd">
 								<input type="hidden" name="parentId" value="<%=parentId%>" />
 								画像を追加する<br> 位置：<input type="number" value="1" name="no">の前<br>
-								URL：(http:～～　or  /image/から)<input type="text" value="" name="url"><br>
+								URL：(http:～～ or /image/から)<input type="text" value="" name="url"><br>
 								<input type="submit" value="追加する">
 							</form>
 						</td>
