@@ -41,17 +41,12 @@ public class QuestionImageRenameAdminServlet extends HttpServlet {
 		if (imageSet== null) {
 			response.sendRedirect("./image?parentId="+parentIdString);
 		}else {
-//			List<ImageSet> imageSetNew = new ArrayList<ImageSet>();
 			ImageSet is = imageSet.get(no);
 			is.setUrl(urlString);
-//			imageSet.set(no,is);
-//			parent.setImageSet(imageSet);
-			
-			
 			parent.save();
+			response.sendRedirect("./image?parentId="+parentIdString+"#"+noString);
 		}
 		
-		response.sendRedirect("./image?parentId="+parentIdString+"#"+noString);
 
 
 	}

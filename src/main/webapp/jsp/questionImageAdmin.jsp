@@ -76,7 +76,7 @@
 								<input
 									type="hidden" value="<%=no%>" name="no"> 
 									url<input
-									type="url" value="<%=is.getUrl()%>" name="url">
+									type="url" value="<%=is.getUrl()%>" name="url"　size="40">
 								<input type="submit" value="変更">
 						</form>
 							<form method="post" action="./imageHeight">
