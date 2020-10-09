@@ -31,7 +31,9 @@ public class ObjectifyWebListener implements ServletContextListener {
 	
 		ObjectifyService.register(BackupAnswer.class);
 		ObjectifyService.register(BackupAnswerSum.class);
-}
+		ObjectifyService.register(AccessLog.class);
+
+	}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
