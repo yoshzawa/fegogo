@@ -1,17 +1,33 @@
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.util.Date;
 
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
-public class AccessLog {
+@Entity
+@Cache
+public class AccessLog extends AccessLogFactory{
 	@Id
 	Long id;
 	@Index
 	private String name;
 	private Date accessed;
 	private String operation;
+	
+	public AccessLog() {
+	}
+	
+	public AccessLog save() {
+		Key<AccessLog> key = ofy().save().entity(this).now();
+		return getById(key.getId());
+	}
+	
 	/**
 	 * @return the id
 	 */
