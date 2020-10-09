@@ -72,7 +72,6 @@ public class ImportToiServlet extends HttpServlet {
 			try {
 				created = format.parse(ss[3]);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				created=null;
 			}
 			Exam exam=Exam.getById(Long.parseLong(ss[4]));

@@ -63,7 +63,6 @@ public class ImportGenreServlet extends HttpServlet {
 			try {
 				created = format.parse(ss[2]);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				created=null;
 			}
 			int no = Integer.parseInt(ss[3]);
