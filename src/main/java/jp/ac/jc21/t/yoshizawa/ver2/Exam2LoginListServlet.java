@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jp.ac.jc21.t.yoshizawa.objectify.AccessLog;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
@@ -30,6 +31,7 @@ public class Exam2LoginListServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		final Logger log = Logger.getLogger(Exam2LoginListServlet.class.getName());
+		
 
 
 		Map<Long, Exam> examMap = Exam.loadAll();
@@ -84,6 +86,10 @@ public class Exam2LoginListServlet extends HttpServlet {
 
 		}
 		request.setAttribute("datas2", datas2);
+		
+		AccessLog.create(email, "/exam2/Login/list "+"exam="+datas.size()+"result="+datas2.size()).save();
+		
+
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/examListLogin.jsp");
 		rd.forward(request, response);

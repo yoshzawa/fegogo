@@ -1,3 +1,4 @@
+
 package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -13,6 +14,7 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 @Cache
 public class AccessLog extends AccessLogFactory{
+	
 	@Id
 	Long id;
 	@Index
