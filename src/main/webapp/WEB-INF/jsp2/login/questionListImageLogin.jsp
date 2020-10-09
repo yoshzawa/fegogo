@@ -1,3 +1,5 @@
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.ImageSet"%>
+<%@page import="java.util.Map"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Question"%>
 <%@page import="java.util.List"%>
@@ -8,7 +10,10 @@
   	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi toi = (Toi) request.getAttribute("parent");
-		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
+//		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
+		Map<Long,String[]> datas=(Map<Long,String[]>)request.getAttribute("datas");
+		List<ImageSet> imageSetList = (List<ImageSet>)
+		request.getAttribute("imageSetList");
 
 	%>
 
@@ -18,7 +23,8 @@
 <title><%= toi.getExam().getYYYYMM()%> 問<%=toi.getNo()%> <%=toi.getName()%></title>
 </head>
 <body>
-    <div class="container">
+ 	<div class="container">
+			<div class="container-sm">
   
   
 	<nav aria-label="breadcrumb">
@@ -33,7 +39,6 @@
 
 <%@ include file="../common/headerLogin.jsp"%>
 
-	<H1>登録されている設問の一覧</H1>
 	    <main class="mb-5">
 
 	<%
@@ -43,11 +48,28 @@
 	<%
 		} else {
 	%>
+	<h2><%=toi.getExamName()%> 試験 <%= toi.getGenreName() %></h2>
+	<h3>問<%=toi.getNo()%> <%=toi.getName()%></h3>
 	<form method="post" action="/answer">
 		<input type="hidden" name="userId" value="<%= email %>" />
 		<input type="hidden" name="toiId" value="<%= toi.getId() %>" />
-	
-			<TABLE border=1 class="table table-striped table-hover table-responsive">
+		<%
+			for(ImageSet is : imageSetList){
+				if(is.isImage()==true){
+%>
+							<p
+								style="position:relative;
+									background-image: url(<%=is.getUrl()%>);
+									height: <%=is.getHeight()%>px;
+									width:700px;
+									background-position: 0  <%=is.getTop()%>px;
+									background-size: 700px auto ;
+									overflow: hidden;">
+							</p>		
+<% 					
+				}else{
+		%>
+					<TABLE border=1 class="table table-striped table-hover table-responsive">
 			<thead class="thead-dark">
 				<TR>
 					<th>設問</th>
@@ -56,7 +78,11 @@
 			</thead>
 
 			<%
-				for(String[] s : datas){
+				Long [] ids = is.getQuestionIds();
+				for(Long id : ids){
+//					System.out.println(id);
+					String[] s = datas.get(id);
+				
 			%>
 			<tr>
 				<td><%=s[0]%></td>
@@ -67,6 +93,14 @@
 				}
 			%>
 		</table>
+		<% 
+				}
+		%>
+		<% 
+		}
+		%>
+	
+
 		
 		<input type="submit" value="送信する" />
 	</form>

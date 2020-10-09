@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.ver2;
+package jp.ac.jc21.t.yoshizawa.ver25;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -64,6 +64,9 @@ public class Toi2LoginListServlet extends HttpServlet {
 				s[1] = t.getGenreName();
 //				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
 				s[2] = t.getName();
+				if(t.getImageSet() != null) {
+					s[2] = s[2]+"<B>(CBT)</B>";
+				}
 				s[3] = t.getQuestionRefListSize() + "";
 				s[4] = "";
 

@@ -250,7 +250,6 @@ public final class Question extends QuestionFactory {
 
 	}
 	public boolean containAnswer(Long answerId) {
-		Ref<Answer> rAns=Ref.create(Key.create(Answer.class,answerId));
 		return getAnswerSet().contains(answerId);
 	}
 //	public boolean containQuestion(Question q) {

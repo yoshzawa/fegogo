@@ -9,6 +9,8 @@
 </head>
 
 <body>
+  <div class="container">
+
 	<%
 		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 	%>
@@ -60,6 +62,7 @@
 <p></p>
 </main>
 <%@ include file="../common/footer.jsp"%>
+</div>
 </body>
 
 </html>

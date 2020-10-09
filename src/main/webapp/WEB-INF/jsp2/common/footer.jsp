@@ -14,13 +14,13 @@
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return sdf.format(d);
 	}%>
-<footer class="footer fixed-bottom">
-	<div class="container">
-		<p class="text-muted">
+<footer class="page-footer font-small blue pt-4">
+
+  <div class="footer-copyright text-center py-3">
 			fegogo.appspot.com Version
 			<%=CommonEntity.ofyVersion%></p>
-
-	</div>
+  </div>
+  
 </footer>
 <!-- Custom styles for this template -->
 <link href="/css/sticky-footer.css" rel="stylesheet">

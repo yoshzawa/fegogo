@@ -1,10 +1,7 @@
 package jp.ac.jc21.t.yoshizawa.ver2;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,6 +31,8 @@ public final class Answer2Servlet extends HttpServlet {
 	@Override
 	public final void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
+		
 		
 		Map<String, String[]> paramMap = request.getParameterMap();
 		
@@ -86,6 +85,8 @@ public final class Answer2Servlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
+		request.setAttribute("email", email);
+
 
 		boolean error=false;
 

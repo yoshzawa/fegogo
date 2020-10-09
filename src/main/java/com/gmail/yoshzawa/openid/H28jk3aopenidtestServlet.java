@@ -21,8 +21,8 @@ public final class H28jk3aopenidtestServlet extends HttpServlet implements Azure
 			 url = "https://login.microsoftonline.com/organizations/oauth2/v2.0/authorize";
 			url+="?client_id=" + AzureAppId;
 			url+="&response_type=id_token";
-//			url+="&redirec_uri=https%3A%2F%2Ffegogo.fivepro.xyz%2Fmsredirect" ;
-			url+="&redirec_uri=https%3A%2F%2Ffegogo.appspot.com%2Fmsredirect" ;
+			url+="&redirec_uri=https%3A%2F%2Ffegogo.fivepro.xyz%2Fmsredirect" ;
+//			url+="&redirec_uri=https%3A%2F%2Ffegogo.appspot.com%2Fmsredirect" ;
 			url+="&response_mode=form_post";
 			url+="&scope=openid%20profile";
 			url+="&state=12345";

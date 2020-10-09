@@ -252,12 +252,10 @@ public final class AnswerSum extends AnswerSumFactory {
 //		final Logger log = Logger.getLogger(AnswerSum.class.getName());
 
 		Member member = getRefMember().get();
-		Toi toi = getRefToi().get();
 		member.removeRefAnswerSumList(this);
 		member.save();
 		setRefMember(null);
 		save();
-
 	}
 	/**
 	 * @return the answerSumDumpCSV

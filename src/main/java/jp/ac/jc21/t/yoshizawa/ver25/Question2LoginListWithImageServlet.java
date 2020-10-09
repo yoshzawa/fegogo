@@ -1,7 +1,11 @@
-package jp.ac.jc21.t.yoshizawa.ver2;
+package jp.ac.jc21.t.yoshizawa.ver25;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -12,19 +16,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import jp.ac.jc21.t.yoshizawa.admin.QuestionListAdminServlet;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.ImageSet;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/question2/Login/list" })
-public class Question2LoginListServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/question2/Login/list/withImage" })
+public class Question2LoginListWithImageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		final Logger log = Logger.getLogger(QuestionListAdminServlet.class.getName());
+		final Logger log = Logger.getLogger(Question2LoginListWithImageServlet.class.getName());
 
 		String parentIdString = request.getParameter("parentId");
 
@@ -41,15 +45,20 @@ public class Question2LoginListServlet extends HttpServlet {
 		request.setAttribute("parentId", parentIdString);
 		request.setAttribute("questionMap", qMap);
 		request.setAttribute("exam", exam);
-//		request.setAttribute("examName", exam.getName());
 		request.setAttribute("examName", parent.getExamName());
 
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
 
 		request.setAttribute("email", email);
-		List<String[]> datas = new ArrayList<String[]>();
+//		List<String[]> datas = new ArrayList<String[]>();
+		Map<Long,String[]> datas = new HashMap<Long, String[]>();
 
+		List<ImageSet> imageSetList = parent.getImageSet();
+		request.setAttribute("imageSetList", imageSetList);
+
+		
+		
 		Set<Long> toiKeySet = qMap.keySet();
 		for (Long l : toiKeySet) {
 			Question q = qMap.get(l);
@@ -85,12 +94,12 @@ public class Question2LoginListServlet extends HttpServlet {
 			}
 
 			s[1] += "</div>";
-			datas.add(s);
+			datas.put(l, s);
 
 		}
 		request.setAttribute("datas", datas);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/questionListLogin.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/questionListImageLogin.jsp");
 		rd.forward(request, response);
 
 	}

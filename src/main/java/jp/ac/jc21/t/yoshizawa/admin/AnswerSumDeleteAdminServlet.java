@@ -20,7 +20,6 @@ public class AnswerSumDeleteAdminServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		String memberId = request.getParameter("memberId");
 		String AnswerSumId = request.getParameter("AnswerSumId");
 		
 		AnswerSum as = AnswerSum.getById(Long.parseLong(AnswerSumId));
@@ -31,22 +30,7 @@ public class AnswerSumDeleteAdminServlet extends HttpServlet {
 		for(Integer key : mapanswer.keySet()) {
 			Answer answer = mapanswer.get(key);
 			response.getWriter().println("DELETE AnswerId:"+answer.getId()+"<br />");
-//			answer.delete();
 		}
 		as.deleteLink();
-		
-		
-		
-		
-		
-/*		
-		List<AnswerSum> answerSumList = Member.get(memberId).getAnswerSumList();
-		request.setAttribute("answerSumList", answerSumList);
-		
-		request.setAttribute("redirectTo", "/admin/answerSum/list?memberId="+ memberId );
-
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/answerSumListAllAdmin.jsp");
-		rd.forward(request, response);
-*/
 	}
 }

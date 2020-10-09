@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -72,7 +71,6 @@ public class ImportToiServlet extends HttpServlet {
 			try {
 				created = format.parse(ss[3]);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				created=null;
 			}
 			Exam exam=Exam.getById(Long.parseLong(ss[4]));
@@ -87,8 +85,6 @@ public class ImportToiServlet extends HttpServlet {
 				break;
 			}
 			Ref<Genre> refGenre = Ref.create(genre);
-			String sum=ss[6];
-			
 			Toi t=new Toi();
 			t.setId(id);
 			t.setNo(no);
@@ -105,10 +101,6 @@ public class ImportToiServlet extends HttpServlet {
 			exam.save();
 			
 			out.println("INSERT Toi ID=["+id+"]");
-			
-
 		}
-
 	}
-
 }

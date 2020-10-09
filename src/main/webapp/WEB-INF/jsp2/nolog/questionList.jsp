@@ -10,6 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+  <div class="container">
+
 	<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
@@ -73,6 +75,7 @@
 <p></p>
 </main>
 <%@ include file="../common/footer.jsp"%>
+</div>
 </body>
 
 </html>

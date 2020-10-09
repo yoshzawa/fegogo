@@ -10,6 +10,7 @@
 
 <body>
   <div class="container">
+		    <div class="mb-5">
 
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
@@ -19,7 +20,6 @@
 	</nav>
 
 	<%@ include file="../common/header.jsp"%><br>
-		    <main class="mb-5">
 	
 
 	<P>システムの利用には、Microsoftアカウントが必要です。指定された方法でログインし、
@@ -31,9 +31,9 @@
 	</P>
 	
 <p></p>
-</main>
-</div>
 <%@ include file="../common/footer.jsp"%>
+</div>
+</div>
 </body>
 
 </html>

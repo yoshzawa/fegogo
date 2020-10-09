@@ -31,7 +31,6 @@ public class CheckAnswerSumServlet extends HttpServlet {
 	 */
 	public CheckAnswerSumServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
