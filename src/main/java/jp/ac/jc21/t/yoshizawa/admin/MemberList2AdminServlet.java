@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.googlecode.objectify.Ref;
-
-import jp.ac.jc21.t.yoshizawa.objectify.*;
+import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
+import jp.ac.jc21.t.yoshizawa.objectify.Member;
 
 @SuppressWarnings("serial")
 
@@ -27,7 +26,7 @@ public class MemberList2AdminServlet extends HttpServlet {
 
 		Member member = Member.get(request.getParameter("email"));
 		
-		Map<Long, List> map = new TreeMap<Long, List>();
+		Map<Long, List<AnswerSum>> map = new TreeMap<Long, List<AnswerSum>>();
 		for(AnswerSum aSum :member.getAnswerSumList()) {
 			Long toiId = aSum.getToiId();
 			List<AnswerSum> list = map.get(toiId);

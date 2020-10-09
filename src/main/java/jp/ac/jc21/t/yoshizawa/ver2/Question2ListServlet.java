@@ -1,7 +1,6 @@
 package jp.ac.jc21.t.yoshizawa.ver2;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +17,6 @@ public class Question2ListServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		final Logger log = Logger.getLogger(Question2ListServlet.class.getName());
 
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");

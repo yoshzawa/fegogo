@@ -68,7 +68,7 @@ public class CheckToiQuestionServlet extends HttpServlet {
 					
 
 				
-				s[6]=question.getDateString(question.getCreated());
+				s[6]=Question.getDateString(question.getCreated());
 				list.add(s);
 				
 			}

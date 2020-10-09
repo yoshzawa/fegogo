@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
@@ -37,8 +36,6 @@ public class Toi2NoLogListServlet extends HttpServlet {
 		TreeMap<Long, Toi> toiMap = e.getToiMap();
 
 		// ƒ†[ƒU[î•ñæ“¾
-		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
 		request.setAttribute("ExamName", e.getName());
 
 

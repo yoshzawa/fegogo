@@ -13,9 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
@@ -35,18 +33,11 @@ public class Question2NoLogListServlet extends HttpServlet {
 
 		Toi parent = Toi.getById(parentId);
 
-		Exam exam = parent.getExam();
-
 		TreeMap<Long, Question> qMap = Toi.getQuestionMap(parent);
 
 		request.setAttribute("parent", parent);
 		request.setAttribute("parentId", parentIdString);
-//		request.setAttribute("questionMap", qMap);
-//		request.setAttribute("exam", exam);
-//		request.setAttribute("examName", parent.getExamName());
 
-		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
 
 		List<String[]> datas = new ArrayList<String[]>();
 

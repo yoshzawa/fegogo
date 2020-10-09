@@ -24,7 +24,6 @@ public class ExportAnswerServlet extends HttpServlet {
      */
     public ExportAnswerServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

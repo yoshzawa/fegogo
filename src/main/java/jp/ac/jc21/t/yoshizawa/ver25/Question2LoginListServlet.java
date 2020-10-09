@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jp.ac.jc21.t.yoshizawa.admin.QuestionListAdminServlet;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")

@@ -1,8 +1,6 @@
 package jp.ac.jc21.t.yoshizawa.ver25.admin;
 
 import java.io.IOException;
-import java.util.logging.Logger;
-
 import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,7 +22,6 @@ public class QuestionImageResetAdminServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		final Logger log = Logger.getLogger(QuestionImageResetAdminServlet.class.getName());
 
 		// ñ‚ÇÃIDÇéÊÇËèoÇ∑
 		String parentIdString = request.getParameter("parentId");
@@ -56,10 +53,6 @@ public class QuestionImageResetAdminServlet extends HttpServlet {
 			parent.save();
 		request.setAttribute("imageSet", imageSet);
 		
-
-		
-		
-
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionImageAdmin.jsp");
 		rd.forward(request, response);
 

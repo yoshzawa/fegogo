@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
-import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 
 /**
  * Servlet implementation class ImportGenreServlet
