@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+  <div class="container">
 
 
 	<%
@@ -69,6 +70,7 @@
 <p></p>
 </main>
 <%@ include file="../common/footer.jsp"%>
+</div>
 </body>
 
 </html>

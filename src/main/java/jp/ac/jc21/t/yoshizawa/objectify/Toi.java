@@ -41,9 +41,24 @@ public final class Toi extends ToiFactory {
 
 	String genreName;
 	String examName;
+	private List<ImageSet> ImageSet;
 
 	
 	
+	/**
+	 * @return the imageSet
+	 */
+	public List<ImageSet> getImageSet() {
+		return ImageSet;
+	}
+
+	/**
+	 * @param imageSet the imageSet to set
+	 */
+	public void setImageSet(List<ImageSet> imageSet) {
+		ImageSet = imageSet;
+	}
+
 	public String getExamName() {
 		if(examName== null) {
 			examName=getRefExam().get().getName();
@@ -360,6 +375,8 @@ public final class Toi extends ToiFactory {
 		return getQuestionRefList().contains(Ref.create(q));
 
 	}
+
+
 
 
 

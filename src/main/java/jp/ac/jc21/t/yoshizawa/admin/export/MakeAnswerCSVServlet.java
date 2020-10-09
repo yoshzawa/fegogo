@@ -85,7 +85,6 @@ public class MakeAnswerCSVServlet extends HttpServlet {
 		log.info(getServletName() + "[" + dateStart.toString() + "]START");
 
 		int count = 0;
-		final boolean forceRewrite = false;
         Cache cache=null;
         try {
             CacheFactory cacheFactory = CacheManager.getInstance().getCacheFactory();

@@ -3,8 +3,6 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;

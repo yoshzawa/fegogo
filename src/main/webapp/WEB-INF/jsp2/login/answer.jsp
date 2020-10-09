@@ -13,6 +13,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+  <div class="container">
+
 	<%
 		AnswerSum ansSummary = (AnswerSum) request.getAttribute("ansSummary");
 		Toi toi = ansSummary.getRefToi().get();
@@ -70,6 +72,7 @@
 <p></p>
 </main>
 <%@ include file="../common/footer.jsp"%>
+</div>
 </body>
 
 </html>

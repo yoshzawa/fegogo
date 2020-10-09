@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+  <div class="container">
+
 	<%
 
 		List<String[]> datas = (List<String[]>)request.getAttribute("datas");
@@ -36,7 +38,7 @@
 		} else {
 	%>
 	<TABLE border="1"
-		class="table table-striped table-hover table-responsive">
+		class="table table-striped table-hover ">
 		<thead class="thead-dark">
 			<tr>
 				<TH>試験名</TH>

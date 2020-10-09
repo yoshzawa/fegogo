@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -63,7 +62,6 @@ public class ImportGenreServlet extends HttpServlet {
 			try {
 				created = format.parse(ss[2]);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				created=null;
 			}
 			int no = Integer.parseInt(ss[3]);

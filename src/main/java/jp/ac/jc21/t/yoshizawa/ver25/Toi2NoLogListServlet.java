@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.ver2;
+package jp.ac.jc21.t.yoshizawa.ver25;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
@@ -37,8 +36,6 @@ public class Toi2NoLogListServlet extends HttpServlet {
 		TreeMap<Long, Toi> toiMap = e.getToiMap();
 
 		// ÉÜÅ[ÉUÅ[èÓïÒéÊìæ
-		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
 		request.setAttribute("ExamName", e.getName());
 
 
@@ -52,6 +49,9 @@ public class Toi2NoLogListServlet extends HttpServlet {
 //				s[1] = t.getRefGenre().get().getName();
 				s[1] = t.getGenreName();
 				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
+				if(t.getImageSet() != null) {
+					s[2] = s[2]+"<B>(CBT)</B>";
+				}
 				s[3] = t.getQuestionRefListSize() + "";
 				datas.add(s);
 			}
