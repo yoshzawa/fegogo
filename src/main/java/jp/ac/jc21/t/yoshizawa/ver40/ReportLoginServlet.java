@@ -77,7 +77,7 @@ public class ReportLoginServlet extends HttpServlet {
 
 		}
 		request.setAttribute("datas", datas);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/reportLogin.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/ReportLogin.jsp");
 		rd.forward(request, response);
 
 	}
