@@ -16,7 +16,7 @@ import com.googlecode.objectify.annotation.Index;
 public class AccessLog extends AccessLogFactory{
 	
 	@Id
-	Long id;
+	private Long id;
 	@Index
 	private String name;
 	private Date accessed;

@@ -16,11 +16,11 @@
 		String email = (String) request.getAttribute("email");
 %>
 
-<a class="  active" href="/">ホーム <span class="sr-only">(current)</span></a>
+<a class="active" href="/">ホーム <span class="sr-only">(current)</span></a>
 <a class=" " href="/exam/list">問題一覧</a>
-<a class="  disabled" href="/genre/list" tabindex="-1"
+<a class="disabled" href="/genre/list" tabindex="-1"
 	aria-disabled="true">分野一覧</a>
-<a class="  disabled" href="/#" tabindex="-1" aria-disabled="true">個人結果分析</a>
+<a class="disabled" href="/report" tabindex="-1" aria-disabled="true">個人結果分析</a>
 
 <div align="right">
 

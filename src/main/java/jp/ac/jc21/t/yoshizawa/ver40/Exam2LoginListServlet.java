@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.ver2;
+package jp.ac.jc21.t.yoshizawa.ver40;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -30,10 +30,6 @@ public class Exam2LoginListServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		final Logger log = Logger.getLogger(Exam2LoginListServlet.class.getName());
-		
-
-
 		Map<Long, Exam> examMap = Exam.loadAll();
 
 		List<String[]> datas = new ArrayList<String[]>();
@@ -50,50 +46,11 @@ public class Exam2LoginListServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
-
-		request.setAttribute("email", email);
-
-		Member member = Member.get(email);
-
-		List<AnswerSum> answerSumList = member.getAnswerSumListSorted();
-		
-
-		List<String[]> datas2 = new ArrayList<String[]>();
-
-		for (AnswerSum as : answerSumList) {
-
-			Toi toi = as.getRefToi().get();
-			if (toi == null) {
-				log.warning("toi==null email=" + email);
-			} else {
-				String[] s = new String[6];
-				Optional<Exam> optExam = toi.getOptExam();
-				String examName;
-				if (optExam.isPresent()) {
-					examName = optExam.get().getName();
-					s[0] = "<a href='/toi/list?parentId="+optExam.get().getId()+"'>"+examName+"</a>";
-				} else {
-					examName = null;
-					s[0] = examName;
-				}
-				s[1] = toi.getNo().toString();
-				s[2] = "<a href='/genreDetail/list?id="+toi.getRefGenre().get().getId()+"'>" + toi.getRefGenre().get().getName() + "</a>";
-				s[3] = toi.getName();
-				s[4] = dateFormat(as.getAnswered());
-				s[5] = changePoint(as)+"%";
-				datas2.add(s);
-			}
-
-		}
-		request.setAttribute("datas2", datas2);
-		
-		AccessLog.create(email, "/exam2/Login/list "+"exam="+datas.size()+"result="+datas2.size()).save();
-		
-
+	
+		AccessLog.create(email, "/exam2/Login/list "+"exam="+datas.size()).save();
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/examListLogin.jsp");
 		rd.forward(request, response);
-
 	}
 
 	private String changePoint(AnswerSum as) {
@@ -108,6 +65,5 @@ public class Exam2LoginListServlet extends HttpServlet {
 	private final String dateFormat(Date d) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return sdf.format(d);
-
 	}
 }
