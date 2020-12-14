@@ -13,7 +13,6 @@
 	<%
 
 		List<String[]> datas = (List<String[]>)request.getAttribute("datas");
-		List<String[]> datas2 = (List<String[]>)request.getAttribute("datas2");
 
 	%>
 	
@@ -27,29 +26,42 @@
 	<%@ include file="../common/headerLogin.jsp"%>
 	
 
-	<H1>登録されている試験の一覧</H1>
+
+
+	<H1>解答済み試験の一覧</H1>
 	    <main class="mb-5">
 
+
+
 	<%
-	if (datas == null || datas.size() == 0) {
+		if ((datas == null) || (datas.size()<1)) {
 	%>
-	試験が登録されていません
+	試験が解答されていません
 	<%
 		} else {
 	%>
-	<TABLE border="1"
-		class="table table-striped table-hover ">
+	<TABLE border="1" class="table table-striped table-hover ">
 		<thead class="thead-dark">
-			<tr>
+			<TR>
 				<TH>試験名</TH>
-				<TH>問題登録</TH>
+				<TH>問</TH>
+				<TH>分野</TH>
+				<TH>内容</TH>
+				<TH>解答日</TH>
+				<TH>正解率</TH>
 			</TR>
 		</thead>
+
 		<%
-		for (String[] s : datas) { %>
+			for (String[] s : datas) {
+		%>
 		<tr>
 			<td><%= s[0] %></td>
 			<td><%= s[1] %></td>
+			<td><%= s[2] %></td>
+			<td><%= s[3] %></td>
+			<td><%= s[4] %></td>
+			<td align='right'><%= s[5] %></td>
 		</tr>
 		<%
 			}
