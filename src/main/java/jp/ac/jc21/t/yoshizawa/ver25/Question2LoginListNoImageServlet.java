@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jp.ac.jc21.t.yoshizawa.objectify.AccessLog;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
@@ -90,6 +91,8 @@ public class Question2LoginListNoImageServlet extends HttpServlet {
 
 		}
 		request.setAttribute("datas", datas);
+		AccessLog.create(email, "/question2/Login/list/noImage?parentId="+parentId+" "+"Questions="+datas.size()).save();
+
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/questionListLogin.jsp");
 		rd.forward(request, response);

@@ -49,5 +49,4 @@ public class CommonEntity {
 		return sdf.format(date);
 	}
 	final public static String ofyVersion = "1.50";
-
 }

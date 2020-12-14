@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jp.ac.jc21.t.yoshizawa.objectify.AccessLog;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
@@ -112,6 +113,8 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 			}
 			request.setAttribute("datas2", datas2);
+			AccessLog.create(email, "/toi2/login/list?parentId="+parentId+" "+"exam="+datas.size()+"result="+datas2.size()).save();
+
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/toiListLogin.jsp");
 			rd.forward(request, response);
