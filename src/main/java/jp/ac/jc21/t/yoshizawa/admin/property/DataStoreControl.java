@@ -1,56 +1,26 @@
+/**
+ * 
+ */
 package jp.ac.jc21.t.yoshizawa.admin.property;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.sound.sampled.TargetDataLine;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
-import com.google.cloud.datastore.Key;
+import com.google.cloud.Timestamp;
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
 import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.Key;
 
 /**
- * Servlet implementation class ReadAdminServlet
+ * @author t.yoshizawa
+ *
  */
-@WebServlet("/admin/property/read")
-public class ReadAdminServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReadAdminServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+public class DataStoreControl {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    // Instantiates a client
-	    Datastore datastore = getDataStore();
-
-	    // The kind for the new entity
-	    String kind = "Property";
-	    // The name/ID for the new entity
-	    String name = "AzureAppId";
-
-	    String id="Buy milk";
-		putId( kind,  name,  id) ;
-
-	    
-	    //Retrieve entity
-	    String id2 = getId(datastore, kind,name);
-
-	    System.out.printf("Retrieved : %s%n",  id2);
-
-	}
-	
+	// Instantiates a client
 	static Datastore datastore;
 	
 	static {
@@ -84,15 +54,21 @@ public class ReadAdminServlet extends HttpServlet {
 
 	private final void putId(Datastore datastore, Key key, String id) {
 		// Prepares the new entity
+		
+		LocalDateTime d = LocalDateTime.now();
+		d.plusMinutes(2);
+		Date date = toDate(d);
 	    Entity data = Entity.newBuilder(key)
-	        .set("id", id)
+		    .set("id", id)
+	        .set("limitDate", Timestamp.of(date))
+	        .set("created", Timestamp.now())
 	        .build();
 
 	    // Saves the entity
 	    datastore.put(data);
 	}
 
-	private final void putId(String kind, String name, String id) {
+	final void putId(String kind, String name, String id) {
 		Datastore dataStore = getDataStore();
 		Key key = getKey(dataStore,kind,name);
 		putId(dataStore, key, id);
@@ -106,8 +82,12 @@ public class ReadAdminServlet extends HttpServlet {
 	    String id = retrieved.getString("id");
 		return id;
 	}
-	private final String getId(String kind, String name) {
+	public final String getId(String kind, String name) {
 		return getId(getDataStore(),kind,name);
 	}
 
+	// https://qiita.com/riekure/items/d83d4ea5d8a19a267453
+    public static Date toDate(LocalDateTime localDateTime) {
+    	return Date.from(ZonedDateTime.of(localDateTime, ZoneId.systemDefault()).toInstant());
+    }
 }

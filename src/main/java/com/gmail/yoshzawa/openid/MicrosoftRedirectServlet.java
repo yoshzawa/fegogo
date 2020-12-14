@@ -17,19 +17,16 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/msredirect","/msredirect/" })
+@WebServlet(urlPatterns = { "/msredirect", "/msredirect/" })
 
-public final class MicrosoftRedirectServlet extends HttpServlet implements
-		AzureConstant {
+public final class MicrosoftRedirectServlet extends HttpServlet {
 
 	static {
 		UserAccount.ofyInit();
 	}
 
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		final Logger log = Logger
-				.getLogger(MicrosoftRedirectServlet.class.getName());
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		final Logger log = Logger.getLogger(MicrosoftRedirectServlet.class.getName());
 		resp.setContentType("text/html");
 
 		String id_token = req.getParameter("id_token");
@@ -92,10 +89,8 @@ public final class MicrosoftRedirectServlet extends HttpServlet implements
 		Member m = Member.get(email);
 		m.setModified(new Date());
 		m.save();
-		
-		
 
-		resp.getWriter().println("<H1>Welcome," + email+"</h1>");
+		resp.getWriter().println("<H1>Welcome," + email + "</h1>");
 		resp.getWriter().println("<a href='/index'>Continue</a>");
 
 	}
