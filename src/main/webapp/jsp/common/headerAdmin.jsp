@@ -26,6 +26,7 @@
       <a class="active" href="/admin/answer">answer</a>
       <a class="active" href="/admin/genre/">Genre</a>
       <a class="active" href="/admin/exporter">EXPORT</a>
+	  <a class="active" href="/admin/property/set">SetProperty</a>
 	  
       <a class="disabled" href="#" tabindex="-1" aria-disabled="true">個人結果分析</a>
 
