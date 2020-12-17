@@ -32,7 +32,7 @@ public class DataStoreControl {
 		return datastore;
 	}
 	
-	Datastore getDataStore() {
+	private final Datastore getDataStore() {
 		if(datastore == null) {
 			datastore = initDataStore();
 		}
@@ -68,13 +68,27 @@ public class DataStoreControl {
 	    datastore.put(data);
 	}
 
+	/**
+	 * idを保存する。期限を2ヶ月後に設定する（つもりで2分後に設定している）
+	 * @param kind データの種類
+	 * @param name データの名前
+	 * @param id 保存するid
+	 */
 	final void putId(String kind, String name, String id) {
 		Datastore dataStore = getDataStore();
 		Key key = getKey(dataStore,kind,name);
 		putId(dataStore, key, id);
 	}
 
-	
+
+	private final String getLimitDate(Datastore datastore, String kind, String name) {
+		Key key = getKey(kind,name);
+		Entity retrieved = datastore.get(key);
+
+	    String limitDate = retrieved.getString("limitDate");
+		return limitDate;
+	}
+
 	private final String getId(Datastore datastore, String kind, String name) {
 		Key key = getKey(kind,name);
 		Entity retrieved = datastore.get(key);
@@ -82,12 +96,21 @@ public class DataStoreControl {
 	    String id = retrieved.getString("id");
 		return id;
 	}
+	
+	/**
+	 * idを取得する。
+	 * limitDateを超えたら、idを初期化したい。
+	 * @param kind データの種類
+	 * @param name データの名前
+	 * @return 取得したid
+	 */
 	public final String getId(String kind, String name) {
+//		getLimitDate(getDataStore(),kind,name);
 		return getId(getDataStore(),kind,name);
 	}
 
 	// https://qiita.com/riekure/items/d83d4ea5d8a19a267453
-    public static Date toDate(LocalDateTime localDateTime) {
+    public final static Date toDate(LocalDateTime localDateTime) {
     	return Date.from(ZonedDateTime.of(localDateTime, ZoneId.systemDefault()).toInstant());
     }
 }
