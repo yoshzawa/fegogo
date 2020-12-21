@@ -6,12 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.sampled.TargetDataLine;
-
-import com.google.cloud.datastore.Key;
-import com.google.cloud.datastore.Datastore;
-import com.google.cloud.datastore.DatastoreOptions;
-import com.google.cloud.datastore.Entity;
 
 /**
  * Servlet implementation class ReadAdminServlet
@@ -40,11 +34,11 @@ public class PropertySetAdminServlet extends HttpServlet {
 	    dsc.putId( "Property",  "AzureAppIdLocal",  AzureAppIdLocal) ;
 	    
 	    //Retrieve entity
-	    String id2 = dsc.getId("Property","AzureAppId");
+/*	    String id2 = dsc.getId("Property","AzureAppId");
 	    String id3 = dsc.getId("Property","AzureAppIdLocal");
 
-	    // System.out.printf("Retrieved : %s : %s%n",  id2,id3);
-
+	     System.out.printf("Retrieved : %s : %s%n",  id2,id3);
+*/
 	}
 	
 

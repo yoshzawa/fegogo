@@ -20,9 +20,7 @@ import javax.servlet.http.HttpSession;
 
 import com.googlecode.objectify.Ref;
 
-import jp.ac.jc21.t.yoshizawa.objectify.AccessLog;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
@@ -31,13 +29,13 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
  * Servlet implementation class ReportLoginServlet
  */
 @WebServlet("/report2")
-public class ReportLogin2Servlet extends HttpServlet {
+public class Report2LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportLogin2Servlet() {
+    public Report2LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

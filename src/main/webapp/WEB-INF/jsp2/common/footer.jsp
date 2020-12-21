@@ -16,7 +16,7 @@
 	}%>
 <footer class="page-footer font-small blue pt-4">
 
-  <div class="footer-copyright text-center py-3">
+  <div class="footer-copyright text-center py-3"><p>
 			fegogo.appspot.com Version
 			<%=CommonEntity.ofyVersion%></p>
   </div>
