@@ -3,6 +3,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,13 +31,8 @@
 
 		<%@ include file="../common/headerLogin.jsp"%>
 
-
-
-
 		<H1>解答済み試験の一覧</H1>
 		<main class="mb-5">
-
-
 
 			<%
 				if ((resultMap == null) || (resultMap.size() < 1)) {
@@ -48,11 +44,9 @@
 			<TABLE border="1" class="table table-striped table-hover ">
 				<thead class="thead-dark">
 					<TR>
-						<TH>試験名</TH>
-						<TH>問</TH>
 						<TH>分野</TH>
-						<TH>内容</TH>
-						<TH>解答日</TH>
+						<TH>分野名</TH>
+						<TH>問題</TH>
 						<TH>正解率</TH>
 					</TR>
 				</thead>
@@ -61,7 +55,6 @@
 				for (Genre g : genreList) {
 				%>
 				<tr>
-					<td><%=g.getId()%></td>
 					<td><%=g.getNo()%></td>
 					<td><%=g.getName()%></td>
 					<td>
@@ -93,32 +86,92 @@
 			</TABLE>
 			<%
 				}
-			double toi1=Math.round(seikai[1-1] * 1000.0 / answer[1-1]) / 10.0;
-			double toi8=Math.round(seikai[8-1] * 1000.0 / answer[8-1]) / 10.0;
-			double gengo = Math.round((seikai[12-1]+seikai[13-1]) * 1000.0 / (answer[12-1]+answer[13-1])) / 10.0;
+			double sec=round(seikai[1-1], answer[1-1]) ;
+			double alg=round(seikai[8-1] , answer[8-1]) ;
+			double gengo = round((seikai[12-1]+seikai[13-1]),(answer[12-1]+answer[13-1])) ;
+			double hardsoft = round(seikai[2-1],answer[2-1]) ;
+			double db=round(seikai[3-1], answer[3-1]) ;
+			double nw=round(seikai[4-1], answer[4-1]) ;
+			double dev=round(seikai[5-1], answer[5-1]) ;
+			double strman = round((seikai[6-1]+seikai[7-1]),(answer[6-1]+answer[7-1])) ;
+			
+/*			double[] sentaku=new double[5];
+			sentaku[0]=hardsoft;
+			sentaku[1]=db;
+			sentaku[2]=nw;
+			sentaku[3]=dev;
+			sentaku[4]=strman;
+*/
+	double[] sentaku={5,5,3,3,1};
+	sentaku=checkMax2(sentaku);
 			%>
 <h2>必須</h2>
 <table border="1">
 <tr><th></th><th>セキュリティ</th><th>アルゴリズム</th><th>言語</th><th>合計点</th></tr>
 <tr><th>正解率</th>
-<td><%=  toi1  %>%</td>
-<td><%=  toi8  %>%</td>
+<td><%=  sec  %>%</td>
+<td><%=  alg  %>%</td>
 <td><%=  gengo  %>%</td>
 <td></td>
 </tr>
 <tr><th>得点</th>
-<td><%=  Math.floor(20*toi1/10.0)/10.0  %>点</td>
-<td><%=  Math.floor(25*toi8/10.0)/10.0  %>点</td>
-<td><%=  Math.floor(25*gengo/10.0)/10.0  %>点</td>
-<td><%=  Math.floor(20*toi1/10.0 +
-  25*toi8/10.0  +
-  25*gengo/10.0 )/10.0 %>点</td>
+<td><%=  Math.floor(20*sec/10.0)/10.0  %>点/20</td>
+<td><%=  Math.floor(25*alg/10.0)/10.0  %>点/25</td>
+<td><%=  Math.floor(25*gengo/10.0)/10.0  %>点/25</td>
+<td><%=  Math.floor(20*sec/10.0 +
+  25*alg/10.0  +
+  25*gengo/10.0 )/10.0 %>点/70</td>
+</tr>
+
+</table>
+<h2>選択（5問中2問）</h2>
+上位2科目を採用するロジックがまだ動いてないよ
+<table border="1">
+<tr><th></th><th>ハード<br/>ソフト</th><th>データベース</th><th>ネットワーク</th>
+<th>システム開発</th><th>ストラテジ<br/>マネジメント</th><th>合計点</th></tr>
+<tr><th>正解率</th>
+<td><%=  hardsoft  %>%<%= sentaku[0] %></td>
+<td><%=  db  %>%<%= sentaku[1] %></td>
+<td><%=  nw  %>%<%= sentaku[2] %></td>
+<td><%=  dev  %>%<%= sentaku[3] %></td>
+<td><%=  strman  %>%<%= sentaku[4] %></td>
+<td></td>
+</tr>
+<tr><th>得点</th>
+<td><%=  Math.floor(15*hardsoft/10.0)/10.0  %>点/15</td>
+<td><%=  Math.floor(15*db/10.0)/10.0  %>点/15</td>
+<td><%=  Math.floor(15*nw/10.0)/10.0  %>点/15</td>
+<td><%=  Math.floor(15*dev/10.0)/10.0  %>点/15</td>
+<td><%=  Math.floor(15*strman/10.0)/10.0  %>点/15</td>
+<td><%=  Math.floor(15*hardsoft/10.0 +
+  15*db/10.0  +
+  15*nw/10.0  +
+  15*dev/10.0  +
+  15*strman/10.0 )/10.0 %>点/30</td>
 </tr>
 </table>
 
-			<p></p>
 		</main>
 		<%@ include file="../common/footer.jsp"%>
 </body>
+<%!
+double round(int seikai,int answer){
+	double result=seikai*1000.0;
+	result/=answer;
+	result=Math.round(result)/10;
+	return result;
+}
+double[] checkMax2(double[] sentaku){
+	double t[]=new double[sentaku.length];
+	for(int i=0 ; i<sentaku.length;i++){
+		for(int j=0 ; j<sentaku.length;j++){
+			if(sentaku[i]<sentaku[j]){
+				t[i]+=1;
+			}
+		}
+	}
+	return t;
+}
+%>
 
 </html>

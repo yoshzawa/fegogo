@@ -17,7 +17,7 @@
 <body>
 
 	<%
-		Map<Long, List> map = (Map<Long, List>) request.getAttribute("map");
+		Map<Long, List<AnswerSum>> map = (Map<Long, List<AnswerSum>>) request.getAttribute("map");
 	UserService userService = (UserService) request.getAttribute("userService");
 
 	%>

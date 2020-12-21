@@ -57,7 +57,7 @@
 					%>
 
 					<tr>
-						<td><a name="<%=no%>"><%=no%></td>
+						<td><a name="<%=no%>"><%=no%></a></td>
 						<td>
 							<p
 								style="position:relative;
