@@ -30,7 +30,12 @@
 
 		<%@ include file="../common/headerLogin.jsp"%>
 
-		<H1>解答済み試験の一覧</H1>
+		<H1>分野別回答状況一覧</H1>
+				<P>
+				<a href="./report">解答済み試験の一覧</a>
+				分野別回答状況一覧
+				</P>
+		
 		<main class="mb-5">
 
 			<%
@@ -55,7 +60,7 @@
 				%>
 				<tr>
 					<td><%=g.getNo()%></td>
-					<td><%=g.getName()%></td>
+					<td><a href="/genreDetail/list?id=<%= g.getId() %>"><%=g.getName()%></a></td>
 					<td>
 						<%
 							List<AnswerSum> asList = resultMap.get(g.getId());
@@ -131,11 +136,11 @@
 <td></td>
 </tr>
 <tr><th>得点</th>
-<td <%= (yuusen[0]<2.0)?"bgcolor='DODGERBLUE'":"" %>><%=  Math.floor(15*sentaku[0]/10.0)/10.0  %>点/15</td>
-<td <%= (yuusen[1]<2.0)?"bgcolor='DODGERBLUE'":"" %>><%=  Math.floor(15*sentaku[1]/10.0)/10.0  %>点/15</td>
-<td <%= (yuusen[2]<2.0)?"bgcolor='DODGERBLUE'":"" %>><%=  Math.floor(15*sentaku[2]/10.0)/10.0  %>点/15</td>
-<td <%= (yuusen[3]<2.0)?"bgcolor='DODGERBLUE'":"" %>><%=  Math.floor(15*sentaku[3]/10.0)/10.0  %>点/15</td>
-<td <%= (yuusen[4]<2.0)?"bgcolor='DODGERBLUE'":"" %>><%=  Math.floor(15*sentaku[4]/10.0)/10.0  %>点/15</td>
+<td <%= (yuusen[0]<2.0)?"bgcolor='CHARTREUSE'":"" %>><%=  Math.floor(15*sentaku[0]/10.0)/10.0  %>点/15</td>
+<td <%= (yuusen[1]<2.0)?"bgcolor='CHARTREUSE'":"" %>><%=  Math.floor(15*sentaku[1]/10.0)/10.0  %>点/15</td>
+<td <%= (yuusen[2]<2.0)?"bgcolor='CHARTREUSE'":"" %>><%=  Math.floor(15*sentaku[2]/10.0)/10.0  %>点/15</td>
+<td <%= (yuusen[3]<2.0)?"bgcolor='CHARTREUSE'":"" %>><%=  Math.floor(15*sentaku[3]/10.0)/10.0  %>点/15</td>
+<td <%= (yuusen[4]<2.0)?"bgcolor='CHARTREUSE'":"" %>><%=  Math.floor(15*sentaku[4]/10.0)/10.0  %>点/15</td>
 <%
 	double sum=0;
 	if((yuusen[0]<2.0))	sum+=Math.floor(15*sentaku[0]/10.0)/10.0;
