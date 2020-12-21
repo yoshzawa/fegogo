@@ -15,8 +15,7 @@
 
 		<%
 			Map<Long, List<AnswerSum>> resultMap = (Map<Long, List<AnswerSum>>) request.getAttribute("resultMap");
-
-		List<Genre> genreList = (List) request.getAttribute("genreList");
+			List<Genre> genreList = (List<Genre>) request.getAttribute("genreList");
 		int[] seikai = new int[13];
 	int[] answer = new int[13];
 
@@ -89,21 +88,16 @@
 			double sec=round(seikai[1-1], answer[1-1]) ;
 			double alg=round(seikai[8-1] , answer[8-1]) ;
 			double gengo = round((seikai[12-1]+seikai[13-1]),(answer[12-1]+answer[13-1])) ;
-			double hardsoft = round(seikai[2-1],answer[2-1]) ;
-			double db=round(seikai[3-1], answer[3-1]) ;
-			double nw=round(seikai[4-1], answer[4-1]) ;
-			double dev=round(seikai[5-1], answer[5-1]) ;
-			double strman = round((seikai[6-1]+seikai[7-1]),(answer[6-1]+answer[7-1])) ;
 			
-/*			double[] sentaku=new double[5];
-			sentaku[0]=hardsoft;
-			sentaku[1]=db;
-			sentaku[2]=nw;
-			sentaku[3]=dev;
-			sentaku[4]=strman;
-*/
-	double[] sentaku={5,5,3,3,1};
-	sentaku=checkMax2(sentaku);
+			double[] sentaku=new double[5];
+			sentaku[0]=round(seikai[2-1],answer[2-1]) ;
+			sentaku[1]=round(seikai[3-1], answer[3-1]) ;
+			sentaku[2]=round(seikai[4-1], answer[4-1]) ;
+			sentaku[3]=round(seikai[5-1], answer[5-1]) ;
+			sentaku[4]=round((seikai[6-1]+seikai[7-1]),(answer[6-1]+answer[7-1])) ;
+
+//	double[] sentaku={1,3,3,4,5};
+	double[] yuusen =checkMax2(sentaku);
 			%>
 <h2>必須</h2>
 <table border="1">
@@ -125,34 +119,38 @@
 
 </table>
 <h2>選択（5問中2問）</h2>
-上位2科目を採用するロジックがまだ動いてないよ
 <table border="1">
 <tr><th></th><th>ハード<br/>ソフト</th><th>データベース</th><th>ネットワーク</th>
 <th>システム開発</th><th>ストラテジ<br/>マネジメント</th><th>合計点</th></tr>
 <tr><th>正解率</th>
-<td><%=  hardsoft  %>%<%= sentaku[0] %></td>
-<td><%=  db  %>%<%= sentaku[1] %></td>
-<td><%=  nw  %>%<%= sentaku[2] %></td>
-<td><%=  dev  %>%<%= sentaku[3] %></td>
-<td><%=  strman  %>%<%= sentaku[4] %></td>
+<td><%=  sentaku[0]  %>%</td>
+<td><%=  sentaku[1]  %>%</td>
+<td><%=  sentaku[2]  %>%</td>
+<td><%=  sentaku[3]  %>%</td>
+<td><%=  sentaku[4]  %>%</td>
 <td></td>
 </tr>
 <tr><th>得点</th>
-<td><%=  Math.floor(15*hardsoft/10.0)/10.0  %>点/15</td>
-<td><%=  Math.floor(15*db/10.0)/10.0  %>点/15</td>
-<td><%=  Math.floor(15*nw/10.0)/10.0  %>点/15</td>
-<td><%=  Math.floor(15*dev/10.0)/10.0  %>点/15</td>
-<td><%=  Math.floor(15*strman/10.0)/10.0  %>点/15</td>
-<td><%=  Math.floor(15*hardsoft/10.0 +
-  15*db/10.0  +
-  15*nw/10.0  +
-  15*dev/10.0  +
-  15*strman/10.0 )/10.0 %>点/30</td>
+<td <%= (yuusen[0]<2.0)?"bgcolor='DODGERBLUE'":"" %>><%=  Math.floor(15*sentaku[0]/10.0)/10.0  %>点/15</td>
+<td <%= (yuusen[1]<2.0)?"bgcolor='DODGERBLUE'":"" %>><%=  Math.floor(15*sentaku[1]/10.0)/10.0  %>点/15</td>
+<td <%= (yuusen[2]<2.0)?"bgcolor='DODGERBLUE'":"" %>><%=  Math.floor(15*sentaku[2]/10.0)/10.0  %>点/15</td>
+<td <%= (yuusen[3]<2.0)?"bgcolor='DODGERBLUE'":"" %>><%=  Math.floor(15*sentaku[3]/10.0)/10.0  %>点/15</td>
+<td <%= (yuusen[4]<2.0)?"bgcolor='DODGERBLUE'":"" %>><%=  Math.floor(15*sentaku[4]/10.0)/10.0  %>点/15</td>
+<%
+	double sum=0;
+	if((yuusen[0]<2.0))	sum+=Math.floor(15*sentaku[0]/10.0)/10.0;
+	if((yuusen[1]<2.0))	sum+=Math.floor(15*sentaku[1]/10.0)/10.0;
+	if((yuusen[2]<2.0))	sum+=Math.floor(15*sentaku[2]/10.0)/10.0;
+	if((yuusen[3]<2.0))	sum+=Math.floor(15*sentaku[3]/10.0)/10.0;
+	if((yuusen[4]<2.0))	sum+=Math.floor(15*sentaku[4]/10.0)/10.0;
+%>
+<td><%=  Math.floor(sum *10)/10 %>点/30</td>
 </tr>
 </table>
 
 		</main>
 		<%@ include file="../common/footer.jsp"%>
+</div>
 </body>
 <%!
 double round(int seikai,int answer){
@@ -167,6 +165,15 @@ double[] checkMax2(double[] sentaku){
 		for(int j=0 ; j<sentaku.length;j++){
 			if(sentaku[i]<sentaku[j]){
 				t[i]+=1;
+			}
+		}
+	}
+	for(int i=0 ; i<sentaku.length;i++){
+		double temp1 =t[i];
+		double temp2 =t[i];
+		for(int j=i+1 ; j<sentaku.length;j++){
+			if(t[j]==temp1){
+				t[j]=++temp2;
 			}
 		}
 	}
