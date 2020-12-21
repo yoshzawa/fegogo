@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,22 +20,22 @@ import javax.servlet.http.HttpSession;
 
 import com.googlecode.objectify.Ref;
 
-import jp.ac.jc21.t.yoshizawa.objectify.AccessLog;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
+import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 /**
  * Servlet implementation class ReportLoginServlet
  */
-@WebServlet("/report")
-public class ReportLoginServlet extends HttpServlet {
+@WebServlet("/report2")
+public class Report2LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportLoginServlet() {
+    public Report2LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,7 +44,6 @@ public class ReportLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<String[]> datas = new ArrayList<String[]>();
 
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
@@ -52,31 +53,34 @@ public class ReportLoginServlet extends HttpServlet {
 		Member member = Member.get(email);
 
 		List<AnswerSum> answerSumList = member.getAnswerSumListSorted();
+		
+		// ジャンル別の結果の入れ物を用意
+		Map<Long, List<AnswerSum>> resultMap = new TreeMap<Long, List<AnswerSum>>();
 
 		for (AnswerSum as : answerSumList) {
+			// 問題のGenreごとに、MapにListを格納
+			Optional<Toi> toi = Toi.getByAnswerSum(as);
+			if(toi.isPresent()) {
+				Ref<Genre> refGenre = toi.get().getRefGenre();
+				Long genreId = refGenre.get().getId();
+				List<AnswerSum> genreList = resultMap.get(genreId);
 
-			Optional<Ref<Toi>> optTtoi = as.getOptRefToi();
-			if (optTtoi.isPresent()) 
-			{
-				Toi toi=optTtoi.get().get();
-				String[] s = new String[6];
-			
-				s[0]=toi.getExamName();
-				s[1] = toi.getNo().toString();
-				s[2] = "<a href='/genreDetail/list?id="+toi.getRefGenre().get().getId()+"'>" + toi.getRefGenre().get().getName() + "</a>";
-				s[3] = toi.getName();
-				s[4] = dateFormat(as.getAnswered());
-				s[5] = changePoint(as)+"%";
-				datas.add(s);
-		} else 
-			{
-//				log.warning("toi==null email=" + email);
-				AccessLog.create(email, "[WARNING]/report:toi==null");
+				if(genreList == null) {
+					genreList=new ArrayList<AnswerSum>();
+				}
+				genreList.add(as);
+				resultMap.put(genreId,genreList);
 			}
-
+			
 		}
-		request.setAttribute("datas", datas);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/reportLogin.jsp");
+		request.setAttribute("resultMap", resultMap);
+		
+		// ジャンルの一覧
+		
+		List<Genre> genreList = Genre.loadAll();
+		request.setAttribute("genreList", genreList);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/reportLogin2.jsp");
 		rd.forward(request, response);
 
 	}

@@ -20,9 +20,9 @@ public class Genre2ListServlet extends HttpServlet {
 		if (true) {
 			RequestDispatcher rd = request.getRequestDispatcher("/genre2/Nolog/list");
 			rd.forward(request, response);
-		} else {
+/*		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("/genre2/login/list");
-			rd.forward(request, response);
+			rd.forward(request, response);*/
 		}
 
 	}

@@ -41,8 +41,8 @@ public class GenreListServlet extends HttpServlet {
 		{
 
 			rd = extractedTrue(request, genreList, datas);
-		} else {
-			rd = extractedFalse(request, genreList, email, datas);
+/*		} else {
+			rd = extractedFalse(request, genreList, email, datas);*/
 		}
 			rd.forward(request, response);
 
