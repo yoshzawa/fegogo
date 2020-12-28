@@ -43,7 +43,7 @@
 		<tr>
 			<td><%=g.getId()%></td>
 			<td><%=g.getNo()%></td>
-			<td><a href="/admin/genre/detail?genreId=<%=g.getId()%>"><%=g.getName()%></a></td>
+			<td><%=g.getName()%></td>
 			<td>
 				<%
 					for (Ref<Toi> rt : g.getToiRefList()) {
@@ -52,6 +52,29 @@
 									continue;
 				%> 
 				<%=t.getExam().getName()%> 問<%=t.getNo()%> <%=t.getName()%> <br />
+			<table border=1>
+				<%
+					for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
+									if ((as != null)&&(as.get() != null)) {
+										String eMail = "null";
+										AnswerSum a = as.get();
+										if(a==null) continue;
+										Optional<Member> opt = a.getMember();
+										if (opt.isPresent()) {
+											Member m = opt.get();
+											eMail=m.geteMail();
+										}
+				%> <TR>
+					<th><%=eMail%></th>
+					<td><%=changePoint(a.getNoOfSeikai(), a.getNoOfAnswer())%></td>
+					</TR>  
+				 <%
+ 	}
+ %>
+  <%
+ 	}
+ %> 
+  							</table>
  <%
  	}
  %>
