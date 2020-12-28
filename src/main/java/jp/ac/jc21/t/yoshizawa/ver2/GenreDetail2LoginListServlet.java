@@ -46,12 +46,13 @@ public class GenreDetail2LoginListServlet extends HttpServlet {
 				Member member = Member.get(email);
 				List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
 				String toiSize = toi.getAnswerSumRefListSize() + "";
-				String toiSum = String.format("%1$.1f", toi.getAnswerSumSum());
+				String toiSum = String.format("%1$.1f", toi.getAnswerSumSum()/toi.getAnswerSumRefListSize() );
 				if ((las == null) || (las.size() == 0)) {
 					String[] s = new String[5];
 					s[0] = toiName;
 					toiName = "";
 					s[1] = toiSize;
+					s[4] = toiSum+"%";
 					s[2] = "–¢‰ñ“š";
 					s[3] = "<a href='/question/list?parentId=" + toi.getId() + "'>“š‚¦‚é</a>";
 					datas.add(s);
@@ -63,9 +64,9 @@ public class GenreDetail2LoginListServlet extends HttpServlet {
 						toiName = "";
 						s[1] = toiSize;
 						toiSize = "";
+						s[4] = toiSum+"%";
 						s[2] = dateFormat(as.getAnswered());
 						s[3] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
-						s[4] = toiSum;
 
 						datas.add(s);
 					}

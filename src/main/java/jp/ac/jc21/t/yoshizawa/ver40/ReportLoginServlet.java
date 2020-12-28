@@ -4,6 +4,7 @@ package jp.ac.jc21.t.yoshizawa.ver40;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,15 +29,6 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
  */
 @WebServlet("/report")
 public class ReportLoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReportLoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -52,21 +44,36 @@ public class ReportLoginServlet extends HttpServlet {
 		Member member = Member.get(email);
 
 		List<AnswerSum> answerSumList = member.getAnswerSumListSorted();
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -90);
 
 		for (AnswerSum as : answerSumList) {
+
+			Calendar answered = Calendar.getInstance();
+			answered.setTime(as.getAnswered());
 
 			Optional<Ref<Toi>> optTtoi = as.getOptRefToi();
 			if (optTtoi.isPresent()) 
 			{
 				Toi toi=optTtoi.get().get();
 				String[] s = new String[6];
+				
 			
+				if (answered.after(cal)) {
 				s[0]=toi.getExamName();
 				s[1] = toi.getNo().toString();
 				s[2] = "<a href='/genreDetail/list?id="+toi.getRefGenre().get().getId()+"'>" + toi.getRefGenre().get().getName() + "</a>";
 				s[3] = toi.getName();
 				s[4] = dateFormat(as.getAnswered());
 				s[5] = changePoint(as)+"%";
+				}else {
+					s[0]="<s><small>"+toi.getExamName()+"</small></s>";
+					s[1] ="<s><small>"+ toi.getNo().toString()+"</small></s>";
+					s[2] ="<s><small>"+ "<a href='/genreDetail/list?id="+toi.getRefGenre().get().getId()+"'>" + toi.getRefGenre().get().getName() + "</a>"+"</small></s>";
+					s[3] ="<s><small>"+ toi.getName()+"</small></s>";
+					s[4] ="<s><small>"+ dateFormat(as.getAnswered())+"</small></s>";
+					s[5] ="<s><small>"+ changePoint(as)+"%"+"</small></s>";
+				}
 				datas.add(s);
 		} else 
 			{

@@ -19,6 +19,9 @@
 		List<Genre> genreList = (List<Genre>) request.getAttribute("genreList");
 		int[] seikai = new int[13];
 		int[] answer = new int[13];
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -90);
+
 		%>
 
 		<nav aria-label="breadcrumb">
@@ -30,9 +33,9 @@
 
 		<%@ include file="../common/headerLogin.jsp"%>
 
-		<H1>分野別回答状況一覧</H1>
+		<H1>分野別回答状況一覧（過去90日)</H1>
 		<P>
-			<a href="./report">解答済み試験の一覧（過去90日)</a> 分野別回答状況一覧
+			<a href="./report">解答済み試験の一覧</a> 分野別回答状況一覧
 		</P>
 
 		<main class="mb-5">
@@ -69,8 +72,6 @@
 						}
 						int a = 0, s = 0;
 						for (AnswerSum as : asList) {
-							Calendar cal = Calendar.getInstance();
-							cal.add(Calendar.DATE, -90);
 							Calendar answered = Calendar.getInstance();
 							answered.setTime(as.getAnswered());
 
@@ -78,7 +79,7 @@
 								%> 
 						<p><%=as.getToi().get().getExamName()%>(<%=dateFormat(as.getAnswered())%>)
 							:
-							<%=as.getNoOfSeikai()%>/<%=as.getNoOfAnswer()%></p> <% 
+							<%=as.getNoOfSeikai()%>問正解/<%=as.getNoOfAnswer()%>問中</p> <% 
 							s += as.getNoOfSeikai();
 							a += as.getNoOfAnswer();
 
@@ -86,7 +87,7 @@
 						%> 
 						<p><s><small><%=as.getToi().get().getExamName()%>(<%=dateFormat(as.getAnswered())%>)
 							:
-							<%=as.getNoOfSeikai()%>/<%=as.getNoOfAnswer()%></small></s></p> <% 
+							<%=as.getNoOfSeikai()%>問正解/<%=as.getNoOfAnswer()%>問中</small></s></p> <% 
 							}
 						%> <%
  }
@@ -156,32 +157,29 @@
 				</tr>
 				<tr>
 					<th>正解率</th>
-					<td><%=sentaku[0]%>%</td>
-					<td><%=sentaku[1]%>%</td>
-					<td><%=sentaku[2]%>%</td>
-					<td><%=sentaku[3]%>%</td>
-					<td><%=sentaku[4]%>%</td>
+					<% for(int i=0 ; i<=4 ; i++){
+					%>
+					<td><%=sentaku[i]%>%</td>
+					<% 
+					}
+					%>
 					<td></td>
 				</tr>
 				<tr>
 					<th>得点</th>
-					<td <%=(yuusen[0] < 2.0) ? "bgcolor='CHARTREUSE'" : ""%>><%=Math.floor(15 * sentaku[0] / 10.0) / 10.0%>点/15</td>
-					<td <%=(yuusen[1] < 2.0) ? "bgcolor='CHARTREUSE'" : ""%>><%=Math.floor(15 * sentaku[1] / 10.0) / 10.0%>点/15</td>
-					<td <%=(yuusen[2] < 2.0) ? "bgcolor='CHARTREUSE'" : ""%>><%=Math.floor(15 * sentaku[2] / 10.0) / 10.0%>点/15</td>
-					<td <%=(yuusen[3] < 2.0) ? "bgcolor='CHARTREUSE'" : ""%>><%=Math.floor(15 * sentaku[3] / 10.0) / 10.0%>点/15</td>
-					<td <%=(yuusen[4] < 2.0) ? "bgcolor='CHARTREUSE'" : ""%>><%=Math.floor(15 * sentaku[4] / 10.0) / 10.0%>点/15</td>
+					<% for(int i=0 ; i<=4 ; i++){
+					%>
+					<td <%=(yuusen[i] < 2.0) ? "bgcolor='CHARTREUSE'" : ""%>><%=Math.floor(15 * sentaku[i] / 10.0) / 10.0%>点/15</td>
+					<% 
+					}
+					%>
 					<%
 						double sum = 0;
-					if ((yuusen[0] < 2.0))
-						sum += Math.floor(15 * sentaku[0] / 10.0) / 10.0;
-					if ((yuusen[1] < 2.0))
-						sum += Math.floor(15 * sentaku[1] / 10.0) / 10.0;
-					if ((yuusen[2] < 2.0))
-						sum += Math.floor(15 * sentaku[2] / 10.0) / 10.0;
-					if ((yuusen[3] < 2.0))
-						sum += Math.floor(15 * sentaku[3] / 10.0) / 10.0;
-					if ((yuusen[4] < 2.0))
-						sum += Math.floor(15 * sentaku[4] / 10.0) / 10.0;
+						for(int i=0 ; i<=4 ; i++){	
+							if ((yuusen[i] < 2.0)){
+								sum += Math.floor(15 * sentaku[i] / 10.0) / 10.0;
+							}
+						}
 					%>
 					<td><%=Math.floor(sum * 10) / 10%>点/30</td>
 				</tr>
