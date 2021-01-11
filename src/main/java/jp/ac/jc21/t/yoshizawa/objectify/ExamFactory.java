@@ -23,7 +23,7 @@ public abstract class ExamFactory extends CommonEntity {
 		Exam exam = new Exam();
 		exam.setCreated(new Date());
 		exam.setName(name);
-		exam.newToiRefList();
+//		exam.newToiRefList();
 		exam.setYYYYMM(YYYYMM);
 		return exam;
 	}

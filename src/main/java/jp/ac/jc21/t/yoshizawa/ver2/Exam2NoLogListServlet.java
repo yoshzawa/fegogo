@@ -29,7 +29,7 @@ public class Exam2NoLogListServlet extends HttpServlet {
 			String[] s = new String[2];
 
 			s[0] = "<a href='/toi/list?parentId=" + e.getId() + "'>" + e.getName() + "</a>";
-			s[1] = e.getToiRefListSize() + "";
+			s[1] = e.getToiListSize() + "";
 			datas.add(s);
 		}
 		

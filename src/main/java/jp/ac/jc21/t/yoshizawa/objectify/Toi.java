@@ -37,6 +37,7 @@ public final class Toi extends ToiFactory {
 
 	private Ref<Genre> genre;
 	Long genreId;
+	@Index
 	Long examId;
 
 	String genreName;
@@ -375,6 +376,8 @@ public final class Toi extends ToiFactory {
 		return getQuestionRefList().contains(Ref.create(q));
 
 	}
+
+
 
 
 

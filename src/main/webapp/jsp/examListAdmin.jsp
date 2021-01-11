@@ -47,7 +47,7 @@
 			<td><%=e.getYYYYMM()%></td>
 			<td><a href="/admin/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
 			<td>
-				<%= e.getToiRefListSize() %>
+				<%= e.getToiListSize() %>
 			</td>
 			<td><a href="/admin/check/exam?examId=<%=e.getId()%>">チェック</a></td>
 		</tr>

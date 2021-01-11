@@ -1,5 +1,6 @@
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
@@ -67,6 +68,13 @@ public class ToiFactory extends CommonEntity {
 		}
 		return toi;
 
+	}
+	public static List<Toi> getToiListByExamId(Long examId){
+		return  ofy().load().type(Toi.class).filter("examId", examId).list();
+	}
+	public static boolean contain(Long toiId) {
+		Toi t = getById(toiId);
+		return(t != null);
 	}
 
 }

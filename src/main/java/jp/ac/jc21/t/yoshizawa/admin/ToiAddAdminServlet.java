@@ -30,7 +30,7 @@ public class ToiAddAdminServlet extends HttpServlet {
 		Exam e = Exam.getById(pId);
 		Toi t = Toi.createToi(e, no, toiName,g);
 		t = t.save();
-		e.addToiRefList(t);
+//		e.addToiRefList(t);
 		e.save();
 		
 		g.addToiRefList(t);

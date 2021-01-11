@@ -5,7 +5,6 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
@@ -77,6 +76,7 @@ public class Exam extends ExamFactory {
 
 	////////// toiRefList
 
+	/*
 	public void setToiRefList(List<Ref<Toi>> tois) {
 		this.toiRefList = tois;
 	}
@@ -95,10 +95,7 @@ public class Exam extends ExamFactory {
 		return toiRefList;
 	}
 
-	public int getToiRefListSize() {
-		List<Ref<Toi>> ts = getToiRefList();
-		return ts.size();
-	}
+
 
 	public void addToiRefList(Ref<Toi> t) {
 		List<Ref<Toi>> ts = getToiRefList();
@@ -109,6 +106,7 @@ public class Exam extends ExamFactory {
 	public void addToiRefList(Toi t) {
 		addToiRefList(Ref.create(t));
 	}
+	*/
 
 	////////// 
 	public Exam save() {
@@ -120,15 +118,19 @@ public class Exam extends ExamFactory {
 
 		TreeMap<Long, Toi> toiMap = new TreeMap<>();
 
-		List<Ref<Toi>> toiRefList = getToiRefList();
+//		List<Ref<Toi>> toiRefList = getToiRefList();
+		List<Toi> toiList = Toi.getToiListByExamId(getId());
 
-		if (toiRefList != null) {
-			for (Ref<Toi> t : toiRefList) {
-				Toi tt = t.get();
-				toiMap.put(tt.getNo(), tt);
+		if (toiList != null) {
+			for (Toi t : toiList) {
+				toiMap.put(t.getNo(), t);
 			}
 		}
 		return toiMap;
+	}
+	public int getToiListSize() {
+		List<Toi> toiList = Toi.getToiListByExamId(getId());
+		return toiList.size();
 	}
 
 	public String getExportData() {
@@ -138,9 +140,12 @@ public class Exam extends ExamFactory {
 				getName()+","+
 				getDateString(getCreated());
 	}
+//	public boolean containAnswer(Long toiId ) {
+//		Ref<Toi> rToi = Ref.create(Key.create(Toi.class,toiId));
+//		return getToiRefList().contains(rToi);
+//	}
 	public boolean containAnswer(Long toiId ) {
-		Ref<Toi> rToi = Ref.create(Key.create(Toi.class,toiId));
-		return getToiRefList().contains(rToi);
-		
+		return Toi.contain(toiId);
 	}
+
 }
