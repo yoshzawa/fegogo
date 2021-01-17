@@ -36,12 +36,14 @@ public final class Toi extends ToiFactory {
 	private float sum;
 
 	private Ref<Genre> genre;
+	@Index
 	Long genreId;
 	@Index
 	Long examId;
 
 	String genreName;
 	String examName;
+	
 	private List<ImageSet> ImageSet;
 
 	

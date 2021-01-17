@@ -72,6 +72,10 @@ public class ToiFactory extends CommonEntity {
 	public static List<Toi> getToiListByExamId(Long examId){
 		return  ofy().load().type(Toi.class).filter("examId", examId).list();
 	}
+	public static List<Toi> getToiListByGenreId(Long genreId){
+		return  ofy().load().type(Toi.class).filter("genreId", genreId).list();
+	}
+	
 	public static boolean contain(Long toiId) {
 		Toi t = getById(toiId);
 		return(t != null);
