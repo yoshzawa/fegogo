@@ -95,8 +95,8 @@ public class ImportToiServlet extends HttpServlet {
 			t.save();
 			
 			Ref<Toi> toiRef = Ref.create(t);
-			genre.addToiRefList(toiRef);
-			genre.save();
+//			genre.addToiRefList(toiRef);
+//			genre.save();
 //			exam.addToiRefList(toiRef);
 			exam.save();
 			
