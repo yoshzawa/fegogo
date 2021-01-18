@@ -104,8 +104,10 @@ public class Toi2LoginListServlet extends HttpServlet {
 				s[0] = "<a href='/toi/list?parentId=" + toi.getExam().getId() + "'>" + examName + "</a>";
 				s[1] = toi.getNo().toString();
 				// s[2]=toi.getRefGenre().get().getName();
-				s[2] = "<a href='/genreDetail/list?id=" + toi.getRefGenre().get().getId() + "'>"
-						+ toi.getRefGenre().get().getName() + "</a>";
+//				s[2] = "<a href='/genreDetail/list?id=" + toi.getRefGenre().get().getId() + "'>"
+//						+ toi.getRefGenre().get().getName() + "</a>";
+				s[2] = "<a href='/genreDetail/list?id=" + toi.getGenre().getId() + "'>"
+						+ toi.getGenre().getName() + "</a>";
 				s[3] = toi.getName();
 				s[4] = dateFormat(as.getAnswered());
 				s[5] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";

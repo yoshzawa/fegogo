@@ -78,20 +78,22 @@ public class ImportToiServlet extends HttpServlet {
 				System.out.println("ERROR:No Exam "+ ss[4]);
 				break;
 			}
-			Ref<Exam> refExam = Ref.create(exam);
+//			Ref<Exam> refExam = Ref.create(exam);
 			Genre genre=Genre.getById(Long.parseLong(ss[5]));
 			if(genre==null) {
 				System.out.println("ERROR:No Genre "+ ss[5]);
 				break;
 			}
-			Ref<Genre> refGenre = Ref.create(genre);
+//			Ref<Genre> refGenre = Ref.create(genre);
 			Toi t=new Toi();
 			t.setId(id);
 			t.setNo(no);
 			t.setName(name);
 			t.setCreated(created);
-			t.setRefExam(refExam);
-			t.setRefGenre(refGenre);
+//			t.setRefExam(refExam);
+			t.setExamId(exam.getId());
+//			t.setRefGenre(refGenre);
+			t.setGenreId(genre.getId());
 			t.save();
 			
 			Ref<Toi> toiRef = Ref.create(t);

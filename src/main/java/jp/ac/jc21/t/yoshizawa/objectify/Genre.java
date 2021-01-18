@@ -3,17 +3,19 @@
  */
 package jp.ac.jc21.t.yoshizawa.objectify;
 
-import java.util.ArrayList;
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.*;
-import static com.googlecode.objectify.ObjectifyService.ofy;
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * @author t.yoshizawa
@@ -121,7 +123,7 @@ public class Genre extends GenreFactory {
 	 * (Ref<Toi> rt : toiRefList) { Toi toi = rt.get(); Long yyyymm =
 	 * toi.getExam().getYYYYMM(); toiMap.put(yyyymm, toi); } return toiMap; }
 	 ******************************************************************/
-	public Map<Long, Toi> getToiMap() {
+	public final Map<Long, Toi> getToiMap() {
 		List<Toi> toiList = getToiList();
 		Map<Long, Toi> toiMap = new TreeMap<Long, Toi>(new Comparator<Long>() {
 			public int compare(Long m, Long n) {
@@ -135,7 +137,7 @@ public class Genre extends GenreFactory {
 		return toiMap;
 	}
 
-	public List<Toi> getToiList() {
+	public final List<Toi> getToiList() {
 		Long genreId = getId();
 		List<Toi> toiList = Toi.getToiListByGenreId(genreId);
 		return toiList;

@@ -19,7 +19,8 @@ public class ToiFactory extends CommonEntity {
 		t.setNo(no);
 		t.setName(name);
 		t.setCreated(new Date());
-		t.setExam(parent);
+//		t.setExam(parent);	
+		t.setExamId(parent.getId());
 		t.newQuestionRefList();
 		t.setGenre(genre);
 		t.setAnswerSumRefList(null);
@@ -30,9 +31,10 @@ public class ToiFactory extends CommonEntity {
 		t.setNo(no);
 		t.setName(name);
 		t.setCreated(new Date());
-		t.setExam(parent);
+//		t.setExam(parent);	
+		t.setExamId(parent.getId());
 		t.newQuestionRefList();
-		t.setRefGenre(null);
+		t.setGenreId(null);
 		return t;
 	}
 

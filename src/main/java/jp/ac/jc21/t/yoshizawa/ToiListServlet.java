@@ -52,7 +52,8 @@ public class ToiListServlet extends HttpServlet {
 				Toi t = toiMap.get(key);
 				String[] s = new String[4];
 				s[0] = t.getNo().toString();
-				s[1] = t.getRefGenre().get().getName();
+//				s[1] = t.getRefGenre().get().getName();
+				s[1] = t.getGenre().getName();
 				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
 				s[3] = t.getQuestionRefListSize() + "";
 				datas.add(s);
@@ -80,7 +81,8 @@ public class ToiListServlet extends HttpServlet {
 				String[] s = new String[5];
 
 				s[0] = t.getNo().toString();
-				s[1] = t.getRefGenre().get().getName();
+//				s[1] = t.getRefGenre().get().getName();
+				s[1] = t.getGenre().getName();
 				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
 				s[3] = t.getQuestionRefListSize() + "";
 				s[4] = "";
@@ -110,7 +112,8 @@ public class ToiListServlet extends HttpServlet {
 					Toi toi = as.getRefToi().get();
 			s[0]=toi.getExam().getName();
 			s[1]=toi.getNo().toString();
-			s[2]=toi.getRefGenre().get().getName();
+//			s[2]=toi.getRefGenre().get().getName();
+			s[2]=toi.getGenre().getName();
 			s[3]=toi.getName();
 			s[4]=dateFormat(as.getAnswered());
 			s[5]= changePoint(as.getNoOfSeikai(),as.getNoOfAnswer()) +"%";

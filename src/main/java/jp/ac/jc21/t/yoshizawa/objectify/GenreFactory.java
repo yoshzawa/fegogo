@@ -11,7 +11,6 @@ public class GenreFactory extends CommonEntity {
 		Genre g = new Genre();
 		g.setCreated(new Date());
 		g.setName(name);
-//		g.newToiRefList(); 
 		g.setNo(0);
 		return g;
 	}

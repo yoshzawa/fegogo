@@ -308,8 +308,9 @@ public final class AnswerSum extends AnswerSumFactory {
 		} else {
 			Toi toi = getRefToi().get();
 			Exam exam = toi.getExam();
-			String s = getId() + "," + getName() + "," + getDateString(getAnswered()) + "," + exam.getName() + ","
-					+ toi.getNo() + "," + toi.getRefGenre().get().getNo() + "," + toi.getRefGenre().get().getName()
+			String s = getId() + "," + getName() + "," + getDateString(getAnswered()) + "," 
+			+ exam.getName() + "," + toi.getNo() + "," + toi.getGenre().getNo() + "," + 
+					toi.getGenre().getName()
 					+ "," + toi.getName() + ",";
 			cache.put(key, s);
 			return s;
