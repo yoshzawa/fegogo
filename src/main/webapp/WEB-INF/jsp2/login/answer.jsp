@@ -29,7 +29,7 @@
 				href="/toi/list?parentId=<%=exam.getId()%>"><%=exam.getName()%>
 					試験</a></li>
 			<li class="breadcrumb-item active" aria-current="page">問<%=toi.getNo()%>
-				<%=toi.getRefGenre().get().getName()%> (<%=toi.getName()%>) 解答登録
+				<%=toi.getGenre().getName()%> (<%=toi.getName()%>) 解答登録
 			</li>
 		</ol>
 	</nav>

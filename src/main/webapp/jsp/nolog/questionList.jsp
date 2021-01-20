@@ -23,7 +23,7 @@
 			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
 			<li class="breadcrumb-item"><a href="/exam/">試験 一覧</a></li>
 			<li class="breadcrumb-item"><a href="/toi/list?parentId=<%=exam.getId()%>"><%=exam.getName()%> 試験</a></li>
-			<li class="breadcrumb-item active" aria-current="page">問<%=parent.getNo()%> <%= parent.getRefGenre().get().getName() %>
+			<li class="breadcrumb-item active" aria-current="page">問<%=parent.getNo()%> <%= parent.getGenre().getName() %>
 			(<%=parent.getName()%>)</li>
 		</ol>
 	</nav>

@@ -47,9 +47,9 @@
 	<p>
 		Genre id=<%=t.getGenreId()%>
 		->
-		<%=t.getRefGenre().get().getId()%></p>
+		<%=t.getGenre().getId()%></p>
 	<p>
-		Genre name=<%=t.getRefGenre().get().getName()%></p>
+		Genre name=<%=t.getGenre().getName()%></p>
 
 	<TABLE border=1>
 		<TR>

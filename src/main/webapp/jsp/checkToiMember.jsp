@@ -40,9 +40,9 @@
 	<p>Toi name=<%=t.getName() %></p>
 	
 	<p>Exam id=<%=t.getExamId() %> -> <%=t.getExam().getId() %></p>
-	<p>Genre id=<%=t.getGenreId() %> -> <%=t.getRefGenre().get().getId() %></p>
+	<p>Genre id=<%=t.getGenreId() %> -> <%=t.getGenre().getId() %></p>
 
-	<p>Genre name=<%=t.getRefGenre().get().getName() %></p>
+	<p>Genre name=<%=t.getGenre().getName() %></p>
 	
 	<TABLE border=1>
 		<TR>

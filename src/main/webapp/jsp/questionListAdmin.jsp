@@ -27,8 +27,8 @@
 			Exam exam = (Exam) request.getAttribute("exam");
 			List<Genre>genreList = (List<Genre>)request.getAttribute("genreList");
 			Long genreId=0L;
-			if(parent.getRefGenre() != null){
-			genreId = parent.getRefGenre().get().getId();
+			if(parent.getGenre() != null){
+			genreId = parent.getGenre().getId();
 			}
 	%>
 
