@@ -51,15 +51,17 @@ public class GenreListServlet extends HttpServlet {
 
 	private RequestDispatcher extractedTrue(HttpServletRequest request, List<Genre> genreList, List<String[]> datas) {
 		for (Genre g : genreList) {
-			List<Ref<Toi>> toiRefList = g.getToiRefList();
+//			List<Ref<Toi>> toiRefList = g.getToiRefList();
+			List<Toi> toiList = g.getToiList();
 			{
 	
 				String genreName = g.getName();
 	
 				int count = 0;
 				float sum = 0;
-				for (Ref<Toi> rt : toiRefList) {
-					Toi toi = rt.get();
+//				for (Ref<Toi> rt : toiRefList) {
+				for (Toi toi : toiList) {
+//					Toi toi = rt.get();
 					if(toi != null) {
 						sum += toi.getAnswerSumSum();
 						count += toi.getAnswerSumCount();
@@ -84,13 +86,16 @@ public class GenreListServlet extends HttpServlet {
 	private RequestDispatcher extractedFalse(HttpServletRequest request, List<Genre> genreList, String email,
 			List<String[]> datas) {
 		for (Genre g : genreList) {
-			List<Ref<Toi>> toiRefList = g.getToiRefList();
+//			List<Ref<Toi>> toiRefList = g.getToiRefList();
+			List<Toi> toiList = g.getToiList();
+
 			{
 				String genreName = g.getName();
 				int count = 0;
 				float sum = 0;
-				for (Ref<Toi> rt : toiRefList) {
-					Toi toi = rt.get();
+//				for (Ref<Toi> rt : toiRefList) {
+				for (Toi toi : toiList) {
+//					Toi toi = rt.get();
 					sum += toi.getAnswerSumSum();
 					count += toi.getAnswerSumCount();
 				}
@@ -103,10 +108,12 @@ public class GenreListServlet extends HttpServlet {
 
 				datas.add(s);
 			}
-			List<Ref<Toi>> list = toiRefList;
+//			List<Ref<Toi>> list = toiRefList;
+			List<Toi> list = toiList;
 
-			for (Ref<Toi> rt : list) {
-				Toi toi = rt.get();
+//			for (Ref<Toi> rt : list) {
+			for (Toi toi : list) {
+//			Toi toi = rt.get();
 
 				String toiName = toi.getExam().getName() + " –â" + toi.getNo() + " (" + toi.getName() + ")";
 

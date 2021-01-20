@@ -37,13 +37,15 @@ public class Genre2LoginListServlet extends HttpServlet {
 			List<String[]> datas = new ArrayList<String[]>();
 
 			for (Genre g : genreList) {
-				List<Ref<Toi>> toiRefList = g.getToiRefList();
+//				List<Ref<Toi>> toiRefList = g.getToiRefList();
+				List<Toi> toiList = g.getToiList();
 				{
 					String genreName = g.getName();
 					int count = 0;
 					float sum = 0;
-					for (Ref<Toi> rt : toiRefList) {
-						Toi toi = rt.get();
+//					for (Ref<Toi> rt : toiRefList) {
+					for (Toi toi : toiList) {
+//						Toi toi = rt.get();
 						sum += toi.getAnswerSumSum();
 						count += toi.getAnswerSumCount();
 					}
@@ -56,10 +58,13 @@ public class Genre2LoginListServlet extends HttpServlet {
 
 					datas.add(s);
 				}
-				List<Ref<Toi>> list = toiRefList;
+//				List<Ref<Toi>> list = toiRefList;
+				List<Toi> list = toiList;
 
-				for (Ref<Toi> rt : list) {
-					Toi toi = rt.get();
+				for (Toi toi : list) {
+//				for (Ref<Toi> rt : list) {
+
+//					Toi toi = rt.get();
 
 					String toiName = toi.getExam().getName() + " –â" + toi.getNo() + " (" + toi.getName() + ")";
 

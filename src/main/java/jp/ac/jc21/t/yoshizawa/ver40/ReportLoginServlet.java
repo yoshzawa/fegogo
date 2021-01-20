@@ -62,14 +62,16 @@ public class ReportLoginServlet extends HttpServlet {
 				if (answered.after(cal)) {
 				s[0]=toi.getExamName();
 				s[1] = toi.getNo().toString();
-				s[2] = "<a href='/genreDetail/list?id="+toi.getRefGenre().get().getId()+"'>" + toi.getRefGenre().get().getName() + "</a>";
+//				s[2] = "<a href='/genreDetail/list?id="+toi.getRefGenre().get().getId()+"'>" + toi.getRefGenre().get().getName() + "</a>";
+				s[2] = "<a href='/genreDetail/list?id="+toi.getGenre().getId()+"'>" + toi.getGenre().getName() + "</a>";
 				s[3] = toi.getName();
 				s[4] = dateFormat(as.getAnswered());
 				s[5] = changePoint(as)+"%";
 				}else {
 					s[0]="<s><small>"+toi.getExamName()+"</small></s>";
 					s[1] ="<s><small>"+ toi.getNo().toString()+"</small></s>";
-					s[2] ="<s><small>"+ "<a href='/genreDetail/list?id="+toi.getRefGenre().get().getId()+"'>" + toi.getRefGenre().get().getName() + "</a>"+"</small></s>";
+//					s[2] ="<s><small>"+ "<a href='/genreDetail/list?id="+toi.getRefGenre().get().getId()+"'>" + toi.getRefGenre().get().getName() + "</a>"+"</small></s>";
+					s[2] ="<s><small>"+ "<a href='/genreDetail/list?id="+toi.getGenre().getId()+"'>" + toi.getGenre().getName() + "</a>"+"</small></s>";
 					s[3] ="<s><small>"+ toi.getName()+"</small></s>";
 					s[4] ="<s><small>"+ dateFormat(as.getAnswered())+"</small></s>";
 					s[5] ="<s><small>"+ changePoint(as)+"%"+"</small></s>";

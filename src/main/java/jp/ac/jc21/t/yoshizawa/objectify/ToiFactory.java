@@ -1,5 +1,6 @@
 package jp.ac.jc21.t.yoshizawa.objectify;
 
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
@@ -18,7 +19,8 @@ public class ToiFactory extends CommonEntity {
 		t.setNo(no);
 		t.setName(name);
 		t.setCreated(new Date());
-		t.setExam(parent);
+//		t.setExam(parent);	
+		t.setExamId(parent.getId());
 		t.newQuestionRefList();
 		t.setGenre(genre);
 		t.setAnswerSumRefList(null);
@@ -29,9 +31,10 @@ public class ToiFactory extends CommonEntity {
 		t.setNo(no);
 		t.setName(name);
 		t.setCreated(new Date());
-		t.setExam(parent);
+//		t.setExam(parent);	
+		t.setExamId(parent.getId());
 		t.newQuestionRefList();
-		t.setRefGenre(null);
+		t.setGenreId(null);
 		return t;
 	}
 
@@ -67,6 +70,17 @@ public class ToiFactory extends CommonEntity {
 		}
 		return toi;
 
+	}
+	public static List<Toi> getToiListByExamId(Long examId){
+		return  ofy().load().type(Toi.class).filter("examId", examId).list();
+	}
+	public static List<Toi> getToiListByGenreId(Long genreId){
+		return  ofy().load().type(Toi.class).filter("genreId", genreId).list();
+	}
+	
+	public static boolean contain(Long toiId) {
+		Toi t = getById(toiId);
+		return(t != null);
 	}
 
 }

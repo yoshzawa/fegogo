@@ -46,8 +46,9 @@
 			<td><%=g.getName()%></td>
 			<td>
 				<%
-					for (Ref<Toi> rt : g.getToiRefList()) {
-								Toi t = rt.get();
+//					for (Ref<Toi> rt : g.getToiRefList()) {
+					for (Toi t : g.getToiList()) {
+//								Toi t = rt.get();
 								if(t==null)
 									continue;
 				%> 

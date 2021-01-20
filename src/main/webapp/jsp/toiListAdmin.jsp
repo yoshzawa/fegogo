@@ -54,13 +54,13 @@
 			<td><%=t.getId()%></td>
 			<td><%=t.getNo()%></td>
 			<td><%
-				if(t.getRefGenre() == null){
+				if(t.getGenre() == null){
 			%>
 				no Genre
 			<%
 				} else {
 			%>
-				<%=t.getRefGenre().get().getName()%>
+				<%=t.getGenre().getName()%>
 			<% } %>
 			</td>
 			<td><a href="/admin/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>

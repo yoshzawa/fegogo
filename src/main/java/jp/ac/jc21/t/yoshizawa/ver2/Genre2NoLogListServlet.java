@@ -28,14 +28,16 @@ public class Genre2NoLogListServlet extends HttpServlet {
 			List<String[]> datas = new ArrayList<String[]>(genreList.size());
 
 			for (Genre g : genreList) {
-				List<Ref<Toi>> toiRefList = g.getToiRefList();
+//				List<Ref<Toi>> toiRefList = g.getToiRefList();
+				List<Toi> toiList = g.getToiList();
 
 				String genreName = g.getName();
 
 				int count = 0;
 				float sum = 0;
-				for (Ref<Toi> rt : toiRefList) {
-					Toi toi = rt.get();
+//				for (Ref<Toi> rt : toiRefList) {
+				for (Toi toi : toiList) {
+//					Toi toi = rt.get();
 					if (toi != null) {
 						sum += toi.getAnswerSumSum();
 						count += toi.getAnswerSumCount();

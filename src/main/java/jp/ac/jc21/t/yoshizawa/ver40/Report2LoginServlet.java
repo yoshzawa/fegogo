@@ -61,8 +61,9 @@ public class Report2LoginServlet extends HttpServlet {
 			// –â‘è‚ÌGenre‚²‚Æ‚ÉAMap‚ÉList‚ğŠi”[
 			Optional<Toi> toi = Toi.getByAnswerSum(as);
 			if(toi.isPresent()) {
-				Ref<Genre> refGenre = toi.get().getRefGenre();
-				Long genreId = refGenre.get().getId();
+//				Ref<Genre> refGenre = toi.get().getRefGenre();
+//				Long genreId = refGenre.get().getId();
+				Long genreId = toi.get().getGenreId();
 				List<AnswerSum> genreList = resultMap.get(genreId);
 
 				if(genreList == null) {

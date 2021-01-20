@@ -5,7 +5,6 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
@@ -32,10 +31,9 @@ public class Exam extends ExamFactory {
 	private Long YYYYMM;
 	private String name;
 	private Date created;
-	private List<Ref<Toi>> toiRefList;
 
 	////////// id
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -74,73 +72,37 @@ public class Exam extends ExamFactory {
 		this.created = created;
 	}
 
-
-	////////// toiRefList
-
-	public void setToiRefList(List<Ref<Toi>> tois) {
-		this.toiRefList = tois;
-	}
-
-	public void newToiRefList() {
-		setToiRefList(new ArrayList<Ref<Toi>>());
-	}
-
-	public List<Ref<Toi>> getToiRefList() {
-		if (toiRefList == null) {
-
-			newToiRefList();
-
-		}
-
-		return toiRefList;
-	}
-
-	public int getToiRefListSize() {
-		List<Ref<Toi>> ts = getToiRefList();
-		return ts.size();
-	}
-
-	public void addToiRefList(Ref<Toi> t) {
-		List<Ref<Toi>> ts = getToiRefList();
-		ts.add(t);
-		setToiRefList(ts);
-	}
-
-	public void addToiRefList(Toi t) {
-		addToiRefList(Ref.create(t));
-	}
-
-	////////// 
 	public Exam save() {
 		Key<Exam> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
-	
+
 	public final TreeMap<Long, Toi> getToiMap() {
 
 		TreeMap<Long, Toi> toiMap = new TreeMap<>();
 
-		List<Ref<Toi>> toiRefList = getToiRefList();
+		List<Toi> toiList = Toi.getToiListByExamId(getId());
 
-		if (toiRefList != null) {
-			for (Ref<Toi> t : toiRefList) {
-				Toi tt = t.get();
-				toiMap.put(tt.getNo(), tt);
+		if (toiList != null) {
+			for (Toi t : toiList) {
+				toiMap.put(t.getNo(), t);
 			}
 		}
 		return toiMap;
 	}
 
+	public int getToiListSize() {
+		List<Toi> toiList = Toi.getToiListByExamId(getId());
+		return toiList.size();
+	}
+
 	public String getExportData() {
 
-		return getId()+","+
-				getYYYYMM()+","+
-				getName()+","+
-				getDateString(getCreated());
+		return getId() + "," + getYYYYMM() + "," + getName() + "," + getDateString(getCreated());
 	}
-	public boolean containAnswer(Long toiId ) {
-		Ref<Toi> rToi = Ref.create(Key.create(Toi.class,toiId));
-		return getToiRefList().contains(rToi);
-		
+
+	public boolean containAnswer(Long toiId) {
+		return Toi.contain(toiId);
 	}
+
 }

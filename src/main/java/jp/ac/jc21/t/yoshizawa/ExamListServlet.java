@@ -43,7 +43,7 @@ public class ExamListServlet extends HttpServlet {
 			String[] s = new String[2];
 
 			s[0] = "<a href='/toi/list?parentId=" + e.getId() + "'>" + e.getName() + "</a>";
-			s[1] = e.getToiRefListSize() + "";
+			s[1] = e.getToiListSize() + "";
 			datas.add(s);
 		}
 		request.setAttribute("datas", datas);
@@ -78,7 +78,8 @@ public class ExamListServlet extends HttpServlet {
 					}
 					s[0] = examName;
 					s[1] = toi.getNo().toString();
-					s[2] = toi.getRefGenre().get().getName();
+//					s[2] = toi.getRefGenre().get().getName();
+					s[2] = toi.getGenre().getName();
 					s[3] = toi.getName();
 					s[4] = dateFormat(as.getAnswered());
 					s[5] = changePoint(as);
