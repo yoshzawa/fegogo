@@ -18,6 +18,7 @@ public class AccessLogFactory extends CommonEntity {
 		return aLog;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<AccessLog> loadAll() {
 		return (List<AccessLog>) loadAll(AccessLog.class);
 	}

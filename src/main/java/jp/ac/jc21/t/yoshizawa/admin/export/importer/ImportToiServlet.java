@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.googlecode.objectify.Ref;
-
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
@@ -96,7 +94,7 @@ public class ImportToiServlet extends HttpServlet {
 			t.setGenreId(genre.getId());
 			t.save();
 			
-			Ref<Toi> toiRef = Ref.create(t);
+//			Ref<Toi> toiRef = Ref.create(t);
 //			genre.addToiRefList(toiRef);
 //			genre.save();
 //			exam.addToiRefList(toiRef);

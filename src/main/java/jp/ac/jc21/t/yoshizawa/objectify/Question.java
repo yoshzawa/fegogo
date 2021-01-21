@@ -252,8 +252,6 @@ public final class Question extends QuestionFactory {
 	public boolean containAnswer(Long answerId) {
 		return getAnswerSet().contains(answerId);
 	}
-//	public boolean containQuestion(Question q) {
-//		Ref<Toi> rToi=Ref.create(Key.create(Toi.class,q));
 
 	public void setAnswerSet(String answers) {
 		if(answers.equals("ëSàıê≥â")) {
@@ -273,6 +271,5 @@ public final class Question extends QuestionFactory {
 		
 	}
 		
-//	}
 	
 }
