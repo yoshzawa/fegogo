@@ -16,8 +16,11 @@ import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.Key;
 import com.google.cloud.datastore.StructuredQuery.OrderBy;
 
+import jp.ac.jc21.t.yoshizawa.datastore.Exam;
+
 /**
  * Servlet implementation class Exam2Servlet
+ * https://googleapis.dev/java/google-cloud-datastore/latest/index.html
  */
 @WebServlet("/exam2")
 public class Exam2Servlet extends HttpServlet {
@@ -32,24 +35,12 @@ public class Exam2Servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setCharacterEncoding("UTF-8");
 
-		Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-
-		// The kind for the entity
-		String kind = "Exam";
+		List<Exam> exams = Exam.loadAllList();
 		
-		// The name/ID for the new entity
-		Query<Entity> query = Query.newEntityQueryBuilder().setKind(kind).setOrderBy(OrderBy.desc("YYYYMM")).build();
-		QueryResults<Entity> results = datastore.run(query);
+		for(Exam e : exams) {
+			response.getWriter().println(e.getYYYYMM() + ":" + e.getName());
+		}
 
-		List<Entity> entities = new ArrayList();
-		
-		while (results.hasNext()) {
-			Entity result = results.next();
-			entities.add(result);
-		}
-		for (Entity e : entities) {
-			response.getWriter().println(e.getLong("YYYYMM"));
-		}
 
 	}
 
