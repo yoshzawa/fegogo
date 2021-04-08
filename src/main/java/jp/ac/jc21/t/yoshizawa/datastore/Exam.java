@@ -3,10 +3,12 @@
  */
 package jp.ac.jc21.t.yoshizawa.datastore;
 
-import java.util.Date;
 
-import com.google.cloud.datastore.Datastore;
-import com.google.cloud.datastore.DatastoreOptions;
+import java.util.Date;
+import java.util.Optional;
+
+import com.google.cloud.datastore.*;
+
 
 /**
  * @author t.yoshizawa
@@ -54,4 +56,21 @@ public class Exam extends ExamFactory {
 	public Exam() {
 	}
 
+	public Optional<Exam> save() {
+//		Key<Exam> key = ofy().save().entity(this).now();
+
+		Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+		Key examKey = datastore.newKeyFactory()
+			    .setKind("Task")
+			    .newKey("sampleTask");
+			Entity exam = Entity.newBuilder(examKey)
+			    .set("id", getId())
+			    .set("YYYYMM", getYYYYMM())
+			    .set("name", getName())
+			    .set("created", DateToTimestamp(created))
+			    .build();
+			datastore.put(exam);
+			Key key = exam.getKey();
+		return getOptById(key.getId());
+	}
 }

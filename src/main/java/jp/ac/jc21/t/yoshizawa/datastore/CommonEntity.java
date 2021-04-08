@@ -5,9 +5,8 @@ package jp.ac.jc21.t.yoshizawa.datastore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
 
+import com.google.cloud.Timestamp;
 
 
 /**
@@ -21,4 +20,14 @@ public class CommonEntity {
 		return sdf.format(date);
 	}
 	final public static String ofyVersion = "1.90";
+	
+	final static Timestamp DateToTimestamp(Date d) {
+		Timestamp t = Timestamp.of(d);
+		return t;
+	}
+	final static Date TimestampToDate( Timestamp t) {
+		Date d = t.toDate();
+		return d;
+	}
+
 }
