@@ -36,10 +36,12 @@ public class Exam2Servlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		List<Exam> exams = Exam.loadAllList();
-		
-		for(Exam e : exams) {
-			response.getWriter().println(e.getYYYYMM() + ":" + e.getName());
-		}
+	
+		request.setAttribute("exams", exams);
+//		for(Exam e : exams) {
+//			response.getWriter().println(e.getYYYYMM() + ":" + e.getName());
+//		}
+		request.getRequestDispatcher("/WEB-INF/jsp5/exam2.jsp").forward(request, response);
 
 
 	}
