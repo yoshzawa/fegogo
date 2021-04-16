@@ -32,15 +32,18 @@ public class Exam2Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.setCharacterEncoding("UTF-8");
 
+		Exam e = Exam.createExam((long) 202104, "óﬂòa03îNìxètä˙");
+		e.save();
+		e.setName("óﬂòa03îNìxè„ä˙");
+		e.save();
+		
+		
 		List<Exam> exams = Exam.loadAllList();
 	
 		request.setAttribute("exams", exams);
-//		for(Exam e : exams) {
-//			response.getWriter().println(e.getYYYYMM() + ":" + e.getName());
-//		}
+		
 		request.getRequestDispatcher("/WEB-INF/jsp5/exam2.jsp").forward(request, response);
 
 
