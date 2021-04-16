@@ -94,7 +94,8 @@ public class CheckAnswerServlet extends HttpServlet {
 		request.setAttribute("optExamReal", optExamReal);
 		
 		// answer -> Question(Link)
-		Optional<Question> optQuestion = optAnswer.flatMap(a -> a.getOptQuestion());
+//		Optional<Question> optQuestion = optAnswer.flatMap(a -> a.getOptQuestion());
+		Optional<Question> optQuestion = Optional.ofNullable(optAnswer.get().getQuestion());
 		request.setAttribute("optQuestion", optQuestion);
 		
 		// Question(Real)

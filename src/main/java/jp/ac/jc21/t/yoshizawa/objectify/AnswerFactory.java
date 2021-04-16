@@ -38,7 +38,6 @@ public class AnswerFactory extends CommonEntity {
 		if (noString.length() > 2) {
 			noString = noString.substring(noString.length() - 2);
 		}
-
 		return createAnswer(name, refAnswerSum, Ref.create(question), answerIntArray, noString);
 	}
 
@@ -47,13 +46,17 @@ public class AnswerFactory extends CommonEntity {
 		Answer a = new Answer();
 		a.setName(name);
 		a.setAnswered(new Date());
-		a.setRefAnswerSum(refAnswerSum);
-		a.setRefQuestion(refQuestion);
+//		a.setRefAnswerSum(refAnswerSum);
+		a.setAnswerSumId(refAnswerSum.get().getId());
+//		a.setRefQuestion(refQuestion);
+		a.setQuestionId(refQuestion.get().getId());
 		a.setAnswerArray(answerArray);
 		a.setNo(no);
 		a.setVersion(ofyVersion);
 		return a;
 	}
+	
+	@SuppressWarnings("unchecked")
 	public static List<Answer> loadAll() {
 		return (List<Answer>) loadAll(Answer.class);
 	}

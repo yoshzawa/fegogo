@@ -25,12 +25,13 @@ public class BackupAnswerFactory extends CommonEntity {
 		a.setId(answer.getId());
 		a.setName(answer.getName());
 		a.setAnswered(answer.getAnswered());
-		a.setRefAnswerSum(answer.getRefAnswerSum());
-		a.setRefQuestion(answer.getRefQuestion());
+//		a.setRefAnswerSum(answer.getRefAnswerSum());
+//		a.setRefQuestion(answer.getRefQuestion());
 		a.setAnswerArray(answer.getAnswerArray());
 		a.setNo(answer.getNo());
 		return a;
 	}
+	@SuppressWarnings("unchecked")
 	public static List<BackupAnswer> loadAll() {
 		return (List<BackupAnswer>) loadAll(BackupAnswer.class);
 	}

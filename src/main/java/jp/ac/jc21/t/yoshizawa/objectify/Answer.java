@@ -35,8 +35,8 @@ public final class Answer extends AnswerFactory {
 	private Ref<Question> refQuestion;
 	private int[] answerArray;
 //	private String dumpCSV;
-	Long answerSumId;
-	Long questionId;
+	private Long answerSumId;
+	private Long questionId;
 	private String version;
 
 	public String getVersion() {
@@ -48,15 +48,18 @@ public final class Answer extends AnswerFactory {
 	}
 
 	/**
-	 * @return the questionId
-	 */
 	public Long getQuestionId() {
 		if (questionId == null) {
 			setQuestionId(getRefQuestion().get().getId());
 			save();
 		}
 		return questionId;
+	}	 
+	*/
+	public Long getQuestionId() {
+		return questionId;				
 	}
+
 
 	/**
 	 * @param questionId the questionId to set
@@ -66,8 +69,6 @@ public final class Answer extends AnswerFactory {
 	}
 
 	/**
-	 * @return the answerSumId
-	 */
 	public Long getAnswerSumId() {
 		if (answerSumId == null) {
 			Long asId = getRefAnswerSum().get().getId();
@@ -75,6 +76,10 @@ public final class Answer extends AnswerFactory {
 			save();
 
 		}
+		return answerSumId;
+	}
+	 */
+	public Long getAnswerSumId() {
 		return answerSumId;
 	}
 
@@ -152,22 +157,23 @@ public final class Answer extends AnswerFactory {
 		this.answered = answered;
 	}
 
-	////////// answerSum
-
 	/**
-	 * @return the refAnswerSum
-	 */
 	public Ref<AnswerSum> getRefAnswerSum() {
 		return refAnswerSum;
 	}
-
-	/**
-	 * @param refAnswerSum the refAnswerSum to set
-	 */
 	public void setRefAnswerSum(Ref<AnswerSum> refAnswerSum) {
 		this.refAnswerSum = refAnswerSum;
 	}
+	public void setAnswerSum(AnswerSum a) {
+		setRefAnswerSum(Ref.create(a));
 
+	}
+	 */
+	public void setAnswerSum(AnswerSum a) {
+		setAnswerSumId(a.getId());
+	}
+
+	
 	/**
 	 * @param answerArray the answerArray to set
 	 */
@@ -175,26 +181,19 @@ public final class Answer extends AnswerFactory {
 		this.answerArray = answerArray;
 	}
 
-	public void setAnswerSum(AnswerSum a) {
-		setRefAnswerSum(Ref.create(a));
 
-	}
 
 	////////// Question
 
 	/**
-	 * @return the refQuestion
-	 */
 	public Ref<Question> getRefQuestion() {
 		return refQuestion;
 	}
-
-	/**
-	 * @param refQuestion the refQuestion to set
-	 */
 	public void setRefQuestion(Ref<Question> refQuestion) {
 		this.refQuestion = refQuestion;
 	}
+	 */
+
 
 	////////// answerArray
 
@@ -213,7 +212,7 @@ public final class Answer extends AnswerFactory {
 //		final Logger log = getLogger();
 
 		int[] answerArray = getAnswerArray();
-		Question question = getRefQuestion().get();
+		Question question = getQuestion();
 
 		if ((answerArray == null) || (answerArray.length != question.getAnswerlength())) {
 			return false;
@@ -245,7 +244,7 @@ public final class Answer extends AnswerFactory {
 			} else {
 				s += "アイウエオカキクケコサシスセソタチツテト".charAt(i);
 			}
-			if (getRefQuestion().get().getNoOfOption() <= 0) {
+			if (getQuestion().getNoOfOption() <= 0) {
 				s = "全員正解";
 			}
 
@@ -254,12 +253,15 @@ public final class Answer extends AnswerFactory {
 	}
 
 	public Answer save() {
-		setRefId();
+//		setRefId();
 		Key<Answer> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
 
-	public boolean isRefId() {
+
+
+	/**
+	 * 	public boolean isRefId() {
 		if (answerSumId == null) {
 			return false;
 		}
@@ -268,7 +270,6 @@ public final class Answer extends AnswerFactory {
 		}
 		return true;
 	}
-
 	public void setRefId() {
 		if (answerSumId == null) {
 			answerSumId = refAnswerSum.get().getId();
@@ -276,6 +277,15 @@ public final class Answer extends AnswerFactory {
 		if (questionId == null) {
 			questionId = refQuestion.get().getId();
 		}
+	}
+	public Optional<AnswerSum> getAnswerSum() {
+		Optional<Ref<AnswerSum>> refASum = Optional.ofNullable(getRefAnswerSum());
+		Optional<AnswerSum> aSum = Optional.ofNullable(refASum.get().get());
+		return aSum;
+	}
+	*/
+	public Optional<AnswerSum> getAnswerSum() {
+		return AnswerSum.getOptById(getAnswerSumId());
 	}
 
 	public void delete() {
@@ -290,8 +300,7 @@ public final class Answer extends AnswerFactory {
 			String value = (String) cache.get(cacheId);
 			return value;
 		} else {
-
-			Question question = getRefQuestion().get();
+			Question question = getQuestion();
 			String s = getId() + "," + getNo() + "," + question.getName() + "," + question.getAnswers() + ","
 					+ getAnswers() + "," + (isCorrect() ? 1 : 0);
 			cache.put(cacheId, s);
@@ -303,20 +312,9 @@ public final class Answer extends AnswerFactory {
 
 		return getId() + "," + getNo() + "," + getName() + "," + getDateString(getAnswered()) + "," + getAnswerSumId()
 				+ "," + getQuestionId() + "," + getAnswers();
-
 	}
 
-	public Optional<AnswerSum> getAnswerSum() {
-		Optional<Ref<AnswerSum>> refASum = Optional.ofNullable(getRefAnswerSum());
-		Optional<AnswerSum> aSum = Optional.ofNullable(refASum.get().get());
-		return aSum;
-	}
-
-	public Optional<Question> getOptQuestion() {
-
-		Optional<Ref<Question>> optRefQ = Optional.ofNullable(getRefQuestion());
-		Optional<Question> optQ = optRefQ.map(q -> q.get());
-
-		return optQ;
+	public Question getQuestion() {
+		return Question.getById(getQuestionId());
 	}
 }

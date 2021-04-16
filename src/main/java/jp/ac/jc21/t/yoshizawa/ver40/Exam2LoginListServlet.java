@@ -29,7 +29,9 @@ public class Exam2LoginListServlet extends HttpServlet {
 
 		List<String[]> datas = new ArrayList<String[]>();
 		for (Long k : examMap.keySet()) {
+			if(k>300000) break;
 			Exam e = examMap.get(k);
+
 			String[] s = new String[2];
 
 			s[0] = "<a href='/toi/list?parentId=" + e.getId() + "'>" + e.getName() + "</a>";

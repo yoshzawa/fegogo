@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa;
+package jp.ac.jc21.t.yoshizawa.ver1;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

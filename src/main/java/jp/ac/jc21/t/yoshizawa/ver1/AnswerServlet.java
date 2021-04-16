@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa;
+package jp.ac.jc21.t.yoshizawa.ver1;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -131,7 +131,7 @@ public final class AnswerServlet extends HttpServlet {
 		for (Integer i : keyset) {
 			Answer a = answer.get(i);
 			String[] s = new String[3];
-			Question question = a.getRefQuestion().get();
+			Question question = a.getQuestion();
 
 			s[0] = question.getName();
 			s[1] = question.getAnswers();
