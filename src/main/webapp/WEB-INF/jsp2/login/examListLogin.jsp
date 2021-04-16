@@ -46,7 +46,8 @@
 			</TR>
 		</thead>
 		<%
-		for (String[] s : datas) { %>
+		for (String[] s : datas) { 
+		%>
 		<tr>
 			<td><%= s[0] %></td>
 			<td><%= s[1] %></td>
