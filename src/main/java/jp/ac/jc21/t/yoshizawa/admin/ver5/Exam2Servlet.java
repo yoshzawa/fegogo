@@ -22,7 +22,7 @@ import jp.ac.jc21.t.yoshizawa.datastore.Exam;
  * Servlet implementation class Exam2Servlet
  * https://googleapis.dev/java/google-cloud-datastore/latest/index.html
  */
-@WebServlet("/exam2")
+@WebServlet("/admin/exam2")
 public class Exam2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
