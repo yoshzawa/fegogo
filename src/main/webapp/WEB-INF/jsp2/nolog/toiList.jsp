@@ -29,13 +29,13 @@
 
 	<%@ include file="../common/header.jsp"%>
 
-	<H1>登録されている問の一覧</H1>
+	<H1>[<%= ExamName %>]試験：問の一覧</H1>
     <main role="main" class="container">
 
 	<%
 		if (datas == null || datas.size() == 0) {
 	%>
-	試験が登録されていません
+	解答可能な問がありません
 	<%
 		} else {
 	%>
