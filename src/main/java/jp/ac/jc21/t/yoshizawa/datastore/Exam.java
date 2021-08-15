@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import com.google.cloud.datastore.*;
 
+
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 /**
@@ -58,7 +59,6 @@ public class Exam extends ExamFactory {
 	}
 
 	public Optional<Exam> save() {
-//		Key<Exam> key = ofy().save().entity(this).now();
 
 		Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 		Key examKey;
@@ -76,8 +76,11 @@ public class Exam extends ExamFactory {
 				.set("created", DateToTimestamp(created)).build();
 		datastore.put(exam);
 		Key key = exam.getKey();
+		ExamFactory.clearCache();
+
 		return getOptById(key.getId());
 	}
+	
 	public int getToiListSize() {
 		List<Toi> toiList = Toi.getToiListByExamId(getId());
 		return toiList.size();

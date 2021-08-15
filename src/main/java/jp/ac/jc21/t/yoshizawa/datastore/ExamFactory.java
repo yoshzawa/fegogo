@@ -138,4 +138,12 @@ public abstract class ExamFactory extends CommonEntity {
 		Long examId = toi.getExamId();
 		return getOptById(examId);
 	}
+
+	public static void clearCache() {
+		// TODO Auto-generated method stub
+		cachedMap=null;
+		chachedList = null;
+		
+		
+	}
 }
