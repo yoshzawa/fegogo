@@ -4,9 +4,12 @@
 package jp.ac.jc21.t.yoshizawa.datastore;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import com.google.cloud.datastore.*;
+
+import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 /**
  * @author t.yoshizawa
@@ -74,5 +77,9 @@ public class Exam extends ExamFactory {
 		datastore.put(exam);
 		Key key = exam.getKey();
 		return getOptById(key.getId());
+	}
+	public int getToiListSize() {
+		List<Toi> toiList = Toi.getToiListByExamId(getId());
+		return toiList.size();
 	}
 }

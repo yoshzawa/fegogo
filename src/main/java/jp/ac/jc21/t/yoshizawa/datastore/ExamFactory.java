@@ -56,22 +56,33 @@ public abstract class ExamFactory extends CommonEntity {
 		return exam;
 	}
 
+	static List<Exam> chachedData = null;
+	
 	/**
 	 * @return
 	 */
 	public static final List<Exam> loadAllList() {
-		Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-
-		// The name/ID for the new entity
-		Query<Entity> query = Query.newEntityQueryBuilder().setKind(kind).setOrderBy(OrderBy.desc("YYYYMM")).build();
-		QueryResults<Entity> results = datastore.run(query);
-
+		
 		List<Exam> exams = new ArrayList<>();
 
-		while (results.hasNext()) {
-			Entity result = results.next();
-			exams.add(Exam.createExam(result));
+		if(chachedData == null) {
+			Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+
+			// The name/ID for the new entity
+			Query<Entity> query = Query.newEntityQueryBuilder().setKind(kind).setOrderBy(OrderBy.desc("YYYYMM")).build();
+			QueryResults<Entity> results = datastore.run(query);
+
+
+			while (results.hasNext()) {
+				Entity result = results.next();
+				exams.add(Exam.createExam(result));
+			}
+			chachedData = exams;
+			
+		} else {
+			exams = chachedData;
 		}
+		
 		return exams;
 	}
 
