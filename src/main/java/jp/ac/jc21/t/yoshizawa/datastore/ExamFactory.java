@@ -56,7 +56,8 @@ public abstract class ExamFactory extends CommonEntity {
 		return exam;
 	}
 
-	static List<Exam> chachedData = null;
+	static List<Exam> chachedList = null;
+	static Map<Long, Exam> cachedMap = null;
 	
 	/**
 	 * @return
@@ -65,7 +66,7 @@ public abstract class ExamFactory extends CommonEntity {
 		
 		List<Exam> exams = new ArrayList<>();
 
-		if(chachedData == null) {
+		if(chachedList == null) {
 			Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 
 			// The name/ID for the new entity
@@ -77,29 +78,36 @@ public abstract class ExamFactory extends CommonEntity {
 				Entity result = results.next();
 				exams.add(Exam.createExam(result));
 			}
-			chachedData = exams;
+			chachedList = exams;
 			
 		} else {
-			exams = chachedData;
+			exams = chachedList;
 		}
 		
 		return exams;
 	}
 
 	public static final Map<Long, Exam> loadAllMap() {
-		Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-
-		// The name/ID for the new entity
-		Query<Entity> query = Query.newEntityQueryBuilder().setKind(kind).setOrderBy(OrderBy.desc("YYYYMM")).build();
-		QueryResults<Entity> results = datastore.run(query);
-
 		Map<Long, Exam> maps = new TreeMap<Long, Exam>();
+		if(cachedMap == null) {
+			Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 
-		while (results.hasNext()) {
-			Entity result = results.next();
-			Exam exam = Exam.createExam(result);
-			maps.put(exam.getYYYYMM(), exam);
+			// The name/ID for the new entity
+			Query<Entity> query = Query.newEntityQueryBuilder().setKind(kind).setOrderBy(OrderBy.desc("YYYYMM")).build();
+			QueryResults<Entity> results = datastore.run(query);
+
+
+			while (results.hasNext()) {
+				Entity result = results.next();
+				Exam exam = Exam.createExam(result);
+				maps.put(exam.getYYYYMM(), exam);
+			}
+			cachedMap=maps;
+			
+		}else {
+			maps=cachedMap;
 		}
+
 		return maps;
 	}
 
