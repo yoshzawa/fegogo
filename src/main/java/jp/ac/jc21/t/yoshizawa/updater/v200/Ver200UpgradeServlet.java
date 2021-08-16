@@ -17,7 +17,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 /**
  * Servlet implementation class Ver200UpgradeServlet
  */
-@WebServlet("/upgrade")
+@WebServlet("/admin/upgrade")
 public class Ver200UpgradeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

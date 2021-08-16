@@ -15,7 +15,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Question;
 /**
  * Servlet implementation class Ver4003QuestionUpdater
  */
-@WebServlet("/Ver4003QuestionUpdater")
+@WebServlet("/admin/Ver4003QuestionUpdater")
 public class Ver4003QuestionUpdater extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
