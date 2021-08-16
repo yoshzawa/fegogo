@@ -27,7 +27,7 @@
 	
 	<H1>登録されている問の一覧</H1>
 	
-	<p>選択された試験：<%= parentExam.getName() %> <a href="/admin/exam/list">(選択解除する)</a>
+	<p>選択された試験： <a href="/admin/exam/list"><%= parentExam.getName() %></a>
 	</p>
 
 	<%
