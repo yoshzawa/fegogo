@@ -80,6 +80,8 @@
 	<hr />
 	<form method='post' action='/admin/toi/add'>
 		<label>No</label> <input type="text" name="No" /> 
+		<label>ToiName</label>
+		<input type="text" name="toiName" /> 
 		<select name="genreId" >
 		<% for (Genre g : genreList){ %>
 		<option value="<%= g.getId()%>"><%= g.getName() %></option>
@@ -90,8 +92,6 @@
 			name="parentId" value='<%=parentId%>' /> 
 			<input type="submit"
 			name="追加" />
-		<label>ToiName</label>
-		<input type="text" name="toiName" /> 
 	</form>
 </body>
 　<%@ include file="common/footer.jsp"%>

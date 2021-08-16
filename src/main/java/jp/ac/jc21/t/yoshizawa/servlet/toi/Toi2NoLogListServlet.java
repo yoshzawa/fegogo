@@ -44,15 +44,15 @@ public class Toi2NoLogListServlet extends HttpServlet {
 			List<String[]> datas = new ArrayList<String[]>(toiKeySet.size());
 			for (Long key : toiKeySet) {
 				Toi t = toiMap.get(key);
-				String[] s = new String[4];
+				String[] s = new String[5];
 				s[0] = t.getNo().toString();
-//				s[1] = t.getRefGenre().get().getName();
 				s[1] = t.getGenreName();
 				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
 				if(t.getImageSet() != null) {
 					s[2] = s[2]+"<B>(CBT)</B>";
 				}
 				s[3] = t.getQuestionListSize() + "";
+				s[4] = t.getAnswerSumCount()+"";
 				datas.add(s);
 			}
 			request.setAttribute("datas", datas);
