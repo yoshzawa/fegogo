@@ -34,8 +34,6 @@ public final class Toi extends ToiFactory {
 	private List<Ref<AnswerSum>> AnswerSumRefList;
 	private float sum;
 
-//	private Ref<Exam> parent;
-//	private Ref<Genre> genre;
 	@Index
 	Long genreId;
 	@Index
@@ -43,11 +41,9 @@ public final class Toi extends ToiFactory {
 
 	String genreName;
 	String examName;
-	
+
 	private List<ImageSet> ImageSet;
 
-	
-	
 	/**
 	 * @return the imageSet
 	 */
@@ -62,14 +58,12 @@ public final class Toi extends ToiFactory {
 		ImageSet = imageSet;
 	}
 
-
-
 	public void setExamName(String examName) {
 		this.examName = examName;
 	}
 
 	public String getGenreName() {
-		if(genreName == null) {
+		if (genreName == null) {
 			genreName = getGenre().getName();
 			save();
 		}
@@ -80,16 +74,12 @@ public final class Toi extends ToiFactory {
 		this.genreName = genreName;
 	}
 
-
-
 	/**
 	 * @param genreId the genreId to set
 	 */
 	public void setGenreId(Long genreId) {
 		this.genreId = genreId;
 	}
-
-
 
 	/**
 	 * @param examId the examId to set
@@ -148,18 +138,15 @@ public final class Toi extends ToiFactory {
 		this.created = created;
 	}
 
-
-
-
-
-
-
-
-	public List<Ref<Question>> getQuestionRefList() {
+/*	public List<Ref<Question>> getQuestionRefList() {
 		if (questionRefList == null) {
 			newQuestionRefList();
 		}
 		return questionRefList;
+	}
+*/
+	public List<Question> getQuestionList() {
+		return Question.getListByToiId(getId());
 	}
 
 	public void addQuestionRefList(Question q) {
@@ -192,30 +179,14 @@ public final class Toi extends ToiFactory {
 		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
 
-
-
 	public void setGenre(Genre genre) {
-//		setRefGenre(Ref.create(genre));
 		setGenreId(genre.getId());
 	}
 
 	public Toi save() {
-//		setRefId();
 		Key<Toi> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
-
-	public boolean isRefId() {
-		if (genreId == null) {
-			return false;
-		}
-		if (examId == null) {
-			return false;
-		}
-		return true;
-	}
-
-
 
 	public List<Ref<AnswerSum>> getAnswerSumRefList() {
 		if (AnswerSumRefList == null) {
@@ -289,8 +260,6 @@ public final class Toi extends ToiFactory {
 		return getAnswerSumRefList().size();
 	}
 
-
-
 	public boolean containAnswer(Long toiId) {
 
 		Ref<AnswerSum> refASum = Ref.create(Key.create(AnswerSum.class, toiId));
@@ -302,8 +271,6 @@ public final class Toi extends ToiFactory {
 		return getQuestionRefList().contains(Ref.create(q));
 
 	}
-	
-	
 
 	public Long getGenreId() {
 		return genreId;
@@ -312,89 +279,26 @@ public final class Toi extends ToiFactory {
 	public Long getExamId() {
 		return examId;
 	}
-
-	/**
-
-
-	public Ref<Genre> getRefGenre() {
-		return genre;
-	}
-
-	public void setRefGenre(Ref<Genre> genre) {
-		this.genre = genre;
-		setGenreName(genre.get().getName());
-	}
-	public void setRefId() {
-		if (genreId == null) {
-			genreId = genre.get().getId();
-		}
-		if (examId == null) {
-			examId = parent.get().getId();
-		}
-	}
-
-	public void setExam(Exam exam) {
-		setRefExam(Ref.create(exam));
-	}
-	
-	public Ref<Exam> getRefExam() {
-		Ref<Exam> re = parent;
-		return re;
-	}
-
-	public Long getExamId() {
-		if (examId == null) {
-			setExamId(parent.get().getId());
-			save();
-		}
-		return examId;
-	}
-	
-	
-	public void setRefExam(Ref<Exam> exam) {
-		this.parent = exam;
-	}
-	
-	public Exam getExam() {
-		Ref<Exam> re = parent;
-		return re.get();
-	}
-	
-	public Long getGenreId() {
-		if (genreId == null) {
-			setGenreId(getRefGenre().get().getId());
-			save();
-		}
-		return genreId;
-	}
-	 */
 
 	public Exam getExam() {
 		return getOptExam().get();
 	}
+
 	public Genre getGenre() {
 		return getOptGenre().get();
 	}
-	
 
 	public Optional<Exam> getOptExam() {
 
-//		Optional<Ref<Exam>> optReExam = Optional.ofNullable(parent);
-//		Optional<Exam> optExam = optReExam.map(reExam -> reExam.get());
 		Optional<Exam> optExam = Optional.ofNullable(Exam.getById(getExamId()));
 		return optExam;
 	}
-	
+
 	public Optional<Genre> getOptGenre() {
 
 		Optional<Genre> optGenre = Optional.ofNullable(Genre.getById(getGenreId()));
 		return optGenre;
 	}
-
-
-
-
-
 
 	public String getExamName() {
 		if (examName == null) {
@@ -405,12 +309,8 @@ public final class Toi extends ToiFactory {
 
 	public String getExportData() {
 
-		return getId() + "," + getNo() + "," + getName() + "," + getDateString(getCreated()) +
-				"," + getExamId() + "," + getGenreId() + "," + getAnswerSumSum();
+		return getId() + "," + getNo() + "," + getName() + "," + getDateString(getCreated()) + "," + getExamId() + ","
+				+ getGenreId() + "," + getAnswerSumSum();
 	}
-
-
-
-
 
 }

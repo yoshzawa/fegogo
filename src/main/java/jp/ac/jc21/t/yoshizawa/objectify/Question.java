@@ -24,6 +24,7 @@ public final class Question extends QuestionFactory {
 	private long noOfOption;
 	private Ref<Toi> parent;
 	private Set<Integer> answerSet;
+	@Index
 	Long toiId;
 
 	/**

@@ -96,9 +96,9 @@ public final class AnswerServlet extends HttpServlet {
 		int correct = 0;
 		Map<String, Ref<Answer>> mapAnswer = new HashMap<>();
 
-		List<Ref<Question>> qList = toi.getQuestionRefList();
-		for (Ref<Question> q : qList) {
-			Question question = q.get();
+		List<Question> qList = toi.getQuestionList();
+		for (Question q : qList) {
+			Question question = q;
 			Answer a = answerMap.get(question.getId());
 			if (a == null) {
 				a = Answer.createAnswer(userId, null, question, new String[0], question.getNo());

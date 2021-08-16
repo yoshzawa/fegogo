@@ -40,10 +40,9 @@ public class ToiFactory extends CommonEntity {
 
 	public static final TreeMap<Long, Question> getQuestionMap(Toi parent) {
 		TreeMap<Long, Question> qMap = new TreeMap<>();
-		List<Ref<Question>> list = parent.getQuestionRefList();
+		List<Question> list = parent.getQuestionList();
 
-		for (Ref<Question> qq : list) {
-			Question q = qq.get();
+		for (Question q : list) {
 			qMap.put(q.getNo(), q);
 		}
 		return qMap;

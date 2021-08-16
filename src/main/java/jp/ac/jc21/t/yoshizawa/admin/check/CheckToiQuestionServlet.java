@@ -42,12 +42,11 @@ public class CheckToiQuestionServlet extends HttpServlet {
 		Toi t =Toi.getById(Long.parseLong(keyString));
 		
 //		List<Ref<AnswerSum>> answerSumRefList = t.getAnswerSumRefList();
-		List<Ref<Question>> refQList = t.getQuestionRefList();
+		List<Question> refQList = t.getQuestionList();
 		
 		ArrayList<String[]> list = new ArrayList<>();
 		
-		for(Ref<Question> refQuestion : refQList) {
-			Question question = refQuestion.get();
+		for(Question question : refQList) {
 
 			if(question == null) {
 				String[] s = new String[4];
