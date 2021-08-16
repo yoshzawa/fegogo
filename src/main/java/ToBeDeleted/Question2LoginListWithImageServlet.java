@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.servlet;
+package ToBeDeleted;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/question2WithImage/Login/list" })
+@WebServlet(urlPatterns = { "/question2WithImage/Login/list/__" })
 public class Question2LoginListWithImageServlet extends HttpServlet {
 
 	@Override

@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.servlet;
+package jp.ac.jc21.t.yoshizawa.servlet.answer;
 
 import java.io.IOException;
 import java.util.Date;

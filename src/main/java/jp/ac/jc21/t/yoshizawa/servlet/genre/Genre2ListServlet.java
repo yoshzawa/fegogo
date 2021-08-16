@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.servlet;
+package jp.ac.jc21.t.yoshizawa.servlet.genre;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.ver1;
+package ToBeDeleted.ver1;
 
 import java.io.IOException;
 import java.util.ArrayList;
