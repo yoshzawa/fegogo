@@ -169,8 +169,6 @@ public final class Toi extends ToiFactory {
 	}
 
 	/**
-	 * @param questionList the questionList to set
-	 */
 	public void setQuestionRefList(List<Ref<Question>> questionRefList) {
 		this.questionRefList = questionRefList;
 	}
@@ -178,6 +176,7 @@ public final class Toi extends ToiFactory {
 	public void newQuestionRefList() {
 		setQuestionRefList(new ArrayList<Ref<Question>>());
 	}
+	 */
 
 	public void setGenre(Genre genre) {
 		setGenreId(genre.getId());
