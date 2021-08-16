@@ -30,7 +30,6 @@ public final class Toi extends ToiFactory {
 	private Long no;
 	private String name;
 	private Date created;
-	private List<Ref<Question>> questionRefList;
 	private List<Ref<AnswerSum>> AnswerSumRefList;
 	private float sum;
 
@@ -138,26 +137,9 @@ public final class Toi extends ToiFactory {
 		this.created = created;
 	}
 
-/*	public List<Ref<Question>> getQuestionRefList() {
-		if (questionRefList == null) {
-			newQuestionRefList();
-		}
-		return questionRefList;
-	}
-	public void addQuestionRefList(Ref<Question> q) {
-		List<Ref<Question>> list = getQuestionRefList();
-		list.add(q);
-		setQuestionRefList(list);
-	}
-	public void addQuestionRefList(Question q) {
-		addQuestionRefList(Ref.create(q));
-	}
-*/
 	public List<Question> getQuestionList() {
 		return Question.getListByToiId(getId());
 	}
-
-
 
 	public int getQuestionListSize() {
 		List<Question> questionRefList = getQuestionList();
@@ -168,34 +150,18 @@ public final class Toi extends ToiFactory {
 		}
 	}
 
-	/**
-	public void setQuestionRefList(List<Ref<Question>> questionRefList) {
-		this.questionRefList = questionRefList;
-	}
-
-	public void newQuestionRefList() {
-		setQuestionRefList(new ArrayList<Ref<Question>>());
-	}
-	 */
-
 	public void setGenre(Genre genre) {
 		setGenreId(genre.getId());
 	}
 
-	public Toi save() {
-		Key<Toi> key = ofy().save().entity(this).now();
-		return getById(key.getId());
+
+
+	public List<AnswerSum> getAnswerSumList() {
+		return AnswerSum.getListByToiId(getId());
 	}
 
-	public List<Ref<AnswerSum>> getAnswerSumRefList() {
-		if (AnswerSumRefList == null) {
-			newAnswerSumRefList();
-		}
-		return AnswerSumRefList;
-	}
-
-	public int getAnswerSumRefListSize() {
-		return getAnswerSumRefList().size();
+	public int getAnswerSumListSize() {
+		return getAnswerSumList().size();
 	}
 
 	private void newAnswerSumRefList() {
@@ -205,13 +171,11 @@ public final class Toi extends ToiFactory {
 
 	public void setAnswerSumRefList(List<Ref<AnswerSum>> answerSumRefList) {
 		AnswerSumRefList = answerSumRefList;
-
 	}
 
 	public boolean containsAnswerSum(AnswerSum as) {
 		Long asId = as.getId();
-		for (Ref<AnswerSum> r : getAnswerSumRefList()) {
-			AnswerSum answerSum = r.get();
+		for (AnswerSum answerSum : getAnswerSumList()) {
 			if ((answerSum != null) && (answerSum.getId() == asId)) {
 				return true;
 			}
@@ -220,16 +184,15 @@ public final class Toi extends ToiFactory {
 	}
 
 	public void addAnswerSumRefList(AnswerSum a) {
-		List<Ref<AnswerSum>> list = getAnswerSumRefList();
-		list.add(Ref.create(a));
+/*		List<AnswerSum> list = getAnswerSumList();
+		list.add(a);
 		setAnswerSumRefList(list);
-
+*/
 		calcAverage();
 	}
 
 	public AnswerSum getAnswerSumByMemberId(String email) {
-		for (Ref<AnswerSum> as : getAnswerSumRefList()) {
-			AnswerSum answerSum = as.get();
+		for (AnswerSum answerSum : getAnswerSumList()) {
 			Ref<Member> refMember = answerSum.getRefMember();
 			if (refMember != null) {
 				Member member = refMember.get();
@@ -244,8 +207,7 @@ public final class Toi extends ToiFactory {
 
 	final void calcAverage() {
 		float sum = 0;
-		for (Ref<AnswerSum> ras : getAnswerSumRefList()) {
-			AnswerSum answerSum = ras.get();
+		for (AnswerSum answerSum : getAnswerSumList()) {
 			if (answerSum != null) {
 				float temp = 100.0f * answerSum.getNoOfSeikai() / answerSum.getNoOfAnswer();
 				sum += temp;
@@ -256,13 +218,13 @@ public final class Toi extends ToiFactory {
 	}
 
 	public final int getAnswerSumCount() {
-		return getAnswerSumRefList().size();
+		return getAnswerSumList().size();
 	}
 
 	public boolean containAnswer(Long toiId) {
 
 		Ref<AnswerSum> refASum = Ref.create(Key.create(AnswerSum.class, toiId));
-		return getAnswerSumRefList().contains(refASum);
+		return getAnswerSumList().contains(refASum);
 
 	}
 
@@ -309,6 +271,12 @@ public final class Toi extends ToiFactory {
 
 		return getId() + "," + getNo() + "," + getName() + "," + getDateString(getCreated()) + "," + getExamId() + ","
 				+ getGenreId() + "," + getAnswerSumSum();
+	}
+	
+	public Toi save() {
+		Key<Toi> key = ofy().save().entity(this).now();
+		flush();
+		return getById(key.getId());
 	}
 
 }
