@@ -1,6 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.admin.export;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
+package ToBeDeleted.admin.export;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -18,12 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Answer;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;;
