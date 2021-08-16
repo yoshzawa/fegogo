@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.servlet.admin.exam;
+package ToBeDeleted.admin;
 
 import java.io.IOException;
 import java.util.List;

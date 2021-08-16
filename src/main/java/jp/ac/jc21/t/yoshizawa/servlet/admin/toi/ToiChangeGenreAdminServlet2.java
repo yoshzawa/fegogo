@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.servlet.admin;
+package jp.ac.jc21.t.yoshizawa.servlet.admin.toi;
 
 import java.io.IOException;
 
