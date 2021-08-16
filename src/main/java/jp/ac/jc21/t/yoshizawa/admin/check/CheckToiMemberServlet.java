@@ -45,12 +45,11 @@ public class CheckToiMemberServlet extends HttpServlet {
 		String keyString = request.getParameter("toiId");
 		Toi t = Toi.getById(Long.parseLong(keyString));
 
-		List<Ref<AnswerSum>> answerSumRefList = t.getAnswerSumRefList();
+		List<AnswerSum> answerSumRefList = t.getAnswerSumList();
 
 		ArrayList<String[]> list = new ArrayList<>();
 
-		for (Ref<AnswerSum> refAnswerSum : answerSumRefList) {
-			AnswerSum answerSum = refAnswerSum.get();
+		for (AnswerSum answerSum : answerSumRefList) {
 
 			if (answerSum == null) {
 				String[] s = new String[1];

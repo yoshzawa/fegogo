@@ -115,7 +115,7 @@ public class GenreListServlet extends HttpServlet {
 
 				Member member = Member.get(email);
 				List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
-				String toiSize = toi.getAnswerSumRefListSize() + "";
+				String toiSize = toi.getAnswerSumListSize() + "";
 				if ((las == null) || (las.size() == 0)) {
 					String[] s = new String[5];
 					s[0] = "";

@@ -55,10 +55,10 @@
 				<%=t.getExam().getName()%> 問<%=t.getNo()%> <%=t.getName()%> <br />
 			<table border=1>
 				<%
-					for (Ref<AnswerSum> as : t.getAnswerSumRefList()) {
-									if ((as != null)&&(as.get() != null)) {
+					for (AnswerSum as : t.getAnswerSumList()) {
+									if (as != null) {
 										String eMail = "null";
-										AnswerSum a = as.get();
+										AnswerSum a = as;
 										if(a==null) continue;
 										Optional<Member> opt = a.getMember();
 										if (opt.isPresent()) {

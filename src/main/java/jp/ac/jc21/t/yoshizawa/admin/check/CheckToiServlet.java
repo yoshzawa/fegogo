@@ -42,20 +42,19 @@ public class CheckToiServlet extends HttpServlet {
 		String keyString = request.getParameter("toiId");
 		Toi t =Toi.getById(Long.parseLong(keyString));
 		
-		List<Ref<AnswerSum>> answerSumRefList = t.getAnswerSumRefList();
+		List<AnswerSum> answerSumList = t.getAnswerSumList();
 		
 		ArrayList<String[]> list = new ArrayList<>();
 		
-		for(Ref<AnswerSum> refAnswerSum : answerSumRefList) {
-			AnswerSum answerSum = refAnswerSum.get();
+		for(AnswerSum answerSum : answerSumList) {
 
 			if(answerSum == null) {
 				String[] s = new String[4];
 				s[0]=null;
-				s[1]=refAnswerSum.getKey().getId()+"";
+				s[1]=answerSum.getId()+"";
 				Key<AnswerSum> key = Key.create(AnswerSum.class,Long.parseLong(s[1]));
 				Ref<AnswerSum> refASum = Ref.create(key);
-				s[2]=answerSumRefList.contains(refASum)+"";
+				s[2]=answerSumList.contains(refASum)+"";
 
 				
 				list.add(s);

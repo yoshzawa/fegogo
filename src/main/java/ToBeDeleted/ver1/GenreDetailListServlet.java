@@ -46,7 +46,7 @@ public class GenreDetailListServlet extends HttpServlet {
 					s[0] = "";
 					s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
 							+ toi.getNo() + " (" + toi.getName() + ")</a>";
-					s[2] = toi.getAnswerSumRefListSize() + "";
+					s[2] = toi.getAnswerSumListSize() + "";
 					datas.add(s);
 				}
 
@@ -67,7 +67,7 @@ public class GenreDetailListServlet extends HttpServlet {
 
 				Member member = Member.get(email);
 				List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
-				String toiSize = toi.getAnswerSumRefListSize() + "";
+				String toiSize = toi.getAnswerSumListSize() + "";
 				String toiSum = String.format("%1$.1f", toi.getAnswerSumSum());
 				if ((las == null) || (las.size() == 0)) {
 					String[] s = new String[5];

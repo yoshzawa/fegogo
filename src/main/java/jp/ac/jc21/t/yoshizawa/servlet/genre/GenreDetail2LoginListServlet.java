@@ -45,8 +45,8 @@ public class GenreDetail2LoginListServlet extends HttpServlet {
 
 				Member member = Member.get(email);
 				List<AnswerSum> las = member.getAnswerSumListByToi(toi.getId());
-				String toiSize = toi.getAnswerSumRefListSize() + "";
-				String toiSum = String.format("%1$.1f", toi.getAnswerSumSum()/toi.getAnswerSumRefListSize() );
+				String toiSize = toi.getAnswerSumListSize() + "";
+				String toiSum = String.format("%1$.1f", toi.getAnswerSumSum()/toi.getAnswerSumListSize() );
 				if ((las == null) || (las.size() == 0)) {
 					String[] s = new String[5];
 					s[0] = toiName;
