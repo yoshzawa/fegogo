@@ -31,18 +31,16 @@ public final class AnswerSum extends AnswerSumFactory {
 	Long id;
 	@Index
 	private String name;
+	@Index
+	Long toiId;
 	private Date answered;
 	private Ref<Toi> refToi;
 	private int noOfSeikai;
 	private Map<String, Ref<Answer>> mapRefAnswer;
 	private Ref<Member> refMember;
-//	private String answerSumDumpCSV;
 
 	String memberId;
-	Long toiId;
 	private	String version;
-
-	
 	
 	public String getVersion() {
 		return version;
@@ -247,8 +245,6 @@ public final class AnswerSum extends AnswerSumFactory {
 
 
 	public void deleteLink() {
-//		ofy().delete().entity(this).now();
-
 //		final Logger log = Logger.getLogger(AnswerSum.class.getName());
 
 		Member member = getRefMember().get();
@@ -257,25 +253,12 @@ public final class AnswerSum extends AnswerSumFactory {
 		setRefMember(null);
 		save();
 	}
-	/**
-	 * @return the answerSumDumpCSV
-	 */
-//	public String getAnswerSumDumpCSV() {
-//		return answerSumDumpCSV;
-//	}
 
-	/**
-	 * @param answerSumDumpCSV the answerSumDumpCSV to set
-	 */
-//	public void setAnswerSumDumpCSV(String answerSumDumpCSV) {
-//		this.answerSumDumpCSV = answerSumDumpCSV;
-//	}
 
 	public AnswerSum() {
 	}
 
 	public AnswerSum save() {
-//		setRefId();
 		Key<AnswerSum> key = ofy().save().entity(this).now();
 		flush();
 		return getById(key.getId());
@@ -331,12 +314,6 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 	public Optional<Member> getMember(){
 		Optional<Ref<Member>> optRefMem = Optional.ofNullable(getRefMember());
-//		Optional<Member> optMem =Optional.ofNullable(null); 
-//		if(optRefMem.isPresent()) {
-//			optMem=Optional.ofNullable(optRefMem.get().get());
-//		}else {
-//			optMem=Optional.ofNullable(null);
-//		}
 
 		Optional<Member> optMem = optRefMem.map(refMem -> refMem.get());
 		return optMem; 
@@ -347,7 +324,6 @@ public final class AnswerSum extends AnswerSumFactory {
 		if(optRefToi.isPresent()) {
 			optToi = Optional.ofNullable(optRefToi.get().get());
 		}else {
-//			optToi = Optional.ofNullable(null);
 			optToi = Optional.empty();
 		}
 		return optToi;
