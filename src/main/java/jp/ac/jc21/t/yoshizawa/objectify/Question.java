@@ -223,8 +223,11 @@ public final class Question extends QuestionFactory {
 	public Question save() {
 		setRefId();
 		Key<Question> key = ofy().save().entity(this).now();
+		flush();
 		return getById(key.getId());
 	}
+
+
 
 	public boolean isRefId() {
 		if (toiId == null) {

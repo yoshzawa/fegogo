@@ -27,7 +27,7 @@
 	
 	<H1>登録されている問の一覧</H1>
 	
-	<p>選択された試験： <a href="/admin/exam/list"><%= parentExam.getName() %></a>
+	<p>選択された試験： <%= parentExam.getName() %><a href="/admin/exam/list">（EXAM一覧に戻る)</a>
 	</p>
 
 	<%
@@ -64,7 +64,7 @@
 			<% } %>
 			</td>
 			<td><a href="/admin/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
-			<td><%=t.getQuestionRefListSize()%></td>
+			<td><%=t.getQuestionListSize()%></td>
 			<td><a href="/admin/question/image?parentId=<%=t.getId()%>">
 			<% if(t.getImageSet() != null){out.print("(CBT)"); }%>
 			画像調整</a></td>

@@ -7,6 +7,9 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.logging.Logger;
 
 /**
  * @author t.yoshizawa
@@ -52,11 +55,28 @@ public class QuestionFactory extends CommonEntity {
 		return qList;
 	}
 
+	private static Map<Long,List<Question>> cachedMapByToiId = null;
 	public static final List<Question> getListByToiId(Long toiId) {
+		final Logger log = Logger.getLogger(Question.class.getName());
 
-		List<Question> qList = ofy().load().type(Question.class).filter("toiId", toiId).list();
+		if(cachedMapByToiId==null) {
+			cachedMapByToiId=new TreeMap<Long,List<Question>>();
+		}
+		List<Question> qList;
+		if(cachedMapByToiId.containsKey(toiId) == false) {
+			qList = ofy().load().type(Question.class).filter("toiId", toiId).list();
+			cachedMapByToiId.put(toiId, qList);
+			log.info( "Question.getListByToiId:"+toiId+"[Miss]");
 
+		} else {
+			qList = cachedMapByToiId.get(toiId);
+			log.info( "Question.getListByToiId:"+toiId+"[Hit]");
+		}
 		return qList;
 	}
-
+	
+	protected void flush() {
+		cachedMapByToiId = null;
+		
+	}
 }
