@@ -15,17 +15,18 @@ import com.googlecode.objectify.Ref;
  *
  */
 public class AnswerFactory extends CommonEntity {
-	
+
 	public static final Answer getById(long id) {
 		return ofy().load().type(Answer.class).id(id).now();
 	}
 
-	public static final Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question, String[] answerArray) {
-		return createAnswer( name, refAnswerSum,  question,  answerArray,question.getNo());
+	public static final Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question,
+			String[] answerArray) {
+		return createAnswer(name, refAnswerSum, question, answerArray, question.getNo());
 	}
 
-	public static final Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question, String[] answerArray,
-			long no) {
+	public static final Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question,
+			String[] answerArray, long no) {
 		int answerIntArray[] = null;
 		if (answerArray != null) {
 			answerIntArray = new int[answerArray.length];
@@ -46,16 +47,14 @@ public class AnswerFactory extends CommonEntity {
 		Answer a = new Answer();
 		a.setName(name);
 		a.setAnswered(new Date());
-//		a.setRefAnswerSum(refAnswerSum);
 		a.setAnswerSumId(refAnswerSum.get().getId());
-//		a.setRefQuestion(refQuestion);
 		a.setQuestionId(refQuestion.get().getId());
 		a.setAnswerArray(answerArray);
 		a.setNo(no);
 		a.setVersion(ofyVersion);
 		return a;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static List<Answer> loadAll() {
 		return (List<Answer>) loadAll(Answer.class);

@@ -30,10 +30,7 @@ public final class Answer extends AnswerFactory {
 	private String name;
 	private String no;
 	private Date answered;
-//	private Ref<AnswerSum> refAnswerSum;
-//	private Ref<Question> refQuestion;
 	private int[] answerArray;
-//	private String dumpCSV;
 	private Long answerSumId;
 	private Long questionId;
 	private String version;
@@ -46,19 +43,9 @@ public final class Answer extends AnswerFactory {
 		this.version = version;
 	}
 
-	/**
 	public Long getQuestionId() {
-		if (questionId == null) {
-			setQuestionId(getRefQuestion().get().getId());
-			save();
-		}
 		return questionId;
-	}	 
-	*/
-	public Long getQuestionId() {
-		return questionId;				
 	}
-
 
 	/**
 	 * @param questionId the questionId to set
@@ -67,17 +54,6 @@ public final class Answer extends AnswerFactory {
 		this.questionId = questionId;
 	}
 
-	/**
-	public Long getAnswerSumId() {
-		if (answerSumId == null) {
-			Long asId = getRefAnswerSum().get().getId();
-			setAnswerSumId(asId);
-			save();
-
-		}
-		return answerSumId;
-	}
-	 */
 	public Long getAnswerSumId() {
 		return answerSumId;
 	}
@@ -156,43 +132,16 @@ public final class Answer extends AnswerFactory {
 		this.answered = answered;
 	}
 
-	/**
-	public Ref<AnswerSum> getRefAnswerSum() {
-		return refAnswerSum;
-	}
-	public void setRefAnswerSum(Ref<AnswerSum> refAnswerSum) {
-		this.refAnswerSum = refAnswerSum;
-	}
-	public void setAnswerSum(AnswerSum a) {
-		setRefAnswerSum(Ref.create(a));
-
-	}
-	 */
 	public void setAnswerSum(AnswerSum a) {
 		setAnswerSumId(a.getId());
 	}
 
-	
 	/**
 	 * @param answerArray the answerArray to set
 	 */
 	public void setAnswerArray(int[] answerArray) {
 		this.answerArray = answerArray;
 	}
-
-
-
-	////////// Question
-
-	/**
-	public Ref<Question> getRefQuestion() {
-		return refQuestion;
-	}
-	public void setRefQuestion(Ref<Question> refQuestion) {
-		this.refQuestion = refQuestion;
-	}
-	 */
-
 
 	////////// answerArray
 
@@ -252,37 +201,10 @@ public final class Answer extends AnswerFactory {
 	}
 
 	public Answer save() {
-//		setRefId();
 		Key<Answer> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
 
-
-
-	/**
-	 * 	public boolean isRefId() {
-		if (answerSumId == null) {
-			return false;
-		}
-		if (questionId == null) {
-			return false;
-		}
-		return true;
-	}
-	public void setRefId() {
-		if (answerSumId == null) {
-			answerSumId = refAnswerSum.get().getId();
-		}
-		if (questionId == null) {
-			questionId = refQuestion.get().getId();
-		}
-	}
-	public Optional<AnswerSum> getAnswerSum() {
-		Optional<Ref<AnswerSum>> refASum = Optional.ofNullable(getRefAnswerSum());
-		Optional<AnswerSum> aSum = Optional.ofNullable(refASum.get().get());
-		return aSum;
-	}
-	*/
 	public Optional<AnswerSum> getAnswerSum() {
 		return AnswerSum.getOptById(getAnswerSumId());
 	}
