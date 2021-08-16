@@ -277,6 +277,7 @@ public final class AnswerSum extends AnswerSumFactory {
 	public AnswerSum save() {
 //		setRefId();
 		Key<AnswerSum> key = ofy().save().entity(this).now();
+		flush();
 		return getById(key.getId());
 	}
 
