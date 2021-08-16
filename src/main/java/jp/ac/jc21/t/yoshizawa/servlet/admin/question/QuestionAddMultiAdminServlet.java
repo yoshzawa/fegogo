@@ -36,7 +36,6 @@ public class QuestionAddMultiAdminServlet extends HttpServlet {
 		Toi t = Toi.getById(pId);
 		Question q = Question.createMultiQuestion(t, no, Qname, Long.parseLong(noOfOption), correct);
 		q = q.save();
-		t.addQuestionRefList(q);
 		t.save();
 
 		response.sendRedirect("/admin/question/list?parentId=" + parentId);
