@@ -34,6 +34,9 @@ public class CommonEntity {
 	public final static List<?> loadByIndex(Class<?> c , String index,String value) {
 		return ofy().load().type(c).filter(index, value).list();
 	}
+	public final static List<?> loadByIndex(Class<?> c , String index,Long value) {
+		return ofy().load().type(c).filter(index, value).list();
+	}
 
 	protected static final MemcacheService getCache() {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
