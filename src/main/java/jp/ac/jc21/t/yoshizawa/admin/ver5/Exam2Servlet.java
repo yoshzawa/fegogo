@@ -1,20 +1,13 @@
 package jp.ac.jc21.t.yoshizawa.admin.ver5;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.appengine.api.datastore.Query.CompositeFilter;
-import com.google.cloud.datastore.*;
-import com.google.cloud.datastore.DatastoreOptions;
-import com.google.cloud.datastore.Entity;
-import com.google.cloud.datastore.Key;
-import com.google.cloud.datastore.StructuredQuery.OrderBy;
 
 import jp.ac.jc21.t.yoshizawa.datastore.Exam;
 

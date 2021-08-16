@@ -30,8 +30,6 @@ public class GenreListServlet extends HttpServlet {
 //		request.setAttribute("genreList", genreList);
 
 		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
-
 		List<String[]> datas = new ArrayList<String[]>();
 		RequestDispatcher rd=null;
 //		if (email == null) 

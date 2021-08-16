@@ -10,7 +10,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -31,8 +30,8 @@ public final class Answer extends AnswerFactory {
 	private String name;
 	private String no;
 	private Date answered;
-	private Ref<AnswerSum> refAnswerSum;
-	private Ref<Question> refQuestion;
+//	private Ref<AnswerSum> refAnswerSum;
+//	private Ref<Question> refQuestion;
 	private int[] answerArray;
 //	private String dumpCSV;
 	private Long answerSumId;
