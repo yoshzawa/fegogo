@@ -56,6 +56,11 @@ public class QuestionFactory extends CommonEntity {
 	}
 
 	private static Map<Long,List<Question>> cachedMapByToiId = null;
+
+	protected void flush() {
+		cachedMapByToiId = null;
+	}
+	
 	public static final List<Question> getListByToiId(Long toiId) {
 		final Logger log = Logger.getLogger(Question.class.getName());
 
@@ -75,8 +80,4 @@ public class QuestionFactory extends CommonEntity {
 		return qList;
 	}
 	
-	protected void flush() {
-		cachedMapByToiId = null;
-		
-	}
 }
