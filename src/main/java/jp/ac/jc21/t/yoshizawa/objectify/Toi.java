@@ -144,23 +144,23 @@ public final class Toi extends ToiFactory {
 		}
 		return questionRefList;
 	}
-*/
-	public List<Question> getQuestionList() {
-		return Question.getListByToiId(getId());
-	}
-
-	public void addQuestionRefList(Question q) {
-		addQuestionRefList(Ref.create(q));
-	}
-
 	public void addQuestionRefList(Ref<Question> q) {
 		List<Ref<Question>> list = getQuestionRefList();
 		list.add(q);
 		setQuestionRefList(list);
 	}
+	public void addQuestionRefList(Question q) {
+		addQuestionRefList(Ref.create(q));
+	}
+*/
+	public List<Question> getQuestionList() {
+		return Question.getListByToiId(getId());
+	}
 
-	public int getQuestionRefListSize() {
-		List<Ref<Question>> questionRefList = getQuestionRefList();
+
+
+	public int getQuestionListSize() {
+		List<Question> questionRefList = getQuestionList();
 		if (questionRefList == null) {
 			return 0;
 		} else {

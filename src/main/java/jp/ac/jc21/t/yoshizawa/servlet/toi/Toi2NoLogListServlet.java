@@ -52,7 +52,7 @@ public class Toi2NoLogListServlet extends HttpServlet {
 				if(t.getImageSet() != null) {
 					s[2] = s[2]+"<B>(CBT)</B>";
 				}
-				s[3] = t.getQuestionRefListSize() + "";
+				s[3] = t.getQuestionListSize() + "";
 				datas.add(s);
 			}
 			request.setAttribute("datas", datas);

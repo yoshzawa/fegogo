@@ -55,7 +55,7 @@ public class ToiListServlet extends HttpServlet {
 //				s[1] = t.getRefGenre().get().getName();
 				s[1] = t.getGenre().getName();
 				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
-				s[3] = t.getQuestionRefListSize() + "";
+				s[3] = t.getQuestionListSize() + "";
 				datas.add(s);
 			}
 			request.setAttribute("datas", datas);
@@ -84,7 +84,7 @@ public class ToiListServlet extends HttpServlet {
 //				s[1] = t.getRefGenre().get().getName();
 				s[1] = t.getGenre().getName();
 				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
-				s[3] = t.getQuestionRefListSize() + "";
+				s[3] = t.getQuestionListSize() + "";
 				s[4] = "";
 
 				int i = 0;

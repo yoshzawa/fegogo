@@ -105,7 +105,6 @@ public class ImportQuestionServlet extends HttpServlet {
 			for (Question q : list) {
 				q.save();
 				Toi t = q.getParent();
-				t.addQuestionRefList(q);
 				t.save();
 			}
 		}

@@ -68,7 +68,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 				if(t.getImageSet() != null) {
 					s[2] = s[2]+"<B>(CBT)</B>";
 				}
-				s[3] = t.getQuestionRefListSize() + "";
+				s[3] = t.getQuestionListSize() + "";
 				s[4] = "";
 
 				int i = 0;
