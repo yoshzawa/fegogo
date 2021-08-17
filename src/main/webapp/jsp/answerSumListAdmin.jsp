@@ -52,7 +52,7 @@
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 			for (AnswerSum as : answerSumList) {
-				Toi toi = as.getRefToi().get();
+				Toi toi = as.getOptToi().get();
 				String tName="null";
 				if(toi!=null){
 					tName=toi.getName();

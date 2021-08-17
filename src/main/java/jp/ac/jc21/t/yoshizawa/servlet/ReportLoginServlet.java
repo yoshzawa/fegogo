@@ -52,10 +52,10 @@ public class ReportLoginServlet extends HttpServlet {
 			Calendar answered = Calendar.getInstance();
 			answered.setTime(as.getAnswered());
 
-			Optional<Ref<Toi>> optTtoi = as.getOptRefToi();
-			if (optTtoi.isPresent()) 
+			Optional<Toi> optToi = as.getOptToi();
+			if (optToi.isPresent()) 
 			{
-				Toi toi=optTtoi.get().get();
+				Toi toi=optToi.get();
 				String[] s = new String[6];
 				
 			

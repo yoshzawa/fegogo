@@ -17,7 +17,7 @@
 
 	<%
 		AnswerSum ansSummary = (AnswerSum) request.getAttribute("ansSummary");
-		Toi toi = ansSummary.getRefToi().get();
+		Toi toi = ansSummary.getOptToi().get();
 		Exam exam = toi.getExam();
 		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 	%>

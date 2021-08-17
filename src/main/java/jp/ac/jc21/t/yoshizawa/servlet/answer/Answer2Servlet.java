@@ -43,10 +43,7 @@ public final class Answer2Servlet extends HttpServlet {
 		AnswerSum aSum = new AnswerSum();
 		aSum.setName(paramUserId);
 		aSum.setAnswered(new Date());
-//		aSum.setRefToi(null);
 		aSum.setNoOfSeikai(-1);
-//		aSum.setMapRefAnswer(null);
-//		aSum.setRefMember(null);
 		aSum.setMemberId(paramToiId);
 		aSum.setToiId(Long.parseLong(paramToiId));
 
@@ -100,7 +97,7 @@ public final class Answer2Servlet extends HttpServlet {
 		if(error == false) {
 			// AnswerSum‚ÉToi‚ð“o˜^
 			Toi toi = Toi.getById(Long.parseLong(paramToiId));
-				aSum.setRefToi(Ref.create(toi));
+			aSum.setToiId(toi.getId());
 				toi.addAnswerSumRefList(aSum);
 			// AnswerSum‚ÉMember‚ð“o˜^
 				Member member = Member.get(paramUserId);

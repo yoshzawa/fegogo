@@ -69,7 +69,7 @@ public class ToiFactory extends CommonEntity {
 		final Logger log = Logger.getLogger(Toi.class.getName());
 		log.info("Toi.getByAnswerSum:" + aSum.getId() + "[---]");
 
-		Optional<Long> toiId = Optional.ofNullable(aSum.getRefToi().getKey().getId());
+		Optional<Long> toiId = Optional.ofNullable(aSum.getToi().getId());
 		Optional<Toi> toi;
 		if (toiId.isPresent()) {
 			toi = Optional.ofNullable(Toi.getById(toiId.get()));

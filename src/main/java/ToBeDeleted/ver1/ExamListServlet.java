@@ -64,7 +64,7 @@ public class ExamListServlet extends HttpServlet {
 
 			for (AnswerSum as : answerSumList) {
 
-				Toi toi = as.getRefToi().get();
+				Toi toi = as.getOptToi().get();
 				if(toi == null) {
 					log.warning("toi==null email="+email);
 				}else {

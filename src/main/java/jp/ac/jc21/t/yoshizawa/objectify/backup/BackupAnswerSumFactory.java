@@ -19,7 +19,7 @@ public class BackupAnswerSumFactory extends CommonEntity {
 			BackupAnswerSum bas = new BackupAnswerSum();
 			bas.setId(aSum.getId());
 			bas.setName(aSum.getName());
-			bas.setRefToi(aSum.getRefToi());
+//			bas.setRefToi(aSum.getRefToi());
 			bas.setAnswered(aSum.getAnswered());
 			bas.setMapRefAnswer(aSum.getMapRefAnswer());
 			bas.setNoOfSeikai(aSum.getNoOfSeikai());

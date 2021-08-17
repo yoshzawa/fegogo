@@ -71,7 +71,7 @@ public class CheckAnswerServlet extends HttpServlet {
 		Optional<Toi> optToi;
 		Optional<Toi> optToiReal;
 		if(optAnswerSum.isPresent()) {
-			optToi = optAnswerSum.get().getToi();  
+			optToi = optAnswerSum.get().getOptToi();  
 			optToiReal=Toi.getByAnswerSum(optAnswerSum.get());
 		} else {
 			optToi=Optional.empty();

@@ -73,7 +73,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 				int i = 0;
 				for (AnswerSum as : answerSumList) {
-					if (as.getRefToi().get().getId() == t.getId()) {
+					if (as.getOptToi().get().getId() == t.getId()) {
 						s[4] += dateFormat(as.getAnswered()) + "(" + changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())
 								+ "%)<br/>";
 						long diff = new Date().getTime() - as.getAnswered().getTime();
@@ -98,7 +98,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 			for (AnswerSum as : answerSumList) {
 				String[] s = new String[6];
-				Toi toi = as.getRefToi().get();
+				Toi toi = as.getOptToi().get();
 
 				Exam exam = toi.getExam();
 				Genre genre = toi.getGenre();

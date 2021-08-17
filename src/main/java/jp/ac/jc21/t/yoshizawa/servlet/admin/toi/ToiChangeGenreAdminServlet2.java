@@ -25,7 +25,8 @@ public class ToiChangeGenreAdminServlet2 extends HttpServlet {
 		AnswerSum a = AnswerSum.getById(Long.parseLong(answerSumId));
 		Toi t = Toi.getById(Long.parseLong(toiId));
 
-		a.setRefToi(Ref.create(t));
+//		a.setRefToi(Ref.create(t));
+		a.setToiId(t.getId());
 		a.save();
 		t.addAnswerSumRefList(a);
 		t.save();

@@ -49,13 +49,13 @@ public class MemberFactory extends CommonEntity{
 			public int compare(AnswerSum a, AnswerSum b) {
 
 //				return Integer.compare(personFirst.getId(), personSecond.getId());
-				Long aYYYYMM = a.getToi().get().getExam().getYYYYMM();
-				Long bYYYYMM = b.getToi().get().getExam().getYYYYMM();
+				Long aYYYYMM = a.getOptToi().get().getExam().getYYYYMM();
+				Long bYYYYMM = b.getOptToi().get().getExam().getYYYYMM();
 				if (aYYYYMM != bYYYYMM) {
 					return (int) (aYYYYMM - bYYYYMM);
 				}
-				Long ano = a.getToi().get().getNo();
-				Long bno = b.getToi().get().getNo();
+				Long ano = a.getOptToi().get().getNo();
+				Long bno = b.getOptToi().get().getNo();
 				if (ano != bno) {
 					return (int) (ano - bno);
 				}

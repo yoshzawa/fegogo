@@ -33,7 +33,7 @@ public final class BackupAnswerSum extends BackupAnswerSumFactory {
 	@Index
 	private String name;
 	private Date answered;
-	private Ref<Toi> refToi;
+//	private Ref<Toi> refToi;
 	private int noOfSeikai;
 	private Map<String, Ref<Answer>> mapRefAnswer;
 	private Ref<Member> refMember;
@@ -68,6 +68,7 @@ public final class BackupAnswerSum extends BackupAnswerSumFactory {
 		this.answered = answered;
 	}
 
+	/*
 	public Ref<Toi> getRefToi() {
 		return refToi;
 	}
@@ -75,6 +76,7 @@ public final class BackupAnswerSum extends BackupAnswerSumFactory {
 	public void setRefToi(Ref<Toi> refToi) {
 		this.refToi = refToi;
 	}
+	*/
 
 	public int getNoOfSeikai() {
 		return noOfSeikai;

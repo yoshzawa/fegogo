@@ -58,8 +58,8 @@ public class CheckToiMemberServlet extends HttpServlet {
 			} else {
 				String[] s = new String[7];
 				s[0] = answerSum.getId().toString();
-				s[1] = answerSum.getRefToi().toString();
-				s[2] = answerSum.getRefToi().get().getId().toString();
+				s[1] = answerSum.getOptToi().toString();
+				s[2] = answerSum.getOptToi().get().getId().toString();
 				s[3] = answerSum.getMemberId();
 
 				Optional<Ref<Member>> refMem = Optional.ofNullable(answerSum.getRefMember());

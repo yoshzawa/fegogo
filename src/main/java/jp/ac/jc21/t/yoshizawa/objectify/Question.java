@@ -22,7 +22,6 @@ public final class Question extends QuestionFactory {
 	private String name;
 	private Date created;
 	private long noOfOption;
-//	private Ref<Toi> parent;
 	private Set<Integer> answerSet;
 	@Index
 	Long toiId;
@@ -32,10 +31,6 @@ public final class Question extends QuestionFactory {
 	 * @return the toiId
 	 */
 	public Long getToiId() {
-/*		if (toiId == null) {
-			setToiId(getParent().getId());
-			save();
-		}*/
 		return toiId;
 	}
 

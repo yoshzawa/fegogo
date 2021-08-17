@@ -20,10 +20,11 @@ import com.googlecode.objectify.Ref;
  */
 public class AnswerSumFactory extends CommonEntity {
 	
-	public static final AnswerSum createAnswerSum(String name,Ref<Toi> refToi,int noOfSeikai,Map<String,Ref<Answer>> mapRefAnswer) {
+	public static final AnswerSum createAnswerSum(String name,Toi Toi,int noOfSeikai,Map<String,Ref<Answer>> mapRefAnswer) {
 		AnswerSum as = new AnswerSum();
 		as.setName(name);
-		as.setRefToi(refToi);
+//		as.setRefToi(refToi);
+		as.setToiId(Toi.getId());
 		as.setAnswered(new Date());
 		as.setMapRefAnswer(mapRefAnswer);
 		as.setNoOfSeikai(noOfSeikai);
@@ -31,9 +32,7 @@ public class AnswerSumFactory extends CommonEntity {
 		return as;
 	}
 	
-	public static final AnswerSum createAnswerSum(String name,Toi toi,int noOfSeikai,Map<String,Ref<Answer>> mapRefAnswer) {
-		return createAnswerSum(name,Ref.create(toi),noOfSeikai,mapRefAnswer);
-	}
+
 	
 	public static final AnswerSum getById(long id) {
 		return (AnswerSum) getById(AnswerSum.class,id);

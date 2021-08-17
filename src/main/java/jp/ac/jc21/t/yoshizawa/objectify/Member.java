@@ -157,7 +157,7 @@ public final class Member extends MemberFactory {
 				continue;
 			}
 
-			Toi toi = answerSum.getRefToi().get();
+			Toi toi = answerSum.getOptToi().get();
 			if (toi == null) {
 				log.warning("toi == null:MemberId=" + geteMail());
 				continue;
@@ -191,7 +191,7 @@ public final class Member extends MemberFactory {
 		List<AnswerSum> list = new ArrayList<AnswerSum>();
 		for (Ref<AnswerSum> ras : getRefAnswerSumList()) {
 			AnswerSum as = ras.get();
-			if ((as.getRefToi() != null) && (as.getRefToi().get().getId() == id)) {
+			if ((as.getOptToi() != null) && (as.getOptToi().get().getId() == id)) {
 				list.add(as);
 			}
 		}

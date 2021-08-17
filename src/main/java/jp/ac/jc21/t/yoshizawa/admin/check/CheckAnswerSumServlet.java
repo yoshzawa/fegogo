@@ -52,7 +52,7 @@ public class CheckAnswerSumServlet extends HttpServlet {
 
 			Optional<Member> member = answerSum.getMember();
 			request.setAttribute("member", member);
-			Optional<Toi> toi = answerSum.getToi();
+			Optional<Toi> toi = answerSum.getOptToi();
 			request.setAttribute("toi", toi);
 
 			Map<String, Ref<Answer>> answerMap = answerSum.getMapRefAnswer();

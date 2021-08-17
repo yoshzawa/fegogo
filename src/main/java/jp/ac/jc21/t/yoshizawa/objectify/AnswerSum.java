@@ -34,7 +34,7 @@ public final class AnswerSum extends AnswerSumFactory {
 	@Index
 	Long toiId;
 	private Date answered;
-	private Ref<Toi> refToi;
+//	private Ref<Toi> refToi;
 	private int noOfSeikai;
 	private Map<String, Ref<Answer>> mapRefAnswer;
 	private Ref<Member> refMember;
@@ -84,10 +84,10 @@ public final class AnswerSum extends AnswerSumFactory {
 	 * @return the toiId
 	 */
 	public Long getToiId() {
-		if (toiId == null) {
-			setToiId(getRefToi().get().getId());
-			save();
-		}
+//		if (toiId == null) {
+//			setToiId(getRefToi().get().getId());
+//			save();
+//		}
 		return toiId;
 	}
 
@@ -169,11 +169,11 @@ public final class AnswerSum extends AnswerSumFactory {
 	/**
 	 * @return the refToi
 	 */
-	public Ref<Toi> getRefToi() {
-		return refToi;
+	public Toi getToi() {
+		return Toi.getById(getToiId());
 	}
-	public Optional<Ref<Toi>> getOptRefToi() {
-		return Optional.ofNullable(getRefToi());
+	public Optional<Toi> getOptToi() {
+		return Optional.ofNullable(getToi());
 	}
 
 	
@@ -181,10 +181,11 @@ public final class AnswerSum extends AnswerSumFactory {
 	/**
 	 * @param refToi the refToi to set
 	 */
+	/*
 	public void setRefToi(Ref<Toi> refToi) {
 		this.refToi = refToi;
 		setToiId(refToi.get().getId());
-	}
+	}*/
 
 	/**
 	 * @return the noOfAnswer
@@ -274,14 +275,16 @@ public final class AnswerSum extends AnswerSumFactory {
 		return true;
 	}
 
+	/*
 	public void setRefId() {
 		if (getMemberId() == null) {
 			setMemberId(getRefMember().get().geteMail());
 		}
 		if (toiId == null) {
-			setToiId(getRefToi().get().getId());
+			setToiId(getOptToi().get().getId());
 		}
 	}
+	*/
 
 	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
 
@@ -290,7 +293,7 @@ public final class AnswerSum extends AnswerSumFactory {
 			String value = (String) cache.get(key);
 			return value;
 		} else {
-			Toi toi = getRefToi().get();
+			Toi toi = getOptToi().get();
 			Exam exam = toi.getExam();
 			String s = getId() + "," + getName() + "," + getDateString(getAnswered()) + "," 
 			+ exam.getName() + "," + toi.getNo() + "," + toi.getGenre().getNo() + "," + 
@@ -318,6 +321,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		Optional<Member> optMem = optRefMem.map(refMem -> refMem.get());
 		return optMem; 
 	}
+	/*
 	public Optional<Toi> getToi(){
 		Optional<Ref<Toi>> optRefToi = Optional.ofNullable(getRefToi());
 		Optional<Toi> optToi =null;
@@ -328,7 +332,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		}
 		return optToi;
 		
-	}
+	}*/
 	public boolean containAnswer(Long answerId) {
 		Ref<Answer> rAns=Ref.create(Key.create(Answer.class,answerId));
 		return getMapRefAnswer().values().contains(rAns);

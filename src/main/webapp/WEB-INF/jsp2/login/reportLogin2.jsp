@@ -77,7 +77,7 @@
 
 							if (answered.after(cal)) {
 								%> 
-						<p><%=as.getToi().get().getExamName()%>(<%=dateFormat(as.getAnswered())%>)
+						<p><%=as.getOptToi().get().getExamName()%>(<%=dateFormat(as.getAnswered())%>)
 							:
 							<%=as.getNoOfSeikai()%>問正解/<%=as.getNoOfAnswer()%>問中</p> <% 
 							s += as.getNoOfSeikai();
@@ -85,7 +85,7 @@
 
 							} else {
 						%> 
-						<p><s><small><%=as.getToi().get().getExamName()%>(<%=dateFormat(as.getAnswered())%>)
+						<p><s><small><%=as.getOptToi().get().getExamName()%>(<%=dateFormat(as.getAnswered())%>)
 							:
 							<%=as.getNoOfSeikai()%>問正解/<%=as.getNoOfAnswer()%>問中</small></s></p> <% 
 							}
