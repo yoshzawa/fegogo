@@ -44,6 +44,8 @@
 			<TD>Genre</TD>
 			<TD>Name</TD>
 			<TD>問題数</TD>
+			<TD>回答者</TD>
+			<TD>出題</TD>
 		</TR>
 		<%
 			Set<Long> toiKeySet = toiMap.keySet();
@@ -65,6 +67,7 @@
 			</td>
 			<td><a href="/admin/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
 			<td><%=t.getQuestionListSize()%></td>
+			<td><%= t.getAnswerSumCount() %></td>
 			<td><a href="/admin/question/image?parentId=<%=t.getId()%>">
 			<% if(t.getImageSet() != null){out.print("(CBT)"); }%>
 			画像調整</a></td>
@@ -78,6 +81,7 @@
 	%>
 
 	<hr />
+	
 	<form method='post' action='/admin/toi/add'>
 		<label>No</label> <input type="text" name="No" /> 
 		<label>ToiName</label>

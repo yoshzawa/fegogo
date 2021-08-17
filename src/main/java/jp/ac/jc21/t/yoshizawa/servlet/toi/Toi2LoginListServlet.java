@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jc21.t.yoshizawa.objectify.AccessLog;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
@@ -63,7 +64,6 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 				s[0] = t.getNo().toString();
 				s[1] = t.getGenreName();
-//				s[2] = "<a href='/question/list?parentId=" + t.getId() + "'>" + t.getName() + "</a>";
 				s[2] = t.getName();
 				if(t.getImageSet() != null) {
 					s[2] = s[2]+"<B>(CBT)</B>";
@@ -99,15 +99,15 @@ public class Toi2LoginListServlet extends HttpServlet {
 			for (AnswerSum as : answerSumList) {
 				String[] s = new String[6];
 				Toi toi = as.getRefToi().get();
-				// s[0]=toi.getExam().getName();
-				String examName = toi.getExam().getName();
-				s[0] = "<a href='/toi/list?parentId=" + toi.getExam().getId() + "'>" + examName + "</a>";
+
+				Exam exam = toi.getExam();
+				Genre genre = toi.getGenre();
+				String examName = exam.getName();
+				
+				s[0] = "<a href='/toi/list?parentId=" + exam.getId() + "'>" + examName + "</a>";
 				s[1] = toi.getNo().toString();
-				// s[2]=toi.getRefGenre().get().getName();
-//				s[2] = "<a href='/genreDetail/list?id=" + toi.getRefGenre().get().getId() + "'>"
-//						+ toi.getRefGenre().get().getName() + "</a>";
-				s[2] = "<a href='/genreDetail/list?id=" + toi.getGenre().getId() + "'>"
-						+ toi.getGenre().getName() + "</a>";
+				s[2] = "<a href='/genreDetail/list?id=" + genre.getId() + "'>"
+						+ genre.getName() + "</a>";
 				s[3] = toi.getName();
 				s[4] = dateFormat(as.getAnswered());
 				s[5] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
