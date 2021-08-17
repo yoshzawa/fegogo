@@ -7,6 +7,8 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.googlecode.objectify.Ref;
 
@@ -16,8 +18,30 @@ import com.googlecode.objectify.Ref;
  */
 public class AnswerFactory extends CommonEntity {
 
+	private static Map<Long,Answer> cachedById = null;
+
+	protected void flush() {
+		cachedById = null;
+	}
+	
+	private static boolean checkCachedById(Long id) {
+		if (cachedById == null) {
+			cachedById = new TreeMap<Long, Answer>();
+			return false;
+		}
+		return cachedById.containsKey(id);
+	}
+	
 	public static final Answer getById(long id) {
-		return ofy().load().type(Answer.class).id(id).now();
+		Answer answer=null;
+		if(checkCachedById(id) == false) {
+			answer = ofy().load().type(Answer.class).id(id).now();
+			cachedById.put(answer.getId(),answer);
+			
+		}else {
+			answer=cachedById.get(id);
+		}
+		return answer;
 	}
 
 	public static final Answer createAnswer(String name, Ref<AnswerSum> refAnswerSum, Question question,

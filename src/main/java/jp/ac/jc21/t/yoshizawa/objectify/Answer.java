@@ -195,13 +195,13 @@ public final class Answer extends AnswerFactory {
 			if (getQuestion().getNoOfOption() <= 0) {
 				s = "‘Sˆõ³‰ð";
 			}
-
 		}
 		return s;
 	}
 
 	public Answer save() {
 		Key<Answer> key = ofy().save().entity(this).now();
+		flush();
 		return getById(key.getId());
 	}
 
@@ -211,7 +211,6 @@ public final class Answer extends AnswerFactory {
 
 	public void delete() {
 		ofy().delete().entity(this).now();
-
 	}
 
 	@SuppressWarnings("unchecked")
