@@ -49,11 +49,16 @@ public class ToiFactory extends CommonEntity {
 	}
 
 	public static final Toi getById(long id) {
+		final Logger log = Logger.getLogger(Toi.class.getName());
+		log.info("Toi.getById:" + id + "[---]");
+
 		return ofy().load().type(Toi.class).id(id).now();
 
 	}
 
 	public static final List<Toi> loadAll() {
+		final Logger log = Logger.getLogger(Toi.class.getName());
+		log.info("Toi.loadAll: Å@[---]");
 
 		List<Toi> tList = ofy().load().type(Toi.class).list();
 
@@ -61,6 +66,9 @@ public class ToiFactory extends CommonEntity {
 	}
 
 	public static Optional<Toi> getByAnswerSum(AnswerSum aSum) {
+		final Logger log = Logger.getLogger(Toi.class.getName());
+		log.info("Toi.getByAnswerSum:" + aSum.getId() + "[---]");
+
 		Optional<Long> toiId = Optional.ofNullable(aSum.getRefToi().getKey().getId());
 		Optional<Toi> toi;
 		if (toiId.isPresent()) {
