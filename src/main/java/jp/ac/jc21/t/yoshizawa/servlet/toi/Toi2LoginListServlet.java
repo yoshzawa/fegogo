@@ -3,6 +3,7 @@ package jp.ac.jc21.t.yoshizawa.servlet.toi;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,6 +27,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		final Logger log = Logger.getLogger(Toi2LoginListServlet.class.getName());
 
 		// Exam‚ÆID‚ðŽæ“¾
 		String parentIdString = request.getParameter("parentId");
@@ -77,10 +79,12 @@ public class Toi2LoginListServlet extends HttpServlet {
 						s[4] += dateFormat(as.getAnswered()) + "(" + changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())
 								+ "%)<br/>";
 						long diff = new Date().getTime() - as.getAnswered().getTime();
+
 						diff /= 1000;
 						if (diff < 240 * 60 * 60) {
 							// log.warning("interval too short");
 							i++;
+							log.info("AnswerSum("+as.getId()+"):" + diff+"(i="+i+")");
 						}
 					}
 				}
