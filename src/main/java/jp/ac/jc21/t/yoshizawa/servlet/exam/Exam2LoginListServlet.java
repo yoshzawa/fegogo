@@ -26,6 +26,10 @@ public class Exam2LoginListServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		Map<Long, Exam> examMap = Exam.loadAllMap();
+		// ƒ†[ƒU[î•ñæ“¾
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("email");
+		request.setAttribute("email", email);
 
 		List<String[]> datas = new ArrayList<String[]>();
 		for (Long k : examMap.keySet()) {
@@ -41,8 +45,6 @@ public class Exam2LoginListServlet extends HttpServlet {
 		
 		request.setAttribute("datas", datas);
 		
-		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
 	
 		AccessLog.create(email, "/exam2/Login/list "+"exam="+datas.size()).save();
 
