@@ -70,6 +70,7 @@ public class DeleteAnswerSumServlet extends HttpServlet {
 
 			Optional<Member> optmember = answerSum.getMember();
 			if (optmember.isPresent()) {
+				/*
 				Member member = optmember.get();
 				System.out.println("member:" + member.geteMail());
 				List<Ref<AnswerSum>> refAnswerSumList = member.getRefAnswerSumList();
@@ -78,17 +79,18 @@ public class DeleteAnswerSumServlet extends HttpServlet {
 				System.out.println("memberLen:" + refAnswerSumList.size());
 				member.setRefAnswerSumList(refAnswerSumList);
 				member.save();
+				*/
 			}
 
-			Optional<Toi> optToi = answerSum.getToi();
+			Optional<Toi> optToi = answerSum.getOptToi();
 			if (optToi.isPresent()) {
 				Toi toi = optToi.get();
 				System.out.println("toi:" + toi.getId());
-				List<Ref<AnswerSum>> answerSumRefList = toi.getAnswerSumRefList();
+				List<AnswerSum> answerSumRefList = toi.getAnswerSumList();
 				System.out.println("toi:" + answerSumRefList.size());
-				answerSumRefList.remove(Ref.create(answerSum));
-				System.out.println("toi:" + answerSumRefList.size());
-				toi.setAnswerSumRefList(answerSumRefList);
+//				answerSumRefList.remove(Ref.create(answerSum));
+//				System.out.println("toi:" + answerSumRefList.size());
+//				toi.setAnswerSumList(answerSumRefList);
 				toi.save();
 			}
 

@@ -117,8 +117,8 @@ public final class AnswerServlet extends HttpServlet {
 		ansSummary.setMember(member);
 		ansSummary.save();
 
-		member.addRefAnswerSumList(ansSummary);
-		member.save();
+//		member.addRefAnswerSumList(ansSummary);
+//		member.save();
 
 		request.setAttribute("ansSummary", ansSummary);
 

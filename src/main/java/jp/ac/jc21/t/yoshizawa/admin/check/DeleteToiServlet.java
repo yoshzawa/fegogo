@@ -46,16 +46,16 @@ public class DeleteToiServlet extends HttpServlet {
 		
 		Member member = answerSum.getRefMember().get();
 		
-		List<Ref<AnswerSum>> list = t.getAnswerSumRefList();
+		List<AnswerSum> list = t.getAnswerSumList();
 		boolean contain = list.contains(Ref.create(answerSum));
 		
 		System.out.println("contain = "+contain);
 		System.out.println("member = "+member);
 		
 		if(member==null) {
-			list.remove(Ref.create(answerSum));
-			t.setAnswerSumRefList(list);
-			t.save();
+//			list.remove(Ref.create(answerSum));
+//			t.setAnswerSumRefList(list);
+//			t.save();
 		}
 		
 		response.sendRedirect("/admin/check/toiMember?toiId="+toiKeyString);

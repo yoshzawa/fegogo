@@ -47,9 +47,9 @@ public class DeleteToiDeadLinkServlet extends HttpServlet {
 		
 		Key<AnswerSum> key = Key.create(AnswerSum.class,Long.parseLong(answerSumKeyString));
 		Ref<AnswerSum> refASum = Ref.create(key);
-		List<Ref<AnswerSum>> answerSumRefList = t.getAnswerSumRefList();
+		List<AnswerSum> answerSumList = t.getAnswerSumList();
 		boolean alive = (answerSum!=null);
-		boolean contain = answerSumRefList.contains(refASum);
+		boolean contain = answerSumList.contains(refASum);
 		
 			System.out.println("toiKeyString="+toiKeyString);
 			System.out.println("answerSumKeyString="+answerSumKeyString);
@@ -58,12 +58,12 @@ public class DeleteToiDeadLinkServlet extends HttpServlet {
 
 			if(alive == false) {
 				System.out.println("before="+
-				answerSumRefList.size());
-				answerSumRefList.remove(refASum);
-				System.out.println("after="+
-				answerSumRefList.size());
-				t.setAnswerSumRefList(answerSumRefList);
-				t.save();
+				answerSumList.size());
+//				answerSumList.remove(refASum);
+//				System.out.println("after="+
+//				answerSumRefList.size());
+//				t.setAnswerSumRefList(answerSumRefList);
+//				t.save();
 		}
 
 		

@@ -29,7 +29,7 @@ public final class Member extends MemberFactory {
 //	Long id;
 	@Index
 	private String eMail;
-	private List<Ref<AnswerSum>> refAnswerSumList;
+//	private List<Ref<AnswerSum>> refAnswerSumList;
 	private Date created;
 	private Date modified;
 
@@ -50,22 +50,19 @@ public final class Member extends MemberFactory {
 	}
 
 	public int getRefAnswerSumListCount() {
-		return getRefAnswerSumList().size();
+		return getAnswerSumList().size();
 	}
 
+	/*
 	public List<Ref<AnswerSum>> getRefAnswerSumList() {
 		if (refAnswerSumList == null) {
 			newRefAnswerSumList();
 		}
 		return refAnswerSumList;
-	}
+	}*/
 
 	public List<AnswerSum> getAnswerSumList() {
-		List<AnswerSum> list = new ArrayList<>();
-		for (Ref<AnswerSum> as : getRefAnswerSumList()) {
-			list.add(as.get());
-		}
-		return list;
+		return AnswerSum.getListByEMail(geteMail());
 	}
 
 	public List<AnswerSum> getAnswerSumListSorted() {
@@ -76,6 +73,7 @@ public final class Member extends MemberFactory {
 		return list;
 	}
 
+	/*
 	public void newRefAnswerSumList() {
 		setRefAnswerSumList(new ArrayList<>());
 	}
@@ -83,6 +81,25 @@ public final class Member extends MemberFactory {
 	public void setRefAnswerSumList(List<Ref<AnswerSum>> refAnswerSumMap) {
 		this.refAnswerSumList = refAnswerSumMap;
 	}
+		public void addRefAnswerSumList(AnswerSum ansSummary) {
+		List<AnswerSum> l = getAnswerSumList();
+		boolean b = containsRefAnswerSum(ansSummary, l);
+		if (b == false) {
+			l.add(Ref.create(ansSummary));
+		}
+		setRefAnswerSumList(l);
+	}
+	public void removeRefAnswerSumList(AnswerSum answerSum) {
+		List<AnswerSum> list = getAnswerSumList();
+		List<Ref<AnswerSum>> listNew = new ArrayList<>();
+		for (Ref<AnswerSum> refAnswerSum : list) {
+			if (refAnswerSum.get().getId() != answerSum.getId()) {
+				listNew.add(refAnswerSum);
+			}
+		}
+		setRefAnswerSumList(listNew);
+	}
+	*/
 
 	public Date getCreated() {
 		return created;
@@ -100,23 +117,15 @@ public final class Member extends MemberFactory {
 		this.modified = modified;
 	}
 
-	public void addRefAnswerSumList(AnswerSum ansSummary) {
-		List<Ref<AnswerSum>> l = getRefAnswerSumList();
-		boolean b = containsRefAnswerSum(ansSummary, l);
-		if (b == false) {
-			l.add(Ref.create(ansSummary));
-		}
-		setRefAnswerSumList(l);
-	}
 
 	public boolean containsRefAnswerSum(AnswerSum ansSummary) {
-		List<Ref<AnswerSum>> l = getRefAnswerSumList();
-		return containsRefAnswerSum(Ref.create(ansSummary), l);
+		List<AnswerSum> l = getAnswerSumList();
+		return containsAnswerSum(ansSummary, l);
 	}
 
-	public boolean containsRefAnswerSum(Ref<AnswerSum> ansRefSummary) {
-		List<Ref<AnswerSum>> l = getRefAnswerSumList();
-		return containsRefAnswerSum(ansRefSummary, l);
+	public boolean containsAnswerSum(AnswerSum ansRefSummary) {
+		List<AnswerSum> l = getAnswerSumList();
+		return containsAnswerSum(ansRefSummary, l);
 	}
 
 	public boolean containsRefAnswerSum(AnswerSum ansSummary, List<Ref<AnswerSum>> l) {
@@ -130,7 +139,7 @@ public final class Member extends MemberFactory {
 		return b;
 	}
 
-	public boolean containsRefAnswerSum(Ref<AnswerSum> RefAnsSummary, List<Ref<AnswerSum>> l) {
+	public boolean containsAnswerSum(AnswerSum RefAnsSummary, List<AnswerSum> l) {
 		boolean b = false;
 		b = l.contains(RefAnsSummary);
 		return b;
@@ -146,12 +155,11 @@ public final class Member extends MemberFactory {
 		final Logger log = Logger.getLogger(Member.class.getName());
 
 		List<AnswerSum> list = new ArrayList<>();
-		if (getRefAnswerSumList() == null) {
+		if (getAnswerSumList() == null) {
 			return list;
 		}
-		for (Ref<AnswerSum> as : getRefAnswerSumList()) {
+		for (AnswerSum answerSum : getAnswerSumList()) {
 
-			AnswerSum answerSum = as.get();
 			if (answerSum == null) {
 				log.warning("answerSum == null:MemberId=" + geteMail());
 				continue;
@@ -176,21 +184,11 @@ public final class Member extends MemberFactory {
 		return list;
 	}
 
-	public void removeRefAnswerSumList(AnswerSum answerSum) {
-		List<Ref<AnswerSum>> list = getRefAnswerSumList();
-		List<Ref<AnswerSum>> listNew = new ArrayList<>();
-		for (Ref<AnswerSum> refAnswerSum : list) {
-			if (refAnswerSum.get().getId() != answerSum.getId()) {
-				listNew.add(refAnswerSum);
-			}
-		}
-		setRefAnswerSumList(listNew);
-	}
+
 
 	public List<AnswerSum> getAnswerSumListByToi(Long id) {
 		List<AnswerSum> list = new ArrayList<AnswerSum>();
-		for (Ref<AnswerSum> ras : getRefAnswerSumList()) {
-			AnswerSum as = ras.get();
+		for (AnswerSum as : getAnswerSumList()) {
 			if ((as.getOptToi() != null) && (as.getOptToi().get().getId() == id)) {
 				list.add(as);
 			}

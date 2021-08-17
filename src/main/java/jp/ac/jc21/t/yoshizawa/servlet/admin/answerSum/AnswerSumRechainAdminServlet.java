@@ -25,10 +25,10 @@ public class AnswerSumRechainAdminServlet extends HttpServlet {
 		Member m = Member.get(memberId);
 		
 		as.setMember(m);
-		m.addRefAnswerSumList(as);
+//		m.addRefAnswerSumList(as);
 		
 		as.save();
-		m.save();
+//		m.save();
 		
 		response.sendRedirect(redirectTo);
 		

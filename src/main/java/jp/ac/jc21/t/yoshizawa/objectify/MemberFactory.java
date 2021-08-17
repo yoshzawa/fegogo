@@ -32,7 +32,7 @@ public class MemberFactory extends CommonEntity{
 		m.seteMail(eMail);
 		m.setCreated(new Date());
 		m.setModified(new Date());
-		m.newRefAnswerSumList();
+//		m.newRefAnswerSumList();
 		return m;
 	}
 

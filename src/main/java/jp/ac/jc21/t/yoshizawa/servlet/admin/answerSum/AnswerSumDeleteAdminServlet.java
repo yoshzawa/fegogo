@@ -31,6 +31,6 @@ public class AnswerSumDeleteAdminServlet extends HttpServlet {
 			Answer answer = mapanswer.get(key);
 			response.getWriter().println("DELETE AnswerId:"+answer.getId()+"<br />");
 		}
-		as.deleteLink();
+//		as.deleteLink();
 	}
 }

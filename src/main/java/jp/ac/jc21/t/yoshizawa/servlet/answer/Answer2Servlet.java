@@ -102,9 +102,9 @@ public final class Answer2Servlet extends HttpServlet {
 			// AnswerSum‚ÉMember‚ð“o˜^
 				Member member = Member.get(paramUserId);
 				aSum.setRefMember(Ref.create(member));
-				member.addRefAnswerSumList(aSum);
+//				member.addRefAnswerSumList(aSum);
+//				member.save();
 			// AnswerSum‚ð•Û‘¶‚·‚é
-				member.save();
 				toi.save();
 				aSum.save();
 				RequestDispatcher rd = request.getRequestDispatcher("/answer2/show?answerSumId="+aSum.getId());
@@ -119,7 +119,7 @@ public final class Answer2Servlet extends HttpServlet {
 
 		boolean error = false;
 
-		List<AnswerSum> list = AnswerSum.loadByEMail(email);
+		List<AnswerSum> list = AnswerSum.getListByEMail(email);
 		for(AnswerSum ansSum:list) {
 			if(ansSum.getToiId().equals( Long.parseLong(paramToiId))) {
 				long diff = aSum.getAnswered().getTime() - ansSum.getAnswered().getTime();
