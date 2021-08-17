@@ -36,7 +36,7 @@ public class QuestionFactory extends CommonEntity {
 		q.setNo(no);
 		q.setName(name);
 		q.setNoOfOption(noOfOption);
-		q.setParent(parent);
+//		q.setParent(parent);
 		return q;
 	}
 

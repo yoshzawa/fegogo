@@ -92,7 +92,7 @@ public class ImportQuestionServlet extends HttpServlet {
 			q.setName(name);
 			q.setCreated(created);
 			q.setNoOfOption(noOfOption);
-			q.setParent(Ref.create(t));
+//			q.setParent(Ref.create(t));
 			q.setAnswerSet(answers);
 
 			list.add(q);

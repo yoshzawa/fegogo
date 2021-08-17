@@ -22,19 +22,20 @@ public final class Question extends QuestionFactory {
 	private String name;
 	private Date created;
 	private long noOfOption;
-	private Ref<Toi> parent;
+//	private Ref<Toi> parent;
 	private Set<Integer> answerSet;
 	@Index
 	Long toiId;
 
+	
 	/**
 	 * @return the toiId
 	 */
 	public Long getToiId() {
-		if (toiId == null) {
+/*		if (toiId == null) {
 			setToiId(getParent().getId());
 			save();
-		}
+		}*/
 		return toiId;
 	}
 
@@ -129,16 +130,15 @@ public final class Question extends QuestionFactory {
 	 * @return the parent
 	 */
 	public Toi getParent() {
-		return parent.get();
-	}
-	public Ref<Toi> getRefParent() {
-		return parent;
+//		return parent.get();
+		return Toi.getById(getToiId());
 	}
 
 	
 	/**
 	 * @param parent the parent to set
 	 */
+/*
 	public void setParent(Toi parent) {
 		this.parent = Ref.create(parent);
 	}
@@ -146,11 +146,13 @@ public final class Question extends QuestionFactory {
 	public void setParent(Ref<Toi> parent) {
 		this.parent = parent;
 	}
+	public Ref<Toi> getRefParent() {
+		return parent;
+	}
+	*/
 	public Optional<Toi> getOptToi() {
-		Optional<Ref<Toi>> optRefT = Optional.ofNullable(parent);
-		Optional<Toi> optQ = optRefT.map(q -> q.get());
-
-		return optQ;
+		Optional<Toi> optT = Optional.ofNullable(getParent());
+		return optT;
 	}
 	
 
@@ -221,7 +223,6 @@ public final class Question extends QuestionFactory {
 	}
 
 	public Question save() {
-		setRefId();
 		Key<Question> key = ofy().save().entity(this).now();
 		flush();
 		return getById(key.getId());
@@ -234,12 +235,6 @@ public final class Question extends QuestionFactory {
 			return false;
 		}
 		return true;
-	}
-
-	public void setRefId() {
-		if (toiId == null) {
-			toiId = parent.get().getId();
-		}
 	}
 
 	public String getExportData() {
