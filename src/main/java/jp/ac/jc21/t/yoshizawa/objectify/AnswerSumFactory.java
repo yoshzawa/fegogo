@@ -43,7 +43,7 @@ public class AnswerSumFactory extends CommonEntity {
 	}
 
 	@SuppressWarnings("unchecked")
-	public final static List<AnswerSum> loadByEMail(String eMail) {
+	public final static List<AnswerSum> getListByEMail(String eMail) {
 		return (List<AnswerSum>)loadByIndex(AnswerSum.class,"name",eMail);
 	}
 	
