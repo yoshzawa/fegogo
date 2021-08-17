@@ -26,7 +26,7 @@ public class AnswerSumFactory extends CommonEntity {
 //		as.setRefToi(refToi);
 		as.setToiId(Toi.getId());
 		as.setAnswered(new Date());
-		as.setMapRefAnswer(mapRefAnswer);
+//		as.setMapRefAnswer(mapRefAnswer);
 		as.setNoOfSeikai(noOfSeikai);
 		as.setVersion(ofyVersion);
 		return as;

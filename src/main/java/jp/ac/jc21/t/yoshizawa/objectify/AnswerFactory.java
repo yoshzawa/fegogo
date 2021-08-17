@@ -83,4 +83,7 @@ public class AnswerFactory extends CommonEntity {
 	public static List<Answer> loadAll() {
 		return (List<Answer>) loadAll(Answer.class);
 	}
+	public static List<Answer> getByAnswerSumId(Long answerSumId, String name) {
+		
+	}
 }

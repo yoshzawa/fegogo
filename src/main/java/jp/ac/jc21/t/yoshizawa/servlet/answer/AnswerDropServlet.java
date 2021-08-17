@@ -1,14 +1,17 @@
 package jp.ac.jc21.t.yoshizawa.servlet.answer;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.googlecode.objectify.Ref;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Answer;
@@ -27,14 +30,11 @@ public class AnswerDropServlet extends HttpServlet {
 		Optional<AnswerSum> optASum = AnswerSum.getOptById(Long.parseLong(answerSumId));
 		if(optASum.isPresent()) {
 			AnswerSum aSum = optASum.get();
-			Optional<Map<String, Ref<Answer>>> optMap = aSum.getOptMapRefAnswer();
-			if(optMap.isPresent()) {
-				Map<String, Ref<Answer>> map = optMap.get();
-				for(String key:map.keySet()) {
-					Answer v = map.get(key).get();
+			List<Answer> list = aSum.getAnswerList();
+				for(Answer v :list) {
 					v.delete();
 				}
-			}
+			
 			//aSum.setMapRefAnswer(null);
 			aSum.delete();
 		}

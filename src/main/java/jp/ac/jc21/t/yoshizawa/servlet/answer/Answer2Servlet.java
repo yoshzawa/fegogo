@@ -75,7 +75,7 @@ public final class Answer2Servlet extends HttpServlet {
 		}
 		// AnswerSum‚ğÄ“x•Û‘¶‚·‚é
 		aSum.setNoOfSeikai(correct);
-		aSum.setMapRefAnswer(mapRefAnswer);
+//		aSum.setMapRefAnswer(mapRefAnswer);
 		aSum.save();
 
 		// id‚ğŠm”F‚·‚é

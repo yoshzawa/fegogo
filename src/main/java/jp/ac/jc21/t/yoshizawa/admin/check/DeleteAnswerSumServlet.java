@@ -54,10 +54,9 @@ public class DeleteAnswerSumServlet extends HttpServlet {
 
 			// answer‚ğíœ
 
-			Map<String, Ref<Answer>> answerMap = answerSum.getMapRefAnswer();
-			for (String key : answerMap.keySet()) {
-				Ref<Answer> refAnswer = answerMap.get(key);
-				Optional<Answer> answer = Optional.ofNullable(refAnswer.get());
+			List<Answer> answerMap = answerSum.getAnswerList();
+			for (Answer a : answerMap) {
+				Optional<Answer> answer = Optional.ofNullable(a);
 				if (answer.isPresent()) {
 					System.out.println("answer:" + answer.get().getId());
 					BackupAnswer ba = BackupAnswer.createBackupAnswer(answer.get());

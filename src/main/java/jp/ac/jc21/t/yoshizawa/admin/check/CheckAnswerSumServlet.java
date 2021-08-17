@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Answer;
@@ -55,17 +56,14 @@ public class CheckAnswerSumServlet extends HttpServlet {
 			Optional<Toi> toi = answerSum.getOptToi();
 			request.setAttribute("toi", toi);
 
-			Map<String, Ref<Answer>> answerMap = answerSum.getMapRefAnswer();
+			List<Answer> answerMap = answerSum.getAnswerList();
 
 			List<String[]> list = new ArrayList<>();
-			for (String key : answerMap.keySet()) {
-				Ref<Answer> refAnswer = answerMap.get(key);
-				Answer answer = refAnswer.get();
+			for (Answer answer : answerMap) {
 				if (answer == null) {
 					String[] s = new String[3];
 					s[0] = null;
-					s[1] = refAnswer.getKey().getId() + "";
-					s[2] = key;
+					s[1] = answer.getId() + "";
 					list.add(s);
 				} else {
 					String[] s = new String[6];

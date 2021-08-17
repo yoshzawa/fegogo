@@ -7,6 +7,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -35,7 +36,7 @@ public final class AnswerSum extends AnswerSumFactory {
 	Long toiId;
 	private Date answered;
 	private int noOfSeikai;
-	private Map<String, Ref<Answer>> mapRefAnswer;
+//	private Map<String, Ref<Answer>> mapRefAnswer;
 	private Ref<Member> refMember;
 
 	String memberId;
@@ -104,8 +105,6 @@ public final class AnswerSum extends AnswerSumFactory {
 	////////// mapRefAnswer
 
 	/**
-	 * @return the mapRefAnswer
-	 */
 	public Map<String, Ref<Answer>> getMapRefAnswer() {
 		Optional<Map<String, Ref<Answer>>> oMRA = getOptMapRefAnswer();
 		if(oMRA.isPresent()) {
@@ -119,14 +118,16 @@ public final class AnswerSum extends AnswerSumFactory {
 		return Optional.ofNullable(mapRefAnswer);
 	}
 	
-	
-
-	/**
-	 * @param mapRefAnswer the mapRefAnswer to set
-	 */
 	public void setMapRefAnswer(Map<String, Ref<Answer>> mapRefAnswer) {
 		this.mapRefAnswer = mapRefAnswer;
 	}
+	*/
+	public List<Answer> getAnswerList() {
+		//TODO íÜêgÇÇøÇ·ÇÒÇ∆çÏÇÁÇ»Ç¢Ç∆ëÂïœÇ»Ç±Ç∆Ç…Ç»ÇÈ
+		List<Answer> result = Answer.getByAnswerSumId(getId(),getName());
+		return result;
+	}
+
 
 	////////// name
 
@@ -176,7 +177,7 @@ public final class AnswerSum extends AnswerSumFactory {
 	 * @return the noOfAnswer
 	 */
 	public int getNoOfAnswer() {
-		Map<String, Ref<Answer>> map = getMapRefAnswer();
+		List<Answer> map = getAnswerList();
 		if (map == null) {
 			return 0;
 		} else {
@@ -199,13 +200,12 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 
 	public Map<Integer, Answer> getMapAnswer() {
-		Map<String, Ref<Answer>> mra = getMapRefAnswer();
+		List<Answer> mra = getAnswerList();
 		Map<Integer, Answer> mapAnswer = new HashMap<Integer, Answer>();
 
 		if (mra != null) {
-			Set<String> mraKey = mra.keySet();
-			for (String k : mraKey) {
-				mapAnswer.put(Integer.parseInt(k), mra.get(k).get());
+			for (Answer k : mra) {
+				mapAnswer.put(Integer.parseInt(k.getNo()), k);
 			}
 		}
 		return mapAnswer;
@@ -286,8 +286,8 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 
 	public boolean containAnswer(Long answerId) {
-		Ref<Answer> rAns=Ref.create(Key.create(Answer.class,answerId));
-		return getMapRefAnswer().values().contains(rAns);
+		Answer ans=Answer.getById(answerId);
+		return getAnswerList().contains(ans);
 	}
 
 }

@@ -113,7 +113,7 @@ public final class AnswerServlet extends HttpServlet {
 		}
 
 		ansSummary.setNoOfSeikai(correct);
-		ansSummary.setMapRefAnswer(mapAnswer);
+//		ansSummary.setMapRefAnswer(mapAnswer);
 		ansSummary.setMember(member);
 		ansSummary.save();
 
