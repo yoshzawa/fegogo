@@ -34,8 +34,8 @@ public class GenreDetail2NologListServlet extends HttpServlet {
 				Toi toi = toiMap.get(key);
 
 				String[] s = new String[3];
-				s[0] = "";
-				s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>" + toi.getExam().getName() + " –â"
+				s[0] = toi.getExam().getName();
+				s[1] = "<a href='/question/list?parentId=" + toi.getId() + "'>"  + " –â"
 						+ toi.getNo() + " (" + toi.getName() + ")</a>";
 				s[2] = toi.getAnswerSumListSize() + "";
 				datas.add(s);

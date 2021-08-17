@@ -39,7 +39,7 @@
 	<TABLE border="1" class="table table-striped table-hover">
 		<thead class="thead-dark">
 			<tr>
-				<TH>分野名</TH>
+				<TH>試験</TH>
 				<TH>問題</TH>
 				<TH>解答数</TH>
 			</TR>
