@@ -275,7 +275,6 @@ public final class Toi extends ToiFactory {
 	
 	public Toi save() {
 		Key<Toi> key = ofy().save().entity(this).now();
-		flush();
 		return getById(key.getId());
 	}
 

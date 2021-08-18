@@ -56,10 +56,10 @@ public class CheckAnswerSumServlet extends HttpServlet {
 			Optional<Toi> toi = answerSum.getOptToi();
 			request.setAttribute("toi", toi);
 
-			List<Answer> answerMap = answerSum.getAnswerList();
+			List<Answer> answerList = answerSum.getAnswerList();
 
 			List<String[]> list = new ArrayList<>();
-			for (Answer answer : answerMap) {
+			for (Answer answer : answerList) {
 				if (answer == null) {
 					String[] s = new String[3];
 					s[0] = null;

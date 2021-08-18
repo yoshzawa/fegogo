@@ -51,33 +51,14 @@ public class QuestionFactory extends CommonEntity {
 	public static final List<Question> loadAll() {
 
 		List<Question> qList = ofy().load().type(Question.class).list();
-
 		return qList;
 	}
 
-	private static Map<Long,List<Question>> cachedMapByToiId = null;
-
-	protected void flush() {
-		cachedMapByToiId = null;
-	}
-	
 	public static final List<Question> getListByToiId(Long toiId) {
-		final Logger log = Logger.getLogger(Question.class.getName());
 
-		if(cachedMapByToiId==null) {
-			cachedMapByToiId=new TreeMap<Long,List<Question>>();
-		}
 		List<Question> qList;
-		if(cachedMapByToiId.containsKey(toiId) == false) {
-			qList = ofy().load().type(Question.class).filter("toiId", toiId).list();
-			cachedMapByToiId.put(toiId, qList);
-			log.info( "Question.getListByToiId:"+toiId+"[Miss]");
-
-		} else {
-			qList = cachedMapByToiId.get(toiId);
-			log.info( "Question.getListByToiId:"+toiId+"[Hit]");
-		}
+		qList = ofy().load().type(Question.class).filter("toiId", toiId).list();
 		return qList;
 	}
-	
+
 }

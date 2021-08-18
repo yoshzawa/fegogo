@@ -20,7 +20,6 @@ public class ToiFactory extends CommonEntity {
 		t.setNo(no);
 		t.setName(name);
 		t.setCreated(new Date());
-//		t.setExam(parent);	
 		t.setExamId(parent.getId());
 		t.setGenre(genre);
 		t.setAnswerSumRefList(null);
@@ -32,7 +31,6 @@ public class ToiFactory extends CommonEntity {
 		t.setNo(no);
 		t.setName(name);
 		t.setCreated(new Date());
-//		t.setExam(parent);	
 		t.setExamId(parent.getId());
 		t.setGenreId(null);
 		return t;
@@ -49,8 +47,6 @@ public class ToiFactory extends CommonEntity {
 	}
 
 	public static final List<Toi> loadAll() {
-		final Logger log = Logger.getLogger(Toi.class.getName());
-		log.info("Toi.loadAll: Å@[---]");
 
 		List<Toi> tList = ofy().load().type(Toi.class).list();
 
@@ -68,87 +64,24 @@ public class ToiFactory extends CommonEntity {
 		return (t != null);
 	}
 
-	static Map<Long, List<Toi>> cachedMapByExamId = null;
-	static Map<Long, List<Toi>> cachedMapByGenreId = null;
-	static Map<Long, Toi> cachedMapById = null;
-
-	public void flush() {
-		cachedMapByExamId = null;
-		cachedMapByGenreId = null;
-		cachedMapById = null;
-	}
-
 	public static final Toi getById(long id) {
-		final Logger log = Logger.getLogger(Toi.class.getName());
-
 		Toi toi = null;
-		if (checkCachedMapById(id) == false) {
-			toi = ofy().load().type(Toi.class).id(id).now();
-			cachedMapById.put(toi.getId(), toi);
-			log.info("Toi.getById:" + id + "[Miss]");
-		} else {
-			toi = cachedMapById.get(id);
-			log.info("Toi.getById:" + id + "[Hit]");
-		}
+		toi = ofy().load().type(Toi.class).id(id).now();
 		return toi;
-	}
-
-	private static boolean checkCachedMapById(Long id) {
-		if (cachedMapById == null) {
-			cachedMapById = new TreeMap<Long, Toi>();
-			return false;
-		}
-		return cachedMapById.containsKey(id);
-	}
-
-	private static void putCachedMapById(Toi toi) {
-		if (checkCachedMapById(toi.getId()) == false) {
-			cachedMapById.put(toi.getId(), toi);
-		}
-	}
-
-	private static void putCachedMapById(List<Toi> tois) {
-		for (Toi t : tois) {
-			putCachedMapById(t);
-		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public final static List<Toi> getToiListByExamId(Long examId) {
-		final Logger log = Logger.getLogger(Toi.class.getName());
-		if (cachedMapByExamId == null) {
-			cachedMapByExamId = new TreeMap<Long, List<Toi>>();
-		}
+		Logger.getLogger(Toi.class.getName());
 		List<Toi> list;
-		if (cachedMapByExamId.containsKey(examId) == false) {
-			list = (List<Toi>) loadByIndex(Toi.class, "examId", examId);
-			cachedMapByExamId.put(examId, list);
-			putCachedMapById(list);
-			log.info("Toi.getToiListByExamId:" + examId + "[Miss]");
-		} else {
-			list = cachedMapByExamId.get(examId);
-			log.info("Toi.getToiListByExamId:" + examId + "[Hit]");
-		}
+		list = (List<Toi>) loadByIndex(Toi.class, "examId", examId);
 		return list;
 	}
 
 	@SuppressWarnings("unchecked")
 	public final static List<Toi> getToiListByGenreId(Long genreId) {
-		final Logger log = Logger.getLogger(Toi.class.getName());
-
-		if (cachedMapByGenreId == null) {
-			cachedMapByGenreId = new TreeMap<Long, List<Toi>>();
-		}
 		List<Toi> list;
-		if (cachedMapByGenreId.containsKey(genreId) == false) {
-			list = (List<Toi>) loadByIndex(Toi.class, "genreId", genreId);
-			cachedMapByGenreId.put(genreId, list);
-			putCachedMapById(list);
-			log.info("Toi.getToiListByGenreId:" + genreId + "[Miss]");
-		} else {
-			list = cachedMapByGenreId.get(genreId);
-			log.info("Toi.getToiListByGenreId:" + genreId + "[Hit]");
-		}
+		list = (List<Toi>) loadByIndex(Toi.class, "genreId", genreId);
 		return list;
 	}
 

@@ -5,10 +5,13 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 
 import com.googlecode.objectify.Ref;
 
@@ -18,29 +21,10 @@ import com.googlecode.objectify.Ref;
  */
 public class AnswerFactory extends CommonEntity {
 
-	private static Map<Long,Answer> cachedById = null;
-
-	protected void flush() {
-		cachedById = null;
-	}
-	
-	private static boolean checkCachedById(Long id) {
-		if (cachedById == null) {
-			cachedById = new TreeMap<Long, Answer>();
-			return false;
-		}
-		return cachedById.containsKey(id);
-	}
-	
 	public static final Answer getById(long id) {
-		Answer answer=null;
-		if(checkCachedById(id) == false) {
-			answer = ofy().load().type(Answer.class).id(id).now();
-			cachedById.put(answer.getId(),answer);
-			
-		}else {
-			answer=cachedById.get(id);
-		}
+		Answer answer = null;
+		answer = ofy().load().type(Answer.class).id(id).now();
+
 		return answer;
 	}
 
@@ -83,7 +67,46 @@ public class AnswerFactory extends CommonEntity {
 	public static List<Answer> loadAll() {
 		return (List<Answer>) loadAll(Answer.class);
 	}
+
 	public static List<Answer> getByAnswerSumId(Long answerSumId, String name) {
-		
+		final Logger log = Logger.getLogger(Answer.class.getName());
+
+		// EMAILÇ≈à¯Ç¡í£ÇÈÅiCacheä‹ÇﬂÇƒÅj
+		List<Answer> listByEMail = getByEMail(name);
+
+		Map<Long, List<Answer>> cachedMapByAnswerSumId = new TreeMap<Long, List<Answer>>();
+		// answerSumIdÇ≈listÇ…ÇµÇƒCacheÇ…ï™ÇØÇÈ
+		for (Answer a : listByEMail) {
+			List<Answer> list;
+			if ((list = cachedMapByAnswerSumId.get(a.getAnswerSumId())) == null) {
+				list = new ArrayList<Answer>();
+			}
+			list.add(a);
+			list = sort(list);
+			cachedMapByAnswerSumId.put(a.getAnswerSumId(), list);
+		}
+
+		// éÊÇËèoÇµÇƒï‘Ç∑
+		return cachedMapByAnswerSumId.get(answerSumId);
 	}
+
+	public static List<Answer> getByEMail(String name) {
+		List<Answer> list = null;
+		;
+		list = (List<Answer>) loadByIndex(Answer.class, "name", name);
+		return list;
+	}
+
+	private static List<Answer> sort(List<Answer> list) {
+		list.sort(new Comparator<Answer>() {
+
+			@Override
+			public int compare(Answer a1, Answer a2) {
+				return Integer.parseInt(a1.getNo()) - Integer.parseInt(a2.getNo());
+			}
+
+		});
+		return list;
+	}
+
 }

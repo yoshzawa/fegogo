@@ -139,9 +139,9 @@ public final class Member extends MemberFactory {
 		return b;
 	}
 
-	public boolean containsAnswerSum(AnswerSum RefAnsSummary, List<AnswerSum> l) {
+	public boolean containsAnswerSum(AnswerSum AnsSummary, List<AnswerSum> l) {
 		boolean b = false;
-		b = l.contains(RefAnsSummary);
+		b = l.contains(AnsSummary);
 		return b;
 	}
 

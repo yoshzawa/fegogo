@@ -5,11 +5,11 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.googlecode.objectify.Ref;
@@ -23,16 +23,12 @@ public class AnswerSumFactory extends CommonEntity {
 	public static final AnswerSum createAnswerSum(String name,Toi Toi,int noOfSeikai,Map<String,Ref<Answer>> mapRefAnswer) {
 		AnswerSum as = new AnswerSum();
 		as.setName(name);
-//		as.setRefToi(refToi);
 		as.setToiId(Toi.getId());
 		as.setAnswered(new Date());
-//		as.setMapRefAnswer(mapRefAnswer);
 		as.setNoOfSeikai(noOfSeikai);
 		as.setVersion(ofyVersion);
 		return as;
 	}
-	
-
 	
 	public static final AnswerSum getById(long id) {
 		return (AnswerSum) getById(AnswerSum.class,id);
@@ -42,39 +38,33 @@ public class AnswerSumFactory extends CommonEntity {
 		return Optional.ofNullable(getById(id));
 	}
 
-	@SuppressWarnings("unchecked")
-	public final static List<AnswerSum> getListByEMail(String eMail) {
-		return (List<AnswerSum>)loadByIndex(AnswerSum.class,"name",eMail);
-	}
 	
 	@SuppressWarnings("unchecked")
 	public static final List<AnswerSum> loadAll() {
 		return (List<AnswerSum>) loadAll(AnswerSum.class);
 	}
 	
-	private static Map<Long,List<AnswerSum>> cachedMapByToiId = null;
-
-	protected void flush() {
-		cachedMapByToiId = null;
+	public static final List<AnswerSum> loadAll2() {
+		List<Member> list = Member.loadAll();
+		List<AnswerSum> allList = new ArrayList<AnswerSum>();
+		for(Member m:list) {
+			List<AnswerSum> asList = AnswerSum.getListByEMail(m.geteMail());
+			allList.addAll(asList);
+		}
+		return allList;
 	}
 
-	@SuppressWarnings("unchecked")
+	public final static List<AnswerSum> getListByEMail(String eMail) {
+		List<AnswerSum> list=null;
+			 list = (List<AnswerSum>)loadByIndex(AnswerSum.class,"name",eMail);
+		return list;
+	}
+
+	
 	public static final List<AnswerSum> getListByToiId(Long toiId) {
-		final Logger log = Logger.getLogger(AnswerSum.class.getName());
-
-		if(cachedMapByToiId==null) {
-			cachedMapByToiId=new TreeMap<Long,List<AnswerSum>>();
-		}
 		List<AnswerSum> list;
-		if(cachedMapByToiId.containsKey(toiId) == false) {
 			list = ofy().load().type(AnswerSum.class).filter("toiId", toiId).list();
-			cachedMapByToiId.put(toiId, list);
-			log.info( "AnswerSum.getListByToiId:"+toiId+"[Miss]");
 
-		} else {
-			list = cachedMapByToiId.get(toiId);
-			log.info( "AnswerSum.getListByToiId:"+toiId+"[Hit]");
-		}
 		return list;
 	}
 }

@@ -201,7 +201,6 @@ public final class Answer extends AnswerFactory {
 
 	public Answer save() {
 		Key<Answer> key = ofy().save().entity(this).now();
-		flush();
 		return getById(key.getId());
 	}
 

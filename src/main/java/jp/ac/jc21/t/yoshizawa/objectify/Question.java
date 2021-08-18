@@ -133,18 +133,7 @@ public final class Question extends QuestionFactory {
 	/**
 	 * @param parent the parent to set
 	 */
-/*
-	public void setParent(Toi parent) {
-		this.parent = Ref.create(parent);
-	}
 
-	public void setParent(Ref<Toi> parent) {
-		this.parent = parent;
-	}
-	public Ref<Toi> getRefParent() {
-		return parent;
-	}
-	*/
 	public Optional<Toi> getOptToi() {
 		Optional<Toi> optT = Optional.ofNullable(getParent());
 		return optT;
@@ -219,7 +208,6 @@ public final class Question extends QuestionFactory {
 
 	public Question save() {
 		Key<Question> key = ofy().save().entity(this).now();
-		flush();
 		return getById(key.getId());
 	}
 

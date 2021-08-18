@@ -32,7 +32,6 @@ public class MemberFactory extends CommonEntity{
 		m.seteMail(eMail);
 		m.setCreated(new Date());
 		m.setModified(new Date());
-//		m.newRefAnswerSumList();
 		return m;
 	}
 
@@ -48,7 +47,6 @@ public class MemberFactory extends CommonEntity{
 
 			public int compare(AnswerSum a, AnswerSum b) {
 
-//				return Integer.compare(personFirst.getId(), personSecond.getId());
 				Long aYYYYMM = a.getOptToi().get().getExam().getYYYYMM();
 				Long bYYYYMM = b.getOptToi().get().getExam().getYYYYMM();
 				if (aYYYYMM != bYYYYMM) {
