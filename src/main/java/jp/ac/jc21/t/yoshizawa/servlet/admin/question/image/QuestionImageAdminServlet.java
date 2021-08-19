@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.servlet.admin.question;
+package jp.ac.jc21.t.yoshizawa.servlet.admin.question.image;
 
 import java.io.IOException;
 import java.util.*;
