@@ -26,6 +26,7 @@ public class QuestionFactory extends CommonEntity {
 	public static final Question createMultiQuestion(Toi parent, long no, String name, long noOfOption,
 			Integer[] answers) {
 		Question q = createQuestion(parent, no, name, noOfOption);
+		q.newAnswerSet();
 		q.addAnswerSet(answers);
 		return q;
 	}
@@ -36,7 +37,7 @@ public class QuestionFactory extends CommonEntity {
 		q.setNo(no);
 		q.setName(name);
 		q.setNoOfOption(noOfOption);
-//		q.setParent(parent);
+		q.setToiId(parent.getId());
 		return q;
 	}
 

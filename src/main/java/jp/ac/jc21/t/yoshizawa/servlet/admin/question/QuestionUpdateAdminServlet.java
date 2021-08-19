@@ -30,6 +30,7 @@ public class QuestionUpdateAdminServlet extends HttpServlet {
 		q.setNo(no);
 		q.setName(Qname);
 		q.setNoOfOption(noOfOption);
+		q.newAnswerSet();
 		q.setAnswerSet(correct);
 		q.setCreated(new Date());
 		q = q.save();
