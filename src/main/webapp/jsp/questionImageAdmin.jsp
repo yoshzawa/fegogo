@@ -98,7 +98,17 @@
 					%>
 					<tr>
 						<td><%=no%></td>
-						<td>Question <%=is.getQuestionIds() + ""%></td>
+						<td>Question [
+						<%
+							Long[] ids = is.getQuestionIds() ;
+							for(Long id : ids){
+						%>
+						(<%= qMap.get(id).getName() %>):
+						(<%= qMap.get(id).getKana((int)qMap.get(id).getNoOfOption()) %>まで)
+						<%
+							}
+						%>
+						]</td>
 						<td>
 							<%
 								for (Long id : is.getQuestionIds()) {
