@@ -67,7 +67,7 @@
 			</td>
 			<td><a href="/admin/question/list?parentId=<%=t.getId()%>"><%=t.getName()%></a></td>
 			<td><%=t.getQuestionListSize()%></td>
-			<td><%= t.getAnswerSumCount() %></td>
+			<td><a href="/admin/answerSum/listByToi?toiId=<%=t.getId()%>&parentId=<%=parentId%>"><%= t.getAnswerSumCount() %></a></td>
 			<td><a href="/admin/question/image?parentId=<%=t.getId()%>">
 			<% if(t.getImageSet() != null){out.print("(CBT)"); }%>
 			画像調整</a></td>
