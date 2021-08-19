@@ -36,7 +36,7 @@
 	<P>
 		<%=exam.getName()%>
 		問<%=parent.getNo()%>(<%=parent.getName()%>) <a
-			href="/admin/toi/list?parentId=<%=exam.getId()%>">(選択解除する)</a>
+			href="/admin/toi/list?parentId=<%=exam.getId()%>">(<%=exam.getName()%>の問一覧に戻る)</a>
 	</p>
 
 	<form method="post" action="/admin/toi/changeGenre">

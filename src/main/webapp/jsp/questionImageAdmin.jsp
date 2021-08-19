@@ -38,7 +38,7 @@
 				<p>選択された試験：</p>
 				<P>
 					<%=exam.getName()%>
-					問<%=parent.getNo()%>(<%=parent.getName()%>) <a
+					<a href="/admin/toi/list?parentId=<%=exam.getId()%>">問<%=parent.getNo()%>(<%=parent.getName()%>) </a><a
 						href="./imageReset?parentId=<%=parentId%>">登録をリセットする</a>
 
 				</p>
