@@ -6,6 +6,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,18 @@ import com.googlecode.objectify.Ref;
  *
  */
 public class AnswerSumFactory extends CommonEntity {
+
+	static ListMapByString cacheAnswerSumEMail = null;;
+
+	public AnswerSumFactory() {
+		super();
+		cacheAnswerSumEMail = new ListMapByString("AnswerSumEMail");
+
+	}
+
+	public void flush() {
+		cacheAnswerSumEMail.flush();
+	}
 
 	public static final AnswerSum createAnswerSum(String name, Toi Toi, int noOfSeikai,
 			Map<String, Ref<Answer>> mapRefAnswer) {
@@ -46,7 +59,9 @@ public class AnswerSumFactory extends CommonEntity {
 	}
 
 	public static final List<AnswerSum> loadAll2() {
+
 		List<Member> list = Member.loadAll();
+
 		List<AnswerSum> allList = new ArrayList<AnswerSum>();
 		for (Member m : list) {
 			List<AnswerSum> asList = AnswerSum.getListByEMail(m.geteMail());
@@ -56,8 +71,21 @@ public class AnswerSumFactory extends CommonEntity {
 	}
 
 	public final static List<AnswerSum> getListByEMail(String eMail) {
+		final Logger log = Logger.getLogger(Answer.class.getName());
+
+		if (cacheAnswerSumEMail == null) {
+			cacheAnswerSumEMail = new ListMapByString("AnswerSumEMail");
+		}
+
 		List<AnswerSum> list = null;
-		list = (List<AnswerSum>) loadByIndex(AnswerSum.class, "name", eMail);
+		Optional<List<AnswerSum>> list2 = cacheAnswerSumEMail.get(eMail);
+		if (list2.isPresent()) {
+			list = list2.get();
+			log.info("(HIT)AnswerSum.getListByEMail : " + eMail);
+		} else {
+			list = (List<AnswerSum>) loadByIndex(AnswerSum.class, "name", eMail);
+			log.info("[Miss]AnswerSum.getListByEMail : " + eMail);
+		}
 		return list;
 	}
 

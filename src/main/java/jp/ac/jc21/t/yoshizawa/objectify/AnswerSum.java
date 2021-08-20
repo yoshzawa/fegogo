@@ -230,6 +230,7 @@ public final class AnswerSum extends AnswerSumFactory {
 	}
 
 	public AnswerSum() {
+		super();
 	}
 
 	public AnswerSum save() {
