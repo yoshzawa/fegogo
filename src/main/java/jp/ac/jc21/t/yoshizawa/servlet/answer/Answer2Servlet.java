@@ -108,8 +108,9 @@ public final class Answer2Servlet extends HttpServlet {
 			// AnswerSum‚ð•Û‘¶‚·‚é
 				toi.save();
 				aSum.save();
-				RequestDispatcher rd = request.getRequestDispatcher("/answer2/show?answerSumId="+aSum.getId());
-				rd.forward(request, response);
+//				RequestDispatcher rd = request.getRequestDispatcher("/answer2/show?answerSumId="+aSum.getId());
+//				rd.forward(request, response);
+				response.sendRedirect("/answer2/show?answerSumId="+aSum.getId());
 
 		}
 	}

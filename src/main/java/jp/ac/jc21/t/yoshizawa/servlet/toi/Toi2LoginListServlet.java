@@ -73,21 +73,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 				s[3] = t.getQuestionListSize() + "";
 				s[4] = "";
 
-				int i = 0;
-				for (AnswerSum as : answerSumList) {
-					if (as.getOptToi().get().getId() == t.getId()) {
-						s[4] += dateFormat(as.getAnswered()) + "(" + changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())
-								+ "%)<br/>";
-						long diff = new Date().getTime() - as.getAnswered().getTime();
-
-						diff /= 1000;
-						if (diff < 240 * 60 * 60) {
-							// log.warning("interval too short");
-							i++;
-							log.info("AnswerSum("+as.getId()+"):" + diff+"(i="+i+")");
-						}
-					}
-				}
+				int i = checkNewAnswer(log, answerSumList, t, s);
 				if (i == 0) {
 					s[4] += "<a href='/question/list?parentId=" + t.getId() + "'>“š‚¦‚é</a>";
 
@@ -113,7 +99,14 @@ public class Toi2LoginListServlet extends HttpServlet {
 				s[2] = "<a href='/genreDetail/list?id=" + genre.getId() + "'>"
 						+ genre.getName() + "</a>";
 				s[3] = toi.getName();
-				s[4] = dateFormat(as.getAnswered());
+				
+				long diff = new Date().getTime() - as.getAnswered().getTime();
+				diff /= 1000;
+				if (diff < 240 * 60 * 60) {
+				s[4] = "<a href='http://localhost:8080/answer/show?answerSumId="+as.getId()+"'>"+dateFormat(as.getAnswered())+"</a>";
+				} else {
+					s[4] = dateFormat(as.getAnswered());
+				}
 				s[5] = changePoint(as.getNoOfSeikai(), as.getNoOfAnswer()) + "%";
 				datas2.add(s);
 
@@ -125,6 +118,31 @@ public class Toi2LoginListServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/toiListLogin.jsp");
 			rd.forward(request, response);
 		}
+	}
+
+	private int checkNewAnswer(final Logger log, List<AnswerSum> answerSumList, Toi t, String[] s) {
+		int i = 0;
+		for (AnswerSum as : answerSumList) {
+			if (as.getOptToi().get().getId() == t.getId()) {
+				long diff = new Date().getTime() - as.getAnswered().getTime();
+
+				diff /= 1000;
+				if (diff < 240 * 60 * 60) {
+					// log.warning("interval too short");
+					s[4] += "<a href='http://localhost:8080/answer/show?answerSumId="+as.getId()+"'>"
+							+dateFormat(as.getAnswered()) + "</a>(" + changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())
+							+ "%)<br/>";
+					i++;
+					log.info("AnswerSum("+as.getId()+"):" + diff+"(i="+i+")");
+				}else {
+					s[4] += 
+							dateFormat(as.getAnswered()) + "(" + changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())
+							+ "%)<br/>";
+					
+				}
+			}
+		}
+		return i;
 	}
 
 	private final String changePoint(int seikai, int answer) {

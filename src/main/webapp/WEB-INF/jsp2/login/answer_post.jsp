@@ -29,15 +29,15 @@
 				href="/toi/list?parentId=<%=exam.getId()%>"><%=exam.getName()%>
 					試験</a></li>
 			<li class="breadcrumb-item active" aria-current="page">問<%=toi.getNo()%>
-				<%=toi.getGenre().getName()%> (<%=toi.getName()%>) 解答登録
+				<%=toi.getGenre().getName()%> <%=toi.getName()%> 解答登録
 			</li>
 		</ol>
 	</nav>
 	<%@ include file="../common/headerLogin.jsp"%>
-
-	<H1>解答を登録しました</H1>
+	<H1>[<%= toi.getName() %>]の解答を登録しました</H1>
 		    <main class="mb-5">
-		    <P>最後の回答から10日間は、新規の回答は受け付けません。</P>
+		    <P>解答日：<%= dateFormat(ansSummary.getAnswered())%></P>
+		    <P>解答日から10日間は、同じ問題の新規の回答は受け付けません。</P>
 	
 	<h3>
 		<%=ansSummary.getNoOfAnswer()%>問中<%=ansSummary.getNoOfSeikai()%>問正解
@@ -67,7 +67,7 @@
 	</table>
 
 	<a
-		href="/toi2/list?parentId=<%=exam.getId()%>">戻る</a>
+		href="/toi2/list?parentId=<%=exam.getId()%>"><%=exam.getName() %>試験の一覧に戻る</a>
 
 <p></p>
 </main>
