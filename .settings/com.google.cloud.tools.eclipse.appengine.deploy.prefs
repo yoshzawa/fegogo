@@ -5,5 +5,5 @@ project.allowObsoleteRuntime=false
 project.bucket=
 project.id=fegogo
 project.previousVersion.stop=true
-project.promote=false
-project.version=4011
+project.promote=true
+project.version=4013
