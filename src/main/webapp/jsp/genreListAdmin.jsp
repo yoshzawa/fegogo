@@ -52,7 +52,8 @@
 								if(t==null)
 									continue;
 				%> 
-				<%=t.getExam().getName()%> 問<%=t.getNo()%> <%=t.getName()%> <br />
+				<a href="/admin/question/list?parentId=<%=t.getId()%>">
+				<%=t.getExam().getName()%> 問<%=t.getNo()%> <%=t.getName()%> </a><br />
  <%
  	}
  %>
