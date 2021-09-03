@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
@@ -67,8 +68,42 @@ public class AnswerFactory extends CommonEntity {
 	public static List<Answer> loadAll() {
 		return (List<Answer>) loadAll(Answer.class);
 	}
+	
+	static ListMapByLong<Long,List<Answer>> cacheByAnswerSumId=null;
+	
+	public static List<Answer> getByAnswerSumId_cache(Long answerSumId, String name) {
+		final Logger log = Logger.getLogger(Answer.class.getName());
+		if (cacheByAnswerSumId == null) {
+			cacheByAnswerSumId = new ListMapByLong("AnswerByAnswerId");
+		}
+		
+		Optional<List<Answer>> optAnswerSumList = cacheByAnswerSumId.get(answerSumId);
+		if(optAnswerSumList.isPresent() == false) {
+			// EMAILで引っ張る（Cache含めて）
+			List<Answer> listByEMail = getByEMail(name);
+			// answerSumIdでlistにしてCacheに分ける
+			for (Answer a : listByEMail) {
+				List<Answer> list;
+				Optional<List<Answer>> optAnswerList = cacheByAnswerSumId.get(a.getAnswerSumId());
+				if (optAnswerList.isPresent() == false) {
+					list = new ArrayList<Answer>();
+				}else {
+					list=optAnswerList.get();
+				}
+				list.add(a);
+				list = sort(list);
+				cacheByAnswerSumId.put(a.getAnswerSumId(), list);
+			}
+			optAnswerSumList = cacheByAnswerSumId.get(answerSumId);
+			
+		}
 
-	public static List<Answer> getByAnswerSumId(Long answerSumId, String name) {
+		// 取り出して返す
+		return optAnswerSumList.get();
+	}
+	
+
+	public static List<Answer> getByAnswerSumId_old(Long answerSumId, String name) {
 		final Logger log = Logger.getLogger(Answer.class.getName());
 
 		// EMAILで引っ張る（Cache含めて）
@@ -90,9 +125,16 @@ public class AnswerFactory extends CommonEntity {
 		return cachedMapByAnswerSumId.get(answerSumId);
 	}
 
+	@SuppressWarnings("unchecked")
+	public static List<Answer> getByAnswerSumId(Long answerSumId, String name) {
+		List<Answer> list = null;
+		list = (List<Answer>) loadByIndex(Answer.class, "answerSumId", answerSumId);
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
 	public static List<Answer> getByEMail(String name) {
 		List<Answer> list = null;
-		;
 		list = (List<Answer>) loadByIndex(Answer.class, "name", name);
 		return list;
 	}

@@ -58,16 +58,16 @@
 					for (AnswerSum as : t.getAnswerSumList()) {
 									if (as != null) {
 										String eMail = "null";
-										AnswerSum a = as;
-										if(a==null) continue;
-										Optional<Member> opt = a.getMember();
-										if (opt.isPresent()) {
-											Member m = opt.get();
+//										AnswerSum a = as;
+										if(as==null) continue;
+										Optional<Member> optMember = as.getMember();
+										if (optMember.isPresent()) {
+											Member m = optMember.get();
 											eMail=m.geteMail();
 										}
 				%> <TR>
 					<th><%=eMail%></th>
-					<td><%=changePoint(a.getNoOfSeikai(), a.getNoOfAnswer())%></td>
+					<td><%=changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())%></td>
 					</TR>  
 				 <%
  	}

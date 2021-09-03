@@ -24,12 +24,6 @@ public class AnswerSumFactory extends CommonEntity {
 
 	static ListMapByString cacheAnswerSumEMail = null;;
 
-	public AnswerSumFactory() {
-		super();
-		cacheAnswerSumEMail = new ListMapByString("AnswerSumEMail");
-
-	}
-
 	public void flush() {
 		cacheAnswerSumEMail.flush();
 	}
@@ -41,6 +35,7 @@ public class AnswerSumFactory extends CommonEntity {
 		as.setToiId(Toi.getId());
 		as.setAnswered(new Date());
 		as.setNoOfSeikai(noOfSeikai);
+		as.setNoOfAnswer(mapRefAnswer.size());
 		as.setVersion(ofyVersion);
 		return as;
 	}
@@ -70,8 +65,8 @@ public class AnswerSumFactory extends CommonEntity {
 		return allList;
 	}
 
-	public final static List<AnswerSum> getListByEMail(String eMail) {
-		final Logger log = Logger.getLogger(Answer.class.getName());
+	public final static List<AnswerSum> getListByEMailUseCache(String eMail) {
+		final Logger log = Logger.getLogger(AnswerSum.class.getName());
 
 		if (cacheAnswerSumEMail == null) {
 			cacheAnswerSumEMail = new ListMapByString("AnswerSumEMail");
@@ -88,6 +83,16 @@ public class AnswerSumFactory extends CommonEntity {
 		}
 		return list;
 	}
+	
+	public final static List<AnswerSum> getListByEMail(String eMail) {
+		final Logger log = Logger.getLogger(AnswerSum.class.getName());
+
+
+		List<AnswerSum> list = null;
+			list = (List<AnswerSum>) loadByIndex(AnswerSum.class, "name", eMail);
+		
+		return list;
+	}
 
 	public static final List<AnswerSum> getListByToiId(Long toiId) {
 		List<AnswerSum> list;
@@ -102,8 +107,8 @@ public class AnswerSumFactory extends CommonEntity {
 
 			@Override
 			public int compare(AnswerSum as1, AnswerSum as2) {
-				String memberId1 = as1.getMemberId();
-				String memberId2 = as2.getMemberId();
+				String memberId1 = as1.getName();
+				String memberId2 = as2.getName();
 				if (memberId1.equals(memberId2)) {
 					return (int) (as1.getAnswered().getTime() - as2.getAnswered().getTime());
 				} else {

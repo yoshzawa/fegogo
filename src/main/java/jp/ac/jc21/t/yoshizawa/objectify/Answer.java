@@ -31,7 +31,9 @@ public final class Answer extends AnswerFactory {
 	private String no;
 	private Date answered;
 	private int[] answerArray;
+	@Index
 	private Long answerSumId;
+	@Index
 	private Long questionId;
 	private String version;
 

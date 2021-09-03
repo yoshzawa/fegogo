@@ -37,7 +37,7 @@ public class ListMapByString<E> {
 		}
 	}
 		
-		public void put(String key , List<E> list) {
+		public final void put(String key , List<E> list) {
 			if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
 				// Production
 		        try {
@@ -60,8 +60,8 @@ public class ListMapByString<E> {
 				m.put(key,list);
 			}
 	}
-		public Optional<List<E>> get(String key ) {
-			List list=null;;
+		public final Optional<List<E>> get(String key ) {
+			List<E> list=null;;
 			if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
 				// Production
 		        try {

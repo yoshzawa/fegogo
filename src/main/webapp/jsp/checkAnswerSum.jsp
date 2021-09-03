@@ -50,7 +50,7 @@
 	%>
 	<p>AnswerSum id=<%=answerSum.getId() %> <a href="/admin/delete/answerSum?answerSumId=<%=answerSum.getId() %>">delete</a></p>
 	<p>AnswerSum Date=<%=AnswerSum.getDateString(answerSum.getAnswered()) %></p>
-	<p>Member id=<%=answerSum.getMemberId() %> -> <%=memberId %>(contain AnswerRef:<%= containMember %>)</p>
+	<p>Member id=<%= answerSum.getName() %> -> <%=memberId %>(contain AnswerRef:<%= containMember %>)</p>
 	<p>Toi id=<%= answerSum.getToiId()%> -> <%=toiId %>(contain AnswerRef:<%= containToi %>)</p>
 	
 	<TABLE border=1>

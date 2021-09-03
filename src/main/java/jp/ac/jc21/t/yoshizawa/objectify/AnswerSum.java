@@ -39,8 +39,9 @@ public final class AnswerSum extends AnswerSumFactory {
 //	private Map<String, Ref<Answer>> mapRefAnswer;
 	private Ref<Member> refMember;
 
-	String memberId;
+//	String memberId;
 	private	String version;
+	private int noOfAnswer;
 	
 	public String getVersion() {
 		return version;
@@ -50,7 +51,14 @@ public final class AnswerSum extends AnswerSumFactory {
 		this.version = version;
 	}
 
+	
+	
+	
 	////////// id
+
+	public void setNoOfAnswer(int noOfAnswer) {
+		this.noOfAnswer = noOfAnswer;
+	}
 
 	/**
 	 * @return the id
@@ -61,7 +69,6 @@ public final class AnswerSum extends AnswerSumFactory {
 
 	/**
 	 * @return the memberId
-	 */
 	public String getMemberId() {
 		if (memberId == null) {
 			Ref<Member> refMem = getRefMember();
@@ -75,10 +82,10 @@ public final class AnswerSum extends AnswerSumFactory {
 
 	/**
 	 * @param memberId the memberId to set
-	 */
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+	 */
 
 	/**
 	 * @return the toiId
@@ -177,6 +184,13 @@ public final class AnswerSum extends AnswerSumFactory {
 	 * @return the noOfAnswer
 	 */
 	public int getNoOfAnswer() {
+		if(noOfAnswer==0) {
+			setNoOfAnswer(makeNoOfAnswer());
+			save();
+		}
+		return noOfAnswer;
+	}
+	public int makeNoOfAnswer() {
 		List<Answer> map = getAnswerList();
 		if (map == null) {
 			return 0;
@@ -216,14 +230,15 @@ public final class AnswerSum extends AnswerSumFactory {
 		return refMember;
 	}
 
+	/*
 	public void setRefMember(Ref<Member> refMember) {
 		this.refMember = refMember;
 		setMemberId(refMember.get().geteMail());
 	}
-
 	public void setMember(Member member) {
 		setRefMember(Ref.create(member));
 	}
+*/
 
 	public void delete() {
 		ofy().delete().entity(this).now();
@@ -237,7 +252,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		Key<AnswerSum> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
-
+/*
 	public boolean isRefId() {
 		if (memberId == null) {
 			return false;
@@ -247,7 +262,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		}
 		return true;
 	}
-
+*/
 	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
 
 		String key = "AnswerSum:" + getId();
@@ -272,7 +287,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		getName() + "," + 
 		getDateString(getAnswered()) + "," + 
 		getToiId() + "," + 
-		getMemberId()				+ "," + 
+		getName()				+ "," + 
 		getNoOfAnswer() + "," + 
 		getNoOfSeikai();
 

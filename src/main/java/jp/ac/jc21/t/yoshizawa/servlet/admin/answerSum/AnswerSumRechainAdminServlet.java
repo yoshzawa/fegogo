@@ -24,7 +24,8 @@ public class AnswerSumRechainAdminServlet extends HttpServlet {
 		AnswerSum as = AnswerSum.getById(Long.parseLong(answerSumId));
 		Member m = Member.get(memberId);
 		
-		as.setMember(m);
+//		as.setMember(m);
+		as.setName(memberId);
 //		m.addRefAnswerSumList(as);
 		
 		as.save();

@@ -60,7 +60,7 @@ public class CheckToiMemberServlet extends HttpServlet {
 				s[0] = answerSum.getId().toString();
 				s[1] = answerSum.getOptToi().toString();
 				s[2] = answerSum.getOptToi().get().getId().toString();
-				s[3] = answerSum.getMemberId();
+				s[3] = answerSum.getName();
 
 				Optional<Ref<Member>> refMem = Optional.ofNullable(answerSum.getRefMember());
 				Optional<Member> mem = refMem.map(rm -> rm.get());
