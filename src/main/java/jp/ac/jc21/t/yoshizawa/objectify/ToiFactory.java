@@ -69,7 +69,11 @@ public class ToiFactory extends CommonEntity {
 		toi = ofy().load().type(Toi.class).id(id).now();
 		return toi;
 	}
+	public static final Toi getById(String id) {
+		return getById(Long.parseLong(id));
+	}
 
+	
 	@SuppressWarnings("unchecked")
 	public final static List<Toi> getToiListByExamId(Long examId) {
 		Logger.getLogger(Toi.class.getName());

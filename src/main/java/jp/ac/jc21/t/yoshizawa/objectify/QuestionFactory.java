@@ -8,6 +8,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
@@ -28,6 +29,13 @@ public class QuestionFactory extends CommonEntity {
 		Question q = createQuestion(parent, no, name, noOfOption);
 		q.newAnswerSet();
 		q.addAnswerSet(answers);
+		return q;
+	}
+	public static final Question createMultiQuestion(Toi parent, long no, String name, long noOfOption,
+			Set<Integer> answers) {
+		Question q = createQuestion(parent, no, name, noOfOption);
+		q.newAnswerSet();
+		q.setAnswerSet(answers);
 		return q;
 	}
 

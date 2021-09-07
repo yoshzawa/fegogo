@@ -63,6 +63,9 @@ public abstract class ExamFactory extends CommonEntity {
 
 		return exam;
 	}
+	public static final Exam getById(String id) {
+		return getById(Long.parseLong(id));
+	}
 
 	/**
 	 * @param k
