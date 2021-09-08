@@ -34,7 +34,7 @@ public class ToiCopyServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//String fromToiId = "5772930285830144";
 		//String toExamId = "4693189256544256";
 		//String toToiNoString = "1";

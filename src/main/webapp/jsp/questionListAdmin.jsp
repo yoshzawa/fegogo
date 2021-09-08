@@ -55,8 +55,16 @@
 	</p>
 	</form>
 	
+<hr/>
+<form method="post" action="/admin/ToiCopyServlet">
+<input type="hidden" name="fromToi" value="<%= parent.getId() %>" />
+<%= parent.getName() %>を、
+EXAM　ID<input type="text" name="toExam" value="" placeholder="作成するEXAMのID"/>に、
+問番号
+<input type="text" size="2" name="toToiNo" value="<%= parent.getNo()%>" />に
+<input type="submit" value="作成する" />
 
-
+</form>
 
 	<%
 		if ((qMap == null) || (qMap.size() == 0)) {
