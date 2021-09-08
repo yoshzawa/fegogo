@@ -30,7 +30,7 @@ public final class Toi extends ToiFactory {
 	private Long no;
 	private String name;
 	private Date created;
-	private List<Ref<AnswerSum>> AnswerSumRefList;
+//	private List<Ref<AnswerSum>> AnswerSumRefList;
 	private float sum;
 
 	@Index
@@ -164,15 +164,6 @@ public final class Toi extends ToiFactory {
 		return getAnswerSumList().size();
 	}
 
-	private void newAnswerSumRefList() {
-		setAnswerSumRefList(new ArrayList<Ref<AnswerSum>>());
-
-	}
-
-	public void setAnswerSumRefList(List<Ref<AnswerSum>> answerSumRefList) {
-		AnswerSumRefList = answerSumRefList;
-	}
-
 	public boolean containsAnswerSum(AnswerSum as) {
 		Long asId = as.getId();
 		for (AnswerSum answerSum : getAnswerSumList()) {
@@ -181,14 +172,6 @@ public final class Toi extends ToiFactory {
 			}
 		}
 		return false;
-	}
-
-	public void addAnswerSumRefList(AnswerSum a) {
-/*		List<AnswerSum> list = getAnswerSumList();
-		list.add(a);
-		setAnswerSumRefList(list);
-*/
-		calcAverage();
 	}
 
 	public AnswerSum getAnswerSumByMemberId(String email) {

@@ -22,7 +22,7 @@ public class ToiFactory extends CommonEntity {
 		t.setCreated(new Date());
 		t.setExamId(parent.getId());
 		t.setGenre(genre);
-		t.setAnswerSumRefList(null);
+//		t.setAnswerSumRefList(null);
 		return t;
 	}
 

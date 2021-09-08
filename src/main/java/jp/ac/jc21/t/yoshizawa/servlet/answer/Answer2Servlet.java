@@ -98,13 +98,9 @@ public final class Answer2Servlet extends HttpServlet {
 			// AnswerSum‚ÉToi‚ð“o˜^
 			Toi toi = Toi.getById(Long.parseLong(paramToiId));
 			aSum.setToiId(toi.getId());
-				toi.addAnswerSumRefList(aSum);
 			// AnswerSum‚ÉMember‚ð“o˜^
 				Member member = Member.get(paramUserId);
-//				aSum.setRefMember(Ref.create(member));
 				aSum.setName(paramUserId);
-//				member.addRefAnswerSumList(aSum);
-//				member.save();
 			// AnswerSum‚ð•Û‘¶‚·‚é
 				toi.save();
 				aSum.save();

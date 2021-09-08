@@ -90,7 +90,6 @@ public final class AnswerServlet extends HttpServlet {
 		Toi toi = Toi.getById(toiKey);
 		AnswerSum ansSummary = AnswerSum.createAnswerSum(userId, toi, -1, null);
 		ansSummary.save();
-		toi.addAnswerSumRefList(ansSummary);
 		toi.save();
 
 		int correct = 0;
@@ -113,13 +112,9 @@ public final class AnswerServlet extends HttpServlet {
 		}
 
 		ansSummary.setNoOfSeikai(correct);
-//		ansSummary.setMapRefAnswer(mapAnswer);
-//		ansSummary.setMember(member);
+
 		ansSummary.setName(member.geteMail());
 		ansSummary.save();
-
-//		member.addRefAnswerSumList(ansSummary);
-//		member.save();
 
 		request.setAttribute("ansSummary", ansSummary);
 
