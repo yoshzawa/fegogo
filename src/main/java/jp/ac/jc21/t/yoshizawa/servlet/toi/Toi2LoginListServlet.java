@@ -51,7 +51,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 			// ‰ñ“š‚µ‚½î•ñ‚ğæ“¾
 			Member member = Member.get(email);
 			List<AnswerSum> answerSumList = member.getAnswerSumListByExamId(parentId);
-			answerSumList = Member.sort(answerSumList);
+			answerSumList = AnswerSum.orderListByMemberId(answerSumList);
 			
 			request.setAttribute("answerSumList", answerSumList);
 

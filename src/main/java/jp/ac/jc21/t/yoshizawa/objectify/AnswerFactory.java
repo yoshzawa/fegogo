@@ -141,14 +141,11 @@ public class AnswerFactory extends CommonEntity {
 
 	private static List<Answer> sort(List<Answer> list) {
 		list.sort(new Comparator<Answer>() {
-
 			@Override
 			public int compare(Answer a1, Answer a2) {
 				return Integer.parseInt(a1.getNo()) - Integer.parseInt(a2.getNo());
 			}
-
 		});
 		return list;
 	}
-
 }

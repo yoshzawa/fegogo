@@ -41,9 +41,9 @@
 	%>
 	<TABLE border=1>
 		<TR>
-			<TD>geteMail</TD>
+			<TD><a href="./list?Order=eMail">geteMail</a></TD>
 			<TD>getCreated</TD>
-			<TD>getModified</TD>
+			<TD><a href="./list?Order=modified">getModified</a></TD>
 			<TD>数</TD>
 		</TR>
 		<%

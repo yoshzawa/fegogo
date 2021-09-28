@@ -42,22 +42,25 @@ public class MemberFactory extends CommonEntity{
 		}
 		return m;
 	}
-	public static List<AnswerSum> sort(List<AnswerSum> list) {
-		Collections.sort(list, new Comparator<AnswerSum>() {
 
-			public int compare(AnswerSum a, AnswerSum b) {
+	
+	public static List<Member> orderListByModified(List<Member> list) {
+		Collections.sort(list, new Comparator<Member>() {
 
-				Long aYYYYMM = a.getOptToi().get().getExam().getYYYYMM();
-				Long bYYYYMM = b.getOptToi().get().getExam().getYYYYMM();
-				if (aYYYYMM != bYYYYMM) {
-					return (int) (aYYYYMM - bYYYYMM);
-				}
-				Long ano = a.getOptToi().get().getNo();
-				Long bno = b.getOptToi().get().getNo();
-				if (ano != bno) {
-					return (int) (ano - bno);
-				}
-				return a.getAnswered().compareTo(b.getAnswered());
+			public int compare(Member a, Member b) {
+
+				return a.getModified().compareTo(b.getModified());
+			}
+
+		});
+		return list;
+	}
+	public static List<Member> orderListByEMail(List<Member> list) {
+		Collections.sort(list, new Comparator<Member>() {
+
+			public int compare(Member a, Member b) {
+
+				return a.geteMail().compareTo(b.geteMail());
 			}
 
 		});

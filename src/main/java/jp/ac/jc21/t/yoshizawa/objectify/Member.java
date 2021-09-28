@@ -68,7 +68,7 @@ public final class Member extends MemberFactory {
 	public List<AnswerSum> getAnswerSumListSorted() {
 		List<AnswerSum> list = getAnswerSumList();
 
-		list = sort(list);
+		list = AnswerSum.orderListByMemberId(list);
 
 		return list;
 	}

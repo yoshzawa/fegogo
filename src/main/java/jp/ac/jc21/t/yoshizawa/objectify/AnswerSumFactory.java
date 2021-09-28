@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.googlecode.objectify.Ref;
@@ -97,12 +98,12 @@ public class AnswerSumFactory extends CommonEntity {
 	public static final List<AnswerSum> getListByToiId(Long toiId) {
 		List<AnswerSum> list;
 		list = ofy().load().type(AnswerSum.class).filter("toiId", toiId).list();
-		list = sortByMemberId(list);
+		list = orderListByMemberId(list);
 
 		return list;
 	}
 
-	private static List<AnswerSum> sortByMemberId(List<AnswerSum> list) {
+	public static List<AnswerSum> orderListByMemberId(List<AnswerSum> list) {
 		list.sort(new Comparator<AnswerSum>() {
 
 			@Override
@@ -118,6 +119,17 @@ public class AnswerSumFactory extends CommonEntity {
 
 		});
 		return list;
-
+	}
+	public static Map<Long,List<AnswerSum>> makeMapByToiId(List<AnswerSum> list) {
+		Map<Long, List<AnswerSum>> map= new TreeMap<Long,List<AnswerSum>>();
+		for(AnswerSum as : list) {
+			List<AnswerSum> answerSumList = map.get(as.getToiId());
+			if(answerSumList == null) {
+				answerSumList = new ArrayList<AnswerSum>();
+			}
+			answerSumList.add(as);
+			map.put(as.getToiId(), answerSumList);
+		}
+		return map;
 	}
 }
