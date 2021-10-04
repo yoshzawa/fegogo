@@ -43,6 +43,14 @@
 	<%
 		} else {
 	%>
+<script>
+$(function(){
+    $(document).on('submit', function(event) {
+      $('form').find(':submit').prop('disabled', true);
+    });
+});
+</script>
+	
 	<form method="post" action="/answer">
 		<input type="hidden" name="userId" value="<%= email %>" />
 		<input type="hidden" name="toiId" value="<%= toi.getId() %>" />

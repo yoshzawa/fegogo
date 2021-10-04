@@ -27,8 +27,22 @@
 	
 	<H1>登録されている問の一覧</H1>
 	
-	<p>選択された試験： <%= parentExam.getName() %><a href="/admin/exam/list">（EXAM一覧に戻る)</a>
+	<p>選択された試験：[<%= parentExam.getYYYYMM() %>] <%= parentExam.getName() %><a href="/admin/exam/list">（EXAM一覧に戻る)</a>
 	</p>
+<hr />
+<form method="post" action="../exam/edit?examId=<%= parentExam.getId()%>">
+<P>examの変更：</P>
+<P>
+YYYYMM<input type="text" name="YYYYMM" value="<%= parentExam.getYYYYMM() %>" />
+name<input type="text" name="name" value="<%= parentExam.getName() %>" />
+open
+<input type="checkbox" name="openNull" <%= (parentExam.getOpenDate()==null?"checked":"") %>>
+<input type="datetime-local" name="open" value="<%= parentExam.getOpenDate() %>" />
+close<input type="checkbox" name="closeNull" <%= (parentExam.getOpenDate()==null?"checked":"") %>>
+<input type="datetime-local" name="close" value="<%= parentExam.getCloseDate() %>" />
+<input type="submit" value="変更" />
+</form>
+<hr />
 
 	<%
 		if (toiMap == null || toiMap.size() == 0) {
