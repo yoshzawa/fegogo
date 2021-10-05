@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jp.ac.jc21.t.yoshizawa.datastore.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.*;
 @SuppressWarnings("serial")
+
 
 @WebServlet(urlPatterns = { "/admin/exam/list" })
 public class ExamListAdminServlet extends HttpServlet {
@@ -19,7 +20,7 @@ public class ExamListAdminServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		Map<Long,Exam> examMap = Exam.loadAllMap();
+		Map<Long,Exam> examMap = Exam.loadAll();
 		request.setAttribute("examMap", examMap);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/examListAdmin.jsp");

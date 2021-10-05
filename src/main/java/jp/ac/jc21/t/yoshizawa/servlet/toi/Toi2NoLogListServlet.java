@@ -30,6 +30,7 @@ public class Toi2NoLogListServlet extends HttpServlet {
 
 		// Exam‚ðŽæ“¾
 		Exam e = Exam.getById(parentId);
+		request.setAttribute("isOpened", e.isOpened());
 
 
 		// –â‚Ìˆê——‚ðŽæ“¾

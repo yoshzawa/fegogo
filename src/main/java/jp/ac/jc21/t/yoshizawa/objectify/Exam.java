@@ -34,7 +34,6 @@ public class Exam extends ExamFactory {
 	private Date closeDate;
 	
 
-	
 	////////// id
 
 	public Date getOpenDate() {
@@ -122,6 +121,21 @@ public class Exam extends ExamFactory {
 
 	public boolean containAnswer(Long toiId) {
 		return Toi.contain(toiId);
+	}
+
+	public boolean isOpened() {
+		int openDiff = 1;
+		try {
+			openDiff = new Date().compareTo(getOpenDate());
+		} catch (NullPointerException ex) {
+		}
+		int closeDiff = -1;
+		try {
+			closeDiff = new Date().compareTo(getCloseDate());
+		} catch (NullPointerException ex) {
+		}		
+		
+		return((openDiff==1)&&(closeDiff==-1));
 	}
 
 }

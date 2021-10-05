@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.CommonEntity"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -12,6 +13,8 @@
 	}		
 	private final String dateFormat(Date d){	
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");	
+	    TimeZone timeZoneJP = TimeZone.getTimeZone("Asia/Tokyo");
+	    sdf.setTimeZone(timeZoneJP);
 		return sdf.format(d);	
 	}	
  %>		

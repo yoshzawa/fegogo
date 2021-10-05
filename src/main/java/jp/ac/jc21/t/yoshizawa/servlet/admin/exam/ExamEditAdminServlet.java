@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,6 +51,8 @@ public class ExamEditAdminServlet extends HttpServlet {
 		System.out.println(close);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+	    TimeZone timeZoneJP = TimeZone.getTimeZone("Asia/Tokyo");
+	    sdf.setTimeZone(timeZoneJP);
 
 		Exam e = Exam.getById(Long.parseLong(examId));
 		e.setYYYYMM(Long.parseLong(YYYYMM));
@@ -75,6 +78,8 @@ public class ExamEditAdminServlet extends HttpServlet {
 			e.setCloseDate(null);			
 		}
 		e.save();
+		
+		response.sendRedirect("/admin/toi/list?parentId="+e.getId());
 	}
 
 }
