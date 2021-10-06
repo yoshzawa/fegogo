@@ -14,7 +14,7 @@ import jp.ac.jc21.t.yoshizawa.admin.property.DataStoreControl;
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/openidSignIn" })
 
-public final class H28jk3aopenidtestServlet extends HttpServlet {
+public final class Jc21MSOpenidSigninServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
@@ -30,12 +30,11 @@ public final class H28jk3aopenidtestServlet extends HttpServlet {
 
 		}
 
-//		resp.getWriter().println("<a href='"+url+"'>sign-in with microsoft account</a>");
-		if(url != null) {
+		if (url != null) {
 			resp.sendRedirect(url);
 		} else {
-				RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp5/property/propertyError.jsp");
-				rd.forward(req, resp);
+			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp5/property/propertyError.jsp");
+			rd.forward(req, resp);
 		}
 
 	}
