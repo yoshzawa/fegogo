@@ -35,6 +35,8 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 		// Exam‚ðŽæ“¾
 		Exam e = Exam.getById(parentId);
+		request.setAttribute("isOpened", e.isOpened());
+
 
 		// –â‚Ìˆê——‚ðŽæ“¾
 		TreeMap<Long, Toi> toiMap = e.getToiMap();
@@ -152,6 +154,8 @@ public class Toi2LoginListServlet extends HttpServlet {
 
 	private final String dateFormat(Date d) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	    TimeZone timeZoneJP = TimeZone.getTimeZone("Asia/Tokyo");
+	    sdf.setTimeZone(timeZoneJP);
 		return sdf.format(d);
 
 	}

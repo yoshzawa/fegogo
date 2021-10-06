@@ -1,4 +1,4 @@
-<%@page import="jp.ac.jc21.t.yoshizawa.datastore.Exam"%>
+<%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="com.google.appengine.api.users.User"%>
@@ -40,7 +40,16 @@
 		</TR>
 		<%
 		for (Long k : examMap.keySet()) {
-			Exam e = examMap.get(k);		
+			Exam e = examMap.get(k);	
+			int openDiff=1;
+			try{
+				openDiff = new Date().compareTo(e.getOpenDate());
+			} catch(NullPointerException ex){}
+			int closeDiff=-1;
+			try{
+				closeDiff = new Date().compareTo(e.getCloseDate());
+			} catch(NullPointerException ex){}
+			
 		%>
 		<tr>
 			<td><%=e.getId()%></td>
@@ -50,6 +59,16 @@
 				<%= e.getToiListSize() %>
 			</td>
 			<td><a href="/admin/check/exam?examId=<%=e.getId()%>">チェック</a></td>
+			<td>
+				
+				<%= e.getOpenDate() %>[<%= openDiff %>]
+			</td>
+			<td>
+				<%= e.getCloseDate() %>[<%= closeDiff %>]
+			</td>
+			<td>
+			<%= ((openDiff==1)&&(closeDiff==-1))?"OK":"" %>
+			</td>
 		</tr>
 		<%
 			}

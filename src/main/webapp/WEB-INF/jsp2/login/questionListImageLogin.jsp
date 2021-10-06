@@ -48,6 +48,13 @@
 	<%
 		} else {
 	%>
+	<script>
+	$(function(){
+	    $(document).on('submit', function(event) {
+	      $('form').find(':submit').prop('disabled', true);
+	    });
+	});
+</script>
 	<h2><%=toi.getExamName()%> 試験 <%= toi.getGenreName() %></h2>
 	<h3>問<%=toi.getNo()%> <%=toi.getName()%></h3>
 	<form method="post" action="/answer">

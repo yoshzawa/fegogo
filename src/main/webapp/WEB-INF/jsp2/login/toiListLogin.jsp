@@ -15,6 +15,8 @@
 		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 		List<String[]> datas2 = (List<String[]>) request.getAttribute("datas2");
 		String ExamName = (String) request.getAttribute("ExamName");
+		Boolean isOpened = (Boolean)request.getAttribute("isOpened");
+
 	%>
 	
 		<nav aria-label="breadcrumb">
@@ -31,7 +33,7 @@
 	    <main class="mb-5">
 
 	<%
-		if (datas == null || datas.size() == 0) {
+	if (datas == null || datas.size() == 0 || isOpened==false) {
 	%>
 	解答可能な問がありません
 	<%
