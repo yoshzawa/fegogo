@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
 import jp.ac.jc21.t.yoshizawa.objectify.Answer;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
@@ -68,7 +69,7 @@ public class CheckAnswerSumServlet extends HttpServlet {
 				} else {
 					String[] s = new String[6];
 					s[0] = answer.getId().toString();
-					s[1] = Answer.getDateString(answer.getAnswered());
+					s[1] = CommonFunction.dateFormat(answer.getAnswered());
 					s[2] = answer.getNo().toString();
 					s[3] = answer.getName();
 					s[4] = answer.getAnswers();
