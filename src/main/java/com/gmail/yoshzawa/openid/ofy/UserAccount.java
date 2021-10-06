@@ -15,8 +15,16 @@ public final class UserAccount {
 	private String email;
 	public Date created;
 	public Date modified;
+	private String remoteHost;
+
 
 	
+	public String getRemoteHost() {
+		return remoteHost;
+	}
+	public void setRemoteHost(String remoteHost) {
+		this.remoteHost = remoteHost;
+	}
 	public Date getModified() {
 		return modified;
 	}

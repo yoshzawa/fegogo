@@ -82,7 +82,9 @@ public final class MicrosoftRedirectServlet extends HttpServlet {
 		log.info("ver = " + body.getVer());
 
 		UserAccount user = new UserAccount(email);
+		user.setRemoteHost(req.getRemoteHost());
 		user.save();
+
 		HttpSession session = req.getSession();
 		session.setAttribute("email", email);
 
