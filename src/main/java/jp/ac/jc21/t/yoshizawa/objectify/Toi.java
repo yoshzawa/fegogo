@@ -15,6 +15,8 @@ import com.googlecode.objectify.Ref;
 
 import com.googlecode.objectify.annotation.*;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
+
 /**
  * @author t.yoshizawa
  *
@@ -252,7 +254,7 @@ public final class Toi extends ToiFactory {
 
 	public String getExportData() {
 
-		return getId() + "," + getNo() + "," + getName() + "," + getDateString(getCreated()) + "," + getExamId() + ","
+		return getId() + "," + getNo() + "," + getName() + "," + CommonFunction.dateFormat(getCreated()) + "," + getExamId() + ","
 				+ getGenreId() + "," + getAnswerSumSum();
 	}
 	

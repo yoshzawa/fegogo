@@ -8,6 +8,8 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
+
 /**
  * @author t.yoshizawa
  *
@@ -225,7 +227,7 @@ public final class Question extends QuestionFactory {
 		return getId()+","+
 		getNo() + "," + 
 		getName() + "," + 
-		getDateString(getCreated()) + "," + 
+		CommonFunction.dateFormat(getCreated()) + "," + 
 		getNoOfOption() + "," + 
 		getToiId()+","+
 		getAnswers();

@@ -17,6 +17,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
+
 /**
  * @author t.yoshizawa
  *
@@ -95,7 +97,7 @@ public class Genre extends GenreFactory {
 
 	public String getExportData() {
 
-		return getId() + "," + getName() + "," + getDateString(getCreated()) + "," + getNo();
+		return getId() + "," + getName() + "," + CommonFunction.dateFormat(getCreated()) + "," + getNo();
 
 	}
 

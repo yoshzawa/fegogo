@@ -16,6 +16,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
+
 /**
  * @author t.yoshizawa
  *
@@ -199,7 +201,7 @@ public final class Member extends MemberFactory {
 
 	public String getExportData() {
 
-		return geteMail() + "," + getDateString(getCreated()) + "," + getDateString(getModified());
+		return geteMail() + "," + CommonFunction.dateFormat(getCreated()) + "," + CommonFunction.dateFormat(getModified());
 	}
 
 }

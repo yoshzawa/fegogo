@@ -15,6 +15,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
+
 /**
  * @author t.yoshizawa
  *
@@ -231,7 +233,7 @@ public final class Answer extends AnswerFactory {
 
 	public String getExportData() {
 
-		return getId() + "," + getNo() + "," + getName() + "," + getDateString(getAnswered()) + "," + getAnswerSumId()
+		return getId() + "," + getNo() + "," + getName() + "," + CommonFunction.dateFormat(getAnswered()) + "," + getAnswerSumId()
 				+ "," + getQuestionId() + "," + getAnswers();
 	}
 
