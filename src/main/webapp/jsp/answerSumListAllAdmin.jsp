@@ -88,6 +88,8 @@
 								 contain = mem.get().containsRefAnswerSum(as);
 							}
 						}
+						%>
+				<% 
 						if ((member == null )||(contain == false)) {
 				%>
 				<a

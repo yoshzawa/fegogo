@@ -88,7 +88,6 @@ public class AnswerSumFactory extends CommonEntity {
 	public final static List<AnswerSum> getListByEMail(String eMail) {
 		final Logger log = Logger.getLogger(AnswerSum.class.getName());
 
-
 		List<AnswerSum> list = null;
 			list = (List<AnswerSum>) loadByIndex(AnswerSum.class, "name", eMail);
 		
