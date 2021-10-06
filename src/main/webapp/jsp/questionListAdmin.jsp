@@ -73,7 +73,7 @@ EXAM　ID<input type="text" name="toExam" value="" placeholder="作成するEXAM
 	<%
 		} else {
 	%>
-	<table border=1>
+	<table border="1">
 		<tr>
 			<td>Id</td>
 			<td>No</td>
@@ -138,5 +138,5 @@ EXAM　ID<input type="text" name="toExam" value="" placeholder="作成するEXAM
 	<hr />
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>

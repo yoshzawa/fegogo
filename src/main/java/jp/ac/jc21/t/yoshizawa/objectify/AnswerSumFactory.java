@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 
 import com.googlecode.objectify.Ref;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
+
 /**
  * @author t.yoshizawa
  *
@@ -37,7 +39,7 @@ public class AnswerSumFactory extends CommonEntity {
 		as.setAnswered(new Date());
 		as.setNoOfSeikai(noOfSeikai);
 		as.setNoOfAnswer(mapRefAnswer.size());
-		as.setVersion(ofyVersion);
+		as.setVersion(CommonFunction.ofyVersion);
 		return as;
 	}
 

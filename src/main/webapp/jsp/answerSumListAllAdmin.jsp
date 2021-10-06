@@ -19,7 +19,7 @@
 
 	<%
 		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
-		String redirectTo = (String) request.getAttribute("redirectTo");
+	String redirectTo = (String) request.getAttribute("redirectTo");
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
@@ -33,7 +33,7 @@
 		} else {
 	%>
 
-	<TABLE border=1>
+	<TABLE border="1">
 		<TR>
 			<TD>getId</TD>
 			<TD>getName</TD>
@@ -47,71 +47,97 @@
 			<TD>TOI</TD>
 		</TR>
 		<%
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-			for (AnswerSum as : answerSumList) {
-				Toi toi = as.getOptToi().get();
-				Ref<Member> member=as.getRefMember();
+		for (AnswerSum as : answerSumList) {
+			Toi toi = as.getOptToi().get();
+			Ref<Member> member = as.getRefMember();
 		%>
 		<tr>
-			<td><%= as.getId() %> <% if((member != null)&&( member.get() != null)){%>
-				<br />
-			<a
-				href="/admin/answerSum/delete?memberId=<%= member.get().geteMail() %>&AnswerSumId=<%= as.getId()%>">delete</a>
-			<a
-				href="/admin/delete/answerSum?answerSumId=<%= as.getId()%>">delete(CHECK)</a>
-				<% }%></td>
-			<td><%= as.getName() %></td>
-			<td><%= as.getNoOfAnswer() %></td>
-			<td><%= as.getNoOfSeikai() %></td>
-			<td><%= sdf.format(as.getAnswered()) %></td>
+			<td><%=as.getId()%> <%
+ 	if ((member != null) && (member.get() != null)) {
+ %> <br /> <a
+				href="/admin/answerSum/delete?memberId=<%=member.get().geteMail()%>&amp;AnswerSumId=<%=as.getId()%>">delete</a>
+				<a href="/admin/delete/answerSum?answerSumId=<%=as.getId()%>">delete(CHECK)</a>
+				<%
+					}
+				%></td>
+			<td><%=as.getName()%></td>
+			<td><%=as.getNoOfAnswer()%></td>
+			<td><%=as.getNoOfSeikai()%></td>
+			<td><%=sdf.format(as.getAnswered())%></td>
 			<td>
 				<%
 					List<Answer> m = as.getAnswerList();
-				%> 
-				<% if(m != null){ %>
-					<% for(Answer rAns : m){
-						if(rAns==null) continue;
-					%> 
-						<%= rAns.getId() %>
-						<br />
-					<% } %> 
-				<%} %>
+				%> <%
+ 	if (m != null) {
+ %> <%
+ 	for (Answer rAns : m) {
+ 	if (rAns == null)
+ 		continue;
+ %> <%=rAns.getId()%> <br /> <%
+ 	}
+ %> <%
+ 	}
+ %>
 			</td>
 			<td>
 				<%
-					Optional<Ref<Member>> refMem = Optional.ofNullable( as.getRefMember());
-						boolean contain=false;
-						if(refMem.isPresent()==true){
-							Optional<Member> mem = Optional.ofNullable(refMem.get().get());
-							if(mem.isPresent()){
-								 contain = mem.get().containsRefAnswerSum(as);
-							}
-						}
-						%>
-				<% 
-						if ((member == null )||(contain == false)) {
-				%>
-				<a
-				href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>&redirectTo=<%= redirectTo %>'>
-					reChain</a> <% } else {%> <%= member.get().geteMail() %> <% } %>
+					Optional<Ref<Member>> refMem = Optional.ofNullable(as.getRefMember());
+				boolean contain = false;
+				if (refMem.isPresent() == true) {
+					Optional<Member> mem = Optional.ofNullable(refMem.get().get());
+					if (mem.isPresent()) {
+						contain = mem.get().containsRefAnswerSum(as);
+					}
+				}
+				%> <%
+ 	if ((member == null) || (contain == false)) {
+ %> <a
+				href='/admin/answerSum/reChain?answerSumId=<%=as.getId()%>&amp;memberId=<%=as.getName()%>&amp;redirectTo=<%=redirectTo%>'>
+					reChain</a> <%
+ 	} else {
+ %> <%=member.get().geteMail()%> <%
+ 	}
+ %>
 			</td>
-			<%  if ((toi!=null)&&(toi.getExam() != null )) {%>
+			<%
+				if ((toi != null) && (toi.getExam() != null)) {
+			%>
 			<td><%=toi.getExam().getName()%></td>
-			<% } else {%>
+			<%
+				} else {
+			%>
 			<td>null</td>
-			<% } %>
+			<%
+				}
+			%>
 
-			<%  if ((toi!=null)) {%>
-			<td><%= toi.getNo() %></td>
-			<% } else {%>
+			<%
+				if ((toi != null)) {
+			%>
+			<td><%=toi.getNo()%></td>
+			<%
+				} else {
+			%>
 			<td>null</td>
-			<% } %>
+			<%
+				}
+			%>
 			<td>
-				<% if ((toi != null ) ){%> <%= toi.getName() %> <% } else {%> null <% } %>
-				<% if ((toi != null ) && (toi.containsAnswerSum(as) == false)){%> <a
-				href='/admin/toi/addAnswerSum?toiId=<%= toi.getId() %>&answerSumId=<%= as.getId() %>'>addAnswerSum</a>
-				<%} %>
+				<%
+					if ((toi != null)) {
+				%> <%=toi.getName()%> <%
+ 	} else {
+ %> null <%
+ 	}
+ %> <%
+ 	if ((toi != null) && (toi.containsAnswerSum(as) == false)) {
+ %> <a
+				href='/admin/toi/addAnswerSum?toiId=<%=toi.getId()%>&amp;answerSumId=<%=as.getId()%>'>addAnswerSum</a>
+				<%
+					}
+				%>
 			</td>
 		</tr>
 		<%

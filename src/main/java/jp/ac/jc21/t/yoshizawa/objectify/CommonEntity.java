@@ -51,5 +51,4 @@ public class CommonEntity {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		return sdf.format(date);
 	}
-	final public static String ofyVersion = "4.02.3";
 }

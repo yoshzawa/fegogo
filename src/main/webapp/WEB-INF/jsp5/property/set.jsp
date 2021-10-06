@@ -27,6 +27,7 @@
 <p>
 「https://fegogo.fivepro.xyz」の「アプリケーション (クライアント) ID」
 <input type="text" placeholder="12345678-1234-1234-1234-123456789abc" name="AzureAppId" /></p>
+<p>
 「http://localhost:8080」の「アプリケーション (クライアント) ID」
 <input type="text" placeholder="12345678-1234-1234-1234-123456789abc" name="AzureAppIdLocal" /></p>
 <input type="submit" value="設定" />

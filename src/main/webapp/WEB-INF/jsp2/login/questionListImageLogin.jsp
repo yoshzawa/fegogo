@@ -49,15 +49,16 @@
 		} else {
 	%>
 	<script>
-	$(function(){
-	    $(document).on('submit', function(event) {
-	      $('form').find(':submit').prop('disabled', true);
-	    });
-	});
-</script>
+	window.onload = function(){
+		document.getElementById("mainForm").onsubmit = function(){
+		return confirm("この内容で登録しますか?");
+		}
+		}
+	</script>
+
 	<h2><%=toi.getExamName()%> 試験 <%= toi.getGenreName() %></h2>
 	<h3>問<%=toi.getNo()%> <%=toi.getName()%></h3>
-	<form method="post" action="/answer">
+	<form method="post" action="/answer" id="mainForm" name="mainForm">
 		<input type="hidden" name="userId" value="<%= email %>" />
 		<input type="hidden" name="toiId" value="<%= toi.getId() %>" />
 		<%

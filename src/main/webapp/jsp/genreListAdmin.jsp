@@ -46,15 +46,14 @@
 			<td><a href="/admin/genre/detail?genreId=<%=g.getId()%>"><%=g.getName()%></a></td>
 			<td>
 				<%
-//					for (Ref<Toi> rt : g.getToiRefList()) {
-					for (Toi t : g.getToiList()) {
-//								Toi t = rt.get();
-								if(t==null)
-									continue;
-				%> 
-				<a href="/admin/question/list?parentId=<%=t.getId()%>">
-				<%=t.getExam().getName()%> 問<%=t.getNo()%> <%=t.getName()%> </a><br />
- <%
+					//					for (Ref<Toi> rt : g.getToiRefList()) {
+				for (Toi t : g.getToiList()) {
+					//								Toi t = rt.get();
+					if (t == null)
+						continue;
+				%> <a href="/admin/question/list?parentId=<%=t.getId()%>"> <%=t.getExam().getName()%>
+					問<%=t.getNo()%> <%=t.getName()%>
+			</a><br /> <%
  	}
  %>
 

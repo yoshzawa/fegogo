@@ -36,7 +36,7 @@
 	<%@ include file="../common/headerLogin.jsp"%>
 	<H1>[<%= toi.getName() %>]の解答を登録しました</H1>
 		    <main class="mb-5">
-		    <P>解答日：<%= dateFormat(ansSummary.getAnswered())%></P>
+		    <P>解答日：<%= CommonFunction.dateFormat(ansSummary.getAnswered())%></P>
 		    <P>解答日から10日間は、同じ問題の新規の回答は受け付けません。</P>
 	
 	<h3>

@@ -19,7 +19,7 @@
 	<div class="container">
 		<%@ include file="common/headerAdmin.jsp"%><br>
 		<%
-		String parentId = (String) request.getAttribute("parentId");
+			String parentId = (String) request.getAttribute("parentId");
 		Toi parent = (Toi) request.getAttribute("parent");
 		Map<Long, Question> qMap = (Map<Long, Question>) request.getAttribute("questionMap");
 		Exam exam = (Exam) request.getAttribute("exam");
@@ -29,7 +29,7 @@
 			genreId = parent.getGenre().getId();
 		}
 		List<ImageSet> imageSet = (List<ImageSet>) request.getAttribute("imageSet");
-	%>
+		%>
 
 		<div class="row">
 			<div class="container-sm">
@@ -38,8 +38,8 @@
 				<p>選択された試験：</p>
 				<P>
 					<%=exam.getName()%>
-					<a href="/admin/toi/list?parentId=<%=exam.getId()%>">問<%=parent.getNo()%>(<%=parent.getName()%>) </a><a
-						href="./imageReset?parentId=<%=parentId%>">登録をリセットする</a>
+					<a href="/admin/toi/list?parentId=<%=exam.getId()%>">問<%=parent.getNo()%>(<%=parent.getName()%>)
+					</a><a href="./imageReset?parentId=<%=parentId%>">登録をリセットする</a>
 
 				</p>
 			</div>
@@ -50,35 +50,28 @@
 					int no = 1;
 				%>
 
-				<table border=1>
-					<% 
-						for (ImageSet is : imageSet){
-						if(is.isImage()==true){
+				<table border="1">
+					<%
+						for (ImageSet is : imageSet) {
+						if (is.isImage() == true) {
 					%>
 
 					<tr>
 						<td><a name="<%=no%>"><%=no%></a></td>
 						<td>
 							<p
-								style="position:relative;
-									background-image: url(<%=is.getUrl()%>);
-									height: <%=is.getHeight()%>px;
-									width:700px;
-									background-position: 0  <%=is.getTop()%>px;
-									background-size: 700px auto ;
-									overflow: hidden;">
+								style="position: relative; background-image: url(<%=is.getUrl()%>); height: <%=is.getHeight()%>px; width: 700px; background-position: 0<%=is.getTop()%>px; background-size: 700px auto; overflow: hidden;">
 							</p>
 						</td>
-						<td>
-						<a href="./imageRemove?parentId=<%=parentId%>&no=<%=no%>">消す</a> <br>
-						<form method="post" action="./imageRename">
-								<input type="hidden" name="parentId" value="<%=parentId%>" /> 
-								<input
-									type="hidden" value="<%=no%>" name="no"> 
-									url<input
-									type="url" value="<%=is.getUrl()%>" name="url"　size="40">
+						<td><a
+							href="./imageRemove?parentId=<%=parentId%>&amp;no=<%=no%>">消す</a>
+							<br>
+							<form method="post" action="./imageRename">
+								<input type="hidden" name="parentId" value="<%=parentId%>" /> <input
+									type="hidden" value="<%=no%>" name="no"> url<input
+									type="url" value="<%=is.getUrl()%>" name="url" 　size="40">
 								<input type="submit" value="変更">
-						</form>
+							</form>
 							<form method="post" action="./imageHeight">
 								<input type="hidden" name="parentId" value="<%=parentId%>" /> <input
 									type="hidden" value="<%=no%>" name="no"> height=<input
@@ -98,17 +91,14 @@
 					%>
 					<tr>
 						<td><%=no%></td>
-						<td>Question [
-						<%
-							Long[] ids = is.getQuestionIds() ;
-							for(Long id : ids){
-						%>
-						(<%= qMap.get(id).getName() %>):
-						(<%= qMap.get(id).getKana((int)qMap.get(id).getNoOfOption()) %>まで)
-						<%
+						<td>Question [ <%
+							Long[] ids = is.getQuestionIds();
+						for (Long id : ids) {
+						%> (<%=qMap.get(id).getName()%>): (<%=qMap.get(id).getKana((int) qMap.get(id).getNoOfOption())%>まで)
+							<%
 							}
-						%>
-						]</td>
+						%> ]
+						</td>
 						<td>
 							<%
 								for (Long id : is.getQuestionIds()) {
@@ -120,7 +110,7 @@
 					</tr>
 					<%
 						}
-						no++;
+					no++;
 					%>
 					<%
 						}
@@ -129,7 +119,7 @@
 			</div>
 			<div style="float: right; overflow: auto;">
 
-				<table border=1>
+				<table border="1">
 					<tr>
 						<td></td>
 						<td>

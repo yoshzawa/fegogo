@@ -16,7 +16,7 @@
 
 	<%
 		List<Member> memberList = (List<Member>) request.getAttribute("memberList");
-		UserService userService = (UserService) request.getAttribute("userService");
+	UserService userService = (UserService) request.getAttribute("userService");
 	%>
 	<%
 		if ((userService != null) && (userService.isUserAdmin() == true)) {
@@ -24,13 +24,13 @@
 	<h4 align="right">
 		login as
 		<%=userService.getCurrentUser().getNickname()%>(Admin) (<a
-			href="<%=userService.createLogoutURL("/")%>">logout</a>)
+			href='<%=userService.createLogoutURL("/")%>'>logout</a>)
 	</h4>
 	<%
 		}
 	%>
 	<%@ include file="common/headerAdmin.jsp"%><br>
-	
+
 	<H1>登録されている学生の一覧</H1>
 	<%
 		if (memberList == null || memberList.size() == 0) {
@@ -39,7 +39,7 @@
 	<%
 		} else {
 	%>
-	<TABLE border=1>
+	<TABLE border="1">
 		<TR>
 			<TD><a href="./list?Order=eMail">geteMail</a></TD>
 			<TD>getCreated</TD>
@@ -67,5 +67,5 @@
 	<hr />
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>
