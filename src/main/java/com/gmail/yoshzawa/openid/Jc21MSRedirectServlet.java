@@ -19,14 +19,14 @@ import java.util.logging.Logger;
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/msredirect", "/msredirect/" })
 
-public final class MicrosoftRedirectServlet extends HttpServlet {
+public final class Jc21MSRedirectServlet extends HttpServlet {
 
 	static {
 		UserAccount.ofyInit();
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		final Logger log = Logger.getLogger(MicrosoftRedirectServlet.class.getName());
+		final Logger log = Logger.getLogger(Jc21MSRedirectServlet.class.getName());
 		resp.setContentType("text/html");
 
 		String id_token = req.getParameter("id_token");
@@ -82,7 +82,9 @@ public final class MicrosoftRedirectServlet extends HttpServlet {
 		log.info("ver = " + body.getVer());
 
 		UserAccount user = new UserAccount(email);
+		user.setRemoteHost(req.getRemoteHost());
 		user.save();
+
 		HttpSession session = req.getSession();
 		session.setAttribute("email", email);
 
