@@ -8,6 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Toi"%>
 <%@page import="java.util.List"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -53,7 +54,7 @@
 		<a href="/admin/delete/answerSum?answerSumId=<%=answerSum.getId()%>">delete</a>
 	</p>
 	<p>
-		AnswerSum Date=<%=AnswerSum.getDateString(answerSum.getAnswered())%></p>
+		AnswerSum Date=<%=CommonFunction.dateFormat(answerSum.getAnswered())%></p>
 	<p>
 		Member id=<%=answerSum.getName()%>
 		->

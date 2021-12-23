@@ -171,7 +171,7 @@
 					</tr>
 					<tr>
 						<td>Answer date</td>
-						<td><%=Answer.getDateString(optAnswer.get().getAnswered())%></td>
+						<td><%=CommonFunction.dateFormat(optAnswer.get().getAnswered())%></td>
 
 					</tr>
 				</table>
