@@ -46,12 +46,17 @@ public class ArchivedAnswerSumFactory extends CommonEntity {
 			aas.setToiId(as.getToiId());
 			aas.setName(as.getName());
 			aas.setVersion(CommonFunction.ofyVersion);
+			Date d = new Date(0);
 			int ans = 0;
 			int seikai = 0;
 			for (AnswerSum aSum : list) {
+				if(aSum.getAnswered().compareTo(d)>0) {
+					d=aSum.getAnswered();
+				}
 				ans += aSum.getNoOfAnswer();
 				seikai += aSum.getNoOfSeikai();
 			}
+			aas.setAnswered(d);
 			aas.setNoOfAnswer(ans);
 			aas.setNoOfSeikai(seikai);
 		}

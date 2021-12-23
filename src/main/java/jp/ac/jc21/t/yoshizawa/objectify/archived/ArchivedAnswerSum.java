@@ -38,7 +38,7 @@ public final class ArchivedAnswerSum extends ArchivedAnswerSumFactory {
 	Long toiId;
 //	private Date answered;
 	private int noOfSeikai;
-	
+	private Date answered;
 	private	String version;
 	private int noOfAnswer;
 	public Long getId() {
@@ -79,6 +79,12 @@ public final class ArchivedAnswerSum extends ArchivedAnswerSumFactory {
 		this.noOfAnswer = noOfAnswer;
 	}
 	
+	public Date getAnswered() {
+		return answered;
+	}
+	public void setAnswered(Date answered) {
+		this.answered = answered;
+	}
 	public ArchivedAnswerSum save() {
 		Key<ArchivedAnswerSum> key = ofy().save().entity(this).now();
 		return getById(key.getId());
