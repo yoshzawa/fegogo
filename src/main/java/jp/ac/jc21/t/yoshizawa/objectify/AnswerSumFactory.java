@@ -11,9 +11,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.googlecode.objectify.Ref;
 
@@ -88,7 +90,6 @@ public class AnswerSumFactory extends CommonEntity {
 	}
 	
 	public final static List<AnswerSum> getListByEMail(String eMail) {
-		final Logger log = Logger.getLogger(AnswerSum.class.getName());
 
 		List<AnswerSum> list = null;
 			list = (List<AnswerSum>) loadByIndex(AnswerSum.class, "name", eMail);
@@ -121,16 +122,25 @@ public class AnswerSumFactory extends CommonEntity {
 		});
 		return list;
 	}
-	public static Map<Long,List<AnswerSum>> makeMapByToiId(List<AnswerSum> list) {
+	public static Map<Long,List<AnswerSum>> makeMapByToiId_old(List<AnswerSum> list) {
 		Map<Long, List<AnswerSum>> map= new TreeMap<Long,List<AnswerSum>>();
 		for(AnswerSum as : list) {
-			List<AnswerSum> answerSumList = map.get(as.getToiId());
+			Long toiId = as.getToiId();
+			List<AnswerSum> answerSumList = map.get(toiId);
 			if(answerSumList == null) {
 				answerSumList = new ArrayList<AnswerSum>();
 			}
 			answerSumList.add(as);
-			map.put(as.getToiId(), answerSumList);
+			map.put(toiId, answerSumList);
 		}
 		return map;
+	}
+
+
+	public final static Map<Long, List<AnswerSum>> makeMapByToiId(List<AnswerSum> answerSumList) {
+		Map<Long, List<AnswerSum>> map2 = answerSumList.stream().filter((AnswerSum aSum) -> {
+			return Objects.nonNull(aSum);
+		}).collect(Collectors.groupingBy(AnswerSum::getToiId));
+		return map2;
 	}
 }

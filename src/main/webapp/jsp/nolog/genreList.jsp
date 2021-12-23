@@ -21,7 +21,7 @@
 	</nav>
 
 	<%@ include file="../common/header.jsp"%><br>
-	
+
 	<h1>登録されている分野の一覧</h1>
 
 	<%

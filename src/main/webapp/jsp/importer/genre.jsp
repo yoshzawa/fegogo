@@ -10,14 +10,14 @@
 
 
 	<%@ include file="/jsp/common/headerAdmin.jsp"%><br>
-	
-<H1>GenreのImport</H1>
 
-<P>最初の行「"id,Name,Created,No"」を消してからコピペしてください</P>
-<form method="post" action="./genre">
-<textarea name="genre" rows="20" cols="100"></textarea>
-<input type="submit" value="送信"> 
-</form>
+	<H1>GenreのImport</H1>
+
+	<P>最初の行「"id,Name,Created,No"」を消してからコピペしてください</P>
+	<form method="post" action="./genre">
+		<textarea name="genre" rows="20" cols="100"></textarea>
+		<input type="submit" value="送信">
+	</form>
 
 
 
@@ -25,5 +25,5 @@
 
 
 </body>
-　<%@ include file="/jsp/common/footer.jsp"%>
+<%@ include file="/jsp/common/footer.jsp"%>
 </html>

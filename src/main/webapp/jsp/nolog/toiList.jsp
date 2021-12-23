@@ -17,7 +17,7 @@
 	String ExamName  = (String)request.getAttribute("ExamName");
 		List<String[]> datas = (List<String[]>)request.getAttribute("datas");
 	%>
-	
+
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/">ホーム</a></li>

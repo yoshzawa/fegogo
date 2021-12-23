@@ -18,11 +18,15 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
 			<li class="breadcrumb-item"><a href="/genre/">分野 一覧</a></li>
-			<li class="breadcrumb-item active" aria-current="page">[<%= genreName %>]分野 一覧</li>
+			<li class="breadcrumb-item active" aria-current="page">[<%= genreName %>]分野
+				一覧
+			</li>
 		</ol>
 	</nav>
 	<%@ include file="../common/headerLogin.jsp"%><br>
-	<h1>[<%= genreName %>]分野の一覧</h1>
+	<h1>
+		[<%= genreName %>]分野の一覧
+	</h1>
 
 	<%
 		if (datas == null || datas.size() == 0) {

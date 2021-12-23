@@ -21,7 +21,7 @@
 	UserService userService = (UserService) request.getAttribute("userService");
 
 	%>
-	
+
 	<%
 		if ((userService != null) && (userService.isUserAdmin() == true)) {
 	%>
@@ -34,31 +34,38 @@
 		}
 	%>
 	<%@ include file="common/headerAdmin.jsp"%><br>
-	
+
 	<H1>登録されている学生の一覧</H1>
-<table border=1>
-<tr><th>toiId</th><th>answered(seikai/answer)</th></tr>
-	<%
+	<table border=1>
+		<tr>
+			<th>toiId</th>
+			<th>answered(seikai/answer)</th>
+		</tr>
+		<%
 		for(Long toiId : map.keySet()){
 			List<AnswerSum> aSumList = map.get(toiId);
 	%>
-		<tr><th><%= toiId %></th><td>
-	<% 
+		<tr>
+			<th><%= toiId %></th>
+			<td>
+				<% 
 			for(AnswerSum aSum : aSumList){
 		
 	%>
-	<p>
-	(<a href="/admin/check/answerSum?answerSumId=<%= aSum.getId() %>"><%= aSum.getId() %></a> )
-	<%= CommonFunction.dateFormat(aSum.getAnswered()) %>
-	(<%= aSum.getNoOfSeikai() %>/<%= aSum.getNoOfAnswer() %>)</p>
-	<%
+				<p>
+					(<a href="/admin/check/answerSum?answerSumId=<%= aSum.getId() %>"><%= aSum.getId() %></a>
+					)
+					<%= CommonFunction.dateFormat(aSum.getAnswered()) %>
+					(<%= aSum.getNoOfSeikai() %>/<%= aSum.getNoOfAnswer() %>)
+				</p> <%
 		}
 	%>
-	</td></tr>
-	<%
+			</td>
+		</tr>
+		<%
 		}
 	%>
-</table>	
+	</table>
 
 </body>
 <%@ include file="common/footer.jsp"%>

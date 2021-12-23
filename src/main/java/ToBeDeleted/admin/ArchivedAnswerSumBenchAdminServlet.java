@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.servlet.admin.archived;
+package ToBeDeleted.admin;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -23,8 +23,8 @@ import jp.ac.jc21.t.yoshizawa.objectify.Member;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/archivedAnswerSum/generate" })
-public class ArchivedAnswerSumGenerateAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/archivedAnswerSum/bench" })
+public class ArchivedAnswerSumBenchAdminServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
