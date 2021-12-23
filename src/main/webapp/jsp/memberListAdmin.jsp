@@ -51,8 +51,8 @@
 		%>
 		<tr>
 			<td><%=m.geteMail()%></td>
-			<td><%=m.getCreated()%></td>
-			<td><%=m.getModified()%></td>
+			<td><%=CommonFunction.dateFormat(  m.getCreated() ) %></td>
+			<td><%=CommonFunction.dateFormat(  m.getModified() ) %></td>
 			<td><a href='/admin/answerSum/list?memberId=<%=m.geteMail()%>'><%=m.getRefAnswerSumListCount()%></a></td>
 			<td><a href='/admin/member2/list?email=<%=m.geteMail()%>'>解答リスト</a></td>
 		</tr>

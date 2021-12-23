@@ -37,6 +37,7 @@
 	
 	<H1>登録されている学生の一覧</H1>
 <table border=1>
+<tr><th>toiId</th><th>answered(seikai/answer)</th></tr>
 	<%
 		for(Long toiId : map.keySet()){
 			List<AnswerSum> aSumList = map.get(toiId);
@@ -48,7 +49,7 @@
 	%>
 	<p>
 	(<a href="/admin/check/answerSum?answerSumId=<%= aSum.getId() %>"><%= aSum.getId() %></a> )
-	<%= aSum.getAnswered() %>
+	<%= CommonFunction.dateFormat(aSum.getAnswered()) %>
 	(<%= aSum.getNoOfSeikai() %>/<%= aSum.getNoOfAnswer() %>)</p>
 	<%
 		}
