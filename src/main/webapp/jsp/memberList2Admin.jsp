@@ -39,7 +39,7 @@
 	<table border=1>
 		<tr>
 			<th>toiId</th>
-			<th>answered(seikai/answer)</th>
+			<th>(aSum.id)answered(seikai/answer)</th>
 		</tr>
 		<%
 		for(Long toiId : map.keySet()){
