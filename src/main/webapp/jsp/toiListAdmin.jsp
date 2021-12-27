@@ -56,12 +56,12 @@
 				name="name" value="<%=parentExam.getName()%>" /> 
 				open <input
 				type="checkbox" name="openNull"
-				<%=(openDate.length()>0 ?  "":"checked")%> /> 
+				<%=(openDate.length()>0 ?  "":"checked")%> /> NULL
 				<input
 				type="datetime-local" name="open"
 				value="<%=openDate%>" /> close <input
 				type="checkbox" name="closeNull"
-				<%=(closeDate.length()>0 ?  "":"checked")%> 
+				<%=(closeDate.length()>0 ?  "":"checked")%> NULL
 				/> <input
 				type="datetime-local" name="close" value="<%= closeDate %>" /> <input
 				type="submit" value="変更" />
