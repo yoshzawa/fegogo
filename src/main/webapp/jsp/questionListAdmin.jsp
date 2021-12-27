@@ -36,35 +36,34 @@
 	<P>
 		<%=exam.getName()%>
 		問<%=parent.getNo()%>(<%=parent.getName()%>) <a
-			href="/admin/toi/list?parentId=<%=exam.getId()%>">(<%=exam.getName()%>の問一覧に戻る)</a>
+			href="/admin/toi/list?parentId=<%=exam.getId()%>">(<%=exam.getName()%>の問一覧に戻る)
+		</a>
 	</p>
 
 	<form method="post" action="/admin/toi/changeGenre">
-	<p>分野
-	<select name="genreId">
-	<% for (Genre g : genreList){ %>
-	<% if(g.getId() == genreId){ %>
-	<option value="<%= g.getId()%>" selected="selected"><%=g.getName() %></option>
-	<% } else {%>
-	<option value="<%= g.getId()%>"><%=g.getName() %></option>
-	<% } %>
-	<% } %>
-	</select> 
-	<input type="hidden" name="toiId" value="<%= parentId%>" />
-	<input type="submit" value="分野変更" />
-	</p>
+		<p>
+			分野 <select name="genreId">
+				<% for (Genre g : genreList){ %>
+				<% if(g.getId() == genreId){ %>
+				<option value="<%= g.getId()%>" selected="selected"><%=g.getName() %></option>
+				<% } else {%>
+				<option value="<%= g.getId()%>"><%=g.getName() %></option>
+				<% } %>
+				<% } %>
+			</select> <input type="hidden" name="toiId" value="<%= parentId%>" /> <input
+				type="submit" value="分野変更" />
+		</p>
 	</form>
-	
-<hr/>
-<form method="post" action="/admin/ToiCopyServlet">
-<input type="hidden" name="fromToi" value="<%= parent.getId() %>" />
-<%= parent.getName() %>を、
-EXAM　ID<input type="text" name="toExam" value="" placeholder="作成するEXAMのID"/>に、
-問番号
-<input type="text" size="2" name="toToiNo" value="<%= parent.getNo()%>" />に
-<input type="submit" value="作成する" />
 
-</form>
+	<hr />
+	<form method="post" action="/admin/ToiCopyServlet">
+		<input type="hidden" name="fromToi" value="<%= parent.getId() %>" />
+		<%= parent.getName() %>を、 EXAM ID<input type="text" name="toExam"
+			value="" placeholder="作成するEXAMのID" />に、 問番号 <input type="text"
+			size="2" name="toToiNo" value="<%= parent.getNo()%>" />に <input
+			type="submit" value="作成する" />
+
+	</form>
 
 	<%
 		if ((qMap == null) || (qMap.size() == 0)) {
@@ -73,7 +72,7 @@ EXAM　ID<input type="text" name="toExam" value="" placeholder="作成するEXAM
 	<%
 		} else {
 	%>
-	<table border=1>
+	<table border="1">
 		<tr>
 			<td>Id</td>
 			<td>No</td>
@@ -93,12 +92,9 @@ EXAM　ID<input type="text" name="toExam" value="" placeholder="作成するEXAM
 			<td><%=q.getId()%></td>
 			<td><%=q.getNo()%></td>
 			<td><%=q.getName()%></td>
-			<td><%=q.getKana((int)q.getNoOfOption()) %>
-			</td>
+			<td><%=q.getKana((int)q.getNoOfOption()) %></td>
 			<td>
-					<% for(int i : q.getAnswerSet()){%> 
-						<%=q.getKana(i) %>
-				<% }%>
+				<% for(int i : q.getAnswerSet()){%> <%=q.getKana(i) %> <% }%>
 			</td>
 			<td><a href="/admin/question/edit?id=<%=q.getId()%>">edit</a></td>
 		</tr>
@@ -132,11 +128,12 @@ EXAM　ID<input type="text" name="toExam" value="" placeholder="作成するEXAM
 		<%
 			}
 		%>
-		<br /><input type="hidden" name="parentId" value='<%=parentId%>' /> <input
+		<br />
+		<input type="hidden" name="parentId" value='<%=parentId%>' /> <input
 			type="submit">
 	</form>
 	<hr />
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>

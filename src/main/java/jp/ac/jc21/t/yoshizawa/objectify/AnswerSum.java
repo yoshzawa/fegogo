@@ -19,6 +19,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
+
 /**
  * @author t.yoshizawa
  *
@@ -272,7 +274,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		} else {
 			Toi toi = getOptToi().get();
 			Exam exam = toi.getExam();
-			String s = getId() + "," + getName() + "," + getDateString(getAnswered()) + "," 
+			String s = getId() + "," + getName() + "," + CommonFunction.dateFormat(getAnswered()) + "," 
 			+ exam.getName() + "," + toi.getNo() + "," + toi.getGenre().getNo() + "," + 
 					toi.getGenre().getName()
 					+ "," + toi.getName() + ",";
@@ -285,7 +287,7 @@ public final class AnswerSum extends AnswerSumFactory {
 
 		return getId() + "," + 
 		getName() + "," + 
-		getDateString(getAnswered()) + "," + 
+		CommonFunction.dateFormat(getAnswered()) + "," + 
 		getToiId() + "," + 
 		getName()				+ "," + 
 		getNoOfAnswer() + "," + 

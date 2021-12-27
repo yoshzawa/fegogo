@@ -61,8 +61,7 @@
 		%>
 	</table>
 
-	<a
-		href="/toi/list?parentId=<%=exam.getId()%>">戻る</a>
+	<a href="/toi/list?parentId=<%=exam.getId()%>">戻る</a>
 
 
 </body>

@@ -23,10 +23,10 @@
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
-	
-<H1>問に関するチェック</H1>
-<a href="/admin/check/toi?toiId=<%=t.getId() %>">問とリンク</a>　問と学生のリンク
-<a href="/admin/check/toiQuestion?toiId=<%=t.getId() %>">問と設問のリンク</a>
+
+	<H1>問に関するチェック</H1>
+	<a href="/admin/check/toi?toiId=<%=t.getId() %>">問とリンク</a> 問と学生のリンク
+	<a href="/admin/check/toiQuestion?toiId=<%=t.getId() %>">問と設問のリンク</a>
 
 
 	<%
@@ -36,14 +36,23 @@
 	<%
 		} else {
 	%>
-	<p>Toi id=<%=t.getId() %></p>
-	<p>Toi name=<%=t.getName() %></p>
-	
-	<p>Exam id=<%=t.getExamId() %> -> <%=t.getExam().getId() %></p>
-	<p>Genre id=<%=t.getGenreId() %> -> <%=t.getGenre().getId() %></p>
+	<p>
+		Toi id=<%=t.getId() %></p>
+	<p>
+		Toi name=<%=t.getName() %></p>
 
-	<p>Genre name=<%=t.getGenre().getName() %></p>
-	
+	<p>
+		Exam id=<%=t.getExamId() %>
+		->
+		<%=t.getExam().getId() %></p>
+	<p>
+		Genre id=<%=t.getGenreId() %>
+		->
+		<%=t.getGenre().getId() %></p>
+
+	<p>
+		Genre name=<%=t.getGenre().getName() %></p>
+
 	<TABLE border=1>
 		<TR>
 			<TD>answerSum id</TD>
@@ -59,8 +68,8 @@
 		for (String[]  s : list) {
 			if(s[0].equals("null")){
 				%>
-				<tr>
-				<td>deadlink</td>
+		<tr>
+			<td>deadlink</td>
 		</tr>
 		<%
 			} else {
@@ -76,8 +85,8 @@
 		%>
 		<tr>
 			<td><%=s[0]%></td>
-			<td><a href="/admin/check/answerSum?answerSumId=<%=s[0]%>">check</a>　
-			<a href="/admin/delete/answerSum?answerSumId=<%=s[0]%>">delete</a>　</td>
+			<td><a href="/admin/check/answerSum?answerSumId=<%=s[0]%>">check</a>
+				<a href="/admin/delete/answerSum?answerSumId=<%=s[0]%>">delete</a></td>
 			<td><%=s[6]%></td>
 			<td><%=answerSumAndToi%></td>
 			<td><%=s[2]%></td>
@@ -96,5 +105,5 @@
 
 	<hr />
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>

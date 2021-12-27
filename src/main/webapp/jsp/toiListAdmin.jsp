@@ -20,20 +20,16 @@
 		TreeMap<Long, Toi> toiMap = (TreeMap<Long, Toi>) request.getAttribute("toiMap");
 		String parentId = (String) request.getAttribute("parentId");
 		List<Genre> genreList = (List<Genre>) request.getAttribute("genreList");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-	    TimeZone timeZoneJP = TimeZone.getTimeZone("Asia/Tokyo");
-	    sdf.setTimeZone(timeZoneJP);
-
 
 		String openDate = "";
 		try {
-			openDate = sdf.format(parentExam.getOpenDate());
+			openDate =  CommonFunction.toWebDateString(parentExam.getOpenDate());
 		} catch (NullPointerException e) {
 		}
 
 		String closeDate = "";
 		try {
-			closeDate = sdf.format(parentExam.getCloseDate());
+			closeDate = CommonFunction.toWebDateString(parentExam.getCloseDate());
 		} catch (NullPointerException e) {
 		}
 	%>
@@ -53,8 +49,7 @@
 		<P>
 			YYYYMM<input type="text" name="YYYYMM"
 				value="<%=parentExam.getYYYYMM()%>" /> name<input type="text"
-				name="name" value="<%=parentExam.getName()%>" /> 
-				open <input
+				name="name" value="<%=parentExam.getName()%>" /> open <input
 				type="checkbox" name="openNull"
 				<%=(openDate.length()>0 ?  "":"checked")%> /> NULL
 				<input

@@ -6,7 +6,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,14 +22,17 @@
 	<%
 		if ((userService!=null) && (userService.isUserAdmin() == true) ) {
 	%>
-	<h4 align="right">login as <%= userService.getCurrentUser().getNickname() %>(Admin)
-	(<a href="<%= userService.createLogoutURL("/")%>">logout</a>)</h4>
+	<h4 align="right">
+		login as
+		<%= userService.getCurrentUser().getNickname() %>(Admin) (<a
+			href="<%= userService.createLogoutURL("/")%>">logout</a>)
+	</h4>
 	<%
 		} 
 	%>
 	<%@ include file="common/header.jsp"%><br>
-	
-<H1>登録されている解答の一覧</H1>
+
+	<H1>登録されている解答の一覧</H1>
 	<%
 		if (answerSumList == null || answerSumList.size() == 0) {
 	%>
@@ -71,12 +74,14 @@
 				
 		%>
 		<tr>
-			<td><%= as.getId() %><a href="/admin/answerSum/delete?memberId=<%= mMail %>&AnswerSumId=<%= as.getId()%>">削除</a></td>
+			<td><%= as.getId() %><a
+				href="/admin/answerSum/delete?memberId=<%= mMail %>&AnswerSumId=<%= as.getId()%>">削除</a></td>
 			<td><%= as.getName() %></td>
 			<td><%= as.getNoOfAnswer() %></td>
 			<td><%= as.getNoOfSeikai() %></td>
 			<td><%= sdf.format(as.getAnswered()) %></td>
-			<td><%= as.getRefMember() %><a href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>'>reChain</a></td>
+			<td><%= as.getRefMember() %><a
+				href='/admin/answerSum/reChain?answerSumId=<%= as.getId() %>&memberId=<%= as.getName() %>'>reChain</a></td>
 			<td><%= eName %></td>
 			<td><%= tName %></td>
 		</tr>
@@ -91,5 +96,5 @@
 	<hr />
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>

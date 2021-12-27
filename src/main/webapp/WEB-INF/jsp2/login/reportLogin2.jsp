@@ -21,7 +21,6 @@
 		int[] answer = new int[13];
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -90);
-
 		%>
 
 		<nav aria-label="breadcrumb">
@@ -76,21 +75,23 @@
 							answered.setTime(as.getAnswered());
 
 							if (answered.after(cal)) {
-								%> 
-						<p><%=as.getOptToi().get().getExamName()%>(<%=dateFormat(as.getAnswered())%>)
+						%>
+						<p><%=as.getOptToi().get().getExamName()%>(<%= CommonFunction.dateFormat(as.getAnswered()) %>)
 							:
-							<%=as.getNoOfSeikai()%>問正解/<%=as.getNoOfAnswer()%>問中</p> <% 
-							s += as.getNoOfSeikai();
-							a += as.getNoOfAnswer();
+							<%=as.getNoOfSeikai()%>問正解/<%=as.getNoOfAnswer()%>問中
+						</p> <%
+ 	s += as.getNoOfSeikai();
+ a += as.getNoOfAnswer();
 
-							} else {
-						%> 
-						<p><s><small><%=as.getOptToi().get().getExamName()%>(<%=dateFormat(as.getAnswered())%>)
-							:
-							<%=as.getNoOfSeikai()%>問正解/<%=as.getNoOfAnswer()%>問中</small></s></p> <% 
-							}
-						%> <%
- }
+ } else {
+ %>
+						<p>
+							<s><small><%=as.getOptToi().get().getExamName()%>(<%=CommonFunction.dateFormat(as.getAnswered())%>)
+									: <%=as.getNoOfSeikai()%>問正解/<%=as.getNoOfAnswer()%>問中</small></s>
+						</p> <%
+ 	}
+ %> <%
+ 	}
  %>
 					</td>
 					<td><%=Math.round(s * 1000.0 / a) / 10.0%>%</td>
@@ -157,29 +158,31 @@
 				</tr>
 				<tr>
 					<th>正解率</th>
-					<% for(int i=0 ; i<=4 ; i++){
+					<%
+						for (int i = 0; i <= 4; i++) {
 					%>
 					<td><%=sentaku[i]%>%</td>
-					<% 
-					}
+					<%
+						}
 					%>
 					<td></td>
 				</tr>
 				<tr>
 					<th>得点</th>
-					<% for(int i=0 ; i<=4 ; i++){
+					<%
+						for (int i = 0; i <= 4; i++) {
 					%>
 					<td <%=(yuusen[i] < 2.0) ? "bgcolor='CHARTREUSE'" : ""%>><%=Math.floor(15 * sentaku[i] / 10.0) / 10.0%>点/15</td>
-					<% 
-					}
+					<%
+						}
 					%>
 					<%
 						double sum = 0;
-						for(int i=0 ; i<=4 ; i++){	
-							if ((yuusen[i] < 2.0)){
-								sum += Math.floor(15 * sentaku[i] / 10.0) / 10.0;
-							}
+					for (int i = 0; i <= 4; i++) {
+						if ((yuusen[i] < 2.0)) {
+							sum += Math.floor(15 * sentaku[i] / 10.0) / 10.0;
 						}
+					}
 					%>
 					<td><%=Math.floor(sum * 10) / 10%>点/30</td>
 				</tr>

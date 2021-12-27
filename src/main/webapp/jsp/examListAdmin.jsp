@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="jp.ac.jc21.t.yoshizawa.objectify.Exam"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
@@ -16,59 +17,53 @@
 <body>
 
 	<%
-	Map<Long, Exam> examMap = (Map<Long, Exam>) request.getAttribute("examMap");
-
+		Map<Long, Exam> examMap = (Map<Long, Exam>) request.getAttribute("examMap");
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
-	
-<H1>登録されている試験の一覧</H1>
+
+	<H1>登録されている試験の一覧</H1>
 	<%
-	if (examMap == null || examMap.size() == 0) {
+		if (examMap == null || examMap.size() == 0) {
 	%>
 	試験が登録されていません
 	<%
 		} else {
 	%>
-	<TABLE border=1>
+	<TABLE border="1">
 		<TR>
 			<TD>ID</TD>
 			<TD>YYYYMM</TD>
 			<TD>NAME</TD>
+			<TD>開始</TD>
+			<TD>終了</TD>
+			<TD>解答可能</TD>
 			<TD>問題登録</TD>
 			<TD>内容確認</TD>
 		</TR>
 		<%
-		for (Long k : examMap.keySet()) {
-			Exam e = examMap.get(k);	
-			int openDiff=1;
-			try{
+			for (Long k : examMap.keySet()) {
+			Exam e = examMap.get(k);
+			int openDiff = 1;
+			try {
 				openDiff = new Date().compareTo(e.getOpenDate());
-			} catch(NullPointerException ex){}
-			int closeDiff=-1;
-			try{
+			} catch (NullPointerException ex) {
+			}
+			int closeDiff = -1;
+			try {
 				closeDiff = new Date().compareTo(e.getCloseDate());
-			} catch(NullPointerException ex){}
-			
+			} catch (NullPointerException ex) {
+			}
 		%>
 		<tr>
 			<td><%=e.getId()%></td>
 			<td><%=e.getYYYYMM()%></td>
 			<td><a href="/admin/toi/list?parentId=<%=e.getId()%>"><%=e.getName()%></a></td>
-			<td>
-				<%= e.getToiListSize() %>
-			</td>
+			<td><%=CommonFunction.dateFormat(e.getOpenDate())%>[<%=openDiff%>]</td>
+			<td><%=CommonFunction.dateFormat(e.getCloseDate())%>[<%=closeDiff%>]</td>
+			<td><%=((openDiff == 1) && (closeDiff == -1)) ? "OK" : "--"%></td>
+			<td><%=e.getToiListSize()%></td>
 			<td><a href="/admin/check/exam?examId=<%=e.getId()%>">チェック</a></td>
-			<td>
-				
-				<%= e.getOpenDate() %>[<%= openDiff %>]
-			</td>
-			<td>
-				<%= e.getCloseDate() %>[<%= closeDiff %>]
-			</td>
-			<td>
-			<%= ((openDiff==1)&&(closeDiff==-1))?"OK":"" %>
-			</td>
 		</tr>
 		<%
 			}
@@ -84,5 +79,5 @@
 		<input type="text" name="ExamName" /> <input type="submit" name="追加" />
 	</form>
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>

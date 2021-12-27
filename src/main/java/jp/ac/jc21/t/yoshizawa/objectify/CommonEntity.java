@@ -47,9 +47,4 @@ public class CommonEntity {
 		return syncCache.get(key) != null;
 	}
 	
-	public static final String getDateString(Date date) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-		return sdf.format(date);
-	}
-	final public static String ofyVersion = "4.02.3";
 }

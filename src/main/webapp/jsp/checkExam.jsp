@@ -23,8 +23,8 @@
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
-	
-<H1>試験に関するチェック</H1>
+
+	<H1>試験に関するチェック</H1>
 	<%
 	if (list == null || list.size() == 0) {
 	%>
@@ -32,8 +32,10 @@
 	<%
 		} else {
 	%>
-	<p>Exam id=<%=e.getId() %></p>
-	<p>Exam name=<%=e.getName() %></p>
+	<p>
+		Exam id=<%=e.getId() %></p>
+	<p>
+		Exam name=<%=e.getName() %></p>
 	<TABLE border=1>
 		<TR>
 			<TD>toi.key</TD>
@@ -49,7 +51,7 @@
 		<tr>
 			<td><%=s[0]%></td>
 			<td><%=s[1]%></td>
-			<td> <a href='/admin/check/toi?toiId=<%=s[1]%>'>チェック</a></td>
+			<td><a href='/admin/check/toi?toiId=<%=s[1]%>'>チェック</a></td>
 			<td><%=s[2]%></td>
 			<td><%=s[3]%></td>
 		</tr>
@@ -63,5 +65,5 @@
 
 	<hr />
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>

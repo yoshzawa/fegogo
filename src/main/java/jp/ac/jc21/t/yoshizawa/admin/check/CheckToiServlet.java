@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
@@ -65,7 +66,7 @@ public class CheckToiServlet extends HttpServlet {
 				s[2]=answerSum.getOptToi().get().getId().toString();
 
 				
-				s[6]=AnswerSum.getDateString(answerSum.getAnswered());
+				s[6]=CommonFunction.dateFormat(answerSum.getAnswered());
 				list.add(s);
 				
 			}

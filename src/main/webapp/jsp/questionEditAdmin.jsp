@@ -13,9 +13,9 @@
 <body>
 	<%
 		String parentId = (String) request.getAttribute("parentId");
-		Toi parent = (Toi) request.getAttribute("parent");
-		Question q = (Question) request.getAttribute("q");
-		Exam exam = (Exam) request.getAttribute("exam");
+	Toi parent = (Toi) request.getAttribute("parent");
+	Question q = (Question) request.getAttribute("q");
+	Exam exam = (Exam) request.getAttribute("exam");
 	%>
 	<%@ include file="common/headerAdmin.jsp"%><br>
 
@@ -23,11 +23,11 @@
 
 
 
-	<p>選択された試験：
+	<p>選択された試験：</p>
 	<P>
 		<%=exam.getName()%>
 		問<%=parent.getNo()%>(<%=parent.getName()%>) <a
-			href="/admin/question/list?parentId=<%= parent.getId() %>">(選択解除する)</a>
+			href="/admin/question/list?parentId=<%=parent.getId()%>">(選択解除する)</a>
 	</p>
 
 	<%
@@ -40,7 +40,7 @@
 	%>
 	<form method='post' action='/admin/question/update'>
 
-		<table border=1>
+		<table border="1">
 			<tr>
 				<td></td>
 				<td>Id</td>
@@ -59,12 +59,10 @@
 				<td><%=q.isMulti()%></td>
 				<td>
 					<%
-							for (int i : q.getAnswerSet()) {
-					%> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-					<%
-							
-						}
-					%>
+						for (int i : q.getAnswerSet()) {
+					%> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> <%
+ 	}
+ %>
 				</td>
 
 			</tr>
@@ -79,41 +77,39 @@
 				<td><select name="noOfOption">
 						<%
 							for (int i = 0; i <= 19; i++) {
-								if (q.getNoOfOption() == i) {
+							if (q.getNoOfOption() == i) {
 						%>
 						<option value="<%=i%>" selected>
 							<%
 								} else {
 							%>
-						
+
+						</option>
 						<option value="<%=i%>">
 							<%
-							}
+								}
 							%>
-													<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%></option>
-							<%
+							<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%></option>
+						<%
 							}
-							%>
-						
+						%>
+
 				</select></td>
 				<td><%=q.isMulti()%></td>
 				<td>
-		<%
- 	for (int i = 0; i <= 19; i++) {
+					<%
+						for (int i = 0; i <= 19; i++) {
+					%> <%
+ 	if (q.isCorrect(i) == true) {
+ %> <input type="checkbox" name="correct" value="<%=i%>" checked /> <%
+ 	} else {
+ %> <input type="checkbox" name="correct" value="<%=i%>" /> <%
+ 	}
+ %> <%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%> <%
+ 	}
  %>
-						<%
-							if (q.isCorrect(i) == true) {
-						%>
-		<input type="checkbox" name="correct" value="<%=i%>" checked/>
- <% } else {%>
-		<input type="checkbox" name="correct" value="<%=i%>" />
- <% } %>
-		<%="アイウエオカキクケコサシスセソタチツテト".charAt(i)%>
-		<%
-			}
-		%>
-		</td>	
-
+				</td>
+			</tr>
 		</table>
 		<input type="submit">
 
@@ -123,5 +119,5 @@
 	%>
 
 </body>
-　<%@ include file="common/footer.jsp"%>
+<%@ include file="common/footer.jsp"%>
 </html>

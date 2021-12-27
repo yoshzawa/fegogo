@@ -19,34 +19,33 @@
 	<%
 		Optional<Answer> optAnswer = (Optional<Answer>) request.getAttribute("optAnswer");
 
-		// answer -> answerSum
-		Optional<AnswerSum> optAnswerSum = (Optional<AnswerSum>) request.getAttribute("optAnswerSum");
+	// answer -> answerSum
+	Optional<AnswerSum> optAnswerSum = (Optional<AnswerSum>) request.getAttribute("optAnswerSum");
 
-		// answer -> answerSum
-		Optional<AnswerSum> optAnswerSumReal = (Optional<AnswerSum>) request.getAttribute("optAnswerSumReal");
+	// answer -> answerSum
+	Optional<AnswerSum> optAnswerSumReal = (Optional<AnswerSum>) request.getAttribute("optAnswerSumReal");
 
-		// answer -> Question
-		Optional<Question> optQuestion = (Optional<Question>) request.getAttribute("optQuestion");
+	// answer -> Question
+	Optional<Question> optQuestion = (Optional<Question>) request.getAttribute("optQuestion");
 
-		// answer -> Question
-		Optional<Question> optQuestionReal = (Optional<Question>) request.getAttribute("optQuestionReal");
+	// answer -> Question
+	Optional<Question> optQuestionReal = (Optional<Question>) request.getAttribute("optQuestionReal");
 
-		// answer -> answerSum -> toi
-		Optional<Toi> optToi = (Optional<Toi>) request.getAttribute("optToi");
-		Optional<Toi> optToiReal = (Optional<Toi>) request.getAttribute("optToiReal");
+	// answer -> answerSum -> toi
+	Optional<Toi> optToi = (Optional<Toi>) request.getAttribute("optToi");
+	Optional<Toi> optToiReal = (Optional<Toi>) request.getAttribute("optToiReal");
 
-		Optional<Exam> optExam = (Optional<Exam>) request.getAttribute("optExam");
-		Optional<Exam> optExamReal = (Optional<Exam>) request.getAttribute("optExamReal");
+	Optional<Exam> optExam = (Optional<Exam>) request.getAttribute("optExam");
+	Optional<Exam> optExamReal = (Optional<Exam>) request.getAttribute("optExamReal");
 
-		// answer -> Question -> toi
-		Optional<Toi> optToiQ = (Optional<Toi>) request.getAttribute("optToiQ");
-		Optional<Toi> optToiQReal = (Optional<Toi>) request.getAttribute("optToiQReal");
+	// answer -> Question -> toi
+	Optional<Toi> optToiQ = (Optional<Toi>) request.getAttribute("optToiQ");
+	Optional<Toi> optToiQReal = (Optional<Toi>) request.getAttribute("optToiQReal");
 
-		// answer -> Question -> Exam
-		Optional<Exam> optExamQ = (Optional<Exam>) request.getAttribute("optExamQ");
-		Optional<Exam> optExamQReal = (Optional<Exam>) request.getAttribute("optExamQReal");
-
-		%>
+	// answer -> Question -> Exam
+	Optional<Exam> optExamQ = (Optional<Exam>) request.getAttribute("optExamQ");
+	Optional<Exam> optExamQReal = (Optional<Exam>) request.getAttribute("optExamQReal");
+	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
 
@@ -172,20 +171,21 @@
 					</tr>
 					<tr>
 						<td>Answer date</td>
-						<td><%=Answer.getDateString(optAnswer.get().getAnswered())%></td>
+						<td><%=CommonFunction.dateFormat(optAnswer.get().getAnswered())%></td>
 
 					</tr>
 				</table>
 			</td>
 		</tr>
-		<tr><td>
-		
-		
-						<table border="1">
+		<tr>
+			<td>
+
+
+				<table border="1">
 					<tr>
 						<td>exam <- toi へのリンク</td>
-						<td><%=optExamQ.get().getId()%><br /> 
-						<a href="/admin/check/exam?examId=<%=optExamQ.get().getId()%>">check</a></td>
+						<td><%=optExamQ.get().getId()%><br /> <a
+							href="/admin/check/exam?examId=<%=optExamQ.get().getId()%>">check</a></td>
 
 					</tr>
 					<%
@@ -212,10 +212,10 @@
 						}
 					%>
 				</table>
-						</td>
-						<td>
-				
-						<table border="1">
+			</td>
+			<td>
+
+				<table border="1">
 					<tr>
 						<td>toi <- Question へのリンク</td>
 						<td><%=optToiQ.get().getId()%><br /> <a
@@ -245,8 +245,8 @@
 						}
 					%>
 				</table>
-						</td>
-						<td>
+			</td>
+			<td>
 
 
 				<table border="1">
@@ -259,7 +259,8 @@
 					%>
 					<tr>
 						<td>Question確認</td>
-						<td>存在する(id=<%=optQuestionReal.get().getId()%>)</td>
+						<td>存在する(id=<%=optQuestionReal.get().getId()%>)
+						</td>
 					</tr>
 
 					<%
@@ -273,7 +274,7 @@
 						}
 					%>
 				</table>
-</td>
+			</td>
 		</tr>
 	</table>
 

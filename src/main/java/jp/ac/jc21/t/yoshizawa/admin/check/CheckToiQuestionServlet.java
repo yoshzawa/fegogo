@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.googlecode.objectify.Ref;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
@@ -67,7 +68,7 @@ public class CheckToiQuestionServlet extends HttpServlet {
 					
 
 				
-				s[6]=Question.getDateString(question.getCreated());
+				s[6]=CommonFunction.dateFormat(question.getCreated());
 				list.add(s);
 				
 			}

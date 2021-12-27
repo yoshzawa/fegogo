@@ -15,6 +15,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+import jp.ac.jc21.t.yoshizawa.CommonFunction;
+
 /**
  * @author t.yoshizawa
  *
@@ -116,7 +118,7 @@ public class Exam extends ExamFactory {
 
 	public String getExportData() {
 
-		return getId() + "," + getYYYYMM() + "," + getName() + "," + getDateString(getCreated());
+		return getId() + "," + getYYYYMM() + "," + getName() + "," + CommonFunction.dateFormat(getCreated());
 	}
 
 	public boolean containAnswer(Long toiId) {

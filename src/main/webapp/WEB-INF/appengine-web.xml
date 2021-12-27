@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-<precompilation-enabled>true</precompilation-enabled>
-  <threadsafe>true</threadsafe>
-  <sessions-enabled>true</sessions-enabled>
-  <runtime>java8</runtime>
+<appengine-web-app
+	xmlns="http://appengine.google.com/ns/1.0">
+	<precompilation-enabled>true</precompilation-enabled>
+	<threadsafe>true</threadsafe>
+	<sessions-enabled>true</sessions-enabled>
+	<runtime>java8</runtime>
 
-  <system-properties>
-    <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
-  </system-properties>
-  
-  <staging>
-  <enable-jar-classes>true</enable-jar-classes>
-  <enable-jar-splitting>true</enable-jar-splitting>
-  <disable-jar-jsps>false</disable-jar-jsps>
-  
-  </staging>
-  
+	<system-properties>
+		<property name="java.util.logging.config.file"
+			value="WEB-INF/logging.properties" />
+	</system-properties>
+
+	<staging>
+		<enable-jar-classes>true</enable-jar-classes>
+		<enable-jar-splitting>true</enable-jar-splitting>
+		<disable-jar-jsps>false</disable-jar-jsps>
+
+	</staging>
+
 </appengine-web-app>

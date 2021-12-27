@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-  	<%
+<%
 		String parentId = (String) request.getAttribute("parentId");
 		Toi toi = (Toi) request.getAttribute("parent");
 //		List<String[]> datas = (List<String[]>) request.getAttribute("datas");
@@ -23,103 +23,112 @@
 <title><%= toi.getExam().getYYYYMM()%> 問<%=toi.getNo()%> <%=toi.getName()%></title>
 </head>
 <body>
- 	<div class="container">
-			<div class="container-sm">
-  
-  
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="/">ホーム</a></li>
-			<li class="breadcrumb-item"><a href="/exam/">試験 一覧</a></li>
-			<li class="breadcrumb-item"><a href="/toi/list?parentId=<%=toi.getExamId()%>"><%=toi.getExamName()%> 試験</a></li>
-			<li class="breadcrumb-item active" aria-current="page">問<%=toi.getNo()%> <%= toi.getGenreName() %>
-			(<%=toi.getName()%>)</li>
-		</ol>
-	</nav>
+	<div class="container">
+		<div class="container-sm">
 
-<%@ include file="../common/headerLogin.jsp"%>
 
-	    <main class="mb-5">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">ホーム</a></li>
+					<li class="breadcrumb-item"><a href="/exam/">試験 一覧</a></li>
+					<li class="breadcrumb-item"><a
+						href="/toi/list?parentId=<%=toi.getExamId()%>"><%=toi.getExamName()%>
+							試験</a></li>
+					<li class="breadcrumb-item active" aria-current="page">問<%=toi.getNo()%>
+						<%= toi.getGenreName() %> (<%=toi.getName()%>)
+					</li>
+				</ol>
+			</nav>
 
-	<%
+			<%@ include file="../common/headerLogin.jsp"%>
+
+			<main class="mb-5">
+
+				<%
 		if ((datas == null) || (datas.size() == 0)) {
 	%>
-	設問が登録されていません
-	<%
+				設問が登録されていません
+				<%
 		} else {
 	%>
-	<script>
-	$(function(){
-	    $(document).on('submit', function(event) {
-	      $('form').find(':submit').prop('disabled', true);
-	    });
-	});
-</script>
-	<h2><%=toi.getExamName()%> 試験 <%= toi.getGenreName() %></h2>
-	<h3>問<%=toi.getNo()%> <%=toi.getName()%></h3>
-	<form method="post" action="/answer">
-		<input type="hidden" name="userId" value="<%= email %>" />
-		<input type="hidden" name="toiId" value="<%= toi.getId() %>" />
-		<%
+				<script>
+	window.onload = function(){
+		document.getElementById("mainForm").onsubmit = function(){
+		return confirm("この内容で登録しますか?");
+		}
+		}
+	</script>
+
+				<h2><%=toi.getExamName()%>
+					試験
+					<%= toi.getGenreName() %></h2>
+				<h3>
+					問<%=toi.getNo()%>
+					<%=toi.getName()%></h3>
+				<form method="post" action="/answer" id="mainForm" name="mainForm">
+					<input type="hidden" name="userId" value="<%= email %>" /> <input
+						type="hidden" name="toiId" value="<%= toi.getId() %>" />
+					<%
 			for(ImageSet is : imageSetList){
 				if(is.isImage()==true){
 %>
-							<p
-								style="position:relative;
+					<p
+						style="position:relative;
 									background-image: url(<%=is.getUrl()%>);
 									height: <%=is.getHeight()%>px;
 									width:700px;
 									background-position: 0  <%=is.getTop()%>px;
 									background-size: 700px auto ;
 									overflow: hidden;">
-							</p>		
-<% 					
+					</p>
+					<% 					
 				}else{
 		%>
-					<TABLE border=1 class="table table-striped table-hover table-responsive">
-			<thead class="thead-dark">
-				<TR>
-					<th>設問</th>
-					<th>解答欄</th>
-				</TR>
-			</thead>
+					<TABLE border=1
+						class="table table-striped table-hover table-responsive">
+						<thead class="thead-dark">
+							<TR>
+								<th>設問</th>
+								<th>解答欄</th>
+							</TR>
+						</thead>
 
-			<%
+						<%
 				Long [] ids = is.getQuestionIds();
 				for(Long id : ids){
 //					System.out.println(id);
 					String[] s = datas.get(id);
 				
 			%>
-			<tr>
-				<td><%=s[0]%></td>
-				<td><%=s[1]%></td>
-			
-			</tr>
-			<%
+						<tr>
+							<td><%=s[0]%></td>
+							<td><%=s[1]%></td>
+
+						</tr>
+						<%
 				}
 			%>
-		</table>
-		<% 
+					</table>
+					<% 
 				}
 		%>
-		<% 
+					<% 
 		}
 		%>
-	
 
-		
-		<input type="submit" value="送信する" />
-	</form>
 
-	<%
+
+					<input type="submit" value="送信する" />
+				</form>
+
+				<%
 		}
 	%>
 
-<p></p>
-</main>
-</div>
-　<%@ include file="../common/footer.jsp"%>
-</div>
-  </body>
+				<p></p>
+			</main>
+		</div>
+		<%@ include file="../common/footer.jsp"%>
+	</div>
+</body>
 </html>
