@@ -283,7 +283,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		}
 	}
 
-	public String getExportData() {
+	public final String getExportData() {
 
 		return getId() + "," + 
 		getName() + "," + 
