@@ -38,11 +38,11 @@ public class ExportAnswerSumServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/csv; charset=Windows-31J");
 		PrintWriter out = response.getWriter();
-		List<AnswerSum> list = AnswerSum.loadAll();
 		out.println(
 				"id,Name,Answered,ToiId,MemberId,NoOfAnswer,NoOfSeikai"
 				);
-		list.stream().forEach((AnswerSum aSum)->out.println(aSum.getExportData()));
+		AnswerSum.loadAll()
+		.stream().forEach((AnswerSum aSum)->out.println(aSum.getExportData()));
 		
 		out.close();
 	}
