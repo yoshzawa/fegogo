@@ -54,14 +54,10 @@
 			Ref<Member> member = as.getRefMember();
 		%>
 		<tr>
-			<td><%=as.getId()%> <%
- 	if ((member != null) && (member.get() != null)) {
- %> <br /> <a
-				href="/admin/answerSum/delete?memberId=<%=member.get().geteMail()%>&amp;AnswerSumId=<%=as.getId()%>">delete</a>
-				<a href="/admin/delete/answerSum?answerSumId=<%=as.getId()%>">delete(CHECK)</a>
-				<%
-					}
-				%></td>
+			<td><%=as.getId()%> 
+			( <a href="/admin/answerSumRestoreCheck?answerSumId=<%=as.getId()%>">restore</a> )
+			
+			</td>
 			<td><%=as.getName()%></td>
 			<td><%=as.getNoOfAnswer()%></td>
 			<td><%=as.getNoOfSeikai()%></td>
