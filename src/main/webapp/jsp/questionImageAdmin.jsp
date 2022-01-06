@@ -57,7 +57,7 @@
 					%>
 
 					<tr>
-						<td><a name="<%=no%>"><%=no%></a></td>
+						<td><a href="<%=no%>"><%=no%></a></td>
 						<td>
 							<p
 								style="position: relative; background-image: url(<%=is.getUrl()%>); height: <%=is.getHeight()%>px; width: 700px; background-position: 0<%=is.getTop()%>px; background-size: 700px auto; overflow: hidden;">

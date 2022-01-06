@@ -41,9 +41,9 @@
 	</p>
 
 	<ul class="nav nav-tabs">
-		<li class="nav-item"><a class="nav-link" href="#">分野の変更</a></li>
 		<li class="nav-item"><a class="nav-link active"
-			aria-current="page" href="#">分野の変更</a></li>
+			aria-current="page" href="#">Active</a></li>
+		<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 		<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 		<li class="nav-item"><a class="nav-link disabled" href="#"
 			tabindex="-1" aria-disabled="true">Disabled</a></li>
@@ -63,6 +63,84 @@
 				type="submit" value="分野変更" />
 		</p>
 	</form>
+
+	<hr />
+	<form method="post" action="/admin/ToiCopyServlet">
+		<input type="hidden" name="fromToi" value="<%= parent.getId() %>" />
+		<%= parent.getName() %>を、 EXAM ID<input type="text" name="toExam"
+			value="" placeholder="作成するEXAMのID" />に、 問番号 <input type="text"
+			size="2" name="toToiNo" value="<%= parent.getNo()%>" />に <input
+			type="submit" value="作成する" />
+
+	</form>
+
+	<%
+		if ((qMap == null) || (qMap.size() == 0)) {
+	%>
+	設問が登録されていません
+	<%
+		} else {
+	%>
+	<table border="1">
+		<tr>
+			<td>Id</td>
+			<td>No</td>
+			<td>Name</td>
+			<td>NoOfOption</td>
+			<td>Answer</td>
+		</tr>
+
+		<%
+			
+			Set<Long> toiKeySet = qMap.keySet();
+				for (Long l : toiKeySet) {
+					Question q = qMap.get(l);
+		
+		%>
+		<tr>
+			<td><%=q.getId()%></td>
+			<td><%=q.getNo()%></td>
+			<td><%=q.getName()%></td>
+			<td><%=q.getKana((int)q.getNoOfOption()) %></td>
+			<td>
+				<% for(int i : q.getAnswerSet()){%> <%=q.getKana(i) %> <% }%>
+			</td>
+			<td><a href="/admin/question/edit?id=<%=q.getId()%>">edit</a></td>
+		</tr>
+		<%
+			}
+		%>
+	</table>
+	<%
+		}
+	%>
+	<hr />
+
+	<form method='post' action='/admin/question/addMulti'>
+		No<input type="text" name="No" /><br /> Name<input type="text"
+			name="Qname" /><br /> #ofOption <select name="noOfOption">
+			<%
+				for (int i = 0; i <= 19; i++) {
+			%>
+			<option value="<%=i%>">
+				<%=Question.getKana(i)%>
+			</option>
+			<%
+				}
+			%>
+		</select> <br /> Answer
+		<%
+ 	for (int i = 0; i <= 19; i++) {
+ %>
+		<input type="checkbox" name="correct" value="<%=i%>" />
+		<%=Question.getKana(i)%>
+		<%
+			}
+		%>
+		<br /> <input type="hidden" name="parentId" value='<%=parentId%>' />
+		<input type="submit">
+	</form>
+	<hr />
 
 </body>
 <%@ include file="common/footer.jsp"%>

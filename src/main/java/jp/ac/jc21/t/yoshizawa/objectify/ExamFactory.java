@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.googlecode.objectify.Key;
 
@@ -46,6 +47,16 @@ public abstract class ExamFactory extends CommonEntity {
 		}
 		return examMap;
 	}
+	
+	public static final Map<Long, Exam> loadAll2() {
+
+
+		Map<Long, Exam> examMap = new TreeMap<>();
+
+		examMap = ofy().load().type(Exam.class).list().stream().collect(Collectors.toMap(Exam::getYYYYMM,(Exam d)->d,(Exam d1,Exam d2)->d2,TreeMap::new));
+		return examMap;
+	}
+	
 
 	static Map<Long, Exam> cachedMapById = null;
 	void flush() {
