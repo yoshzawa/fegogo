@@ -11,7 +11,7 @@
 
 
 	<%
-	Exam parentExam = (Exam) request.getAttribute("parent");
+//	Exam parentExam = (Exam) request.getAttribute("parent");
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>

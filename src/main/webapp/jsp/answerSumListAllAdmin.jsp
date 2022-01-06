@@ -59,7 +59,11 @@
 		%>
 		<tr>
 			<td><%=as.getId()%> 
+			<% if(CloneToi.getByToiId(as.getToiId()).size() > 0){ %>
 			( <a href="/admin/answerSumRestoreCheck?answerSumId=<%=as.getId()%>">restore</a> )
+			<% } else {%>
+			( original )
+			<% } %>
 			
 			</td>
 			<td><%=as.getName()%></td>
