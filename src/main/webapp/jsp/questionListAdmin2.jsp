@@ -41,38 +41,12 @@
 	</p>
 
 	<ul class="nav nav-tabs">
+		<li class="nav-item"><a class="nav-link" href="/admin/question/list?parentId=<%= parent.getId() %>">分野の変更</a></li>
 		<li class="nav-item"><a class="nav-link active"
-			aria-current="page" href="#">Active</a></li>
-		<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-		<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-		<li class="nav-item"><a class="nav-link disabled" href="#"
-			tabindex="-1" aria-disabled="true">Disabled</a></li>
+			aria-current="page" >問題の登録</a></li>
+		<li class="nav-item"><a class="nav-link" href="/admin/question/list3?parentId=<%= parent.getId() %>">複製</a></li>
+
 	</ul>
-
-	<form method="post" action="/admin/toi/changeGenre">
-		<p>
-			分野 <select name="genreId">
-				<% for (Genre g : genreList){ %>
-				<% if(g.getId() == genreId){ %>
-				<option value="<%= g.getId()%>" selected="selected"><%=g.getName() %></option>
-				<% } else {%>
-				<option value="<%= g.getId()%>"><%=g.getName() %></option>
-				<% } %>
-				<% } %>
-			</select> <input type="hidden" name="toiId" value="<%= parentId%>" /> <input
-				type="submit" value="分野変更" />
-		</p>
-	</form>
-
-	<hr />
-	<form method="post" action="/admin/ToiCopyServlet">
-		<input type="hidden" name="fromToi" value="<%= parent.getId() %>" />
-		<%= parent.getName() %>を、 EXAM ID<input type="text" name="toExam"
-			value="" placeholder="作成するEXAMのID" />に、 問番号 <input type="text"
-			size="2" name="toToiNo" value="<%= parent.getNo()%>" />に <input
-			type="submit" value="作成する" />
-
-	</form>
 
 	<%
 		if ((qMap == null) || (qMap.size() == 0)) {
