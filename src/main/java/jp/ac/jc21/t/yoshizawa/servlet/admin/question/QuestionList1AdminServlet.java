@@ -16,8 +16,8 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 @SuppressWarnings("serial")
 
-@WebServlet(urlPatterns = { "/admin/question/list" })
-public class QuestionListAdminServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/question/list","/admin/question/list1" })
+public class QuestionList1AdminServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -46,7 +46,7 @@ public class QuestionListAdminServlet extends HttpServlet {
 		
 		
 
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin1.jsp");
 		rd.forward(request, response);
 
 	}

@@ -38,7 +38,7 @@ public class QuestionAddMultiAdminServlet extends HttpServlet {
 		q = q.save();
 		t.save();
 
-		response.sendRedirect("/admin/question/list?parentId=" + parentId);
+		response.sendRedirect("/admin/question/list2?parentId=" + parentId);
 
 	}
 }
