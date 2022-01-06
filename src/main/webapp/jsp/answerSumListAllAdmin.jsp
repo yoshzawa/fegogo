@@ -20,6 +20,9 @@
 	<%
 		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
 	String redirectTo = (String) request.getAttribute("redirectTo");
+	Optional<Long> toiId = 	Optional.ofNullable(	(Long)request.getAttribute("toiId"));
+
+
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
@@ -29,6 +32,7 @@
 		if (answerSumList == null || answerSumList.size() == 0) {
 	%>
 	試験が解答されていませんされていません
+	<a href="/admin/toi/delete?toiId=<%= toiId.get().toString() %>">Toiを削除</a>
 	<%
 		} else {
 	%>
