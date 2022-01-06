@@ -263,4 +263,7 @@ public final class Toi extends ToiFactory {
 		return getById(key.getId());
 	}
 
+	public void delete() {
+		ofy().delete().entity(this).now();
+	}
 }

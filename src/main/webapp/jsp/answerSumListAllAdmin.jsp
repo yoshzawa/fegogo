@@ -20,6 +20,9 @@
 	<%
 		List<AnswerSum> answerSumList = (List<AnswerSum>) request.getAttribute("answerSumList");
 	String redirectTo = (String) request.getAttribute("redirectTo");
+	Optional<Long> toiId = 	Optional.ofNullable(	(Long)request.getAttribute("toiId"));
+
+
 	%>
 
 	<%@ include file="common/headerAdmin.jsp"%><br>
@@ -29,6 +32,7 @@
 		if (answerSumList == null || answerSumList.size() == 0) {
 	%>
 	試験が解答されていませんされていません
+	<a href="/admin/toi/delete?toiId=<%= toiId.get().toString() %>">Toiを削除</a>
 	<%
 		} else {
 	%>
@@ -54,14 +58,10 @@
 			Ref<Member> member = as.getRefMember();
 		%>
 		<tr>
-			<td><%=as.getId()%> <%
- 	if ((member != null) && (member.get() != null)) {
- %> <br /> <a
-				href="/admin/answerSum/delete?memberId=<%=member.get().geteMail()%>&amp;AnswerSumId=<%=as.getId()%>">delete</a>
-				<a href="/admin/delete/answerSum?answerSumId=<%=as.getId()%>">delete(CHECK)</a>
-				<%
-					}
-				%></td>
+			<td><%=as.getId()%> 
+			( <a href="/admin/answerSumRestoreCheck?answerSumId=<%=as.getId()%>">restore</a> )
+			
+			</td>
 			<td><%=as.getName()%></td>
 			<td><%=as.getNoOfAnswer()%></td>
 			<td><%=as.getNoOfSeikai()%></td>

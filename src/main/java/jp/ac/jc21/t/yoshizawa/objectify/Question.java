@@ -254,6 +254,9 @@ public final class Question extends QuestionFactory {
 		}
 		
 	}
-		
+
+	public void delete() {
+		ofy().delete().entity(this).now();
+	}
 	
 }

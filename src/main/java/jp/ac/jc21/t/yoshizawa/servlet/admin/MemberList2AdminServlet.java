@@ -25,21 +25,19 @@ public class MemberList2AdminServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		Member member = Member.get(request.getParameter("email"));
-		
+
 		Map<Long, List<AnswerSum>> map = new TreeMap<Long, List<AnswerSum>>();
-		for(AnswerSum aSum :member.getAnswerSumList()) {
+		for (AnswerSum aSum : member.getAnswerSumList()) {
 			Long toiId = aSum.getToiId();
 			List<AnswerSum> list = map.get(toiId);
-			if(list == null) {
+			if (list == null) {
 				list = new ArrayList<AnswerSum>();
 			}
 			list.add(aSum);
 			map.put(toiId, list);
 		}
-		
-		
+
 		request.setAttribute("map", map);
-		
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/memberList2Admin.jsp");
 		rd.forward(request, response);

@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.servlet.admin.toi;
+package jp.ac.jc21.t.yoshizawa.servlet.admin.toi.clone;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
+import jp.ac.jc21.t.yoshizawa.objectify.CloneQuestion;
+import jp.ac.jc21.t.yoshizawa.objectify.CloneToi;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
@@ -35,9 +37,6 @@ public class ToiCopyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String fromToiId = "5772930285830144";
-		//String toExamId = "4693189256544256";
-		//String toToiNoString = "1";
 
 		String fromToiId = request.getParameter("fromToi");
 		String toExamId = request.getParameter("toExam");
@@ -45,6 +44,8 @@ public class ToiCopyServlet extends HttpServlet {
 
 		long toToiNo = Long.parseLong(toToiNoString);
 
+		// toiÇï°êª
+		
 		Toi fromToi =Toi.getById(fromToiId);
 		Exam toExam = Exam.getById(toExamId);
 		Genre genre = fromToi.getGenre();
@@ -52,15 +53,30 @@ public class ToiCopyServlet extends HttpServlet {
 		newToi.setGenreName(genre.getName());
 		newToi = newToi.save();
 		
+		// Cloneä÷òA
+		
+		CloneToi ct = new CloneToi(newToi.getId() , fromToi.getId());
+		ct.save();
+
+		// questionÇï°êª
+
+		
 		List<Question> list = fromToi.getQuestionList();
 		for(Question q : list) {
 			Set<Integer> ansSet = q.getAnswerSet();
 			Question newq = Question.createMultiQuestion(newToi, q.getNo(), q.getName(), q.getNoOfOption(),ansSet );
 			newq = newq.save();
+
+			// Cloneä÷òA
+			
+			CloneQuestion cq = new CloneQuestion(newToi.getId() , newq.getId(),q.getId());
+			cq.save();
+
 		}
 		
 		
-		
+		// ImageSetÇï°êª
+
 		newToi.setImageSet(fromToi.getImageSet());
 		newToi = newToi.save();
 		

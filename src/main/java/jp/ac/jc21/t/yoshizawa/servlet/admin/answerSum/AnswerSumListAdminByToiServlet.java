@@ -22,6 +22,7 @@ public class AnswerSumListAdminByToiServlet extends HttpServlet {
 
 		long toiId = Long.parseLong(request.getParameter("toiId"));
 		String parentId = request.getParameter("parentId");
+		request.setAttribute("toiId", toiId);
 		
 		List<AnswerSum> answerSumList = AnswerSum.getListByToiId(toiId);
 		request.setAttribute("answerSumList", answerSumList);

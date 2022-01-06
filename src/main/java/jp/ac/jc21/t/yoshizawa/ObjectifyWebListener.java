@@ -37,6 +37,8 @@ public class ObjectifyWebListener implements ServletContextListener {
 
 		ObjectifyService.register(ArchivedAnswerSum.class);
 		ObjectifyService.register(ArchivedAnswer.class);
+		ObjectifyService.register(CloneToi.class);
+		ObjectifyService.register(CloneQuestion.class);
 
 	}
 
