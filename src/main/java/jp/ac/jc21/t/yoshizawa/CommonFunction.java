@@ -44,6 +44,6 @@ public class CommonFunction {
 	float point = (100.0f * seikai / answer);	
 	return String.format("%1$.1f", point);	
 	}		
-	final public static String ofyVersion = "4.02.6";
+	final public static String ofyVersion = "4.02.9";
 
 }
