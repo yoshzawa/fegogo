@@ -68,6 +68,10 @@ public class CloneQuestion extends CommonEntity {
 		Key<CloneQuestion> key = ofy().save().entity(this).now();
 		return getById(key.getId());
 	}
+	public void delete() {
+		ofy().delete().entity(this).now();
+	}
+	
 
 	public static final CloneQuestion getById(long id) {
 		CloneQuestion q = null;

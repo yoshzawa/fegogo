@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jp.ac.jc21.t.yoshizawa.objectify.CloneToi;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Genre;
 import jp.ac.jc21.t.yoshizawa.objectify.Question;
@@ -46,8 +47,15 @@ public class QuestionList2AdminServlet extends HttpServlet {
 		
 		
 
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin2.jsp");
-		rd.forward(request, response);
+		if(CloneToi.getByToiId(parentId).size()>0) {
+			//clone‚³‚ê‚½
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin2cloned.jsp");
+			rd.forward(request, response);
+		}else {
+			//clone‚³‚ê‚½‚à‚Ì‚Å‚Í‚È‚¢
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/questionListAdmin2.jsp");
+			rd.forward(request, response);
+		}
 
 	}
 
