@@ -67,6 +67,7 @@
 	if (toiMap == null || toiMap.size() == 0) {
 	%>
 	試験が登録されていません
+	<a href="/admin/exam/remove?examId=<%= parentExam.getId()%>">remove</a>
 	<%
 	} else {
 	%>

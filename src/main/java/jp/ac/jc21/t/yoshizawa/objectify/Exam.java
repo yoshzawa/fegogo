@@ -139,5 +139,9 @@ public class Exam extends ExamFactory {
 		
 		return((openDiff==1)&&(closeDiff==-1));
 	}
+	
+	public void delete() {
+		ofy().delete().entity(this).now();
+	}
 
 }
