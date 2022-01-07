@@ -71,6 +71,11 @@
 			<td><%=parent.getName()%></td>
 			<td><%=orgToi.getName()%></td>
 		</tr>
+		<tr>
+			<th>toiName</th>
+			<td><%=parent.getExamName()%></td>
+			<td><%=orgToi.getExamName()%></td>
+		</tr>
 		<% for(long key :  qMap.keySet()){ 
 			Question q = qMap.get(key);
 			Optional<CloneQuestion> optCQ = Optional.ofNullable( cloneQuestionMap.get(q.getId()));

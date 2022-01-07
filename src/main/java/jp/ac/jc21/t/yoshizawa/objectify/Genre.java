@@ -102,10 +102,14 @@ public class Genre extends GenreFactory {
 	}
 
 	public final Map<Long, Toi> getToiMap() {
+		return getToiMap(-1);
+	}
+
+	public final Map<Long, Toi> getToiMap(int duration) {
 		List<Toi> toiList = getToiList();
 		Map<Long, Toi> toiMap = new TreeMap<Long, Toi>(new Comparator<Long>() {
 			public int compare(Long m, Long n) {
-				return ((Long) m).compareTo(n) * -1;
+				return ((Long) m).compareTo(n) * duration;
 			}
 		});
 		for (Toi t : toiList) {

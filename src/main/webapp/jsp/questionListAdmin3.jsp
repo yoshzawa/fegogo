@@ -30,6 +30,7 @@
 			if(parent.getGenre() != null){
 			genreId = parent.getGenre().getId();
 			}
+			Map<Long,Toi> toiMap = parent.getGenre().getToiMap(1);
 	%>
 
 	<p>選択された試験：</p>
@@ -53,8 +54,25 @@
 			value="" placeholder="作成するEXAMのID" />に、 問番号 <input type="text"
 			size="2" name="toToiNo" value="<%= parent.getNo()%>" />に <input
 			type="submit" value="作成する" />
-
 	</form>
+	<hr />
+	<form method="post" action="/admin/toi/clone/add">
+		<input type="hidden" name="fromToi" value="<%= parent.getId() %>" />
+		この問題「<%= parent.getName() %>」を、
+		<select name="toiId">
+		<%
+		for(Long key :toiMap.keySet()){
+			Toi t = toiMap.get(key);
+			if(!t.getId().equals(parent.getId())){
+		%>
+		<option value="<%= t.getId() %>"><%= t.getName() %>[<%= t.getExamName() %>]</option>
+		<% }%>
+		<% }%>
+		</select>
+		の複製にする
+		<input type="submit" value="実行" />
+	
+	
 
 
 </body>
