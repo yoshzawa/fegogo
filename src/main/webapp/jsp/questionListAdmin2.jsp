@@ -45,7 +45,8 @@
 		<li class="nav-item"><a class="nav-link active"
 			aria-current="page" >問題の登録</a></li>
 		<li class="nav-item"><a class="nav-link" href="/admin/question/list3?parentId=<%= parent.getId() %>">複製</a></li>
-
+		<li class="nav-item"><a class="nav-link"
+			href="/admin/question/list4?parentId=<%=parent.getId()%>">解答一覧</a></li>
 	</ul>
 
 	<%
