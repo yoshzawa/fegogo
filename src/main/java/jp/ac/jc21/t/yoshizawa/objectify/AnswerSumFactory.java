@@ -88,12 +88,12 @@ public class AnswerSumFactory extends CommonEntity {
 		}
 		return list;
 	}
-	
+
 	public final static List<AnswerSum> getListByEMail(String eMail) {
 
 		List<AnswerSum> list = null;
-			list = (List<AnswerSum>) loadByIndex(AnswerSum.class, "name", eMail);
-		
+		list = (List<AnswerSum>) loadByIndex(AnswerSum.class, "name", eMail);
+
 		return list;
 	}
 
@@ -122,12 +122,13 @@ public class AnswerSumFactory extends CommonEntity {
 		});
 		return list;
 	}
-	public static Map<Long,List<AnswerSum>> makeMapByToiId_old(List<AnswerSum> list) {
-		Map<Long, List<AnswerSum>> map= new TreeMap<Long,List<AnswerSum>>();
-		for(AnswerSum as : list) {
+
+	public static Map<Long, List<AnswerSum>> makeMapByToiId_old(List<AnswerSum> list) {
+		Map<Long, List<AnswerSum>> map = new TreeMap<Long, List<AnswerSum>>();
+		for (AnswerSum as : list) {
 			Long toiId = as.getToiId();
 			List<AnswerSum> answerSumList = map.get(toiId);
-			if(answerSumList == null) {
+			if (answerSumList == null) {
 				answerSumList = new ArrayList<AnswerSum>();
 			}
 			answerSumList.add(as);
@@ -135,7 +136,6 @@ public class AnswerSumFactory extends CommonEntity {
 		}
 		return map;
 	}
-
 
 	public final static Map<Long, List<AnswerSum>> makeMapByToiId(List<AnswerSum> answerSumList) {
 		Map<Long, List<AnswerSum>> map2 = answerSumList.stream().filter((AnswerSum aSum) -> {
