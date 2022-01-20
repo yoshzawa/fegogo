@@ -10,9 +10,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.googlecode.objectify.Ref;
 
@@ -70,17 +72,17 @@ public class AnswerFactory extends CommonEntity {
 	public static List<Answer> loadAll() {
 		return (List<Answer>) loadAll(Answer.class);
 	}
-	
-	static ListMapByLong<Long,List<Answer>> cacheByAnswerSumId=null;
-	
+
+	static ListMapByLong<Long, List<Answer>> cacheByAnswerSumId = null;
+
 	public static List<Answer> getByAnswerSumId_cache(Long answerSumId, String name) {
 		final Logger log = Logger.getLogger(Answer.class.getName());
 		if (cacheByAnswerSumId == null) {
 			cacheByAnswerSumId = new ListMapByLong("AnswerByAnswerId");
 		}
-		
+
 		Optional<List<Answer>> optAnswerSumList = cacheByAnswerSumId.get(answerSumId);
-		if(optAnswerSumList.isPresent() == false) {
+		if (optAnswerSumList.isPresent() == false) {
 			// EMAILÇ≈à¯Ç¡í£ÇÈÅiCacheä‹ÇﬂÇƒÅj
 			List<Answer> listByEMail = getByEMail(name);
 			// answerSumIdÇ≈listÇ…ÇµÇƒCacheÇ…ï™ÇØÇÈ
@@ -89,21 +91,20 @@ public class AnswerFactory extends CommonEntity {
 				Optional<List<Answer>> optAnswerList = cacheByAnswerSumId.get(a.getAnswerSumId());
 				if (optAnswerList.isPresent() == false) {
 					list = new ArrayList<Answer>();
-				}else {
-					list=optAnswerList.get();
+				} else {
+					list = optAnswerList.get();
 				}
 				list.add(a);
 				list = sort(list);
 				cacheByAnswerSumId.put(a.getAnswerSumId(), list);
 			}
 			optAnswerSumList = cacheByAnswerSumId.get(answerSumId);
-			
+
 		}
 
 		// éÊÇËèoÇµÇƒï‘Ç∑
 		return optAnswerSumList.get();
 	}
-	
 
 	public static List<Answer> getByAnswerSumId_old(Long answerSumId, String name) {
 		final Logger log = Logger.getLogger(Answer.class.getName());
@@ -149,5 +150,20 @@ public class AnswerFactory extends CommonEntity {
 			}
 		});
 		return list;
+	}
+
+	public final static List<Answer> getListByEMail(String eMail) {
+
+		List<Answer> list = null;
+		list = (List<Answer>) loadByIndex(Answer.class, "name", eMail);
+
+		return list;
+	}
+
+	public final static Map<Long, List<Answer>> makeMapByQuestionId(List<Answer> answerList) {
+		Map<Long, List<Answer>> map2 = answerList.stream().filter((Answer a) -> {
+			return Objects.nonNull(a);
+		}).collect(Collectors.groupingBy(Answer::getQuestionId));
+		return map2;
 	}
 }
