@@ -18,8 +18,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jp.ac.jc21.t.yoshizawa.objectify.Answer;
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
+import jp.ac.jc21.t.yoshizawa.objectify.Question;
+import jp.ac.jc21.t.yoshizawa.objectify.archived.ArchivedAnswer;
 import jp.ac.jc21.t.yoshizawa.objectify.archived.ArchivedAnswerSum;
 
 @SuppressWarnings("serial")
@@ -32,12 +35,38 @@ public class ArchivedAnswerSumGenerateAdminServlet extends HttpServlet {
 
 		Member member = Member.get(request.getParameter("email"));
 
+		//USERÇ≤Ç∆ÇÃAnswerSuméÊìæÅAtoiIdÇ≤Ç∆ÇÃMAPÇçÏê¨
 		List<AnswerSum> answerSumList = member.getAnswerSumList();
 		Map<Long, List<AnswerSum>> map = AnswerSum.makeMapByToiId(answerSumList);
+		
+		List<Answer> answerList = member.getAnswerList();
+		Map<Long, List<Answer>> map2 = Answer.makeMapByQuestionId(answerList);
+		
+
 		for(Long toiId : map.keySet()) {
-			response.getWriter().println(toiId);
+			
+			// toiÇ≤Ç∆Ç…èàóùÇ∑ÇÈ
+			response.getWriter().println("ToiId ->"+toiId);
 			List<AnswerSum> list = map.get(toiId);
 			ArchivedAnswerSum.generate(list).save();
+			
+			//questionÇ≤Ç∆ÇÃèàóù
+			
+			for(Question q : Question.getListByToiId(toiId))
+			{
+				response.getWriter().println("QuestionId ->"+toiId);
+				List<Answer> list2 = map2.get(q.getId());
+				List<ArchivedAnswer> listArcAnswer = ArchivedAnswer.generate(list2,toiId);
+//				ArchivedAnswer.save(listArcAnswer);
+				
+				
+			}
+			
+			
+			
+			
+			
+			
 		}
 	}
 }
