@@ -67,6 +67,10 @@ public final class Member extends MemberFactory {
 		return AnswerSum.getListByEMail(geteMail());
 	}
 
+	public List<Answer> getAnswerList() {
+		return Answer.getListByEMail(geteMail());
+	}
+
 	public List<AnswerSum> getAnswerSumListSorted() {
 		List<AnswerSum> list = getAnswerSumList();
 
