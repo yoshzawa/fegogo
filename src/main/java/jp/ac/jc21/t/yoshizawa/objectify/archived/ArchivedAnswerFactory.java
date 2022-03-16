@@ -12,9 +12,9 @@ import jp.ac.jc21.t.yoshizawa.objectify.Answer;
 import jp.ac.jc21.t.yoshizawa.objectify.CommonEntity;
 
 public class ArchivedAnswerFactory extends CommonEntity {
-	public static List<ArchivedAnswer> generate(List<Answer> list, Long toiId) {
-		if (list.size() == 0)
-			return null;
+	public static List<ArchivedAnswer> generate(List<Answer> list, Long toiId, ArchivedAnswerSum arcAnsSum) {
+		if ((list==null) || (list.size() == 0))
+			return new ArrayList<ArchivedAnswer>();
 		Long questionId = list.get(0).getQuestionId();
 		String name = list.get(0).getName();
 		String no = list.get(0).getNo();
@@ -33,8 +33,9 @@ public class ArchivedAnswerFactory extends CommonEntity {
 			aa.setNo(no);
 			aa.setToiId(toiId);
 			aa.setVersion(CommonFunction.ofyVersion);
-			aa.save();
-//			listAA.add(aa);
+			aa.setArchivedAnswerSumId(arcAnsSum.getId());
+//			aa.save();
+			listAA.add(aa);
 		}
 		return listAA;
 	}

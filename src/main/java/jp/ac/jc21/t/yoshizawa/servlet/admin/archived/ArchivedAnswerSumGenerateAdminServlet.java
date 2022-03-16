@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,40 +34,37 @@ public class ArchivedAnswerSumGenerateAdminServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		Member member = Member.get(request.getParameter("email"));
+		Optional<Member> optMember = Optional.ofNullable(Member.getByeMail(request.getParameter("email")));
 
-		//USER‚²‚Æ‚ÌAnswerSumæ“¾AtoiId‚²‚Æ‚ÌMAP‚ğì¬
-		List<AnswerSum> answerSumList = member.getAnswerSumList();
-		Map<Long, List<AnswerSum>> map = AnswerSum.makeMapByToiId(answerSumList);
-		
-		List<Answer> answerList = member.getAnswerList();
-		Map<Long, List<Answer>> map2 = Answer.makeMapByQuestionId(answerList);
-		
+		if (optMember.isPresent()) {
+			Member member = optMember.get();
+			// USER‚²‚Æ‚ÌAnswerSumæ“¾AtoiId‚²‚Æ‚ÌMAP‚ğì¬
+			List<AnswerSum> answerSumList = member.getAnswerSumList();
+			Map<Long, List<AnswerSum>> map = AnswerSum.makeMapByToiId(answerSumList);
 
-		for(Long toiId : map.keySet()) {
-			
-			// toi‚²‚Æ‚Éˆ—‚·‚é
-			response.getWriter().println("ToiId ->"+toiId);
-			List<AnswerSum> list = map.get(toiId);
-			ArchivedAnswerSum.generate(list).save();
-			
-			//question‚²‚Æ‚Ìˆ—
-			
-			for(Question q : Question.getListByToiId(toiId))
-			{
-				response.getWriter().println("QuestionId ->"+toiId);
-				List<Answer> list2 = map2.get(q.getId());
-				List<ArchivedAnswer> listArcAnswer = ArchivedAnswer.generate(list2,toiId);
-//				ArchivedAnswer.save(listArcAnswer);
-				
-				
+			List<Answer> answerList = member.getAnswerList();
+			Map<Long, List<Answer>> map2 = Answer.makeMapByQuestionId(answerList);
+
+			for (Long toiId : map.keySet()) {
+
+				// toi‚²‚Æ‚Éˆ—‚·‚é
+				response.getWriter().println("ToiId ->" + toiId);
+				System.err.println("ToiId ->" + toiId);
+				List<AnswerSum> list = map.get(toiId);
+				ArchivedAnswerSum arcAnsSum = ArchivedAnswerSum.generate(list);
+				arcAnsSum.save();
+
+				// question‚²‚Æ‚Ìˆ—
+
+				for (Question q : Question.getListByToiId(toiId)) {
+					response.getWriter().println("QuestionId ->" + q.getId());
+					System.err.println("QuestionId ->" + q.getId());
+					List<Answer> list2 = map2.get(q.getId());
+					List<ArchivedAnswer> listArcAnswer = ArchivedAnswer.generate(list2, toiId, arcAnsSum);
+					ArchivedAnswer.save(listArcAnswer);
+				}
 			}
-			
-			
-			
-			
-			
-			
+
 		}
 	}
 }

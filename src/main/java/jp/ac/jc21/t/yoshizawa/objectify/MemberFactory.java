@@ -22,7 +22,7 @@ public class MemberFactory extends CommonEntity{
 		return (List<Member>) loadAll(Member.class);
 	}
 
-	protected static Member getByeMail(String eMail) {
+	public static Member getByeMail(String eMail) {
 		return ofy().load().type(Member.class).filterKey(Key.create(Member.class, eMail)).first().now();
 
 	}
