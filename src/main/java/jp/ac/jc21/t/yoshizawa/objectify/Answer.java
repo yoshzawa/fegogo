@@ -216,7 +216,7 @@ public final class Answer extends AnswerFactory {
 		ofy().delete().entity(this).now();
 	}
 
-	@SuppressWarnings("unchecked")
+/*	@SuppressWarnings("unchecked")
 	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
 		String cacheId = "Answer:" + getId();
 		if (cache.containsKey(cacheId) == true) {
@@ -230,7 +230,7 @@ public final class Answer extends AnswerFactory {
 			return s;
 		}
 	}
-
+*/
 	public String getExportData() {
 
 		return getId() + "," + getNo() + "," + getName() + "," + CommonFunction.dateFormat(getAnswered()) + "," + getAnswerSumId()

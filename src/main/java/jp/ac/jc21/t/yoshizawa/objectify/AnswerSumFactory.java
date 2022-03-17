@@ -27,11 +27,6 @@ import jp.ac.jc21.t.yoshizawa.CommonFunction;
  */
 public class AnswerSumFactory extends CommonEntity {
 
-	static ListMapByString cacheAnswerSumEMail = null;;
-
-	public void flush() {
-		cacheAnswerSumEMail.flush();
-	}
 
 	public static final AnswerSum createAnswerSum(String name, Toi Toi, int noOfSeikai,
 			Map<String, Ref<Answer>> mapRefAnswer) {
@@ -70,24 +65,7 @@ public class AnswerSumFactory extends CommonEntity {
 		return allList;
 	}
 
-	public final static List<AnswerSum> getListByEMailUseCache(String eMail) {
-		final Logger log = Logger.getLogger(AnswerSum.class.getName());
 
-		if (cacheAnswerSumEMail == null) {
-			cacheAnswerSumEMail = new ListMapByString("AnswerSumEMail");
-		}
-
-		List<AnswerSum> list = null;
-		Optional<List<AnswerSum>> list2 = cacheAnswerSumEMail.get(eMail);
-		if (list2.isPresent()) {
-			list = list2.get();
-			log.info("(HIT)AnswerSum.getListByEMail : " + eMail);
-		} else {
-			list = (List<AnswerSum>) loadByIndex(AnswerSum.class, "name", eMail);
-			log.info("[Miss]AnswerSum.getListByEMail : " + eMail);
-		}
-		return list;
-	}
 
 	public final static List<AnswerSum> getListByEMail(String eMail) {
 

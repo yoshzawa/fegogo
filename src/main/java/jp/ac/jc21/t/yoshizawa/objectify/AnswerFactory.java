@@ -73,39 +73,6 @@ public class AnswerFactory extends CommonEntity {
 		return (List<Answer>) loadAll(Answer.class);
 	}
 
-	static ListMapByLong<Long, List<Answer>> cacheByAnswerSumId = null;
-
-	public static List<Answer> getByAnswerSumId_cache(Long answerSumId, String name) {
-		final Logger log = Logger.getLogger(Answer.class.getName());
-		if (cacheByAnswerSumId == null) {
-			cacheByAnswerSumId = new ListMapByLong("AnswerByAnswerId");
-		}
-
-		Optional<List<Answer>> optAnswerSumList = cacheByAnswerSumId.get(answerSumId);
-		if (optAnswerSumList.isPresent() == false) {
-			// EMAILÇ≈à¯Ç¡í£ÇÈÅiCacheä‹ÇﬂÇƒÅj
-			List<Answer> listByEMail = getByEMail(name);
-			// answerSumIdÇ≈listÇ…ÇµÇƒCacheÇ…ï™ÇØÇÈ
-			for (Answer a : listByEMail) {
-				List<Answer> list;
-				Optional<List<Answer>> optAnswerList = cacheByAnswerSumId.get(a.getAnswerSumId());
-				if (optAnswerList.isPresent() == false) {
-					list = new ArrayList<Answer>();
-				} else {
-					list = optAnswerList.get();
-				}
-				list.add(a);
-				list = sort(list);
-				cacheByAnswerSumId.put(a.getAnswerSumId(), list);
-			}
-			optAnswerSumList = cacheByAnswerSumId.get(answerSumId);
-
-		}
-
-		// éÊÇËèoÇµÇƒï‘Ç∑
-		return optAnswerSumList.get();
-	}
-
 	public static List<Answer> getByAnswerSumId_old(Long answerSumId, String name) {
 		final Logger log = Logger.getLogger(Answer.class.getName());
 

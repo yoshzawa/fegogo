@@ -265,6 +265,7 @@ public final class AnswerSum extends AnswerSumFactory {
 		return true;
 	}
 */
+	/*
 	public String makeAnswerDumpCSV(javax.cache.Cache cache) {
 
 		String key = "AnswerSum:" + getId();
@@ -282,7 +283,7 @@ public final class AnswerSum extends AnswerSumFactory {
 			return s;
 		}
 	}
-
+*/
 	public final String getExportData() {
 
 		return getId() + "," + 
