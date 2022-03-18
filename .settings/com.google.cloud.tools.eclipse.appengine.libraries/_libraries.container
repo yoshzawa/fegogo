@@ -1,5 +1,7 @@
 [
-  "objectify",
   "appengine-api",
-  "googlecloudstorage"
+  "objectify",
+  "googlecloudstorage",
+  "clouddatastore",
+  "cloudfirestore"
 ]

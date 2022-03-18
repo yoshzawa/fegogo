@@ -34,27 +34,25 @@ import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/exam3/Nolog/list" })
-public class Exam3NoLogListServlet extends HttpServlet {
+public class Exam3NoLogListServlet extends HttpServlet implements GetGsonInterface {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		String examListUrl = "http://fegogo.appspot.com/endpoint/v1/exam/list";
-		List<Exam> examList = ExamListFromGson(examListUrl);
-		
+		String examListUrl = "https://fegogo.appspot.com/endpoint/v1/exam/list";
+		List<Exam> examList = GetGsonInterface.ExamListFromGson(examListUrl);
+
 		Stream<Exam> stream1 = examList.stream();
 		Stream<Exam> stream2 = stream1.sorted(Comparator.comparing(Exam::getYYYYMM));
-		Stream<Exam> stream3 = stream2.filter((Exam e)-> e.getYYYYMM()<300000);
-		Stream<String[]> d4 = stream3.map((Exam e)->makeDisplayData(e));
+		Stream<Exam> stream3 = stream2.filter((Exam e) -> e.getYYYYMM() < 300000);
+		Stream<String[]> d4 = stream3.map((Exam e) -> makeDisplayData(e));
 		List<String[]> datas = d4.collect(Collectors.toList());
 
 		request.setAttribute("datas", datas);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/nolog/examList.jsp");
 		rd.forward(request, response);
-
 	}
-
 
 	private final String[] makeDisplayData(Exam e) {
 		String[] s = new String[2];
@@ -82,54 +80,17 @@ public class Exam3NoLogListServlet extends HttpServlet {
 			} else {
 				s[0] += "(期限なし)";
 			}
-
 		}
 
-		s[1] = e.getToiListSize() + "";
+		String examListUrl = "https://fegogo.appspot.com/endpoint/v1/exam/get/toiId/List";
+		try {
+			List<Long> examList = GetGsonInterface.LongListFromGson(examListUrl + "?ExamId=" + e.getId());
+
+			s[1] = examList.size() + "";
+		} catch (IOException ex) {
+			s[1] = "**exception!**";
+		}
 		return s;
-	}
-
-
-	private final  List<Exam> ExamListFromGson(String examListUrl)
-			throws MalformedURLException, IOException, ProtocolException, UnsupportedEncodingException {
-		List<Exam> list;
-
-		Gson gson = new Gson();
-
-		// urlの文字列からURLインスタンスを作成
-		URL url = new URL(examListUrl);
-
-		// openConnectionで接続
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-		// GETによるリクエスト
-		con.setRequestMethod("GET");
-
-		// 通信開始
-		con.connect();
-		// レスポンスコードを戻る
-		int responseCode = con.getResponseCode();
-		// レスポンスコードを判断する、OKであれば、進める
-		if (responseCode == HttpURLConnection.HTTP_OK) {
-			// 通信に成功した
-			// テキストを取得する
-			// データ取得
-			InputStream is = con.getInputStream();
-
-			// スプーンからコップで効率化
-			InputStreamReader isr = new InputStreamReader(is, "UTF-8");
-
-			// インプットストリームリーダーインスタンスからJsonReadrインスタンスを作成できる。
-			JsonReader reader = new JsonReader(isr);
-
-			Type collectionType = new TypeToken<Collection<Exam>>() {
-			}.getType();
-			list = gson.fromJson(reader, collectionType);
-
-		} else {
-			list = new ArrayList<>();
-		}
-		return list;
 	}
 
 	private final String dateFormat(Date d) {

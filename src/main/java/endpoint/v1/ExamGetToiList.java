@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 /**
  * Servlet implementation class Exam
  */
-@WebServlet("/endpoint/v1/exam/get")
-public final class ExamGet extends HttpServlet implements ExamFunction{
+@WebServlet("/endpoint/v1/exam/get/toiId/List")
+public final class ExamGetToiList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -30,16 +33,25 @@ public final class ExamGet extends HttpServlet implements ExamFunction{
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
 		Optional<String> optExamId = Optional.ofNullable(request.getParameter("ExamId"));
-		List<Exam> examList = ExamFunction.getExamByExamId(optExamId);
+		List<Long> toiIdList = new ArrayList<Long>();
 
+		if (optExamId.isPresent()) {
+			try {
+				long examId = Long.parseLong(optExamId.get());
+				List<Toi> toiList = new ArrayList<Toi>();
+				toiList =  ofy().load().type(Toi.class).filter("examId", examId).list();
+				toiIdList = toiList.stream().map(e->e.getId()).collect(Collectors.toList());
+			} catch (NumberFormatException e) {
+			}
+		}
+		
 		Gson gson = new Gson();
-		response.getWriter().println(gson.toJson(examList));
+		response.getWriter().println(gson.toJson(toiIdList));
 	}
-
-
 
 }
