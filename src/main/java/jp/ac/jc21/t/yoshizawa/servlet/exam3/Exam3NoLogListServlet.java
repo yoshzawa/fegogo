@@ -39,7 +39,7 @@ public class Exam3NoLogListServlet extends HttpServlet implements GetGsonInterfa
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		String examListUrl = "https://fegogo.appspot.com/endpoint/v1/exam/list";
+		String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/list";
 		List<Exam> examList = GetGsonInterface.ExamListFromGson(examListUrl);
 
 		Stream<Exam> stream1 = examList.stream();
@@ -82,7 +82,7 @@ public class Exam3NoLogListServlet extends HttpServlet implements GetGsonInterfa
 			}
 		}
 
-		String examListUrl = "https://fegogo.appspot.com/endpoint/v1/exam/get/toiId/List";
+		String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get/toiId/List";
 		try {
 			List<Long> examList = GetGsonInterface.LongListFromGson(examListUrl + "?ExamId=" + e.getId());
 

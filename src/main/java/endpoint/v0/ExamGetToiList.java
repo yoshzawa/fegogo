@@ -1,4 +1,4 @@
-package endpoint.v1;
+package endpoint.v0;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 

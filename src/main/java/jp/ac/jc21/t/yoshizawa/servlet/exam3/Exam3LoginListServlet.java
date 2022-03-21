@@ -33,7 +33,7 @@ public class Exam3LoginListServlet extends HttpServlet {
 		String email = (String) session.getAttribute("email");
 		request.setAttribute("email", email);
 
-		String examListUrl = "https://fegogo.appspot.com/endpoint/v1/exam/list";
+		String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/list";
 		List<Exam> examList = GetGsonInterface.ExamListFromGson(examListUrl);
 
 		Stream<Exam> stream1 = examList.stream();
@@ -76,7 +76,7 @@ public class Exam3LoginListServlet extends HttpServlet {
 					}
 				}
 
-				String examListUrl = "https://fegogo.appspot.com/endpoint/v1/exam/get/toiId/List";
+				String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get/toiId/List";
 				try {
 					List<Long> examList = GetGsonInterface.LongListFromGson(examListUrl + "?ExamId=" + e.getId());
 
