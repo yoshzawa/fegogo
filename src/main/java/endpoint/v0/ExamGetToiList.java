@@ -23,7 +23,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 /**
  * Servlet implementation class Exam
  */
-@WebServlet("/endpoint/v1/exam/get/toiId/List")
+@WebServlet("/endpoint/v0/exam/get/toiId/List")
 public final class ExamGetToiList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

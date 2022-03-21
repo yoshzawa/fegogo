@@ -20,7 +20,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 /**
  * Servlet implementation class Exam
  */
-@WebServlet("/endpoint/v1/exam/get")
+@WebServlet("/endpoint/v0/exam/get")
 public final class ExamGet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -17,11 +17,16 @@ import com.google.gson.Gson;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 
+import com.google.appengine.api.memcache.ErrorHandlers;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import java.util.logging.Level;
+
 /**
  * Servlet implementation class Exam
  */
 @WebServlet("/endpoint/v1/exam/get")
-public final class ExamGet extends HttpServlet implements ExamFunction{
+public final class ExamGet extends HttpServlet implements ExamFunction {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -34,12 +39,15 @@ public final class ExamGet extends HttpServlet implements ExamFunction{
 		response.setCharacterEncoding("UTF-8");
 
 		Optional<String> optExamId = Optional.ofNullable(request.getParameter("ExamId"));
-		List<Exam> examList = ExamFunction.getExamByExamId(optExamId);
 
-		Gson gson = new Gson();
-		response.getWriter().println(gson.toJson(examList));
+		String s;
+		if (optExamId.isPresent()) {
+			s = ExamFunction.getExamByExamIdWithCache(optExamId);
+		} else {
+			s = "[]";
+		}
+
+		response.getWriter().println(s);
 	}
-
-
 
 }
