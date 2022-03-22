@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.ac.jc21.t.yoshizawa.objectify.*;
+import jp.ac.jc21.t.yoshizawa.servlet.GetGsonInterface;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/exam3/Login/list" })

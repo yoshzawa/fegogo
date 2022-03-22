@@ -31,6 +31,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.servlet.GetGsonInterface;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/exam3/Nolog/list" })
