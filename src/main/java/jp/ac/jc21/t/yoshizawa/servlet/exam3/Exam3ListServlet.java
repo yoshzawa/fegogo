@@ -22,12 +22,12 @@ public class Exam3ListServlet extends HttpServlet {
 
 		if (email == null) {
 
-			RequestDispatcher rd = request.getRequestDispatcher("/exam3/Nolog/list");
+			RequestDispatcher rd = request.getRequestDispatcher("/exam2/Nolog/list");
 			rd.forward(request, response);
 			
 		} else {
 
-			RequestDispatcher rd = request.getRequestDispatcher("/exam3/Login/list");
+			RequestDispatcher rd = request.getRequestDispatcher("/exam2/Login/list");
 			rd.forward(request, response);
 
 		}

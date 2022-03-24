@@ -3,8 +3,11 @@ package endpoint.v0;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +22,8 @@ import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 /**
  * Servlet implementation class Exam
  */
-@WebServlet("/endpoint/v0/exam/list")
-public final class ExamList extends HttpServlet {
+@WebServlet("/endpoint/v0/exam/id/list")
+public final class ExamIdList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	/**
@@ -31,13 +34,11 @@ public final class ExamList extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		List<Exam> examList = ofy().load().type(Exam.class).list();
+		List<Long> examIdList = examList.stream().sorted(Comparator.comparing(Exam::getYYYYMM)).map(Exam::getId).collect(Collectors.toList());
 
         Gson gson = new Gson();
         
-        response.getWriter().println(gson.toJson(examList));
-
-
-		
+        response.getWriter().println(gson.toJson(examIdList));
 	}
 
 }

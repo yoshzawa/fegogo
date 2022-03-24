@@ -45,7 +45,7 @@ public final class ExamGetToiList extends HttpServlet {
 				long examId = Long.parseLong(optExamId.get());
 				List<Toi> toiList = new ArrayList<Toi>();
 				toiList =  ofy().load().type(Toi.class).filter("examId", examId).list();
-				toiIdList = toiList.stream().map(e->e.getId()).collect(Collectors.toList());
+				toiIdList = toiList.stream().map(Toi::getId).collect(Collectors.toList());
 			} catch (NumberFormatException e) {
 			}
 		}

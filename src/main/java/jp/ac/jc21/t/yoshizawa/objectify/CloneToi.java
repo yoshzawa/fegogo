@@ -69,5 +69,30 @@ public class CloneToi extends CommonEntity {
 		toi = (List<CloneToi>) loadByIndex(CloneToi.class, "toiId", id);
 		return toi;
 	}
+	
+	public static 
+	 void reStoreAnswerSum(AnswerSum aSum) {
+		CloneToi cloneToi = CloneToi.getByToiId(aSum.getToiId()).get(0);
+		
+		Long copiedToiId = cloneToi.getToiId();
+		Long orgToiId = cloneToi.getOriginalToiId();
+
+		Toi copiedToi = Toi.getById(copiedToiId);
+		Toi orgToi = Toi.getById(orgToiId);
+		
+		System.out.println("AnswerSum.toiId:" + aSum.getToiId() + "->" + orgToi.getId());
+		
+		aSum.setToiId(orgToi.getId());
+		aSum.save();
+		
+		List<Answer> ListAns = aSum.getAnswerList();
+		for(Answer ans : ListAns) {
+			Long qId = ans.getQuestionId();
+			List<CloneQuestion> listCQ = CloneQuestion.getByQuestionId(qId);
+			System.out.println("Answer.QuestionId:" + ans.getQuestionId() + "->" + listCQ.get(0).getOriginalQuestionId());
+			ans.setQuestionId(listCQ.get(0).getOriginalQuestionId());
+			ans.save();
+		}
+	}
 
 }

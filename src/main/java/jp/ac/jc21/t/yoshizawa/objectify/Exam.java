@@ -5,6 +5,7 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
@@ -24,7 +25,8 @@ import jp.ac.jc21.t.yoshizawa.CommonFunction;
 
 @Entity
 @Cache
-public class Exam extends ExamFactory {
+public class Exam extends ExamFactory implements Serializable{
+    private static final long serialVersionUID = 1L;
 
 	@Id
 	Long id;

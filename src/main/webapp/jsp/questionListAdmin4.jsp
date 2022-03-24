@@ -67,7 +67,7 @@
 		<tr>
 			<td><%=as.getId()%> 
 			<% if(CloneToi.getByToiId(as.getToiId()).size() > 0){ %>
-			( <a href="/admin/answerSumRestoreCheck?answerSumId=<%=as.getId()%>">restore</a> )
+			( <a href="/admin/answerSumRestoreCheck?answerSumId=<%=as.getId()%>">複製元にマージ</a> )
 			<% } else {%>
 			( original )
 			<% } %>

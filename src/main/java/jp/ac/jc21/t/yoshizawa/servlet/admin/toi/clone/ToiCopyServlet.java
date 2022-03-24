@@ -24,19 +24,13 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 @WebServlet("/admin/ToiCopyServlet")
 public class ToiCopyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ToiCopyServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String fromToiId = request.getParameter("fromToi");
 		String toExamId = request.getParameter("toExam");
@@ -45,46 +39,41 @@ public class ToiCopyServlet extends HttpServlet {
 		long toToiNo = Long.parseLong(toToiNoString);
 
 		// toiÇï°êª
-		
-		Toi fromToi =Toi.getById(fromToiId);
+
+		Toi fromToi = Toi.getById(fromToiId);
 		Exam toExam = Exam.getById(toExamId);
 		Genre genre = fromToi.getGenre();
-		Toi newToi = Toi.createToi(toExam, toToiNo, fromToi.getName(),genre);
+		Toi newToi = Toi.createToi(toExam, toToiNo, fromToi.getName(), genre);
 		newToi.setGenreName(genre.getName());
 		newToi = newToi.save();
-		
+
 		// Cloneä÷òA
-		
-		CloneToi ct = new CloneToi(newToi.getId() , fromToi.getId());
+
+		CloneToi ct = new CloneToi(newToi.getId(), fromToi.getId());
 		ct.save();
 
 		// questionÇï°êª
 
-		
 		List<Question> list = fromToi.getQuestionList();
-		for(Question q : list) {
+		for (Question q : list) {
 			Set<Integer> ansSet = q.getAnswerSet();
-			Question newq = Question.createMultiQuestion(newToi, q.getNo(), q.getName(), q.getNoOfOption(),ansSet );
+			Question newq = Question.createMultiQuestion(newToi, q.getNo(), q.getName(), q.getNoOfOption(), ansSet);
 			newq = newq.save();
 
 			// Cloneä÷òA
-			
-			CloneQuestion cq = new CloneQuestion(newToi.getId() , newq.getId(),q.getId());
+
+			CloneQuestion cq = new CloneQuestion(newToi.getId(), newq.getId(), q.getId());
 			cq.save();
 
 		}
-		
-		
+
 		// ImageSetÇï°êª
 
 		newToi.setImageSet(fromToi.getImageSet());
 		newToi = newToi.save();
-		
+
 		System.out.println("EXAM : " + toExam.getName());
-		
-		
-		
-		
+
 	}
 
 }
