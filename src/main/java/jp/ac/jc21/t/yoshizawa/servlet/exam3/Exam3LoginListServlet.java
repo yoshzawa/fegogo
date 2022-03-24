@@ -3,14 +3,11 @@ package jp.ac.jc21.t.yoshizawa.servlet.exam3;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.TimeZone;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.servlet.RequestDispatcher;
@@ -25,12 +22,18 @@ import com.google.appengine.api.memcache.ErrorHandlers;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
-import jp.ac.jc21.t.yoshizawa.objectify.*;
+import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
+import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.servlet.GetGsonInterface;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/exam3/Login/list" })
 public class Exam3LoginListServlet extends HttpServlet {
+
+	private final String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/id/list";
+	private final String examGetUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?ExamId=";
+	private final String cacheKeyTop = "Exam3ListServlet:";
+	private final String toiListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get/toiId/List";
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -40,42 +43,39 @@ public class Exam3LoginListServlet extends HttpServlet {
 		String email = (String) session.getAttribute("email");
 		request.setAttribute("email", email);
 
-		String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/id/list";
-
-		List<Long> examIdList = GetGsonInterface.LongListFromGson(examListUrl, "ExamIdList");
-
-		String examGetUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?ExamId=";
-
-		/*
-		 * Stream<List<Exam>> stream1 = examIdList.stream().map((Long
-		 * id)->GetGsonInterface.ExamListFromGson(examGetUrl + id , "EXAM:"+id));
-		 * Stream<Exam> stream2 = stream1.flatMap((List<Exam> list) -> list.stream());
-		 * Stream<Exam> stream3 = stream2.sorted(Comparator.comparing(Exam::getYYYYMM));
-		 * Stream<Exam> stream4 = stream3.filter((Exam e) -> e.getYYYYMM() < 300000);
-		 * Stream<String[]> stream5 = stream4.map((Exam e) -> makeDisplayData(e));
-		 * List<String[]> datas = stream5.collect(Collectors.toList());
-		 */
-		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
-		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
-
 		List<String[]> datas = new ArrayList<>();
-		for (Long examKey : examIdList) {
-			Optional<String[]> optExamArray = Optional.ofNullable((String[]) syncCache.get("ExamId:" + examKey));
-			if (optExamArray.isPresent()) {
-				datas.add(optExamArray.get());
-			} else {
-				List<Exam> examList = GetGsonInterface.ExamListFromGson(examGetUrl + examKey);
-				Optional<String[]> strArray = examList.stream().map((Exam e) -> makeDisplayData(e)).findAny();
-				strArray.ifPresent(datas::add);
-				strArray.ifPresent(array -> syncCache.put("ExamId:" + examKey, array));
-
-			}
-		}
+		Stream<Long> examIdStream = GetGsonInterface.getLongList(examListUrl).stream();
+		Stream<Long> examIdStream2 = examIdStream.filter((Long yyyymm) -> yyyymm < 300000);
+		Stream<Long> examIdStream3 = examIdStream2.sorted();
+		examIdStream3.forEach((Long l) -> {
+			String[] data = getCachedArrayOrEndPoint(l);
+			datas.add(data);
+		});
 
 		request.setAttribute("datas", datas);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/nolog/examList.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/examListLogin.jsp");
 		rd.forward(request, response);
+	}
+
+	private final String[] getCachedArrayOrEndPoint(Long examKey) {
+		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
+		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
+		String[] data = new String[2];
+
+		String cacheKey = cacheKeyTop + examKey;
+		Optional<String[]> optExamArray = Optional.ofNullable((String[]) syncCache.get(cacheKey));
+		if (optExamArray.isPresent()) {
+			data = optExamArray.get();
+		} else {
+			List<Exam> examList = GetGsonInterface.ExamListFromGson(examGetUrl + examKey);
+			optExamArray = examList.stream().map((Exam e) -> makeDisplayData(e)).findAny();
+			if (optExamArray.isPresent()) {
+				data = optExamArray.get();
+				syncCache.put(cacheKey, optExamArray.get());
+			}
+		}
+		return data;
 	}
 
 	private final String[] makeDisplayData(Exam e) {
@@ -106,24 +106,13 @@ public class Exam3LoginListServlet extends HttpServlet {
 			}
 		}
 
-		String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get/toiId/List";
 		try {
-			List<Long> examList = GetGsonInterface.LongListFromGson(examListUrl + "?ExamId=" + e.getId(),"ExamToiIdList:"+e.getId());
-
+			List<Long> examList = GetGsonInterface.getLongList(toiListUrl + "?ExamId=" + e.getId());
 			s[1] = examList.size() + "";
 		} catch (IOException ex) {
 			s[1] = "**exception!**";
 		}
 		return s;
-	}
-
-	private String changePoint(AnswerSum as) {
-		return changePoint(as.getNoOfSeikai(), as.getNoOfAnswer());
-	}
-
-	private final String changePoint(int seikai, int answer) {
-		float point = (100.0f * seikai / answer);
-		return String.format("%1$.1f", point);
 	}
 
 	private final String dateFormat(Date d) {

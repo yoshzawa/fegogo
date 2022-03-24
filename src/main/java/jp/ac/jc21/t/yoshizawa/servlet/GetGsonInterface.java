@@ -24,8 +24,7 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 public interface GetGsonInterface {
 
-	static JsonReader getGsonReader(String examListUrl)
-			throws  IOException {
+	static JsonReader getGsonReader(String examListUrl) throws IOException {
 		JsonReader reader = null;
 
 		URL url = new URL(examListUrl);
@@ -49,17 +48,51 @@ public interface GetGsonInterface {
 		return reader;
 	}
 
-	static List<Long> LongListFromGson(String examListUrl,String CacheKey) throws IOException {
+	static List<String> getStringList(String examListUrl) throws IOException {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
-		Optional<List<Long>> optLongList = Optional.ofNullable((List<Long>) syncCache.get(CacheKey));
-		List<Long> longList=null;
-		if ((optLongList.isPresent())&&(optLongList.get().size()>0)) {
+		Optional<List<String>> optStringList = Optional.ofNullable((List<String>) syncCache.get(examListUrl));
+		List<String> stringList = null;
+		if ((optStringList.isPresent()) && (optStringList.get().size() > 0)) {
+			stringList = optStringList.get();
+		} else {
+			stringList = StringListFromGson(examListUrl);
+			syncCache.put(examListUrl, stringList);
+		}
+		return stringList;
+
+	}
+
+	static List<String> StringListFromGson(String examListUrl) throws IOException {
+		Gson gson = new Gson();
+		List<String> list = new ArrayList<>();
+
+		JsonReader reader = getGsonReader(examListUrl);
+		if (reader != null) {
+			Type collectionType = new TypeToken<Collection<String>>() {
+			}.getType();
+			list = gson.fromJson(reader, collectionType);
+		}
+		return list;
+	}
+
+	static boolean isCached(String examListUrl) throws IOException {
+		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
+		return syncCache.contains(examListUrl);
+	}
+
+	static List<Long> getLongList(String examListUr) throws IOException {
+		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
+		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
+
+		Optional<List<Long>> optLongList = Optional.ofNullable((List<Long>) syncCache.get(examListUr));
+		List<Long> longList = null;
+		if ((optLongList.isPresent()) && (optLongList.get().size() > 0)) {
 			longList = optLongList.get();
 		} else {
-			longList = LongListFromGson(examListUrl);
-			syncCache.put(CacheKey, longList);
+			longList = LongListFromGson(examListUr);
+			syncCache.put(examListUr, longList);
 		}
 		return longList;
 
@@ -67,7 +100,7 @@ public interface GetGsonInterface {
 
 	static List<Long> LongListFromGson(String examListUrl) throws IOException {
 		Gson gson = new Gson();
-		List<Long> list=new ArrayList<>();
+		List<Long> list = new ArrayList<>();
 
 		JsonReader reader = getGsonReader(examListUrl);
 		if (reader != null) {
@@ -77,24 +110,25 @@ public interface GetGsonInterface {
 		}
 		return list;
 	}
-	static List<Exam> ExamListFromGson(String examListUrl,String CacheKey)  {
+
+	static List<Exam> getExamList(String examListUrl) {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
-		Optional<List<Exam>> optExamList = Optional.ofNullable((List<Exam>) syncCache.get(CacheKey));
-		List<Exam> examList=null;
-		if ((optExamList.isPresent())&&(optExamList.get().size()>0)) {
+		Optional<List<Exam>> optExamList = Optional.ofNullable((List<Exam>) syncCache.get(examListUrl));
+		List<Exam> examList = null;
+		if ((optExamList.isPresent()) && (optExamList.get().size() > 0)) {
 			examList = optExamList.get();
 		} else {
 			examList = ExamListFromGson(examListUrl);
-			syncCache.put(CacheKey, examList);
+			syncCache.put(examListUrl, examList);
 		}
 		return examList;
 	}
 
-	static List<Exam> ExamListFromGson(String examListUrl)  {
+	static List<Exam> ExamListFromGson(String examListUrl) {
 		Gson gson = new Gson();
-		List<Exam> list=new ArrayList<>();
+		List<Exam> list = new ArrayList<>();
 		try {
 			JsonReader reader = getGsonReader(examListUrl);
 			if (reader != null) {
@@ -102,12 +136,27 @@ public interface GetGsonInterface {
 				}.getType();
 				list = gson.fromJson(reader, collectionType);
 			}
-		}catch (IOException e){}
+		} catch (IOException e) {
+		}
 		return list;
 	}
-	static List<Toi> ToiListFromGson(String examListUrl)  {
+	static List<Toi> getToiList(String toiListUrl) {
+		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
+		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
+
+		Optional<List<Toi>> optToiList = Optional.ofNullable((List<Toi>) syncCache.get(toiListUrl));
+		List<Toi> examList = null;
+		if ((optToiList.isPresent()) && (optToiList.get().size() > 0)) {
+			examList = optToiList.get();
+		} else {
+			examList = ToiListFromGson(toiListUrl);
+			syncCache.put(toiListUrl, examList);
+		}
+		return examList;
+	}
+	static List<Toi> ToiListFromGson(String examListUrl) {
 		Gson gson = new Gson();
-		List<Toi> list=new ArrayList<>();
+		List<Toi> list = new ArrayList<>();
 
 		JsonReader reader;
 		try {
@@ -117,7 +166,8 @@ public interface GetGsonInterface {
 				}.getType();
 				list = gson.fromJson(reader, collectionType);
 			}
-		} catch (IOException e) {}
+		} catch (IOException e) {
+		}
 		return list;
 	}
 }

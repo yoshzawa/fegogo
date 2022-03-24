@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
-//@WebServlet(urlPatterns = { "/exam/list","/exam3/list" })
-@WebServlet(urlPatterns = { "/exam3/list" })
+@WebServlet(urlPatterns = { "/exam/list","/exam3/list" })
+//@WebServlet(urlPatterns = { "/exam3/list" })
 public class Exam3ListServlet extends HttpServlet {
 
 	@Override
