@@ -2,8 +2,6 @@ package jp.ac.jc21.t.yoshizawa;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-
 import org.junit.Assert;
 import org.junit.Test;
 

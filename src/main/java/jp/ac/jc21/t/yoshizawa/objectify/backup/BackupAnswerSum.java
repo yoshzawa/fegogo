@@ -17,7 +17,6 @@ import com.googlecode.objectify.annotation.Index;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Answer;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
-import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 /**
  * @author t.yoshizawa

@@ -1,10 +1,6 @@
 package endpoint.v1;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
@@ -12,15 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
-
-import com.google.appengine.api.memcache.ErrorHandlers;
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
-import java.util.logging.Level;
 
 /**
  * Servlet implementation class Exam

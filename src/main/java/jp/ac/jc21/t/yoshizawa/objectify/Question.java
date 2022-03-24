@@ -2,11 +2,16 @@ package jp.ac.jc21.t.yoshizawa.objectify;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.*;
+import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 import jp.ac.jc21.t.yoshizawa.CommonFunction;
 

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
-import jp.ac.jc21.t.yoshizawa.objectify.AnswerSumFactory;
 
 /**
  * Servlet implementation class AnswerSumBenchmarkServlet

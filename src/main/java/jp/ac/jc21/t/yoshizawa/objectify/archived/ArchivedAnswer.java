@@ -5,18 +5,11 @@ package jp.ac.jc21.t.yoshizawa.objectify.archived;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
-
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-
-import jp.ac.jc21.t.yoshizawa.objectify.Answer;
 
 /**
  * @author t.yoshizawa •¡”‚ÌAnswer‚ğ‚Ü‚Æ‚ß‚é‚Ì‚ÅA‰ñ“š“ú‚Í‚È‚­‚È‚èA–â‘è”‚Æ³‰ğ”‚Í‡Œv‚³‚ê‚é

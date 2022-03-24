@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.CloneQuestion;
 import jp.ac.jc21.t.yoshizawa.objectify.CloneToi;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
