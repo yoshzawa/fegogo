@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/exam/list","/exam3/list" })
+//@WebServlet(urlPatterns = { "/exam/list","/exam3/list" })
+@WebServlet(urlPatterns = { "/exam3/list" })
 public class Exam3ListServlet extends HttpServlet {
 
 	@Override
@@ -22,12 +23,12 @@ public class Exam3ListServlet extends HttpServlet {
 
 		if (email == null) {
 
-			RequestDispatcher rd = request.getRequestDispatcher("/exam2/Nolog/list");
+			RequestDispatcher rd = request.getRequestDispatcher("/exam3/Nolog/list");
 			rd.forward(request, response);
 			
 		} else {
 
-			RequestDispatcher rd = request.getRequestDispatcher("/exam2/Login/list");
+			RequestDispatcher rd = request.getRequestDispatcher("/exam3/Login/list");
 			rd.forward(request, response);
 
 		}

@@ -1,4 +1,4 @@
-package ToBeDeleted.ver2.exam;
+package jp.ac.jc21.t.yoshizawa.servlet.exam2;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

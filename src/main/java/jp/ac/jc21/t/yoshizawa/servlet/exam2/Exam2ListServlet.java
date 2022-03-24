@@ -1,4 +1,4 @@
-package ToBeDeleted.ver2.exam;
+package jp.ac.jc21.t.yoshizawa.servlet.exam2;
 
 import java.io.IOException;
 
@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/exam2/list" })
+@WebServlet(urlPatterns = { "/exam/list","/exam2/list" })
+//@WebServlet(urlPatterns = { "/exam2/list" })
 public class Exam2ListServlet extends HttpServlet {
 
 	@Override
