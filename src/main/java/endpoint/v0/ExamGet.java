@@ -39,8 +39,7 @@ public final class ExamGet extends HttpServlet {
 		if (optExamId.isPresent()) {
 			try {
 				long examId = Long.parseLong(optExamId.get());
-				Optional<Exam> exam = Optional.ofNullable(ofy().load().type(Exam.class).id(examId).now());
-				exam.ifPresent(examList::add);
+				examList = ofy().load().type(Exam.class).filter("YYYYMM", examId).list();
 
 			} catch (NumberFormatException e) {
 			}

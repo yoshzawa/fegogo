@@ -34,7 +34,7 @@ public final class ExamIdList extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		List<Exam> examList = ofy().load().type(Exam.class).list();
-		List<Long> examIdList = examList.stream().sorted(Comparator.comparing(Exam::getYYYYMM)).map(Exam::getId).collect(Collectors.toList());
+		List<Long> examIdList = examList.stream().sorted(Comparator.comparing(Exam::getYYYYMM)).map(Exam::getYYYYMM).collect(Collectors.toList());
 
         Gson gson = new Gson();
         

@@ -21,8 +21,7 @@ public interface ExamFunction {
 		if (optExamId.isPresent()) {
 			try {
 				long examId = Long.parseLong(optExamId.get());
-				Optional<Exam> exam = Optional.ofNullable(ofy().load().type(Exam.class).id(examId).now());
-				exam.ifPresent(examList::add);
+				examList = ofy().load().type(Exam.class).filter("YYYYMM", examId).list();
 
 			} catch (NumberFormatException e) {
 			}
@@ -42,7 +41,6 @@ public interface ExamFunction {
 			s = optExamList.get();
 		} else {
 			List<Exam> examList;
-
 			Gson gson = new Gson();
 			examList = ExamFunction.getExamByExamId(optExamId);
 			 s = gson.toJson(examList);
