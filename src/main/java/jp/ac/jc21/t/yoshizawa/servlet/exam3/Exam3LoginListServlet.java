@@ -30,8 +30,8 @@ import jp.ac.jc21.t.yoshizawa.servlet.GetGsonInterface;
 @WebServlet(urlPatterns = { "/exam3/Login/list" })
 public class Exam3LoginListServlet extends HttpServlet {
 
-	private final String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/id/list";
-	private final String examGetUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?ExamId=";
+	private final String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/YYYYMM/list";
+	private final String examGetUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?YYYYMM=";
 	private final String cacheKeyTop = "Exam3ListServlet:";
 	private final String toiListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get/toiId/List";
 

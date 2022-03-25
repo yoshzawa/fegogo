@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,8 +32,9 @@ public class Toi3NoLogListServlet extends HttpServlet {
 		Optional<String> OptToiIdString = Optional.ofNullable(request.getParameter("parentId"));
 
 		// Examを取得
-		String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?ExamId=" + OptToiIdString.orElse("");
-		List<Exam> examList = GetGsonInterface.ExamListFromGson(examListUrl);
+//		String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?ExamId=" + OptToiIdString.orElse("");
+		String examListUrl = "http://localhost:8080/endpoint/v0/exam/get?ExamId=" + OptToiIdString.orElse("");
+		List<Exam> examList = GetGsonInterface.getExamList(examListUrl);
 		Optional<Exam> streamExam = examList.stream().sorted(Comparator.comparing(Exam::getYYYYMM)).findFirst();
 		if (streamExam.isPresent()) {
 			Exam e = streamExam.get();
@@ -45,11 +45,12 @@ public class Toi3NoLogListServlet extends HttpServlet {
 //			TreeMap<Long, Toi> toiMap = e.getToiMap();
 			Map<Long, Toi> toiMap = new TreeMap<Long, Toi>();
 			String toiListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get/toiId/List";
-			List<Long> toiIdList = GetGsonInterface.LongListFromGson(toiListUrl + "?ExamId=" + OptToiIdString.orElse(""));
+			List<Long> toiIdList = GetGsonInterface.getLongList(toiListUrl + "?ExamId=" + OptToiIdString.orElse(""));
 			
+			// Toiの中身を取得
 			String toiGetUrl = "https://fegogo.appspot.com/endpoint/v0/toi/get";
 			for(Long toiId : toiIdList)			{
-				List<Toi> toiList = GetGsonInterface.ToiListFromGson(toiGetUrl + "?ToiId=" + toiId);
+				List<Toi> toiList = GetGsonInterface.getToiList(toiGetUrl + "?ToiId=" + toiId);
 				Toi t = toiList.stream().findAny().get();
 				toiMap.put(t.getNo(), t);
 			}
@@ -70,7 +71,17 @@ public class Toi3NoLogListServlet extends HttpServlet {
 				if (t.getImageSet() != null) {
 					s[2] = s[2] + "<B>(CBT)</B>";
 				}
-				s[3] = t.getQuestionListSize() + "";
+				// TODO WEB経由にする
+				// s[3] = t.getQuestionListSize() + "";
+				
+//				String questionListUrl = "https://fegogo.appspot.com/endpoint/v0/Toi/get/questionId/List";
+				String questionListUrl = "http://localhost:8080/endpoint/v0/Toi/get/questionId/List";
+				List<Long> questionIdList = GetGsonInterface.getLongList(questionListUrl + "?ToiId=" + OptToiIdString.orElse(""));
+				s[3] = questionIdList.size()+"";
+
+				
+				
+				// TODO WEB経由にする
 				s[4] = t.getAnswerSumCount() + "";
 				datas.add(s);
 			}

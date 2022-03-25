@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,13 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Question;
+import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 /**
  * Servlet implementation class Exam
  */
-@WebServlet("/endpoint/v0/exam/get")
-public final class ExamGet extends HttpServlet {
+@WebServlet("/endpoint/v0/toi/get/questionId/List")
+public final class ToiGetQuestionList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -30,31 +32,25 @@ public final class ExamGet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
-		Optional<String> optYYYYMM = Optional.ofNullable(request.getParameter("YYYYMM"));
-		Optional<String> optExamId = Optional.ofNullable(request.getParameter("ExamId"));
-		List<Exam> examList = new ArrayList<Exam>();
+		Optional<String> optToiId = Optional.ofNullable(request.getParameter("ToiId"));
+		List<Long> questionIdList = new ArrayList<Long>();
 
-		if (optYYYYMM.isPresent()) {
+		if (optToiId.isPresent()) {
 			try {
-				long YYYYMM = Long.parseLong(optYYYYMM.get());
-				examList = ofy().load().type(Exam.class).filter("YYYYMM", YYYYMM).list();
-
-			} catch (NumberFormatException e) {
-			}
-		} else 		if (optExamId.isPresent()) {
-			try {
-				long examId = Long.parseLong(optExamId.get());
-				Optional<Exam> optExam= Optional.ofNullable(ofy().load().type(Exam.class).id(examId).now());
-				optExam.ifPresent(examList::add);
+				long toiId = Long.parseLong(optToiId.get());
+				List<Question> questionList = new ArrayList<Question>();
+				questionList =  ofy().load().type(Question.class).filter("toiId", toiId).list();
+				questionIdList = questionList.stream().map(Question::getId).collect(Collectors.toList());
 			} catch (NumberFormatException e) {
 			}
 		}
-
+		
 		Gson gson = new Gson();
-		response.getWriter().println(gson.toJson(examList));
+		response.getWriter().println(gson.toJson(questionIdList));
 	}
 
 }

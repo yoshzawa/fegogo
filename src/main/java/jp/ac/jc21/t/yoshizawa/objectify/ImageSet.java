@@ -1,6 +1,8 @@
 package jp.ac.jc21.t.yoshizawa.objectify;
 
-public class ImageSet {
+import java.io.Serializable;
+
+public class ImageSet implements Serializable{
 	private boolean isImage;
 	private String url;
 	private int height;
