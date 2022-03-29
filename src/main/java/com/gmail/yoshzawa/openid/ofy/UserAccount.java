@@ -16,9 +16,14 @@ public final class UserAccount {
 	public Date created;
 	public Date modified;
 	private String remoteHost;
-
-
+	private String audId;
 	
+	public String getAudId() {
+		return audId;
+	}
+	public void setAudId(String audId) {
+		this.audId = audId;
+	}
 	public String getRemoteHost() {
 		return remoteHost;
 	}
@@ -50,7 +55,8 @@ public final class UserAccount {
 		this.email = email;
 	}
 	
-	public UserAccount(String email){
+	public UserAccount(String email, String audId){
+		setAudId(audId);
 		setEmail(email);
 		setCreated(new Date());
 	}

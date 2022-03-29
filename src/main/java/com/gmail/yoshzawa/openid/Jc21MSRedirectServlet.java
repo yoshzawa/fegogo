@@ -81,7 +81,7 @@ public final class Jc21MSRedirectServlet extends HttpServlet {
 		log.info("tid = " + body.getTid());
 		log.info("ver = " + body.getVer());
 
-		UserAccount user = new UserAccount(email);
+		UserAccount user = new UserAccount(email,body.getAud());
 		user.setRemoteHost(req.getRemoteHost());
 		user.save();
 
