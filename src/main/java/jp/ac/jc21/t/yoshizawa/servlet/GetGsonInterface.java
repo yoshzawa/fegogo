@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 public interface GetGsonInterface {
@@ -163,6 +164,37 @@ public interface GetGsonInterface {
 			reader = getGsonReader(examListUrl);
 			if (reader != null) {
 				Type collectionType = new TypeToken<Collection<Toi>>() {
+				}.getType();
+				list = gson.fromJson(reader, collectionType);
+			}
+		} catch (IOException e) {
+		}
+		return list;
+	}
+	
+	static List<Member> getMemberList(String toiListUrl) {
+		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
+		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
+
+		Optional<List<Member>> optMemberList = Optional.ofNullable((List<Member>) syncCache.get(toiListUrl));
+		List<Member> examList = null;
+		if ((optMemberList.isPresent()) && (optMemberList.get().size() > 0)) {
+			examList = optMemberList.get();
+		} else {
+			examList = MemberListFromGson(toiListUrl);
+			syncCache.put(toiListUrl, examList);
+		}
+		return examList;
+	}
+	static List<Member> MemberListFromGson(String examListUrl) {
+		Gson gson = new Gson();
+		List<Member> list = new ArrayList<>();
+
+		JsonReader reader;
+		try {
+			reader = getGsonReader(examListUrl);
+			if (reader != null) {
+				Type collectionType = new TypeToken<Collection<Member>>() {
 				}.getType();
 				list = gson.fromJson(reader, collectionType);
 			}

@@ -27,8 +27,8 @@ import jp.ac.jc21.t.yoshizawa.servlet.GetGsonInterface;
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/exam3/Nolog/list" })
 public class Exam3NoLogListServlet extends HttpServlet implements GetGsonInterface {
-	private final String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/id/list";
-	private final String examGetUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?ExamId=";
+	private final String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/YYYYMM/list";
+	private final String examGetUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?YYYYMM=";
 	private final String cacheKeyTop = "Exam3ListServlet:";
 	private final String toiListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get/toiId/List";
 
