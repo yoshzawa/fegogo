@@ -5,7 +5,9 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.TreeMap;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,20 +28,38 @@ import jp.ac.jc21.t.yoshizawa.objectify.Member;
 @WebServlet("/endpoint/v0/member/email/list")
 public final class MemberEmailList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
+		Optional<String> optOrder = Optional.ofNullable(request.getParameter("order"));
 
-		List<Member> memberList = ofy().load().type(Member.class).list();
-		List<String> MemberEmailList = memberList.stream().map(Member::geteMail).sorted().collect(Collectors.toList());
+		Stream<Member> memberStream = ofy().load().type(Member.class).list()
+				.stream();
+		String order = optOrder.orElse("");
+		switch (order) {
+		case "modified":
+			memberStream = memberStream.sorted(Comparator.comparing(Member::getModified));
+			break;
+		case "created":
+			memberStream = memberStream.sorted(Comparator.comparing(Member::getCreated));
+			break;
+		default:
+			memberStream = memberStream.sorted(Comparator.comparing(Member::geteMail));
+			break;
+		}
 
-        Gson gson = new Gson();
-        
-        response.getWriter().println(gson.toJson(MemberEmailList));
+		List<String> MemberEmailList = memberStream.map(Member::geteMail)
+				.collect(Collectors.toList());
+
+		Gson gson = new Gson();
+
+		response.getWriter().println(gson.toJson(MemberEmailList));
 	}
 
 }

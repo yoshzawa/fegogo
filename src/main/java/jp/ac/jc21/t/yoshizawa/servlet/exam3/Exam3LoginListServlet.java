@@ -106,12 +106,8 @@ public class Exam3LoginListServlet extends HttpServlet {
 			}
 		}
 
-		try {
 			List<Long> examList = GetGsonInterface.getLongList(toiListUrl + "?ExamId=" + e.getId());
 			s[1] = examList.size() + "";
-		} catch (IOException ex) {
-			s[1] = "**exception!**";
-		}
 		return s;
 	}
 

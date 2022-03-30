@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="com.googlecode.objectify.Ref"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
 <%@page import="com.google.appengine.api.users.User"%>
@@ -17,6 +18,7 @@
 	<%
 		List<Member> memberList = (List<Member>) request.getAttribute("memberList");
 	UserService userService = (UserService) request.getAttribute("userService");
+	Map<String, Integer> answerSumIdMap = (Map<String, Integer>) request.getAttribute("answerSumIdMap");
 	%>
 	<%
 		if ((userService != null) && (userService.isUserAdmin() == true)) {
@@ -41,8 +43,8 @@
 	%>
 	<TABLE border="1">
 		<TR>
-			<TD><a href="./list?Order=eMail">geteMail</a></TD>
-			<TD>getCreated</TD>
+			<TD>geteMail</TD>
+			<TD><a href="./list?Order=created">getCreated</a></TD>
 			<TD><a href="./list?Order=modified">getModified</a></TD>
 			<TD>数</TD>
 		</TR>
@@ -51,9 +53,9 @@
 		%>
 		<tr>
 			<td><%=m.geteMail()%></td>
-			<td><%=CommonFunction.dateFormat(  m.getCreated() ) %></td>
-			<td><%=CommonFunction.dateFormat(  m.getModified() ) %></td>
-			<td><a href='/admin/answerSum/list?memberId=<%=m.geteMail()%>'><%=m.getRefAnswerSumListCount()%></a></td>
+			<td><%=CommonFunction.dateFormat(m.getCreated())%></td>
+			<td><%=CommonFunction.dateFormat(m.getModified())%></td>
+			<td><a href='/admin/answerSum/list?memberId=<%=m.geteMail()%>'><%=answerSumIdMap.get(m.geteMail())%></a></td>
 			<td><a href='/admin/member2/list?email=<%=m.geteMail()%>'>解答リスト</a></td>
 		</tr>
 		<%

@@ -21,7 +21,7 @@
 
 <a class="active" href="/admin">ホーム </a>
 <a class="active" href="/admin/exam">exam</a>
-<a class="active" href="/admin/member">member</a>
+<a class="active" href="/admin/member/list">member</a>
 <a class="active" href="/admin/answerSum">answerSum</a>
 <a class="active" href="/admin/answer">answer</a>
 <a class="active" href="/admin/genre/">Genre</a>

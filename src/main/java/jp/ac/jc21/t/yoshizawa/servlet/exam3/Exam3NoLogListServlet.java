@@ -98,12 +98,9 @@ public class Exam3NoLogListServlet extends HttpServlet implements GetGsonInterfa
 			}
 		}
 
-		try {
-			List<Long> examList = GetGsonInterface.LongListFromGson(toiListUrl + "?ExamId=" + e.getId());
-			s[1] = examList.size() + "";
-		} catch (IOException ex) {
-			s[1] = "**exception!**";
-		}
+		List<Long> examList = GetGsonInterface.LongListFromGson(toiListUrl + "?ExamId=" + e.getId());
+		s[1] = examList.size() + "";
+
 		return s;
 	}
 
