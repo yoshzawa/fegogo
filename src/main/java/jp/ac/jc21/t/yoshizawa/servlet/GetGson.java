@@ -26,9 +26,9 @@ import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
-public interface GetGsonInterface {
+public class GetGson {
 
-	static JsonReader getGsonReader(String examListUrl) throws IOException {
+	private static final JsonReader getGsonReader(String examListUrl) throws IOException {
 		JsonReader reader = null;
 
 		URL url = new URL(examListUrl);
@@ -52,7 +52,7 @@ public interface GetGsonInterface {
 		return reader;
 	}
 
-	static JsonReader getGsonPostReader(String examListUrl,String jsonString) throws IOException  {
+	private static final JsonReader getGsonPostReader(String examListUrl, String jsonString) throws IOException {
 		JsonReader reader = null;
 
 		URL url = new URL(examListUrl);
@@ -60,18 +60,15 @@ public interface GetGsonInterface {
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 		con.setRequestMethod("POST");
-	       con.setDoOutput(true);
+		con.setDoOutput(true);
 
-		
-		
-        con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+		con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
 
-       con.connect();
+		con.connect();
 
-       PrintStream ps = new PrintStream(con.getOutputStream());
-       ps.print(jsonString);
-       ps.close();
-		
+		PrintStream ps = new PrintStream(con.getOutputStream());
+		ps.print(jsonString);
+		ps.close();
 
 		int responseCode = con.getResponseCode();
 
@@ -85,8 +82,8 @@ public interface GetGsonInterface {
 		}
 		return reader;
 	}
-	
-	static List<String> getStringList(String examListUrl) throws IOException {
+
+	public static final List<String> getStringList(String examListUrl) throws IOException {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
@@ -102,7 +99,7 @@ public interface GetGsonInterface {
 
 	}
 
-	static List<String> StringListFromGson(String examListUrl) throws IOException {
+	private static final List<String> StringListFromGson(String examListUrl) throws IOException {
 		Gson gson = new Gson();
 		List<String> list = new ArrayList<>();
 
@@ -115,12 +112,12 @@ public interface GetGsonInterface {
 		return list;
 	}
 
-	static boolean isCached(String examListUrl) throws IOException {
+	public static final boolean isCached(String examListUrl) throws IOException {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		return syncCache.contains(examListUrl);
 	}
 
-	static List<Long> getLongList(String examListUr) {
+	public static final List<Long> getLongList(String examListUr) {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
@@ -136,21 +133,22 @@ public interface GetGsonInterface {
 
 	}
 
-	static List<Long> LongListFromGson(String examListUrl)  {
+	private static final List<Long> LongListFromGson(String examListUrl) {
 		Gson gson = new Gson();
 		List<Long> list = new ArrayList<>();
 		try {
-		JsonReader reader = getGsonReader(examListUrl);
-		if (reader != null) {
-			Type collectionType = new TypeToken<Collection<Long>>() {
-			}.getType();
-			list = gson.fromJson(reader, collectionType);
+			JsonReader reader = getGsonReader(examListUrl);
+			if (reader != null) {
+				Type collectionType = new TypeToken<Collection<Long>>() {
+				}.getType();
+				list = gson.fromJson(reader, collectionType);
+			}
+		} catch (IOException e) {
 		}
-		}catch(IOException e) {}
 		return list;
 	}
 
-	static List<Exam> getExamList(String examListUrl) {
+	public static final List<Exam> getExamList(String examListUrl) {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService("jp.ac.jc21.t.yoshizawa-Exam");
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
@@ -165,7 +163,7 @@ public interface GetGsonInterface {
 		return examList;
 	}
 
-	static List<Exam> ExamListFromGson(String examListUrl) {
+	public static final List<Exam> ExamListFromGson(String examListUrl) {
 		Gson gson = new Gson();
 		List<Exam> list = new ArrayList<>();
 		try {
@@ -179,7 +177,12 @@ public interface GetGsonInterface {
 		}
 		return list;
 	}
-	static List<Toi> getToiList(String toiListUrl) {
+
+	private static final String toiGetUrl = "https://fegogo.appspot.com/endpoint/v0/toi/get?ToiId=";
+
+	public static final List<Toi> getToiList(Long toiId) {
+
+		String toiListUrl = toiGetUrl + toiId;
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService("jp.ac.jc21.t.yoshizawa-Toi");
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
@@ -193,7 +196,8 @@ public interface GetGsonInterface {
 		}
 		return examList;
 	}
-	static List<Toi> ToiListFromGson(String examListUrl) {
+
+	private static final List<Toi> ToiListFromGson(String examListUrl) {
 		Gson gson = new Gson();
 		List<Toi> list = new ArrayList<>();
 
@@ -209,8 +213,12 @@ public interface GetGsonInterface {
 		}
 		return list;
 	}
-	
-	static List<Member> getMemberList(String toiListUrl) {
+
+	private static final String memberGetUrl = "https://fegogo.appspot.com/endpoint/v0/member/get?email=";
+
+	public static final List<Member> getMemberList(String toiListUrl) {
+		
+		toiListUrl = memberGetUrl + toiListUrl;
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService("jp.ac.jc21.t.yoshizawa-Member");
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
@@ -224,7 +232,8 @@ public interface GetGsonInterface {
 		}
 		return examList;
 	}
-	static List<Member> MemberListFromGson(String examListUrl) {
+
+	private static final List<Member> MemberListFromGson(String examListUrl) {
 		Gson gson = new Gson();
 		List<Member> list = new ArrayList<>();
 
@@ -241,7 +250,10 @@ public interface GetGsonInterface {
 		return list;
 	}
 	
-	static List<AnswerSum> getAnswerSumList(String toiListUrl) {
+	private static final String AnswerSumGetUrl = "https://fegogo.appspot.com/endpoint/v0/answerSum/get?AnswerSumId=";
+
+	public static final List<AnswerSum> getAnswerSumList(Long l) {
+		String toiListUrl = AnswerSumGetUrl + l;
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
@@ -255,7 +267,8 @@ public interface GetGsonInterface {
 		}
 		return examList;
 	}
-	static List<AnswerSum> AnswerSumListFromGson(String examListUrl) {
+
+	private static final List<AnswerSum> AnswerSumListFromGson(String examListUrl) {
 		Gson gson = new Gson();
 		List<AnswerSum> list = new ArrayList<>();
 
@@ -272,21 +285,23 @@ public interface GetGsonInterface {
 		return list;
 	}
 
-	static List<Member> addMember(String addMemberUrl, Member m) {
+	public static final List<Member> addMember(String addMemberUrl, Member m) {
 		Gson gson = new Gson();
 		List<Member> list = new ArrayList<>();
 
 		JsonReader reader;
 		String jsonString = gson.toJson(m, Member.class);
 		try {
-			reader = getGsonPostReader(addMemberUrl,jsonString);
+			reader = getGsonPostReader(addMemberUrl, jsonString);
 			if (reader != null) {
 				Type collectionType = new TypeToken<Collection<Member>>() {
 				}.getType();
-				list = gson.fromJson(reader, collectionType);
+				
 				MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService("jp.ac.jc21.t.yoshizawa-Member");
 				syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
-				syncCache.clearAll();
+
+				list = gson.fromJson(reader, collectionType);
+				list.stream().forEach((Member mem)-> syncCache.delete(AnswerSumGetUrl+mem.geteMail()));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

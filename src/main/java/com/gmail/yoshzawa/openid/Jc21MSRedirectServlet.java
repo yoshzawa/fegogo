@@ -1,24 +1,26 @@
 package com.gmail.yoshzawa.openid;
 
 import java.io.IOException;
-import org.apache.geronimo.mail.util.Base64;
-
-import com.gmail.yoshzawa.openid.jwt.JwtHeader;
-import com.gmail.yoshzawa.openid.ofy.UserAccount;
-import com.gmail.yoshzawa.openid.jwt.JwtPayload;
-import com.google.common.collect.Comparators;
-import com.google.gson.Gson;
-
-import jp.ac.jc21.t.yoshizawa.objectify.Member;
-import jp.ac.jc21.t.yoshizawa.servlet.GetGsonInterface;
-
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.geronimo.mail.util.Base64;
+
+import com.gmail.yoshzawa.openid.jwt.JwtHeader;
+import com.gmail.yoshzawa.openid.jwt.JwtPayload;
+import com.gmail.yoshzawa.openid.ofy.UserAccount;
+import com.google.gson.Gson;
+
+import jp.ac.jc21.t.yoshizawa.objectify.Member;
+import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/msredirect", "/msredirect/" })
@@ -92,9 +94,7 @@ public final class Jc21MSRedirectServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.setAttribute("email", email);
 
-		String memberGetUrl = "https://fegogo.appspot.com/endpoint/v0/member/get?email=";
-
-		List<Member> memberList = GetGsonInterface.getMemberList(memberGetUrl + email);
+		List<Member> memberList = GetGson.getMemberList(email);
 		Member m;
 			m = memberList.stream()
 					.sorted(Comparator.comparing(Member::getModified))
@@ -104,7 +104,7 @@ public final class Jc21MSRedirectServlet extends HttpServlet {
 		m.setModified(new Date());
 
 		String addMemberUrl="https://fegogo.appspot.com/endpoint/v0/member/add";
-		GetGsonInterface.addMember(addMemberUrl,m);
+		GetGson.addMember(addMemberUrl,m);
 
 
 		resp.getWriter().println("<H1>Welcome," + email + "</h1>");

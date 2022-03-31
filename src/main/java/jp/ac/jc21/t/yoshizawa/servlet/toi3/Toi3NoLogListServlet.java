@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
-import jp.ac.jc21.t.yoshizawa.servlet.GetGsonInterface;
+import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
 
 @SuppressWarnings("serial")
 
@@ -34,7 +34,7 @@ public class Toi3NoLogListServlet extends HttpServlet {
 		// ExamÇéÊìæ
 		String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?ExamId=" + OptToiIdString.orElse("");
 //		String examListUrl = "http://localhost:8080/endpoint/v0/exam/get?ExamId=" + OptToiIdString.orElse("");
-		List<Exam> examList = GetGsonInterface.getExamList(examListUrl);
+		List<Exam> examList = GetGson.getExamList(examListUrl);
 		Optional<Exam> streamExam = examList.stream().sorted(Comparator.comparing(Exam::getYYYYMM)).findFirst();
 		if (streamExam.isPresent()) {
 			Exam e = streamExam.get();
@@ -45,12 +45,11 @@ public class Toi3NoLogListServlet extends HttpServlet {
 //			TreeMap<Long, Toi> toiMap = e.getToiMap();
 			Map<Long, Toi> toiMap = new TreeMap<Long, Toi>();
 			String toiListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get/toiId/List";
-			List<Long> toiIdList = GetGsonInterface.getLongList(toiListUrl + "?ExamId=" + OptToiIdString.orElse(""));
+			List<Long> toiIdList = GetGson.getLongList(toiListUrl + "?ExamId=" + OptToiIdString.orElse(""));
 			
 			// ToiÇÃíÜêgÇéÊìæ
-			String toiGetUrl = "https://fegogo.appspot.com/endpoint/v0/toi/get";
 			for(Long toiId : toiIdList)			{
-				List<Toi> toiList = GetGsonInterface.getToiList(toiGetUrl + "?ToiId=" + toiId);
+				List<Toi> toiList = GetGson.getToiList( toiId);
 				Toi t = toiList.stream().findAny().get();
 				toiMap.put(t.getNo(), t);
 			}
@@ -73,7 +72,7 @@ public class Toi3NoLogListServlet extends HttpServlet {
 				}
 				
 				String questionListUrl = "http://localhost:8080/endpoint/v0/Toi/get/questionId/List";
-				List<Long> questionIdList = GetGsonInterface.getLongList(questionListUrl + "?ToiId=" + OptToiIdString.orElse(""));
+				List<Long> questionIdList = GetGson.getLongList(questionListUrl + "?ToiId=" + OptToiIdString.orElse(""));
 				s[3] = questionIdList.size()+"";
 
 				

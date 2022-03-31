@@ -22,9 +22,8 @@ import com.google.appengine.api.memcache.ErrorHandlers;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
-import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
-import jp.ac.jc21.t.yoshizawa.servlet.GetGsonInterface;
+import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/exam3/Login/list" })
@@ -44,7 +43,7 @@ public class Exam3LoginListServlet extends HttpServlet {
 		request.setAttribute("email", email);
 
 		List<String[]> datas = new ArrayList<>();
-		Stream<Long> examIdStream = GetGsonInterface.getLongList(examListUrl).stream();
+		Stream<Long> examIdStream = GetGson.getLongList(examListUrl).stream();
 		Stream<Long> examIdStream2 = examIdStream.filter((Long yyyymm) -> yyyymm < 300000);
 		Stream<Long> examIdStream3 = examIdStream2.sorted();
 		examIdStream3.forEach((Long l) -> {
@@ -68,7 +67,7 @@ public class Exam3LoginListServlet extends HttpServlet {
 		if (optExamArray.isPresent()) {
 			data = optExamArray.get();
 		} else {
-			List<Exam> examList = GetGsonInterface.ExamListFromGson(examGetUrl + examKey);
+			List<Exam> examList = GetGson.getExamList(examGetUrl + examKey);
 			optExamArray = examList.stream().map((Exam e) -> makeDisplayData(e)).findAny();
 			if (optExamArray.isPresent()) {
 				data = optExamArray.get();
@@ -106,7 +105,7 @@ public class Exam3LoginListServlet extends HttpServlet {
 			}
 		}
 
-			List<Long> examList = GetGsonInterface.getLongList(toiListUrl + "?ExamId=" + e.getId());
+			List<Long> examList = GetGson.getLongList(toiListUrl + "?ExamId=" + e.getId());
 			s[1] = examList.size() + "";
 		return s;
 	}

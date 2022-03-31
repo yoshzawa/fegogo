@@ -22,11 +22,11 @@ import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
-import jp.ac.jc21.t.yoshizawa.servlet.GetGsonInterface;
+import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/exam3/Nolog/list" })
-public class Exam3NoLogListServlet extends HttpServlet implements GetGsonInterface {
+public class Exam3NoLogListServlet extends HttpServlet  {
 	private final String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/YYYYMM/list";
 	private final String examGetUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?YYYYMM=";
 	private final String cacheKeyTop = "Exam3ListServlet:";
@@ -36,7 +36,7 @@ public class Exam3NoLogListServlet extends HttpServlet implements GetGsonInterfa
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		List<String[]> datas = new ArrayList<>();
-		Stream<Long> examIdStream = GetGsonInterface.getLongList(examListUrl).stream();
+		Stream<Long> examIdStream = GetGson.getLongList(examListUrl).stream();
 		Stream<Long> examIdStream2 = examIdStream.filter((Long yyyymm) -> yyyymm < 300000);
 		Stream<Long> examIdStream3 = examIdStream2.sorted();
 		examIdStream3.forEach((Long l) -> {
@@ -60,7 +60,7 @@ public class Exam3NoLogListServlet extends HttpServlet implements GetGsonInterfa
 		if (optExamArray.isPresent()) {
 			data = optExamArray.get();
 		} else {
-			List<Exam> examList = GetGsonInterface.ExamListFromGson(examGetUrl + examKey);
+			List<Exam> examList = GetGson.getExamList(examGetUrl + examKey);
 			optExamArray = examList.stream().map((Exam e) -> makeDisplayData(e)).findAny();
 			if (optExamArray.isPresent()) {
 				data = optExamArray.get();
@@ -98,7 +98,7 @@ public class Exam3NoLogListServlet extends HttpServlet implements GetGsonInterfa
 			}
 		}
 
-		List<Long> examList = GetGsonInterface.LongListFromGson(toiListUrl + "?ExamId=" + e.getId());
+		List<Long> examList = GetGson.getLongList(toiListUrl + "?ExamId=" + e.getId());
 		s[1] = examList.size() + "";
 
 		return s;

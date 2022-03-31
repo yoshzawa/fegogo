@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jp.ac.jc21.t.yoshizawa.servlet.GetGsonInterface;
+import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
 
 /**
  * Servlet implementation class ShowCacheServlet
@@ -31,11 +31,11 @@ public class ShowCacheServlet extends HttpServlet {
 		}
 		request.setAttribute("url", url);
 
-		boolean before = GetGsonInterface.isCached(url);
+		boolean before = GetGson.isCached(url);
 		request.setAttribute("before", before);
-		List<String> result = GetGsonInterface.getStringList(url);
+		List<String> result = GetGson.getStringList(url);
 		request.setAttribute("result", result);
-		boolean after = GetGsonInterface.isCached(url);
+		boolean after = GetGson.isCached(url);
 		request.setAttribute("after", after);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp5/showCache.jsp");

@@ -4,7 +4,6 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,8 +22,8 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 /**
  * Servlet implementation class Exam
  */
-@WebServlet("endpoint/v0/member/get/AnswerSumId/activeList")
-public final class MemberGetAnswerSumList extends HttpServlet {
+@WebServlet("/endpoint/v0/member/get/AnswerSumId/List")
+public final class MemberGetAnswerSumActiveList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -40,19 +39,12 @@ public final class MemberGetAnswerSumList extends HttpServlet {
 		Optional<String> optExamId = Optional.ofNullable(request.getParameter("email"));
 		List<Long> toiIdList = new ArrayList<Long>();
 
-		Date today = new Date();
-		long time = (long)(today.getTime()/(1000*60*60*24) )*1000*60*60*24;
-		final Date today2 = new Date(time);
-		
 		if (optExamId.isPresent()) {
 			try {
 				String email = optExamId.get();
 				List<AnswerSum> toiList = new ArrayList<AnswerSum>();
 				toiList =  ofy().load().type(AnswerSum.class).filter("name", email).list();
-				toiIdList = toiList.stream()
-						.filter((AnswerSum aSum)-> aSum.getAnswered().after(today2) == true)
-						.map(AnswerSum::getId)
-						.collect(Collectors.toList());
+				toiIdList = toiList.stream().map(AnswerSum::getId).collect(Collectors.toList());
 			} catch (NumberFormatException e) {
 			}
 		}
