@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.*;
+import jp.ac.jc21.t.yoshizawa.servlet.EndPointAnswerSum;
+import jp.ac.jc21.t.yoshizawa.servlet.EndPointMember;
 import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
 
 @SuppressWarnings("serial")
@@ -55,7 +57,7 @@ public class MemberActiveListAdminServlet extends HttpServlet {
 		Date now = new Date();
 		List<Member> memberList;
 		{
-			Stream<List<Member>> memberStream = memberEmailList.stream().map((String e)->GetGson.getMemberList(e));
+			Stream<List<Member>> memberStream = memberEmailList.stream().map((String e)->EndPointMember.getMemberList(e));
 			Stream<Member> memberStream2 = memberStream.flatMap((List<Member> l)->l.stream());
 			Stream<Member> memberStream3 = memberStream2.filter((Member m)->(now.getTime() - m.getModified().getTime())<24*10* 60 * 60*1000);
 			memberList = memberStream3.collect(Collectors.toList());
@@ -69,7 +71,7 @@ public class MemberActiveListAdminServlet extends HttpServlet {
 				String email = m.geteMail();
 				List<Long> aSumIdList = GetGson.getLongList(AnswerSumIdListUrl+email);
 				answerSumIdMap.put(email, aSumIdList.size());
-				aSumIdList.stream().map((Long l)->GetGson.getAnswerSumList(l));
+				aSumIdList.stream().map((Long l)->EndPointAnswerSum.getAnswerSumList(l));
 			}
 			request.setAttribute("answerSumIdMap", answerSumIdMap);
 		}

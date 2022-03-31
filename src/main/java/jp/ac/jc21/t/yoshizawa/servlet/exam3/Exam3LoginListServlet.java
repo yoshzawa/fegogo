@@ -23,6 +23,7 @@ import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
+import jp.ac.jc21.t.yoshizawa.servlet.EndPointExam;
 import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
 
 @SuppressWarnings("serial")
@@ -30,7 +31,6 @@ import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
 public class Exam3LoginListServlet extends HttpServlet {
 
 	private final String examListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/YYYYMM/list";
-	private final String examGetUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get?YYYYMM=";
 	private final String cacheKeyTop = "Exam3ListServlet:";
 	private final String toiListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get/toiId/List";
 
@@ -67,7 +67,8 @@ public class Exam3LoginListServlet extends HttpServlet {
 		if (optExamArray.isPresent()) {
 			data = optExamArray.get();
 		} else {
-			List<Exam> examList = GetGson.getExamList(examGetUrl + examKey);
+
+			List<Exam> examList = EndPointExam.getExamByYYYYMM(examKey);
 			optExamArray = examList.stream().map((Exam e) -> makeDisplayData(e)).findAny();
 			if (optExamArray.isPresent()) {
 				data = optExamArray.get();

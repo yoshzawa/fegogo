@@ -20,6 +20,7 @@ import com.gmail.yoshzawa.openid.ofy.UserAccount;
 import com.google.gson.Gson;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
+import jp.ac.jc21.t.yoshizawa.servlet.EndPointMember;
 import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
 
 @SuppressWarnings("serial")
@@ -94,7 +95,7 @@ public final class Jc21MSRedirectServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.setAttribute("email", email);
 
-		List<Member> memberList = GetGson.getMemberList(email);
+		List<Member> memberList = EndPointMember.getMemberList(email);
 		Member m;
 			m = memberList.stream()
 					.sorted(Comparator.comparing(Member::getModified))
@@ -104,7 +105,7 @@ public final class Jc21MSRedirectServlet extends HttpServlet {
 		m.setModified(new Date());
 
 		String addMemberUrl="https://fegogo.appspot.com/endpoint/v0/member/add";
-		GetGson.addMember(addMemberUrl,m);
+		EndPointMember.addMember(addMemberUrl,m);
 
 
 		resp.getWriter().println("<H1>Welcome," + email + "</h1>");
