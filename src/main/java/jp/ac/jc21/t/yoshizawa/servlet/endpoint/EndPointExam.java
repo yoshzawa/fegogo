@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.servlet;
+package jp.ac.jc21.t.yoshizawa.servlet.endpoint;
 
 import java.util.List;
 import java.util.Optional;

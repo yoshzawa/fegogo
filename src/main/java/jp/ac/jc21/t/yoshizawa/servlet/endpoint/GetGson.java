@@ -1,4 +1,4 @@
-package jp.ac.jc21.t.yoshizawa.servlet;
+package jp.ac.jc21.t.yoshizawa.servlet.endpoint;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -118,21 +118,25 @@ public class GetGson {
 	}
 
 	public static final List<Long> getLongList(String examListUr) {
+		return getLongList(examListUr,examListUr);
+	}
+	
+	protected static final List<Long> getLongList(String examListUrl,String cacheId) {
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
 
-		Optional<List<Long>> optLongList = Optional.ofNullable((List<Long>) syncCache.get(examListUr));
+		Optional<List<Long>> optLongList = Optional.ofNullable((List<Long>) syncCache.get(cacheId));
 		List<Long> longList = null;
 		if ((optLongList.isPresent()) && (optLongList.get().size() > 0)) {
 			longList = optLongList.get();
 		} else {
-			longList = LongListFromGson(examListUr);
-			syncCache.put(examListUr, longList);
+			longList = LongListFromGson(examListUrl);
+			syncCache.put(cacheId, longList);
 		}
 		return longList;
-
 	}
 
+	
 	private static final List<Long> LongListFromGson(String examListUrl) {
 		Gson gson = new Gson();
 		List<Long> list = new ArrayList<>();
