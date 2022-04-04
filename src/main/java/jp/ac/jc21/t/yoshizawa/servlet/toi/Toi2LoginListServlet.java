@@ -131,7 +131,7 @@ public class Toi2LoginListServlet extends HttpServlet {
 				diff /= 1000;
 				if (diff < 240 * 60 * 60) {
 					// log.warning("interval too short");
-					s[4] += "<a href='http://localhost:8080/answer/show?answerSumId="+as.getId()+"'>"
+					s[4] += "<a href='/answer/show?answerSumId="+as.getId()+"'>"
 							+dateFormat(as.getAnswered()) + "</a>(" + changePoint(as.getNoOfSeikai(), as.getNoOfAnswer())
 							+ "%)<br/>";
 					i++;
