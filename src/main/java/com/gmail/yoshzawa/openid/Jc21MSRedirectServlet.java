@@ -20,8 +20,8 @@ import com.gmail.yoshzawa.openid.ofy.UserAccount;
 import com.google.gson.Gson;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Member;
-import jp.ac.jc21.t.yoshizawa.servlet.EndPointMember;
-import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointMember;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.GetGson;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/msredirect", "/msredirect/" })

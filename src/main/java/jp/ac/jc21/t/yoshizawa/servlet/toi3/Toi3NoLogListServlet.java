@@ -18,9 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
-import jp.ac.jc21.t.yoshizawa.servlet.EndPointExam;
-import jp.ac.jc21.t.yoshizawa.servlet.EndPointToi;
-import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointExam;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointQuestion;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointToi;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.GetGson;
 
 @SuppressWarnings("serial")
 
@@ -72,8 +73,8 @@ public class Toi3NoLogListServlet extends HttpServlet {
 					s[2] = s[2] + "<B>(CBT)</B>";
 				}
 				
-				String questionListUrl = "https://fegogo.appspot.com/endpoint/v0/Toi/get/questionId/List";
-				List<Long> questionIdList = GetGson.getLongList(questionListUrl + "?ToiId=" + OptExamIdString.orElse(""));
+				String questionListUrl = "https://fegogo.appspot.com/endpoint/v0/Toi/get/questionId/List?ToiId=";
+				List<Long> questionIdList = EndPointQuestion.getLongList(questionListUrl + OptExamIdString.orElse(""));
 				s[3] = questionIdList.size()+"";
 
 				

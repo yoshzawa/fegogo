@@ -22,8 +22,8 @@ import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
-import jp.ac.jc21.t.yoshizawa.servlet.EndPointExam;
-import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointExam;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.GetGson;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/exam3/Nolog/list" })

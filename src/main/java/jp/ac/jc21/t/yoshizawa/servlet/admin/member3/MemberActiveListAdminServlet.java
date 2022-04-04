@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jp.ac.jc21.t.yoshizawa.objectify.*;
-import jp.ac.jc21.t.yoshizawa.servlet.EndPointAnswerSum;
-import jp.ac.jc21.t.yoshizawa.servlet.EndPointMember;
-import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointAnswerSum;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointMember;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.GetGson;
 
 @SuppressWarnings("serial")
 
