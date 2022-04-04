@@ -11,7 +11,7 @@ import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 
 public class EndPointQuestion extends GetGson {
-	public static final List<Long> getQuestionListBy(String examListUr) {
+	public static final List<Long> getQuestionListByToiId(String examListUr) {
 		return getLongList(examListUr,examListUr);
 	}
 }

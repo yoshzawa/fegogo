@@ -73,8 +73,8 @@ public class Toi3NoLogListServlet extends HttpServlet {
 					s[2] = s[2] + "<B>(CBT)</B>";
 				}
 				
-				String questionListUrl = "https://fegogo.appspot.com/endpoint/v0/Toi/get/questionId/List?ToiId=";
-				List<Long> questionIdList = EndPointQuestion.getLongList(questionListUrl + OptExamIdString.orElse(""));
+				String questionListUrl = "https://fegogo.appspot.com/endpoint/v0/toi/get/questionId/List?ToiId=";
+				List<Long> questionIdList = EndPointQuestion.getQuestionListByToiId(questionListUrl + t.getId());
 				s[3] = questionIdList.size()+"";
 
 				
