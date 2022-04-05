@@ -1,17 +1,12 @@
 package jp.ac.jc21.t.yoshizawa.servlet.endpoint;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.logging.Level;
-
-import com.google.appengine.api.memcache.ErrorHandlers;
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
-
-import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 
 public class EndPointQuestion extends GetGson {
-	public static final List<Long> getQuestionListByToiId(String examListUr) {
-		return getLongList(examListUr,examListUr);
+	private final static String questionListUrl = "https://fegogo.appspot.com/endpoint/v0/toi/get/questionId/List?ToiId=";
+
+	public static final List<Long> getQuestionListByToiId(Long toiId) {
+		String examListUrl = questionListUrl + toiId;
+		return getLongList(examListUrl,examListUrl);
 	}
 }

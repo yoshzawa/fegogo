@@ -12,7 +12,6 @@ import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 
 public class EndPointExam extends GetGson {
 	
-//	String examGetUrl = "http://localhost:8080/endpoint/v0/exam/get?ExamId=" + OptToiIdString.orElse("");
 	private static final String examGetUrlById = "https://fegogo.appspot.com/endpoint/v0/exam/get?ExamId=";
 
 	public static final List<Exam> getExamById(String examId) {

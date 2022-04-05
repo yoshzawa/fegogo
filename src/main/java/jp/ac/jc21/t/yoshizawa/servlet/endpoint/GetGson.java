@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -138,83 +137,49 @@ public class GetGson {
 
 	
 	private static final List<Long> LongListFromGson(String examListUrl) {
-		Gson gson = new Gson();
-		List<Long> list = new ArrayList<>();
-		try {
-			JsonReader reader = getGsonReader(examListUrl);
-			if (reader != null) {
-				Type collectionType = new TypeToken<Collection<Long>>() {
-				}.getType();
-				list = gson.fromJson(reader, collectionType);
-			}
-		} catch (IOException e) {
-		}
+		TypeToken typeToken = new TypeToken<Collection<Long>>() {};
+		List list = getGsonList(examListUrl, typeToken);
 		return list;
 	}
 
 
 
 	public static final List<Exam> ExamListFromGson(String examListUrl) {
-		Gson gson = new Gson();
-		List<Exam> list = new ArrayList<>();
-		try {
-			JsonReader reader = getGsonReader(examListUrl);
-			if (reader != null) {
-				Type collectionType = new TypeToken<Collection<Exam>>() {
-				}.getType();
-				list = gson.fromJson(reader, collectionType);
-			}
-		} catch (IOException e) {
-		}
+		TypeToken typeToken = new TypeToken<Collection<Exam>>() {};
+		List list = getGsonList(examListUrl, typeToken);
 		return list;
 	}
 
 
 
 	protected static final List<Toi> ToiListFromGson(String examListUrl) {
-		Gson gson = new Gson();
-		List<Toi> list = new ArrayList<>();
-
-		JsonReader reader;
-		try {
-			reader = getGsonReader(examListUrl);
-			if (reader != null) {
-				Type collectionType = new TypeToken<Collection<Toi>>() {
-				}.getType();
-				list = gson.fromJson(reader, collectionType);
-			}
-		} catch (IOException e) {
-		}
+		TypeToken typeToken = new TypeToken<Collection<Toi>>() {};
+		List list = getGsonList(examListUrl, typeToken);
 		return list;
 	}
 
 	protected static final List<Member> MemberListFromGson(String examListUrl) {
-		Gson gson = new Gson();
-		List<Member> list = new ArrayList<>();
-
-		JsonReader reader;
-		try {
-			reader = getGsonReader(examListUrl);
-			if (reader != null) {
-				Type collectionType = new TypeToken<Collection<Member>>() {
-				}.getType();
-				list = gson.fromJson(reader, collectionType);
-			}
-		} catch (IOException e) {
-		}
+		TypeToken typeToken = new TypeToken<Collection<Member>>() {};
+		List list = getGsonList(examListUrl, typeToken);
 		return list;
 	}
 	
 	protected static final List<AnswerSum> AnswerSumListFromGson(String examListUrl) {
-		Gson gson = new Gson();
-		List<AnswerSum> list = new ArrayList<>();
 
+		TypeToken typeToken = new TypeToken<Collection<AnswerSum>>() {};
+
+		List list = getGsonList(examListUrl, typeToken);
+		return list;
+	}
+
+	public static List<?> getGsonList(String examListUrl, TypeToken<?> typeToken) {
 		JsonReader reader;
+		List list = new ArrayList();
+		Gson gson = new Gson();
 		try {
 			reader = getGsonReader(examListUrl);
 			if (reader != null) {
-				Type collectionType = new TypeToken<Collection<AnswerSum>>() {
-				}.getType();
+				Type collectionType = typeToken.getType();
 				list = gson.fromJson(reader, collectionType);
 			}
 		} catch (IOException e) {

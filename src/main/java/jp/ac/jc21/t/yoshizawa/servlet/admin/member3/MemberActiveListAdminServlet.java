@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -57,9 +58,11 @@ public class MemberActiveListAdminServlet extends HttpServlet {
 		Date now = new Date();
 		List<Member> memberList;
 		{
+			Predicate<Member> predicate = (
+					Member m) -> (now.getTime() - m.getModified().getTime()) < 24 * 10 * 60 * 60 * 1000;
 			Stream<List<Member>> memberStream = memberEmailList.stream().map((String e)->EndPointMember.getMemberList(e));
 			Stream<Member> memberStream2 = memberStream.flatMap((List<Member> l)->l.stream());
-			Stream<Member> memberStream3 = memberStream2.filter((Member m)->(now.getTime() - m.getModified().getTime())<24*10* 60 * 60*1000);
+			Stream<Member> memberStream3 = memberStream2.filter(predicate);
 			memberList = memberStream3.collect(Collectors.toList());
 			request.setAttribute("memberList", memberList);
 		}

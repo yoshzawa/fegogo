@@ -51,7 +51,7 @@ public class Toi3NoLogListServlet extends HttpServlet {
 			
 			// ToiÇÃíÜêgÇéÊìæ
 			for(Long toiId : toiIdList)			{
-				List<Toi> toiList = EndPointToi.getToiList( toiId);
+				List<Toi> toiList = EndPointToi.getToiListByToiId(toiId);
 				Toi t = toiList.stream().findAny().get();
 				toiMap.put(t.getNo(), t);
 			}
@@ -73,8 +73,7 @@ public class Toi3NoLogListServlet extends HttpServlet {
 					s[2] = s[2] + "<B>(CBT)</B>";
 				}
 				
-				String questionListUrl = "https://fegogo.appspot.com/endpoint/v0/toi/get/questionId/List?ToiId=";
-				List<Long> questionIdList = EndPointQuestion.getQuestionListByToiId(questionListUrl + t.getId());
+				List<Long> questionIdList = EndPointQuestion.getQuestionListByToiId(t.getId());
 				s[3] = questionIdList.size()+"";
 
 				

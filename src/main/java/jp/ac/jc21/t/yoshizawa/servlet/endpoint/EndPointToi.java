@@ -14,7 +14,7 @@ public class EndPointToi extends GetGson {
 	
 	private static final String toiGetUrl = "https://fegogo.appspot.com/endpoint/v0/toi/get?ToiId=";
 
-	public static final List<Toi> getToiList(Long toiId) {
+	public static final List<Toi> getToiListByToiId(Long toiId) {
 
 		String toiListUrl = toiGetUrl + toiId;
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService("jp.ac.jc21.t.yoshizawa-Toi");

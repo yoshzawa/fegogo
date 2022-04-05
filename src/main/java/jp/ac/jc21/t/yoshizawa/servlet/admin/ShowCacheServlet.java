@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jp.ac.jc21.t.yoshizawa.servlet.GetGson;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.GetGson;
 
 /**
  * Servlet implementation class ShowCacheServlet
