@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 
 import com.google.appengine.api.memcache.ErrorHandlers;
+import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.gson.Gson;
@@ -92,7 +93,8 @@ public class GetGson {
 			stringList = optStringList.get();
 		} else {
 			stringList = StringListFromGson(examListUrl);
-			syncCache.put(examListUrl, stringList);
+			syncCache.put(examListUrl, stringList,Expiration.byDeltaSeconds(60*3));
+
 		}
 		return stringList;
 
@@ -130,51 +132,51 @@ public class GetGson {
 			longList = optLongList.get();
 		} else {
 			longList = LongListFromGson(examListUrl);
-			syncCache.put(cacheId, longList);
+			syncCache.put(cacheId, longList,Expiration.byDeltaSeconds(60*3));
 		}
 		return longList;
 	}
 
 	
 	private static final List<Long> LongListFromGson(String examListUrl) {
-		TypeToken typeToken = new TypeToken<Collection<Long>>() {};
-		List list = getGsonList(examListUrl, typeToken);
+		TypeToken<Collection<Long>> typeToken = new TypeToken<Collection<Long>>() {};
+		List<Long>  list = (List<Long> )getGsonList(examListUrl, typeToken);
 		return list;
 	}
 
 
 
 	public static final List<Exam> ExamListFromGson(String examListUrl) {
-		TypeToken typeToken = new TypeToken<Collection<Exam>>() {};
-		List list = getGsonList(examListUrl, typeToken);
+		TypeToken<Collection<Exam>> typeToken = new TypeToken<Collection<Exam>>() {};
+		List<Exam> list = (List<Exam>)getGsonList(examListUrl, typeToken);
 		return list;
 	}
 
 
 
 	protected static final List<Toi> ToiListFromGson(String examListUrl) {
-		TypeToken typeToken = new TypeToken<Collection<Toi>>() {};
-		List list = getGsonList(examListUrl, typeToken);
+		TypeToken<Collection<Toi>> typeToken = new TypeToken<Collection<Toi>>() {};
+		List<Toi>  list = (List<Toi> )getGsonList(examListUrl, typeToken);
 		return list;
 	}
 
 	protected static final List<Member> MemberListFromGson(String examListUrl) {
-		TypeToken typeToken = new TypeToken<Collection<Member>>() {};
-		List list = getGsonList(examListUrl, typeToken);
+		TypeToken<Collection<Member>> typeToken = new TypeToken<Collection<Member>>() {};
+		List<Member> list = (List<Member>)getGsonList(examListUrl, typeToken);
 		return list;
 	}
 	
 	protected static final List<AnswerSum> AnswerSumListFromGson(String examListUrl) {
 
-		TypeToken typeToken = new TypeToken<Collection<AnswerSum>>() {};
+		TypeToken<Collection<AnswerSum>> typeToken = new TypeToken<Collection<AnswerSum>>() {};
 
-		List list = getGsonList(examListUrl, typeToken);
+		List<AnswerSum> list = (List<AnswerSum>)getGsonList(examListUrl, typeToken);
 		return list;
 	}
 
 	public static List<?> getGsonList(String examListUrl, TypeToken<?> typeToken) {
 		JsonReader reader;
-		List list = new ArrayList();
+		List<?> list = new ArrayList<>();
 		Gson gson = new Gson();
 		try {
 			reader = getGsonReader(examListUrl);
