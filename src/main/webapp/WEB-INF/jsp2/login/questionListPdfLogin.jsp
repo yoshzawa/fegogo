@@ -63,9 +63,6 @@ List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 				}
 			</script>
 
-			<form method="post" action="/answer" id="mainForm" name="mainForm">
-				<input type="hidden" name="userId" value="<%=email%>" /> <input
-					type="hidden" name="toiId" value="<%=toi.getId()%>" />
 
 				<table>
 					<tr>
@@ -74,40 +71,23 @@ List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 								src="https://storage.googleapis.com/fegogo.appspot.com/pdfjs-2.13.216-dist/web/viewer.html?file=https://storage.googleapis.com/fegogo.appspot.com/mogipdf/top.pdf">
 							</iframe></td>
 						<td>
-<div class="tab-wrap">
-    <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">ボタン 1</label>
-    <div class="tab-content">
-        コンテンツ 1
-    </div>
-    <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">ボタン 2</label>
-    <div class="tab-content">
-        コンテンツ 2
-    </div>
-    <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">ボタン 3</label>
-    <div class="tab-content">
-        コンテンツ 3
-    </div>
-</div>
-							<div class="col-sm-6">
-
-								<div class="col-xs-3">
-									<!-- required for floating -->
-									<!-- Nav tabs -->
-									<ul class="nav nav-tabs tabs-left">
-										<li class="active"><a href="#home" data-toggle="tab"
-											onclick="topOn()">i</a></li>
-										<li><a href="#profile" data-toggle="tab" onclick="qOn()">12</a></li>
-									</ul>
+							<div class="tab-wrap">
+								<input id="TAB-01" type="radio" name="TAB" class="tab-switch"
+									checked="checked" /> 
+									<label class="tab-label" for="TAB-01">i</label>
+								<div class="tab-content">
+									information
 								</div>
+								<input id="TAB-02" type="radio" name="TAB" class="tab-switch" onclick="qOn();"/>
+								<label
+									class="tab-label" for="TAB-02">12</label>
+									
+								<div class="tab-content">
+			<form method="post" action="/answer" id="mainForm" name="mainForm">
+				<input type="hidden" name="userId" value="<%=email%>" /> <input
+					type="hidden" name="toiId" value="<%=toi.getId()%>" />
 
-								<div class="col-xs-9">
-									<!-- Tab panes -->
-									<div class="tab-content">
-									<!-- panes1 -->
-										<div class="tab-pane active" id="home">information</div>
-									<!-- panes2 -->
-										<div class="tab-pane" id="profile">
-											profile
+											解答欄
 											<TABLE border=1
 												class="table table-striped table-hover table-responsive">
 												<thead class="thead-dark">
@@ -128,21 +108,15 @@ List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 												<%
 													}
 												%>
-											</table>
-										</div>
-									</div>
-								</div>
-
-								<div class="clearfix"></div>
-
-							</div>
-
-						</td>
-					</tr>
-
-				</table>
+										</TABLE>
 				<input type="submit" value="送信する" />
 			</form>
+								</div>
+							</div>
+							
+						</td>
+					</tr>
+				</table>
 
 
 			<%

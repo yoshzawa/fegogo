@@ -40,26 +40,15 @@ public class Question2LoginListWithPdfServlet extends HttpServlet {
 
 		Toi parent = Toi.getById(parentId);
 
-//		Exam exam = parent.getExam();
-
 		TreeMap<Long, Question> qMap = Toi.getQuestionMap(parent);
 
 		request.setAttribute("parent", parent);
-//		request.setAttribute("parentId", parentId);
-//		request.setAttribute("questionMap", qMap);
-//		request.setAttribute("exam", exam);
-//		request.setAttribute("examName", parent.getExamName());
 
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
 
 		request.setAttribute("email", email);
 		List<String[]> datas = new ArrayList<String[]>();
-
-		
-		
-		
-		
 		
 		Set<Long> toiKeySet = qMap.keySet();
 		for (Long l : toiKeySet) {
@@ -103,7 +92,8 @@ public class Question2LoginListWithPdfServlet extends HttpServlet {
 		AccessLog.create(email, "/question2/Login/list/noImage?parentId="+parentId+" "+"Questions="+datas.size()).save();
 
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/questionListPdfLogin.jsp");
+//		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/questionListPdfLogin.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/NewFile.jsp");
 		rd.forward(request, response);
 
 	}
