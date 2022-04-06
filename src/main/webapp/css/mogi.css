@@ -27,7 +27,7 @@
   flex-direction: column;
 }
 .tab-label {
-  width: 150px;
+  width: 50px;
   color: White;
   background: LightGray;
   font-weight: bold;
@@ -44,8 +44,12 @@
   float:left;
 }
 .tab-content {
-  display:none;
+  display:block;
 }
+.tab-switch:checked+.tab-content {
+  display:block;
+}
+
 /* アクティブなタブ */
 .tab-switch:checked+.tab-label {
   color: Gray;
@@ -53,7 +57,7 @@
   border-right-color: White;
 }
 .tab-switch:checked+.tab-label+.tab-content {
-  width: calc(100% - 150px); /* - ボタン幅 */
+  width: calc(500px - 50px); /* - ボタン幅 */
   height: 100%;
   padding: 15px;
   border-left: 1px solid Gray;

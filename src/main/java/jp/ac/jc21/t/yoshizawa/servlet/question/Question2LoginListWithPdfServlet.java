@@ -92,8 +92,8 @@ public class Question2LoginListWithPdfServlet extends HttpServlet {
 		AccessLog.create(email, "/question2/Login/list/noImage?parentId="+parentId+" "+"Questions="+datas.size()).save();
 
 
-//		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/questionListPdfLogin.jsp");
-		RequestDispatcher rd = request.getRequestDispatcher("/NewFile.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp2/login/questionListPdfLogin.jsp");
+//		RequestDispatcher rd = request.getRequestDispatcher("/NewFile.jsp");
 		rd.forward(request, response);
 
 	}

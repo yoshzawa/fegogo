@@ -64,59 +64,62 @@ List<String[]> datas = (List<String[]>) request.getAttribute("datas");
 			</script>
 
 
-				<table>
-					<tr>
-						<td><iframe id="topFrame" width="600" height="550"
-								style='border: solid #000000 1px; display: inline;'
-								src="https://storage.googleapis.com/fegogo.appspot.com/pdfjs-2.13.216-dist/web/viewer.html?file=https://storage.googleapis.com/fegogo.appspot.com/mogipdf/top.pdf">
-							</iframe></td>
-						<td>
-							<div class="tab-wrap">
-								<input id="TAB-01" type="radio" name="TAB" class="tab-switch"
-									checked="checked" /> 
-									<label class="tab-label" for="TAB-01">i</label>
-								<div class="tab-content">
-									information
-								</div>
-								<input id="TAB-02" type="radio" name="TAB" class="tab-switch" onclick="qOn();"/>
-								<label
-									class="tab-label" for="TAB-02">12</label>
-									
-								<div class="tab-content">
-			<form method="post" action="/answer" id="mainForm" name="mainForm">
-				<input type="hidden" name="userId" value="<%=email%>" /> <input
-					type="hidden" name="toiId" value="<%=toi.getId()%>" />
+			<table>
+				<tr>
+					<td><iframe id="topFrame" width="600" height="550"
+							style='border: solid #000000 1px; display: inline;'
+							src="https://storage.googleapis.com/fegogo.appspot.com/pdfjs-2.13.216-dist/web/viewer.html?file=https://storage.googleapis.com/fegogo.appspot.com/mogipdf/top.pdf">
+						</iframe></td>
+					<td>
+						<div class="tab-wrap">
+							<input id="TAB-01" type="radio" name="TAB" class="tab-switch"
+								checked="checked" /> 
+								<label class="tab-label" for="TAB-01">i</label>
+							<input id="TAB-02" type="radio" name="TAB" class="tab-switch"
+								onclick="qOn();" /> 
+								<label class="tab-label" for="TAB-02">12</label>
+						</div>
+					</td>
+					<td width=500px>
+					<div>
+							<div class="tab-content" for="TAB-01"> information </div> 
+							<div
+								class="tab-content" for="TAB-02">
 
-											解答欄
-											<TABLE border=1
-												class="table table-striped table-hover table-responsive">
-												<thead class="thead-dark">
-													<TR>
-														<th>設問</th>
-														<th>解答欄</th>
-													</TR>
-												</thead>
 
-												<%
+								<form method="post" action="/answer" id="mainForm"
+									name="mainForm">
+									<input type="hidden" name="userId" value="<%=email%>" /> <input
+										type="hidden" name="toiId" value="<%=toi.getId()%>" /> 解答欄
+									<TABLE border=1
+										class="table table-striped table-hover table-responsive">
+										<thead class="thead-dark">
+											<TR>
+												<th>設問</th>
+												<th>解答欄</th>
+											</TR>
+										</thead>
+
+										<%
 													for (String[] s : datas) {
 												%>
-												<tr>
-													<td><%=s[0]%></td>
-													<td><%=s[1]%></td>
+										<tr>
+											<td><%=s[0]%></td>
+											<td><%=s[1]%></td>
 
-												</tr>
-												<%
+										</tr>
+										<%
 													}
 												%>
-										</TABLE>
-				<input type="submit" value="送信する" />
-			</form>
+									</TABLE>
+									<input type="submit" value="回答を送信する" />
+								</form>
 								</div>
-							</div>
-							
-						</td>
-					</tr>
-				</table>
+					</div>
+
+					</td>
+				</tr>
+			</table>
 
 
 			<%
