@@ -12,9 +12,9 @@ import jp.ac.jc21.t.yoshizawa.objectify.AnswerSum;
 
 public class EndPointAnswerSum extends GetGson {
 	
-	private static final String AnswerSumGetUrl = "https://fegogo.appspot.com/endpoint/v0/answerSum/get?AnswerSumId=";
+	private static final String AnswerSumGetUrl = endPointServerAddress + "/endpoint/v0/answerSum/get?AnswerSumId=";
 
-	public static final List<AnswerSum> getAnswerSumList(Long l) {
+	public static final List<AnswerSum> getAnswerSumListByAnswerSumId(Long l) {
 		String toiListUrl = AnswerSumGetUrl + l;
 		MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 		syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
@@ -29,4 +29,12 @@ public class EndPointAnswerSum extends GetGson {
 		}
 		return examList;
 	}
+	
+	private static final String AnswerSumIdListUrl = endPointServerAddress + "/endpoint/v0/toi/get/answerSumId/List?ToiId=";
+	
+	public static final List<Long> getAnswerSumIdListByToiId(Long toiId) {
+		String examListUrl = AnswerSumIdListUrl + toiId;
+		return getLongList(examListUrl);
+	}
+
 }

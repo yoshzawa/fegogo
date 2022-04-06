@@ -16,8 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpResponse;
+
 import jp.ac.jc21.t.yoshizawa.objectify.Exam;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
+import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointAnswerSum;
 import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointExam;
 import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointQuestion;
 import jp.ac.jc21.t.yoshizawa.servlet.endpoint.EndPointToi;
@@ -46,8 +49,7 @@ public class Toi3NoLogListServlet extends HttpServlet {
 			// ñ‚ÇÃàÍóóÇéÊìæ
 //			TreeMap<Long, Toi> toiMap = e.getToiMap();
 			Map<Long, Toi> toiMap = new TreeMap<Long, Toi>();
-			String toiListUrl = "https://fegogo.appspot.com/endpoint/v0/exam/get/toiId/List";
-			List<Long> toiIdList = GetGson.getLongList(toiListUrl + "?ExamId=" + OptExamIdString.orElse(""));
+			List<Long> toiIdList = EndPointToi.getToiIdListByExamId(OptExamIdString.orElse(""));
 			
 			// ToiÇÃíÜêgÇéÊìæ
 			for(Long toiId : toiIdList)			{
@@ -78,7 +80,10 @@ public class Toi3NoLogListServlet extends HttpServlet {
 
 				
 				// TODO WEBåoóRÇ…Ç∑ÇÈ
+				List<Long> answerSumIdList = EndPointAnswerSum.getAnswerSumIdListByToiId(t.getId());
+				
 				s[4] = t.getAnswerSumCount() + "";
+				s[4]=answerSumIdList.size()+"";
 				datas.add(s);
 			}
 			request.setAttribute("datas", datas);
@@ -87,7 +92,7 @@ public class Toi3NoLogListServlet extends HttpServlet {
 			rd.forward(request, response);
 
 		} else {
-			response.sendError(404);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 
 	}

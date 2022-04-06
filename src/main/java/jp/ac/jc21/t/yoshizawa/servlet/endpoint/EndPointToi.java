@@ -11,8 +11,8 @@ import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 public class EndPointToi extends GetGson {
-	
-	private static final String toiGetUrl = "https://fegogo.appspot.com/endpoint/v0/toi/get?ToiId=";
+
+	private static final String toiGetUrl = endPointServerAddress + "/endpoint/v0/toi/get?ToiId=";
 
 	public static final List<Toi> getToiListByToiId(Long toiId) {
 
@@ -31,4 +31,10 @@ public class EndPointToi extends GetGson {
 		return examList;
 	}
 
+	private final static String toiListUrl = endPointServerAddress + "/endpoint/v0/exam/get/toiId/List?ExamId=";
+
+	public static final List<Long> getToiIdListByExamId(String examIdString) {
+		String examListUrl = toiListUrl + examIdString;
+		return getLongList(examListUrl);
+	}
 }

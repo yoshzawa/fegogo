@@ -67,7 +67,6 @@ public class Exam3LoginListServlet extends HttpServlet {
 		if (optExamArray.isPresent()) {
 			data = optExamArray.get();
 		} else {
-
 			List<Exam> examList = EndPointExam.getExamByYYYYMM(examKey);
 			optExamArray = examList.stream().map((Exam e) -> makeDisplayData(e)).findAny();
 			if (optExamArray.isPresent()) {

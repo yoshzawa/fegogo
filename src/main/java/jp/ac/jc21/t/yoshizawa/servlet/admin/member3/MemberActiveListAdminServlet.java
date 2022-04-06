@@ -74,7 +74,7 @@ public class MemberActiveListAdminServlet extends HttpServlet {
 				String email = m.geteMail();
 				List<Long> aSumIdList = GetGson.getLongList(AnswerSumIdListUrl+email);
 				answerSumIdMap.put(email, aSumIdList.size());
-				aSumIdList.stream().map((Long l)->EndPointAnswerSum.getAnswerSumList(l));
+				aSumIdList.stream().map((Long id)->EndPointAnswerSum.getAnswerSumListByAnswerSumId(id));
 			}
 			request.setAttribute("answerSumIdMap", answerSumIdMap);
 		}

@@ -11,11 +11,9 @@
 	<div class="container">
 
 		<%
-
-		List<String[]> datas = (List<String[]>)request.getAttribute("datas");
-		List<String[]> datas2 = (List<String[]>)request.getAttribute("datas2");
-
-	%>
+			List<String[]> datas = (List<String[]>) request.getAttribute("datas");
+		List<String[]> datas2 = (List<String[]>) request.getAttribute("datas2");
+		%>
 
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
@@ -31,12 +29,12 @@
 		<main class="mb-5">
 
 			<%
-	if (datas == null || datas.size() == 0) {
-	%>
+				if (datas == null || datas.size() == 0) {
+			%>
 			試験が登録されていません
 			<%
-		} else {
-	%>
+				} else {
+			%>
 			<TABLE border="1" class="table table-striped table-hover ">
 				<thead class="thead-dark">
 					<tr>
@@ -45,19 +43,19 @@
 					</TR>
 				</thead>
 				<%
-		for (String[] s : datas) { 
-		%>
+					for (String[] s : datas) {
+				%>
 				<tr>
-					<td><%= s[0] %></td>
-					<td><%= s[1] %></td>
+					<td><%=s[0]%></td>
+					<td><%=s[1]%></td>
 				</tr>
 				<%
-			}
-		%>
+					}
+				%>
 			</TABLE>
 			<%
-		}
-	%>
+				}
+			%>
 
 			<p></p>
 		</main>

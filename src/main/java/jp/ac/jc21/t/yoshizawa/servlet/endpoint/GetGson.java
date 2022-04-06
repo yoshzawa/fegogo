@@ -28,6 +28,8 @@ import jp.ac.jc21.t.yoshizawa.objectify.Toi;
 
 public class GetGson {
 
+	protected static final String endPointServerAddress = "https://fegogo.appspot.com";
+
 	private static final JsonReader getGsonReader(String examListUrl) throws IOException {
 		JsonReader reader = null;
 
