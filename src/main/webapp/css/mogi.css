@@ -29,7 +29,7 @@
 .tab-label {
   width: 50px;
   color: White;
-  background: LightGray;
+  background: LightGreen;
   font-weight: bold;
   white-space: nowrap;
   text-align: center;
@@ -43,17 +43,11 @@
   cursor: pointer;
   float:left;
 }
-.tab-content {
-  display:block;
-}
-.tab-switch:checked+.tab-content {
-  display:block;
-}
 
 /* アクティブなタブ */
 .tab-switch:checked+.tab-label {
-  color: Gray;
-  background: White;
+  color: lightgray;
+  background: darkgreen;
   border-right-color: White;
 }
 .tab-switch:checked+.tab-label+.tab-content {
